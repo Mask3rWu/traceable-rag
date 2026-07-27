@@ -37,6 +37,16 @@ def list_input_pdfs() -> list[Path]:
     return pdfs
 
 
+def list_paper_pdfs() -> list[Path]:
+    """枚举论文目录下的全部 PDF。"""
+    return sorted(PAPER_DIR.glob("*.pdf")) if PAPER_DIR.exists() else []
+
+
+def list_gjb_pdfs() -> list[Path]:
+    """枚举国军标目录下的全部 PDF。"""
+    return sorted(GJB_DIR.glob("*.pdf")) if GJB_DIR.exists() else []
+
+
 def doc_id_from_path(pdf_path: Path) -> str:
     """doc_id 规则：文件名去后缀，空格/特殊字符转下划线。"""
     import re

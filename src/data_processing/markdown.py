@@ -2,11 +2,16 @@
 from __future__ import annotations
 
 import os
+import re
 from pathlib import Path
 
 from src.paths import PROJECT_ROOT
 from src.schema import Block, Document
 from src.data_processing.relations import reading_order_blocks
+
+# 剥离 PP-StructureV3 给标题加的 # 前缀；层级改由 section_path 深度决定，
+# 避免 PP 把括号编号(1）/2）)误标为同级 ## 造成层级倒挂。
+_MARKDOWN_HEADING_RE = re.compile(r"^#{1,6}\s*")
 
 
 def write_document_markdown(document: Document, out_dir: Path) -> Path:
@@ -71,8 +76,13 @@ def _render_chain(
         return "\n".join(comments)
 
     if block.block_type == "heading":
-        text = block.text.strip()
-        return text if text.startswith("#") else f"## {text}"
+        text = _MARKDOWN_HEADING_RE.sub("", block.text.strip())
+        if not text:
+            return ""
+        # 层级 = section_path 深度 + 1（文档标题深度 0 -> #，4.2.1 深度 3 -> ####，
+        # 其下括号编号 1） 深度 4 -> #####），不信任 PP-StructureV3 给的 # 数量。
+        level = max(1, min(len(block.section_path) + 1, 6))
+        return f"{'#' * level} {text}"
     if block.block_type == "list":
         return block.text.strip()
     if block.block_type == "formula":

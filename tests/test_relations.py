@@ -45,6 +45,45 @@ class RelationsTest(unittest.TestCase):
         self.assertEqual(blocks[2].section_path, ["5", "5.3"])
         self.assertEqual(blocks[3].section_path, ["5", "5.4"])
 
+    def test_paren_numbered_headings_are_children_of_parent(self):
+        # 论文常见：4.2.1 下用 1）/2） 分点；PP-StructureV3 把它们误标为 ##，
+        # 实为 4.2.1 的子级，且同级括号互斥。
+        blocks = [
+            block("h1", "heading", "## 4 战场图像采集", 1),
+            block("h2", "heading", "### 4.2 卫星采集图像", 2),
+            block("h3", "heading", "#### 4.2.1 机器学习方法", 3),
+            block("p1", "paragraph", "正文", 4),
+            block("h4", "heading", "## 1 ）基于贝叶斯方法", 5),
+            block("p2", "paragraph", "贝叶斯正文", 6),
+            block("h5", "heading", "## 2 ）基于神经网络", 7),
+            block("p3", "paragraph", "神经网络正文", 8),
+            block("h6", "heading", "#### 4.2.2 变化检测方法", 9),
+        ]
+        build_relations(blocks)
+        # 1） 作为 4.2.1 的子级，深度 +1
+        self.assertEqual(
+            blocks[4].section_path, ["4", "4.2", "4.2.1", "1）"]
+        )
+        self.assertEqual(
+            blocks[5].section_path, ["4", "4.2", "4.2.1", "1）"]
+        )
+        # 2） 与 1） 同级：弹掉 1） 再压
+        self.assertEqual(
+            blocks[6].section_path, ["4", "4.2", "4.2.1", "2）"]
+        )
+        # 4.2.2 回到 4 级，弹掉括号与 4.2.1
+        self.assertEqual(blocks[8].section_path, ["4", "4.2", "4.2.2"])
+
+    def test_paren_headings_reset_under_new_top_section(self):
+        # 新一级数字标题后，括号编号应基于新的父级深度，不残留旧栈
+        blocks = [
+            block("h1", "heading", "## 3 科研图像采集", 1),
+            block("h2", "heading", "### 3.2 评估方法", 2),
+            block("h3", "heading", "## 1 ）模型仿真", 3),
+        ]
+        build_relations(blocks)
+        self.assertEqual(blocks[2].section_path, ["3", "3.2", "1）"])
+
     def test_unordered_figure_inherits_interpolated_section(self):
         heading = block("doc_P001_B03", "heading", "## 3.2 方法", 2)
         figure = block("doc_P001_B05", "figure", "", 0)

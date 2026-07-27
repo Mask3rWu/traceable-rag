@@ -67,6 +67,7 @@ block 类型统一为：`heading`、`paragraph`、`list`、`table`、`formula`�
 | `paddleocr[doc-parser]>=3.4.0` | PP-StructureV3 产线 API | PyPI |
 | `paddlex[ocr]` | PaddleX CLI / 模型下载 | PyPI |
 | `pymupdf` | PDF 渲染、文本层检查、原生文本提取 | PyPI |
+| `pillow` | 从高分辨率页图生成带冗余边界的视觉块裁图 | PyPI |
 | `opencv-python` | 去噪、纠偏、水印弱化 | PyPI |
 
 安装命令：
@@ -74,7 +75,7 @@ block 类型统一为：`heading`、`paragraph`、`list`、`table`、`formula`�
 ```bash
 conda run -n dba-py311 python -m pip install "paddlepaddle-gpu==3.3.0" \
   -i https://www.paddlepaddle.org.cn/packages/stable/cu126/
-conda run -n dba-py311 python -m pip install -U "paddleocr[doc-parser]>=3.4.0" "paddlex[ocr]" pymupdf opencv-python
+conda run -n dba-py311 python -m pip install -U "paddleocr[doc-parser]>=3.4.0" "paddlex[ocr]" pymupdf pillow opencv-python
 ```
 
 验证：
@@ -178,7 +179,9 @@ PP-StructureV3 原始 JSON 直接用**不够**：缺块 ID、缺交叉引用、�
   "source_method": "ocr",
   "confidence": 0.86,
   "is_appendix": false,
-  "image_crop": "assets/GJB_001_P017_B03.png",
+  "image_crop": "assets/crops/p017_b03_table.png",
+  "image_crop_raw": "assets/imgs/img_in_table_box_88_142_668_640.jpg",
+  "crop_bbox_pixel": [76, 130, 680, 652],
 
   "label_norm": "图3 毁伤评估流程图",
   "label_no": "3",
@@ -199,6 +202,13 @@ PP-StructureV3 原始 JSON 直接用**不够**：缺块 ID、缺交叉引用、�
 | `label_no` | 图表编号（如"3"） | 正则从 label_norm 提取 |
 | `caption_of` | caption 指向的 figure/table block_id | 见 6.1 配对 |
 | `references` | 本块正文引用的图表 block_id 列表 | 见 6.3 交叉引用 |
+| `image_crop_raw` | Paddle 按原始检测框导出的裁图 | 保留原始模型产物用于追溯 |
+| `crop_bbox_pixel` | 加冗余后在高分辨率页图上的实际裁剪框 | 原检测框按比例扩张并受 caption 边界约束 |
+| `image_crop` | 最终供 MLLM / 回显使用的高分辨率裁图 | 从 `pages/pXXX.png` 按 `crop_bbox_pixel` 重裁 |
+
+> PP-StructureV3 有时会把高置信度 `image` 保留在 `layout_det_res`，但不写入
+> `parsing_res_list`。后处理会以 0.90 为默认阈值补回与已有视觉块不重叠的候选，
+> 标记 `source_method: "layout"` 并保留检测置信度，避免最终结构遗漏图块。
 
 ### 5.3 数据目录结构
 
@@ -332,3 +342,44 @@ PP-StructureV3 把"图"和"图标题"检测为两个独立块，但**不会把�
 | pymupdf | 1.28.0 | import fitz ok |
 | opencv | 4.10.0 | import cv2 ok |
 | 冒烟测试 | LayoutDetection(PP-DocLayoutV3) on `_inspect/page_1.png` | 10 个框，输出含 `coordinate/order/polygon_points` 字段 |
+
+## 11. 批量调用解析层
+
+入口 `python -m src.data_processing`（即 `src/data_processing/__main__.py` -> `pipeline.main()`）。批量由 `parse_pdfs` 编排，要点：
+
+- **整批只加载一次模型**：PPStructureV3 产线构造一次，在所有 PDF 间复用，避免每篇重载版面/OCR/表格/公式模型。
+- **断点续跑**：默认 `--skip-existing`，已存在 `doc.json` 的文档直接跳过。中途失败后重跑同命令即续。
+- **单篇失败隔离**：某篇出错被记录并跳过，不中断其余文档；退出码非零，便于脚本检测。
+- **进度**：每篇打印 `[N/M] doc_id: ok|skipped|failed (页数, 块数, 耗时)`，末尾汇总。
+
+常用命令（conda env `dba-py311`）：
+
+```bash
+# 全部论文（跳过已解析的）
+conda run -n dba-py311 python -m src.data_processing --papers-only
+
+# 全部资料（国军标 + 论文）
+conda run -n dba-py311 python -m src.data_processing --all
+
+# 先冒烟 2 篇验证（强制重跑，不跳过）
+conda run -n dba-py311 python -m src.data_processing --papers-only --limit 2 --no-skip-existing
+
+# 指定路径
+conda run -n dba-py311 python -m src.data_processing 资料/论文/foo.pdf 资料/论文/bar.pdf
+
+# 只重跑后处理（复用已有 structurev3.json，不加载模型）
+conda run -n dba-py311 python -m src.data_processing --all --reuse-detection
+```
+
+开关：
+
+| 开关 | 作用 |
+|---|---|
+| `--papers-only` / `--gjb-only` / `--all` | 枚举 `资料/论文` / `资料/国军标` / 全部 |
+| `--skip-existing` / `--no-skip-existing` | 是否跳过已存在 `doc.json`（默认开） |
+| `--limit N` | 最多处理 N 篇（冒烟用） |
+| `--reuse-detection` | 复用 `structurev3.json`，仅重跑归一/关系/裁图，不加载模型 |
+| `--dpi` / `--crop-padding-*` / `--layout-fallback-min-score` | 渲染与裁剪参数（同单篇） |
+
+> 批量解析只加载一次模型，是相对单篇逐次调用最大的性能改进。GPU 单卡串行最稳，不做多进程（会抢显存）。若中途个别篇 OOM，靠失败隔离继续，事后对失败列表重跑即可。
+

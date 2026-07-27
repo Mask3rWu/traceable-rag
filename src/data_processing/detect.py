@@ -32,20 +32,32 @@ from src.config import ParseConfig, apply_env
 warnings.filterwarnings("ignore")
 
 
-def _build_pipeline(config: ParseConfig):
-    """惰性构造 PPStructureV3（import 即触发模型加载，需在 apply_env 后）。"""
+def build_pipeline(config: ParseConfig):
+    """构造 PPStructureV3 产线（import 即触发模型加载，需在 apply_env 后）。
+
+    批量解析时只调用一次，把返回的产线在多篇 PDF 间复用，避免每篇重载模型。
+    """
     apply_env(config)
     from paddleocr import PPStructureV3
 
     return PPStructureV3(format_block_content=True, **config.to_pipeline_kwargs())
 
 
+# 向后兼容：旧调用方仍可用私有名。
+_build_pipeline = build_pipeline
+
+
 def detect_pdf(
     pdf_path: Path,
     out_dir: Path,
     config: ParseConfig | None = None,
+    *,
+    pipeline=None,
 ) -> dict:
     """对单 PDF 跑 PP-StructureV3，落盘原始结果，返回元数据。
+
+    ``pipeline`` 可传入一个已构造的 PPStructureV3 产线以复用（批量解析时
+    整批只建一次模型）；为 None 时自行 ``build_pipeline``，保持单篇旧行为。
 
     返回: {"pages": [ {page_index, width, height, block_count}, ... ],
            "structurev3_json": rel_path, "structurev3_md": rel_path,
@@ -54,7 +66,7 @@ def detect_pdf(
     config = config or ParseConfig()
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "assets").mkdir(exist_ok=True)
-    pipe = _build_pipeline(config)
+    pipe = pipeline if pipeline is not None else build_pipeline(config)
 
     # 1. 调用产线（整 PDF 一次）
     # 必须物化结果：既用于 JSON，也用于 Markdown，避免整份 PDF 推理两次。

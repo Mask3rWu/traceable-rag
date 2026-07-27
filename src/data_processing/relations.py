@@ -140,6 +140,8 @@ _SECTION_RE = re.compile(
     r"^(\d+(?:\.\d+)*|附录\s*[A-Z]|[A-Z]\.\d+(?:\.\d+)*)",
     re.IGNORECASE,
 )
+# 括号编号：1）/2）/1) —— PP-StructureV3 常把它们误标为同级 ##，实为父标题的子级
+_PAREN_NO_RE = re.compile(r"^(\d+)\s*[)）]")
 _MARKDOWN_HEADING_RE = re.compile(r"^#{1,6}\s*")
 _APPENDIX_KIND_RE = re.compile(r"(规范性附录|资料性附录)")
 _BLOCK_ID_SUFFIX_RE = re.compile(r"_B(\d+)$")
@@ -149,9 +151,10 @@ def build_section_paths(blocks: list[Block]) -> None:
     """沿阅读顺序维护标题栈，给每个 block 写 section_path。
 
     遍历顺序：按 page 升序，页内按 order。遇到 heading 抽取编号压栈/弹栈，
-    后续所有 block 继承当前栈。
+    后续所有 block 继承当前栈。栈元素为 (编号, 深度)，深度显式记录以支持
+    括号编号（其深度由父级推得，而非点号数）。
     """
-    stack: list[str] = []  # 当前标题编号栈
+    stack: list[tuple[str, int]] = []  # (编号, 深度)
     in_appendix = False
     appendix_type: str | None = None
     sorted_blocks = _reading_order(blocks)
@@ -166,7 +169,7 @@ def build_section_paths(blocks: list[Block]) -> None:
             if kind:
                 appendix_type = kind.group(1)
                 in_appendix = True
-        b.section_path = list(stack)
+        b.section_path = [no for no, _ in stack]
         b.is_appendix = in_appendix
         b.appendix_type = appendix_type if in_appendix else None
 
@@ -239,6 +242,10 @@ def _extract_heading_no(text: str) -> str | None:
     if not text:
         return None
     cleaned = _MARKDOWN_HEADING_RE.sub("", text.strip())
+    paren = _PAREN_NO_RE.match(cleaned)
+    if paren:
+        # 括号编号(1）/2）)归一为全角，作为父级标题的子级，深度由父级推得
+        return paren.group(1) + "）"
     m = _SECTION_RE.match(cleaned)
     if not m:
         return None
@@ -252,25 +259,36 @@ def _is_appendix_no(no: str) -> bool:
     return no.upper().startswith("附录") or bool(re.match(r"^[A-Z](?:\.|$)", no, re.I))
 
 
-def _push_stack(stack: list[str], no: str) -> None:
-    """按编号深度压栈：5.3.2 比 5.3 深，压入；比 5.3 浅，弹到同级再压。"""
-    if _is_appendix_no(no) and not any(_is_appendix_no(item) for item in stack):
-        stack.clear()
+def _is_paren_no(no: str) -> bool:
+    """括号编号(如 '1）')：深度由父级推得，不靠点号计数。"""
+    return no.endswith("）")
+
+
+def _heading_depth(no: str, stack: list[tuple[str, int]]) -> int:
+    """编号在栈中的深度。括号编号取最近非括号父级深度 +1，同级括号互斥。"""
     if no.startswith("附录"):
-        depth = 1
-    elif no[0].isalpha():
-        depth = no.count(".") + 1
-    else:
-        depth = no.count(".") + 1
-    # 弹出比当前深的（同级或更浅的先弹）
-    while stack:
-        top = stack[-1]
-        top_depth = top.count(".") + 1
-        if top_depth >= depth:
-            stack.pop()
-        else:
-            break
-    stack.append(no)
+        return 1
+    if _is_paren_no(no):
+        base = next(
+            (d for item, d in reversed(stack) if not _is_paren_no(item)), 0
+        )
+        return base + 1
+    return no.count(".") + 1
+
+
+def _push_stack(stack: list[tuple[str, int]], no: str) -> None:
+    """按编号深度压栈：更深压入，同级/更浅先弹。
+
+    括号编号(1）/2）)作为最近非括号父级的子级；遇到同级括号先弹再压。
+    """
+    if no.startswith("附录") and not any(
+        _is_appendix_no(item) for item, _ in stack
+    ):
+        stack.clear()
+    depth = _heading_depth(no, stack)
+    while stack and stack[-1][1] >= depth:
+        stack.pop()
+    stack.append((no, depth))
 
 
 # ---------- §6.3 交叉引用索引（正文 -> 图表/附录） ----------

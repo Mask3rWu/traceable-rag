@@ -87,3 +87,41 @@ class MarkdownTest(unittest.TestCase):
             markdown = write_document_markdown(document, root).read_text(encoding="utf-8")
             self.assertIn("$$B=I_1-I_0$$", markdown)
             self.assertIn('<div align="right">(1)</div>', markdown)
+
+    def test_heading_level_follows_section_path_depth(self):
+        # 层级由 section_path 深度决定，括号编号 1）作为 4.2.1 子级 -> #####
+        # 而非信任 PP-StructureV3 给 1）标的 ##。
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            blocks = [
+                make_block("h0", 1, "heading", 0, "# 文档标题"),
+                make_block("h1", 1, "heading", 1, "## 4 战场图像采集"),
+                make_block("h2", 1, "heading", 2, "### 4.2 卫星采集图像"),
+                make_block("h3", 1, "heading", 3, "#### 4.2.1 机器学习方法"),
+                make_block("h4", 1, "heading", 4, "## 1 ）基于贝叶斯方法"),
+            ]
+            blocks[0].section_path = []
+            blocks[1].section_path = ["4"]
+            blocks[2].section_path = ["4", "4.2"]
+            blocks[3].section_path = ["4", "4.2", "4.2.1"]
+            blocks[4].section_path = ["4", "4.2", "4.2.1", "1）"]
+            document = Document(
+                document_id="doc",
+                source_file="doc.pdf",
+                total_pages=1,
+                pages=[
+                    Page(
+                        document_id="doc", page=1, width=100, height=100,
+                        blocks=blocks,
+                    )
+                ],
+            )
+
+            markdown = write_document_markdown(document, root).read_text(encoding="utf-8")
+            self.assertIn("# 文档标题", markdown)
+            self.assertIn("## 4 战场图像采集", markdown)
+            self.assertIn("### 4.2 卫星采集图像", markdown)
+            self.assertIn("#### 4.2.1 机器学习方法", markdown)
+            # 关键：括号编号标题应比 4.2.1 更深一级，而非倒挂成 ##
+            self.assertIn("##### 1 ）基于贝叶斯方法", markdown)
+            self.assertNotIn("\n## 1 ）基于贝叶斯方法\n", markdown)
