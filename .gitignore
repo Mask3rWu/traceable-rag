@@ -1,2 +1,54 @@
+# ===== Python =====
 __pycache__/
 *.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# ===== 虚拟环境 =====
+venv/
+.venv/
+env/
+ENV/
+
+# ===== 环境变量 / 密钥 =====
+.env
+.env.*
+!.env.example
+
+# ===== IDE / 编辑器 =====
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== 操作系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 模型权重 / 缓存（PP-StructureV3 等下载产物）=====
+*.pth
+*.onnx
+*.pdmodel
+*.pdparams
+*.bkparam
+models/
+.cache/
+
+# ===== 日志 =====
+*.log
+logs/
+
+# ===== 项目内容（敏感 / 派生，不入库）=====
+# 国军标原文（发行受限，不入库）
+资料/国军标/
+# 论文 PDF（版权所属，不入库）
+资料/论文/
+# 解析派生产物（可重新生成）
+processed/
+# 调试中间图片
+_inspect/
