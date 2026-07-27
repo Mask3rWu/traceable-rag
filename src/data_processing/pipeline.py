@@ -9,10 +9,12 @@ from typing import Sequence
 from src.config import ParseConfig
 from src.paths import PROJECT_ROOT, doc_id_from_path, doc_out_dir
 from src.schema import Document, Page
-from src.数据处理.detect import detect_pdf
-from src.数据处理.normalize import normalize_page_blocks
-from src.数据处理.relations import build_relations
-from src.数据处理.render import render_pdf
+from src.data_processing.crop import crop_visual_blocks
+from src.data_processing.detect import detect_pdf
+from src.data_processing.markdown import write_document_markdown
+from src.data_processing.normalize import normalize_page_blocks
+from src.data_processing.relations import build_relations
+from src.data_processing.render import render_pdf
 
 
 def _load_detection(out_dir: Path) -> list[dict]:
@@ -84,14 +86,18 @@ def parse_pdf(
             page_num,
             rendered["width"],
             rendered["height"],
+            config.layout_visual_fallback_min_score,
         )
         for block in blocks:
             if block.image_crop:
-                block.image_crop = _project_relative(out_dir / block.image_crop)
+                raw_crop = _project_relative(out_dir / block.image_crop)
+                block.image_crop_raw = raw_crop
+                block.image_crop = raw_crop
         all_blocks.extend(blocks)
         pages.append(Page(**rendered, document_id=document_id, blocks=blocks))
 
     build_relations(all_blocks)
+    crop_visual_blocks(pages, out_dir, config)
     document = Document(
         document_id=document_id,
         source_file=pdf_path.name,
@@ -102,6 +108,7 @@ def parse_pdf(
         json.dumps(document.model_dump(mode="json"), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    write_document_markdown(document, out_dir)
     return document
 
 
@@ -114,12 +121,49 @@ def build_parser() -> argparse.ArgumentParser:
         help="复用输出目录中的 structurev3.json，仅重跑后处理",
     )
     parser.add_argument("--dpi", type=int, default=200, help="页图渲染 DPI（默认 200）")
+    parser.add_argument(
+        "--crop-padding-x",
+        type=float,
+        default=0.02,
+        help="视觉块左右扩边比例（默认 0.02）",
+    )
+    parser.add_argument(
+        "--crop-padding-top",
+        type=float,
+        default=0.02,
+        help="视觉块上方扩边比例（默认 0.02）",
+    )
+    parser.add_argument(
+        "--crop-padding-bottom",
+        type=float,
+        default=0.08,
+        help="视觉块下方扩边比例（默认 0.08）",
+    )
+    parser.add_argument(
+        "--crop-padding-min-px",
+        type=int,
+        default=12,
+        help="各方向最小扩边像素（默认 12）",
+    )
+    parser.add_argument(
+        "--layout-fallback-min-score",
+        type=float,
+        default=0.90,
+        help="补回 layout-only 图片候选的最低置信度（默认 0.90）",
+    )
     return parser
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    config = ParseConfig(render_dpi=args.dpi)
+    config = ParseConfig(
+        render_dpi=args.dpi,
+        crop_padding_x_ratio=args.crop_padding_x,
+        crop_padding_top_ratio=args.crop_padding_top,
+        crop_padding_bottom_ratio=args.crop_padding_bottom,
+        crop_padding_min_px=args.crop_padding_min_px,
+        layout_visual_fallback_min_score=args.layout_fallback_min_score,
+    )
     for pdf_path in args.pdf:
         document = parse_pdf(
             pdf_path,

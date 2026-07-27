@@ -17,7 +17,7 @@ from src.schema import Block
 
 # 标题编号索引：label_no(如"3") -> caption block_id
 # 注意：图和表编号独立（图3、表3 各算各的），用 ("fig"/"table", no) 作 key
-_LABEL_NO = r"[0-9A-Za-z]+(?:[.\-][0-9A-Za-z]+)*"
+_LABEL_NO = r"(?:\d+(?:[.\-][0-9A-Za-z]+)*|[A-Za-z]+(?:[.\-]?\d+)*)"
 _CAP_LABEL_NO_RE = re.compile(
     rf"^\s*(图|表|Fig\.?|Figure|Table)\s*({_LABEL_NO})", re.IGNORECASE
 )
@@ -76,6 +76,10 @@ def pair_captions(blocks: list[Block]) -> None:
     # 按页分组 + order 排序（order=None 的用 block_id 兜底排序）
     by_page: dict[int, list[Block]] = {}
     for b in blocks:
+        if b.block_type in ("figure", "table"):
+            b.caption_ids = []
+        elif b.block_type == "caption":
+            b.caption_of = None
         by_page.setdefault(b.page, []).append(b)
     for pblocks in by_page.values():
         pblocks.sort(key=lambda b: (b.order if b.order is not None else 9999, b.block_id))
@@ -104,9 +108,10 @@ def pair_captions(blocks: list[Block]) -> None:
         ):
             if group_key in assigned_groups or target.block_id in assigned_targets:
                 continue
-            captions = groups[group_key]
+            captions = sorted(groups[group_key], key=lambda caption: caption.bbox[1])
             for caption in captions:
                 caption.caption_of = target.block_id
+            target.caption_ids = [caption.block_id for caption in captions]
             primary = captions[0]
             target.label_no = primary.label_no or target.label_no
             target.label_norm = primary.label_norm or target.label_norm
@@ -175,6 +180,7 @@ def _reading_order(blocks: list[Block]) -> list[Block]:
     result: list[Block] = []
     for page in sorted(by_page):
         page_blocks = by_page[page]
+        page_by_id = {block.block_id: block for block in page_blocks}
         anchors = sorted(
             (
                 (source_id, block.order)
@@ -185,26 +191,43 @@ def _reading_order(blocks: list[Block]) -> list[Block]:
             key=lambda item: item[0],
         )
 
-        def effective_order(block: Block) -> tuple[float, str]:
-            if block.order is not None:
-                return float(block.order), block.block_id
-            source_id = _source_id(block)
-            if source_id is None or not anchors:
-                return 9999.0 + block.bbox[1], block.block_id
+        def interpolated_order(source_id: float) -> float:
             previous = next((item for item in reversed(anchors) if item[0] < source_id), None)
             following = next((item for item in anchors if item[0] > source_id), None)
             if previous and following:
                 span = following[0] - previous[0]
                 ratio = (source_id - previous[0]) / span
-                value = previous[1] + ratio * (following[1] - previous[1])
-            elif previous:
-                value = previous[1] + (source_id - previous[0]) * 0.01
-            else:
-                value = following[1] - (following[0] - source_id) * 0.01
-            return float(value), block.block_id
+                return float(previous[1] + ratio * (following[1] - previous[1]))
+            if previous:
+                return float(previous[1] + (source_id - previous[0]) * 0.01)
+            if following:
+                return float(following[1] - (following[0] - source_id) * 0.01)
+            return 9999.0
+
+        def effective_order(block: Block) -> tuple[float, str]:
+            if block.block_type in {"figure", "table"} and block.caption_ids:
+                caption_source_ids = [
+                    source_id
+                    for caption_id in block.caption_ids
+                    if (caption := page_by_id.get(caption_id)) is not None
+                    if (source_id := _source_id(caption)) is not None
+                ]
+                if caption_source_ids:
+                    return interpolated_order(min(caption_source_ids) - 0.5), block.block_id
+            if block.order is not None:
+                return float(block.order), block.block_id
+            source_id = _source_id(block)
+            if source_id is None or not anchors:
+                return 9999.0 + block.bbox[1], block.block_id
+            return interpolated_order(source_id), block.block_id
 
         result.extend(sorted(page_blocks, key=effective_order))
     return result
+
+
+def reading_order_blocks(blocks: list[Block]) -> list[Block]:
+    """返回稳定的全文阅读顺序，供最终视图复用。"""
+    return _reading_order(blocks)
 
 
 def _source_id(block: Block) -> int | None:
@@ -256,7 +279,10 @@ def _push_stack(stack: list[str], no: str) -> None:
 _REF_PATTERNS = [
     (re.compile(rf"图\s*({_LABEL_NO})"), "figure"),
     (re.compile(rf"表\s*({_LABEL_NO})"), "table"),
-    (re.compile(rf"公式\s*\(?\s*({_LABEL_NO})\s*\)?"), "formula"),
+    (
+        re.compile(rf"(?:公式|式)\s*[（(]?\s*({_LABEL_NO})\s*[）)]?"),
+        "formula",
+    ),
     (re.compile(rf"(?:Fig\.?|Figure)\s*({_LABEL_NO})", re.IGNORECASE), "figure"),
     (re.compile(rf"Table\s*({_LABEL_NO})", re.IGNORECASE), "table"),
     (re.compile(r"见附录\s*([A-Z])"), "appendix"),
@@ -274,6 +300,8 @@ def extract_references(blocks: list[Block]) -> None:
     for b in blocks:
         if b.block_type in ("figure", "table") and b.label_no:
             ref_idx[(b.block_type, _label_key(b.label_no))] = b.block_id
+        elif b.block_type == "formula" and b.formula_no:
+            ref_idx[("formula", _label_key(b.formula_no))] = b.block_id
 
     for b in blocks:
         if b.block_type == "heading":
@@ -308,10 +336,96 @@ def extract_references(blocks: list[Block]) -> None:
         b.references = refs
 
 
+# ---------- 跨栏/跨页逻辑续接 ----------
+
+_CONTINUABLE_TYPES = {"paragraph", "appendix", "footnote"}
+_TERMINAL_RE = re.compile(r"[。！？!?；;][）)】\]》〉\"'”’]*$")
+_MATH_MARKER_RE = re.compile(r"[$\\{}_=^]|[∈→φΦΣ∑]")
+
+
+def build_continuations(blocks: list[Block]) -> None:
+    """连接被分栏或分页切开的正文，同时保留所有原始块。"""
+    ordered = _reading_order(blocks)
+    for block in blocks:
+        block.continuation_of = None
+        block.continues_to = None
+        block.quality_flags = [
+            flag
+            for flag in block.quality_flags
+            if flag not in {"cross_page_formula", "formula_syntax_unbalanced"}
+        ]
+
+    for previous, current in zip(ordered, ordered[1:]):
+        if not _is_continuation(previous, current):
+            continue
+        _link_continuation(previous, current)
+
+    # 页脚/脚注可能位于主文之后，不能阻断页尾正文与下页页首的续接。
+    by_page: dict[int, list[Block]] = {}
+    for block in ordered:
+        by_page.setdefault(block.page, []).append(block)
+    for page_num in sorted(by_page):
+        following_page = by_page.get(page_num + 1)
+        if not following_page:
+            continue
+        for block_type in _CONTINUABLE_TYPES:
+            previous_candidates = [
+                block for block in by_page[page_num] if block.block_type == block_type
+            ]
+            current_candidates = [
+                block for block in following_page if block.block_type == block_type
+            ]
+            if not previous_candidates or not current_candidates:
+                continue
+            previous = previous_candidates[-1]
+            current = current_candidates[0]
+            if (
+                not previous.continues_to
+                and not current.continuation_of
+                and _is_continuation(previous, current)
+            ):
+                _link_continuation(previous, current)
+
+
+def _link_continuation(previous: Block, current: Block) -> None:
+    previous.continues_to = current.block_id
+    current.continuation_of = previous.block_id
+    if previous.page != current.page and _MATH_MARKER_RE.search(
+        previous.text + current.text
+    ):
+        current.quality_flags.append("cross_page_formula")
+        joined = previous.text + current.text
+        if joined.count("$") % 2 or joined.count("{") != joined.count("}"):
+            current.quality_flags.append("formula_syntax_unbalanced")
+
+
+def _is_continuation(previous: Block, current: Block) -> bool:
+    if previous.block_type not in _CONTINUABLE_TYPES:
+        return False
+    if current.block_type != previous.block_type:
+        return False
+    if not previous.text.strip() or not current.text.strip():
+        return False
+    if _TERMINAL_RE.search(previous.text.rstrip()):
+        return False
+    if previous.section_path != current.section_path:
+        return False
+    if current.page == previous.page + 1:
+        return previous.bbox[3] >= 0.78 and current.bbox[1] <= 0.25
+    if current.page != previous.page:
+        return False
+
+    # 同页仅连接明确的左栏末 -> 右栏首，避免普通相邻段落误合并。
+    prev_x1, prev_y1, _, prev_y2 = previous.bbox
+    curr_x1, curr_y1, _, _ = current.bbox
+    return curr_x1 > prev_x1 + 0.15 and curr_y1 < prev_y1 and prev_y2 >= 0.70
+
+
 # ---------- 入口：一次跑完所有关系 ----------
 
 def build_relations(blocks: list[Block]) -> None:
-    """构建全部块间关系（原地修改 blocks）。顺序：caption -> section -> references。"""
+    """构建全部块间关系（原地修改 blocks）。"""
     pair_captions(blocks)
     build_section_paths(blocks)
+    build_continuations(blocks)
     extract_references(blocks)

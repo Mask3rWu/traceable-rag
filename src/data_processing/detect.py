@@ -21,6 +21,7 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 import warnings
 from pathlib import Path
@@ -64,6 +65,7 @@ def detect_pdf(
     for r in results:
         res = r.json["res"]
         all_pages.append(res)
+    all_pages.sort(key=lambda page: int(page.get("page_index", 0)))
 
     from src.paths import PROJECT_ROOT
 
@@ -84,7 +86,14 @@ def detect_pdf(
         except Exception:
             pass
     # save_to_markdown 在目录下生成 "<stem>.md"（可能多个文件），合并到目标
-    md_files = sorted(tmp_md.glob("*.md"))
+    # Paddle 文件名通常带页号；字符串排序会得到 0,1,10,2。
+    def natural_key(path: Path) -> list[object]:
+        return [
+            int(part) if part.isdigit() else part.casefold()
+            for part in re.split(r"(\d+)", path.name)
+        ]
+
+    md_files = sorted(tmp_md.glob("*.md"), key=natural_key)
     if md_files:
         merged = "\n\n".join(f.read_text(encoding="utf-8") for f in md_files)
         md_path.write_text(merged, encoding="utf-8")
@@ -110,8 +119,6 @@ def detect_pdf(
     shutil.rmtree(tmp_md, ignore_errors=True)
 
     # 重写 md 中的图片引用路径：imgs/xxx -> assets/imgs/xxx（相对项目根可访问）
-    import re
-
     text = md_path.read_text(encoding="utf-8")
     text = re.sub(
         r"src=([\"'])imgs/",

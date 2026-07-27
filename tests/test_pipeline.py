@@ -8,7 +8,7 @@ from pathlib import Path
 import fitz
 
 from src.config import ParseConfig
-from src.数据处理.pipeline import parse_pdf
+from src.data_processing.pipeline import parse_pdf
 
 
 class PipelineTest(unittest.TestCase):
@@ -55,9 +55,15 @@ class PipelineTest(unittest.TestCase):
             figure = document.pages[0].blocks[1]
             paragraph = document.pages[0].blocks[3]
             self.assertEqual(figure.bbox_pixel, [10, 24, 90, 70])
+            self.assertEqual(figure.crop_bbox_pixel, [0, 12, 100, 71])
+            self.assertTrue(Path(figure.image_crop).is_file())
+            self.assertTrue(figure.image_crop.endswith("p001_b01_figure.png"))
+            self.assertTrue(figure.image_crop_raw.endswith("assets/imgs/a.jpg"))
+            self.assertTrue(Path(figure.figure_crop).is_file())
             self.assertEqual(paragraph.references, [figure.block_id])
             self.assertEqual(paragraph.section_path, ["1"])
             self.assertTrue((output / "doc.json").is_file())
+            self.assertTrue((output / "doc.md").is_file())
 
 
 if __name__ == "__main__":

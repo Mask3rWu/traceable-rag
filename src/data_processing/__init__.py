@@ -5,5 +5,7 @@
 - detect: PP-StructureV3 包装
 - normalize: 原始输出->归一 block
 - relations: 块间关系（caption/section_path/交叉引用）
+- crop: 从高分辨率页图生成带冗余边界的视觉块裁图
+- markdown: 从增强结构生成最终人工审阅 Markdown
 - pipeline: 端到端编排
 """

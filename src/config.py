@@ -35,6 +35,16 @@ class ParseConfig:
     # 页面渲染 DPI（用于 OCR 与回溯）
     render_dpi: int = 200
 
+    # 最终视觉块从 page_image 重裁时的冗余。ratio 相对原检测框宽/高。
+    crop_padding_x_ratio: float = 0.02
+    crop_padding_top_ratio: float = 0.02
+    crop_padding_bottom_ratio: float = 0.08
+    crop_padding_min_px: int = 12
+    crop_caption_gap_px: int = 1
+
+    # parsing_res_list 偶尔漏掉 layout_det_res 中已检出的图片候选。
+    layout_visual_fallback_min_score: float = 0.90
+
     def to_pipeline_kwargs(self) -> dict:
         """转为 PPStructureV3() 的显式模型参数。"""
         return {

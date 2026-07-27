@@ -41,7 +41,7 @@ class Block(BaseModel):
 
     # 内容
     text: str = ""  # OCR文本/表格HTML/公式LaTeX
-    source_method: str = "ocr"  # ocr / native / unreadable
+    source_method: str = "ocr"  # ocr / native / layout / unreadable
     confidence: float = 0.0
 
     # 文档结构
@@ -51,11 +51,23 @@ class Block(BaseModel):
 
     # 图片：裁剪出的子图路径（相对项目根），用于 MLLM 与回显
     image_crop: Optional[str] = None
+    image_crop_raw: Optional[str] = None  # Paddle 按原始检测框生成的裁图
+    crop_bbox_pixel: Optional[list[int]] = None  # 扩边后在 page_image 上的实际裁剪框
+    figure_crop: Optional[str] = None  # 图片主体 + 全部图注的人工复核裁图
+    figure_crop_bbox_pixel: Optional[list[int]] = None
 
     # 图表标题相关（见 relations.py）
     label_norm: Optional[str] = None  # 如 "图3 毁伤评估流程图"
     label_no: Optional[str] = None  # 如 "3"
     caption_of: Optional[str] = None  # caption 指向的 figure/table block_id
+    caption_ids: list[str] = Field(default_factory=list)  # figure/table 的全部图注
+    caption_language: Optional[str] = None  # zh / en / unknown
+    formula_no: Optional[str] = None  # 公式编号，如 "1"
+
+    # 跨栏/跨页逻辑续接。原始块不合并，最终视图按关系拼接。
+    continuation_of: Optional[str] = None
+    continues_to: Optional[str] = None
+    quality_flags: list[str] = Field(default_factory=list)
 
     # 交叉引用：本块正文引用的图表 block_id 列表
     references: list[str] = Field(default_factory=list)

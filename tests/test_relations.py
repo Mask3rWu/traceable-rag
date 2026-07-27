@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 
 from src.schema import Block
-from src.数据处理.relations import build_relations
+from src.data_processing.relations import build_relations
 
 
 def block(block_id: str, block_type: str, text: str, order: int, bbox=None) -> Block:
@@ -76,6 +76,49 @@ class RelationsTest(unittest.TestCase):
         build_relations(blocks)
         self.assertIsNone(blocks[0].caption_of)
         self.assertEqual(blocks[2].caption_of, "fig7")
+
+    def test_bilingual_captions_share_one_figure(self):
+        blocks = [
+            block("fig", "figure", "", 1, [10, 20, 90, 70]),
+            block("zh", "caption", "图3 冲击波", 2, [10, 72, 90, 80]),
+            block("en", "caption", "Fig.3 Shock wave", 3, [10, 82, 90, 90]),
+        ]
+        build_relations(blocks)
+        self.assertEqual(blocks[1].caption_of, "fig")
+        self.assertEqual(blocks[2].caption_of, "fig")
+        self.assertEqual(blocks[0].caption_ids, ["zh", "en"])
+
+    def test_cross_page_paragraph_keeps_blocks_and_adds_links(self):
+        first = block("p1", "paragraph", "给定公式$I_1", 1, [10, 80, 90, 95])
+        second = block("p2", "paragraph", "2$继续说明。", 1, [10, 5, 90, 20])
+        second.page = 2
+        build_relations([first, second])
+        self.assertEqual(first.continues_to, "p2")
+        self.assertEqual(second.continuation_of, "p1")
+        self.assertIn("cross_page_formula", second.quality_flags)
+
+    def test_page_footnote_does_not_break_body_continuation(self):
+        first = block("p1", "paragraph", "分类不够详", 1, [10, 80, 90, 95])
+        footnote = block("f1", "footnote", "作者信息", 2, [10, 96, 90, 99])
+        second = block("p2", "paragraph", "细，没有针对性。", 1, [10, 5, 90, 20])
+        second.page = 2
+        build_relations([first, footnote, second])
+        self.assertEqual(first.continues_to, "p2")
+        self.assertEqual(second.continuation_of, "p1")
+
+    def test_unicode_math_cross_page_is_flagged(self):
+        first = block("p1", "paragraph", "其中 I∈R，i∈1,", 1, [10, 80, 90, 95])
+        second = block("p2", "paragraph", "2，…分别表示。", 1, [10, 5, 90, 20])
+        second.page = 2
+        build_relations([first, second])
+        self.assertIn("cross_page_formula", second.quality_flags)
+
+    def test_formula_number_reference_points_to_formula(self):
+        formula = block("formula", "formula", "$$B=I_1-I_0$$", 1)
+        formula.formula_no = "1"
+        paragraph = block("text", "paragraph", "由式（1）可得。", 2)
+        build_relations([formula, paragraph])
+        self.assertEqual(paragraph.references, ["formula"])
 
 
 if __name__ == "__main__":
