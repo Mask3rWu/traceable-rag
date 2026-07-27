@@ -36,7 +36,7 @@ def _build_pipeline(config: ParseConfig):
     apply_env(config)
     from paddleocr import PPStructureV3
 
-    return PPStructureV3(format_block_content=True)
+    return PPStructureV3(format_block_content=True, **config.to_pipeline_kwargs())
 
 
 def detect_pdf(
@@ -51,10 +51,13 @@ def detect_pdf(
            "imgs_dir": rel_path}
     """
     config = config or ParseConfig()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "assets").mkdir(exist_ok=True)
     pipe = _build_pipeline(config)
 
     # 1. 调用产线（整 PDF 一次）
-    results = pipe.predict(str(pdf_path), **config.to_predict_kwargs())
+    # 必须物化结果：既用于 JSON，也用于 Markdown，避免整份 PDF 推理两次。
+    results = list(pipe.predict(str(pdf_path), **config.to_predict_kwargs()))
 
     # 2. 汇总所有页的 json，落盘 structurev3.json
     all_pages = []
@@ -73,10 +76,9 @@ def detect_pdf(
     md_path = out_dir / "structurev3.md"
     # save_to_markdown 写到指定目录，文件名固定；先存到临时目录再改名
     tmp_md = out_dir / "_md_tmp"
+    shutil.rmtree(tmp_md, ignore_errors=True)
     tmp_md.mkdir(exist_ok=True)
-    # 重新跑一次拿结果对象（results 已迭代完），调用其 save 方法
-    results_save = pipe.predict(str(pdf_path), **config.to_predict_kwargs())
-    for r in results_save:
+    for r in results:
         try:
             r.save_to_markdown(save_path=str(tmp_md))
         except Exception:
@@ -86,6 +88,17 @@ def detect_pdf(
     if md_files:
         merged = "\n\n".join(f.read_text(encoding="utf-8") for f in md_files)
         md_path.write_text(merged, encoding="utf-8")
+    else:
+        # 保存接口异常时仍提供可审查的降级 Markdown，原始 JSON 不受影响。
+        fallback_pages = []
+        for page in all_pages:
+            contents = [
+                block.get("block_content", "")
+                for block in page.get("parsing_res_list", [])
+                if isinstance(block.get("block_content"), str)
+            ]
+            fallback_pages.append("\n\n".join(contents))
+        md_path.write_text("\n\n".join(fallback_pages), encoding="utf-8")
     # save_to_markdown 可能同时写出 imgs/ 到 save 目录，迁移到 assets/
     src_imgs = tmp_md / "imgs"
     dst_imgs = out_dir / "assets" / "imgs"
@@ -97,12 +110,23 @@ def detect_pdf(
     shutil.rmtree(tmp_md, ignore_errors=True)
 
     # 重写 md 中的图片引用路径：imgs/xxx -> assets/imgs/xxx（相对项目根可访问）
-    if md_files:
-        import re
+    import re
 
-        text = md_path.read_text(encoding="utf-8")
-        text = re.sub(r"src=[\"']imgs/", "src=\"assets/imgs/", text)
-        md_path.write_text(text, encoding="utf-8")
+    text = md_path.read_text(encoding="utf-8")
+    text = re.sub(
+        r"src=([\"'])imgs/",
+        lambda match: f"src={match.group(1)}assets/imgs/",
+        text,
+    )
+    text = text.replace("](imgs/", "](assets/imgs/")
+    md_path.write_text(text, encoding="utf-8")
+
+    def stored_path(path: Path) -> str:
+        try:
+            value = path.resolve().relative_to(PROJECT_ROOT.resolve())
+        except ValueError:
+            value = path.resolve()
+        return str(value).replace("\\", "/")
 
     return {
         "pages": [
@@ -114,9 +138,7 @@ def detect_pdf(
             }
             for p in all_pages
         ],
-        "structurev3_json": str(sv3_json.relative_to(PROJECT_ROOT)).replace("\\", "/"),
-        "structurev3_md": str(md_path.relative_to(PROJECT_ROOT)).replace("\\", "/"),
-        "imgs_dir": str(dst_imgs.relative_to(PROJECT_ROOT)).replace("\\", "/")
-        if dst_imgs.exists()
-        else None,
+        "structurev3_json": stored_path(sv3_json),
+        "structurev3_md": stored_path(md_path),
+        "imgs_dir": stored_path(dst_imgs) if dst_imgs.exists() else None,
     }

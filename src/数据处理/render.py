@@ -62,7 +62,11 @@ def render_pdf(
             # 相对项目根的路径（便于 doc.json 中记录与跨机迁移）
             from src.paths import PROJECT_ROOT
 
-            rel = str(img_path.relative_to(PROJECT_ROOT)).replace("\\", "/")
+            try:
+                stored_path = img_path.resolve().relative_to(PROJECT_ROOT.resolve())
+            except ValueError:
+                stored_path = img_path.resolve()
+            rel = str(stored_path).replace("\\", "/")
 
             results.append(
                 {

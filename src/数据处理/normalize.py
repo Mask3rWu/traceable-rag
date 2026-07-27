@@ -93,11 +93,21 @@ def normalize_page_blocks(
     page_width: int,
     page_height: int,
 ) -> list[Block]:
-    """转换单页 parsing_res_list -> schema.Block 列表。"""
+    """转换单页 parsing_res_list -> schema.Block 列表。
+
+    ``page_width``/``page_height`` 是最终页图的像素尺寸。PP-StructureV3
+    解析 PDF 时可能使用另一 DPI，因此先把检测坐标缩放到页图坐标系，再做
+    [0, 1] 归一化。原始坐标仍完整保留在 structurev3.json 中。
+    """
     blocks_raw = page_res.get("parsing_res_list", [])
     out: list[Block] = []
 
-    for b in blocks_raw:
+    detector_width = page_res.get("width") or page_width
+    detector_height = page_res.get("height") or page_height
+    scale_x = page_width / detector_width if detector_width else 1.0
+    scale_y = page_height / detector_height if detector_height else 1.0
+
+    for source_index, b in enumerate(blocks_raw):
         label = b.get("block_label", "")
         if label in DROP_LABELS:
             continue
@@ -106,7 +116,17 @@ def normalize_page_blocks(
             # 未知 label 默认归为 paragraph，保留 raw_label 以便审查
             block_type = "paragraph"
 
-        bbox_pixel = list(b.get("block_bbox", [0, 0, 0, 0]))
+        bbox_raw = list(b.get("block_bbox", [0, 0, 0, 0]))
+        if len(bbox_raw) == 4:
+            x1, y1, x2, y2 = bbox_raw
+            bbox_pixel = [
+                round(x1 * scale_x),
+                round(y1 * scale_y),
+                round(x2 * scale_x),
+                round(y2 * scale_y),
+            ]
+        else:
+            bbox_pixel = [0, 0, 0, 0]
         # 归一化坐标 [0,1]
         if page_width and page_height and len(bbox_pixel) == 4:
             x1, y1, x2, y2 = bbox_pixel
@@ -130,9 +150,11 @@ def normalize_page_blocks(
 
         order = b.get("block_order")  # 可能为 None
 
-        # block_id: {document_id}_P{page:03d}_B{order:02d}，order 缺失用 block_id 兜底
-        order_for_id = order if order is not None else b.get("block_id", 0)
-        block_id = f"{document_id}_P{page_num:03d}_B{order_for_id:02d}"
+        # block_order 对图片/caption 常为空，且会与其他 raw block_id 撞号。
+        # 页面原始 block_id（或原始列表下标）才是页内稳定唯一标识。
+        source_id = b.get("block_id", source_index)
+        source_id = source_id if isinstance(source_id, int) else source_index
+        block_id = f"{document_id}_P{page_num:03d}_B{source_id:02d}"
 
         blk = Block(
             block_id=block_id,

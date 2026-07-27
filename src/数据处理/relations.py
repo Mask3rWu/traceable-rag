@@ -17,26 +17,36 @@ from src.schema import Block
 
 # 标题编号索引：label_no(如"3") -> caption block_id
 # 注意：图和表编号独立（图3、表3 各算各的），用 ("fig"/"table", no) 作 key
-_CAP_LABEL_NO_RE = re.compile(r"^(图|表|Fig\.?|Table)\s*([0-9A-Za-z\-]+)", re.IGNORECASE)
+_LABEL_NO = r"[0-9A-Za-z]+(?:[.\-][0-9A-Za-z]+)*"
+_CAP_LABEL_NO_RE = re.compile(
+    rf"^\s*(图|表|Fig\.?|Figure|Table)\s*({_LABEL_NO})", re.IGNORECASE
+)
 
 
 def _caption_kind(text: str) -> str | None:
     """判断 caption 是图还是表。"""
     if not text:
         return None
+    text = text.lstrip()
     if re.match(r"^表|^Table", text, re.IGNORECASE):
         return "table"
-    if re.match(r"^图|^Fig", text, re.IGNORECASE):
+    if re.match(r"^图|^Fig|^Figure", text, re.IGNORECASE):
         return "figure"
     return None
 
 
-def build_caption_index(blocks: list[Block]) -> dict:
-    """建 {(kind, label_no): caption_block_id} 索引，并回填 caption.label_no。
+def _label_key(label_no: str) -> str:
+    return label_no.strip().rstrip(".").casefold()
 
-    label_no 已在 normalize 抽取；这里补建索引。
+
+def build_caption_index(blocks: list[Block]) -> dict[tuple[str, str], str]:
+    """建 ``{(kind, label_no): target_block_id}`` 索引。
+
+    caption 已配对时索引必须指向 figure/table，而不是 caption 自己。
+    未配对 caption 不进入索引，避免生成无法展开的伪关系。
     """
     idx: dict[tuple[str, str], str] = {}
+    by_id = {b.block_id: b for b in blocks}
     for b in blocks:
         if b.block_type != "caption":
             continue
@@ -45,67 +55,89 @@ def build_caption_index(blocks: list[Block]) -> dict:
             if m:
                 b.label_no = m.group(2)
         kind = _caption_kind(b.text)
-        if b.label_no and kind:
-            idx[(kind, b.label_no)] = b.block_id
+        target = by_id.get(b.caption_of or "")
+        if (
+            b.label_no
+            and kind
+            and target is not None
+            and target.block_type == kind
+        ):
+            idx[(kind, _label_key(b.label_no))] = target.block_id
     return idx
 
 
 def pair_captions(blocks: list[Block]) -> None:
-    """把 caption 配到最近的 figure/table（按空间相邻 + 阅读顺序）。
+    """把 caption 配到最近的 figure/table（编号分组 + 一对一空间匹配）。
 
-    策略（pdf-parser.md §6.1 取法B）：
-    caption 通常紧邻 figure/table（正上方或正下方）。
-    按阅读顺序遍历，遇到 caption 就向前后找同页最近的 figure/table。
+    同一图的中英文 caption 会共享编号，先合成一组。不同编号的 caption
+    不能占用同一个图块；按组到图块的最小距离贪心匹配，避免缺图时把相邻
+    图的标题误连到现存图块。
     """
     # 按页分组 + order 排序（order=None 的用 block_id 兜底排序）
     by_page: dict[int, list[Block]] = {}
     for b in blocks:
         by_page.setdefault(b.page, []).append(b)
-    for page, pblocks in by_page.items():
+    for pblocks in by_page.values():
         pblocks.sort(key=lambda b: (b.order if b.order is not None else 9999, b.block_id))
-        n = len(pblocks)
-        for i, b in enumerate(pblocks):
-            if b.block_type != "caption":
+        targets = [b for b in pblocks if b.block_type in ("figure", "table")]
+        groups: dict[tuple[str, str], list[Block]] = {}
+        for caption in (b for b in pblocks if b.block_type == "caption"):
+            kind = _caption_kind(caption.text)
+            if not kind:
                 continue
-            # 向前后各找最近的 figure/table（同页，空间重叠或紧邻）
-            target = _find_nearest_figure(pblocks, i)
-            if target:
-                b.caption_of = target.block_id
-                # 回填 figure 的 label_no/label_norm（若它没有）
-                if not target.label_no and b.label_no:
-                    target.label_no = b.label_no
-                if b.label_norm:
-                    target.label_norm = b.label_norm
+            group_no = _label_key(caption.label_no) if caption.label_no else caption.block_id
+            groups.setdefault((kind, group_no), []).append(caption)
+
+        candidates: list[tuple[float, tuple[str, str], Block]] = []
+        for group_key, captions in groups.items():
+            for target in targets:
+                if target.block_type != group_key[0]:
+                    continue
+                distance = min(_spatial_distance(caption, target) for caption in captions)
+                if distance <= 0.15:
+                    candidates.append((distance, group_key, target))
+
+        assigned_groups: set[tuple[str, str]] = set()
+        assigned_targets: set[str] = set()
+        for _, group_key, target in sorted(
+            candidates, key=lambda item: (item[0], item[1], item[2].block_id)
+        ):
+            if group_key in assigned_groups or target.block_id in assigned_targets:
+                continue
+            captions = groups[group_key]
+            for caption in captions:
+                caption.caption_of = target.block_id
+            primary = captions[0]
+            target.label_no = primary.label_no or target.label_no
+            target.label_norm = primary.label_norm or target.label_norm
+            assigned_groups.add(group_key)
+            assigned_targets.add(target.block_id)
 
 
-def _find_nearest_figure(pblocks: list[Block], idx: int) -> Block | None:
-    """在排序后的同页 blocks 中，找距 idx 最近的 figure/table。"""
-    cap = pblocks[idx]
-    cap_box = cap.bbox_pixel
-    best: Block | None = None
-    best_dist = float("inf")
-    for j, b in enumerate(pblocks):
-        if b.block_type not in ("figure", "table"):
-            continue
-        # 空间距离：用 bbox 中心点的距离（caption 在图正上/下方时很小）
-        cb = b.bbox_pixel
-        cx1, cy1 = (cap_box[0] + cap_box[2]) / 2, (cap_box[1] + cap_box[3]) / 2
-        bx1, by1 = (cb[0] + cb[2]) / 2, (cb[1] + cb[3]) / 2
-        dist = abs(cx1 - bx1) + abs(cy1 - by1)
-        # 水平重叠优先（caption 应在图正上/下方，x 范围重叠）
-        x_overlap = min(cap_box[2], cb[2]) - max(cap_box[0], cb[0])
-        if x_overlap > 0:  # 有水平重叠，距离打折
-            dist *= 0.5
-        if dist < best_dist:
-            best_dist = dist
-            best = b
-    return best
+def _spatial_distance(caption: Block, target: Block) -> float:
+    """归一化空间距离；垂直间距为主，无水平重叠时增加列间惩罚。"""
+    cap = caption.bbox
+    box = target.bbox
+    if cap[3] < box[1]:
+        vertical_gap = box[1] - cap[3]
+    elif box[3] < cap[1]:
+        vertical_gap = cap[1] - box[3]
+    else:
+        vertical_gap = 0.0
+    horizontal_gap = max(0.0, max(cap[0], box[0]) - min(cap[2], box[2]))
+    return vertical_gap + horizontal_gap * 2
 
 
 # ---------- §6.2 标题编号层级 section_path ----------
 
 # 编号正则：纯数字层级(5.3.2) / 附录A / A.4
-_SECTION_RE = re.compile(r"^(\d+(?:\.\d+)*|附录\s*[A-Z]|[A-Z]\.\d+(?:\.\d+)*)")
+_SECTION_RE = re.compile(
+    r"^(\d+(?:\.\d+)*|附录\s*[A-Z]|[A-Z]\.\d+(?:\.\d+)*)",
+    re.IGNORECASE,
+)
+_MARKDOWN_HEADING_RE = re.compile(r"^#{1,6}\s*")
+_APPENDIX_KIND_RE = re.compile(r"(规范性附录|资料性附录)")
+_BLOCK_ID_SUFFIX_RE = re.compile(r"_B(\d+)$")
 
 
 def build_section_paths(blocks: list[Block]) -> None:
@@ -115,32 +147,102 @@ def build_section_paths(blocks: list[Block]) -> None:
     后续所有 block 继承当前栈。
     """
     stack: list[str] = []  # 当前标题编号栈
-    sorted_blocks = sorted(
-        blocks,
-        key=lambda b: (b.page, b.order if b.order is not None else 9999, b.block_id),
-    )
+    in_appendix = False
+    appendix_type: str | None = None
+    sorted_blocks = _reading_order(blocks)
     for b in sorted_blocks:
         if b.block_type == "heading":
             no = _extract_heading_no(b.text)
             if no:
                 _push_stack(stack, no)
+                if _is_appendix_no(no):
+                    in_appendix = True
+            kind = _APPENDIX_KIND_RE.search(b.text)
+            if kind:
+                appendix_type = kind.group(1)
+                in_appendix = True
         b.section_path = list(stack)
+        b.is_appendix = in_appendix
+        b.appendix_type = appendix_type if in_appendix else None
+
+
+def _reading_order(blocks: list[Block]) -> list[Block]:
+    """将无 order 的图表插入相邻有序块之间，而不是统一放到页尾。"""
+    by_page: dict[int, list[Block]] = {}
+    for block in blocks:
+        by_page.setdefault(block.page, []).append(block)
+
+    result: list[Block] = []
+    for page in sorted(by_page):
+        page_blocks = by_page[page]
+        anchors = sorted(
+            (
+                (source_id, block.order)
+                for block in page_blocks
+                if block.order is not None
+                if (source_id := _source_id(block)) is not None
+            ),
+            key=lambda item: item[0],
+        )
+
+        def effective_order(block: Block) -> tuple[float, str]:
+            if block.order is not None:
+                return float(block.order), block.block_id
+            source_id = _source_id(block)
+            if source_id is None or not anchors:
+                return 9999.0 + block.bbox[1], block.block_id
+            previous = next((item for item in reversed(anchors) if item[0] < source_id), None)
+            following = next((item for item in anchors if item[0] > source_id), None)
+            if previous and following:
+                span = following[0] - previous[0]
+                ratio = (source_id - previous[0]) / span
+                value = previous[1] + ratio * (following[1] - previous[1])
+            elif previous:
+                value = previous[1] + (source_id - previous[0]) * 0.01
+            else:
+                value = following[1] - (following[0] - source_id) * 0.01
+            return float(value), block.block_id
+
+        result.extend(sorted(page_blocks, key=effective_order))
+    return result
+
+
+def _source_id(block: Block) -> int | None:
+    match = _BLOCK_ID_SUFFIX_RE.search(block.block_id)
+    return int(match.group(1)) if match else None
 
 
 def _extract_heading_no(text: str) -> str | None:
     if not text:
         return None
-    m = _SECTION_RE.match(text.strip())
-    return m.group(1) if m else None
+    cleaned = _MARKDOWN_HEADING_RE.sub("", text.strip())
+    m = _SECTION_RE.match(cleaned)
+    if not m:
+        return None
+    remainder = cleaned[m.end() :].lstrip()
+    if remainder.startswith((")", "）", "、")):
+        return None
+    return re.sub(r"\s+", "", m.group(1))
+
+
+def _is_appendix_no(no: str) -> bool:
+    return no.upper().startswith("附录") or bool(re.match(r"^[A-Z](?:\.|$)", no, re.I))
 
 
 def _push_stack(stack: list[str], no: str) -> None:
     """按编号深度压栈：5.3.2 比 5.3 深，压入；比 5.3 浅，弹到同级再压。"""
-    depth = no.count(".") + 1 if no[0].isdigit() else 1
+    if _is_appendix_no(no) and not any(_is_appendix_no(item) for item in stack):
+        stack.clear()
+    if no.startswith("附录"):
+        depth = 1
+    elif no[0].isalpha():
+        depth = no.count(".") + 1
+    else:
+        depth = no.count(".") + 1
     # 弹出比当前深的（同级或更浅的先弹）
     while stack:
         top = stack[-1]
-        top_depth = top.count(".") + 1 if top[0].isdigit() else 1
+        top_depth = top.count(".") + 1
         if top_depth >= depth:
             stack.pop()
         else:
@@ -152,11 +254,11 @@ def _push_stack(stack: list[str], no: str) -> None:
 
 # 文中引用标记：图3 / 表2 / 公式(2) / Fig.1 / Table 3 / 见附录A / 见第3.2节
 _REF_PATTERNS = [
-    (re.compile(r"图\s?([0-9A-Za-z\-]+)"), "figure"),
-    (re.compile(r"表\s?([0-9A-Za-z\-]+)"), "table"),
-    (re.compile(r"公式\s?\(?\s*([0-9A-Za-z\-]+)\s*\)?"), "formula"),
-    (re.compile(r"Fig\.?\s*([0-9A-Za-z\-]+)", re.IGNORECASE), "figure"),
-    (re.compile(r"Table\s+([0-9A-Za-z\-]+)", re.IGNORECASE), "table"),
+    (re.compile(rf"图\s*({_LABEL_NO})"), "figure"),
+    (re.compile(rf"表\s*({_LABEL_NO})"), "table"),
+    (re.compile(rf"公式\s*\(?\s*({_LABEL_NO})\s*\)?"), "formula"),
+    (re.compile(rf"(?:Fig\.?|Figure)\s*({_LABEL_NO})", re.IGNORECASE), "figure"),
+    (re.compile(rf"Table\s*({_LABEL_NO})", re.IGNORECASE), "table"),
     (re.compile(r"见附录\s*([A-Z])"), "appendix"),
     (re.compile(r"第\s*([\d\.]+)\s*节"), "section"),
 ]
@@ -167,14 +269,25 @@ def extract_references(blocks: list[Block]) -> None:
 
     需 caption 索引建好后调用。引用命中时写入被引 figure/table 的 block_id。
     """
-    cap_idx = build_caption_index(blocks)
-    # 也给 figure/table 建一个 {(kind, no): block_id}，覆盖 caption 之外的 figure 自身编号
-    fig_idx = {}
+    ref_idx = build_caption_index(blocks)
+    # 也给已有自身编号的图表建立索引。
     for b in blocks:
         if b.block_type in ("figure", "table") and b.label_no:
-            kind = b.block_type
-            fig_idx[(kind, b.label_no)] = b.block_id
-    ref_idx = {**cap_idx, **fig_idx}  # 优先用 caption 的指向（更全）
+            ref_idx[(b.block_type, _label_key(b.label_no))] = b.block_id
+
+    for b in blocks:
+        if b.block_type == "heading":
+            no = _extract_heading_no(b.text)
+            if no:
+                ref_idx[("section", no.casefold())] = b.block_id
+                if no.startswith("附录"):
+                    ref_idx[("appendix", no[2:].casefold())] = b.block_id
+                else:
+                    appendix = re.match(r"^([A-Z])(?:\.|$)", no, re.I)
+                    if appendix:
+                        ref_idx.setdefault(
+                            ("appendix", appendix.group(1).casefold()), b.block_id
+                        )
 
     for b in blocks:
         if b.block_type not in ("paragraph", "heading", "list", "footnote"):
@@ -186,8 +299,8 @@ def extract_references(blocks: list[Block]) -> None:
         for pat, kind in _REF_PATTERNS:
             for m in pat.finditer(b.text):
                 no = m.group(1).strip()
-                key = (kind, no) if kind in ("figure", "table") else None
-                if key and key in ref_idx:
+                key = (kind, _label_key(no))
+                if key in ref_idx:
                     bid = ref_idx[key]
                     if bid not in seen:
                         refs.append(bid)

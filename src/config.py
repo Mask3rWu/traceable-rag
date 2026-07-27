@@ -12,6 +12,13 @@ from dataclasses import dataclass, field
 class ParseConfig:
     """PP-StructureV3 调用配置。"""
 
+    # 显式模型名，避免 PaddleOCR 升级后默认切到 Server/Plus-L 套件。
+    layout_detection_model_name: str = "PP-DocLayoutV3"
+    text_detection_model_name: str = "PP-OCRv5_mobile_det"
+    text_recognition_model_name: str = "PP-OCRv5_mobile_rec"
+    # PaddleOCR 3.7 中对应方案文档所述 PP-FormulaNet-M 的当前模型名。
+    formula_recognition_model_name: str = "PP-FormulaNet_plus-M"
+
     # 模块开关（对应 pdf-parser.md §4.1）
     use_doc_orientation_classify: bool = True
     use_doc_unwarping: bool = False
@@ -27,6 +34,15 @@ class ParseConfig:
 
     # 页面渲染 DPI（用于 OCR 与回溯）
     render_dpi: int = 200
+
+    def to_pipeline_kwargs(self) -> dict:
+        """转为 PPStructureV3() 的显式模型参数。"""
+        return {
+            "layout_detection_model_name": self.layout_detection_model_name,
+            "text_detection_model_name": self.text_detection_model_name,
+            "text_recognition_model_name": self.text_recognition_model_name,
+            "formula_recognition_model_name": self.formula_recognition_model_name,
+        }
 
     def to_predict_kwargs(self) -> dict:
         """转为 PPStructureV3.predict() 的 kwargs。"""
