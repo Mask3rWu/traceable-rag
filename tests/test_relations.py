@@ -90,7 +90,39 @@ class RelationsTest(unittest.TestCase):
         figure.order = None
         next_heading = block("doc_P001_B09", "heading", "## 3.3 后续", 6)
         build_relations([heading, figure, next_heading])
-        self.assertEqual(figure.section_path, ["3.2"])
+        # 点号编号按祖先链对齐，未出现的上级（3）也补进路径，使祖先链完整。
+        # 关键属性：无序图继承所在标题的 section_path。
+        self.assertEqual(heading.section_path, ["3", "3.2"])
+        self.assertEqual(figure.section_path, heading.section_path)
+        self.assertEqual(next_heading.section_path, ["3", "3.3"])
+
+    def test_deep_number_ignores_missing_intermediate_heading(self):
+        # 国军标深层编号：PP-StructureV3 漏检中间标题 3.1.3 时，3.1.3.x
+        # 必须挂到按编号推得的虚拟祖先 3.1.3 下，而非沿用相邻兄弟 3.1.2。
+        blocks = [
+            block("h1", "heading", "## 3", 1),
+            block("h2", "heading", "### 3.1", 2),
+            block("h3", "heading", "#### 3.1.2", 3),
+            block("h4", "heading", "##### 3.1.3.1 子节", 4),  # 3.1.3 缺失
+            block("p1", "paragraph", "正文", 5),
+            block("h5", "heading", "##### 3.1.3.2 子节2", 6),
+        ]
+        build_relations(blocks)
+        self.assertEqual(blocks[3].section_path, ["3", "3.1", "3.1.3", "3.1.3.1"])
+        self.assertEqual(blocks[4].section_path, ["3", "3.1", "3.1.3", "3.1.3.1"])
+        self.assertEqual(blocks[5].section_path, ["3", "3.1", "3.1.3", "3.1.3.2"])
+
+    def test_deep_number_pops_wrong_sibling_subtree(self):
+        # 3.1.3.x 出现后，若后续回到 3.1.3 的兄弟 3.1.4，应清掉 3.1.3 子树。
+        blocks = [
+            block("h1", "heading", "## 3", 1),
+            block("h2", "heading", "### 3.1", 2),
+            block("h3", "heading", "##### 3.1.3.1", 3),  # 3.1.3 缺失，补虚拟
+            block("h4", "heading", "#### 3.1.4", 4),  # 回到 3.1 的子级，应清深层
+        ]
+        build_relations(blocks)
+        self.assertEqual(blocks[2].section_path, ["3", "3.1", "3.1.3", "3.1.3.1"])
+        self.assertEqual(blocks[3].section_path, ["3", "3.1", "3.1.4"])
 
     def test_appendix_and_section_references(self):
         blocks = [

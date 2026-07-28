@@ -276,8 +276,27 @@ def _heading_depth(no: str, stack: list[tuple[str, int]]) -> int:
     return no.count(".") + 1
 
 
+def _is_dotted_no(no: str) -> bool:
+    """点号层级编号（如 '3.1.3.1'），深度由点号数决定。"""
+    return bool(no) and not no.startswith("附录") and not _is_paren_no(no) and "." in no
+
+
+def _ancestors_of(no: str) -> list[str]:
+    """点号编号的祖先链（不含自身），由浅到深。
+
+    '3.1.3.1' -> ['3', '3.1', '3.1.3']。仅对点号编号有意义。
+    """
+    parts = no.split(".")
+    return [".".join(parts[: i + 1]) for i in range(len(parts) - 1)]
+
+
 def _push_stack(stack: list[tuple[str, int]], no: str) -> None:
-    """按编号深度压栈：更深压入，同级/更浅先弹。
+    """按编号深度压栈，使栈始终代表当前编号的正确祖先链。
+
+    点号编号按编号自身的祖先链对齐栈：栈中已存在的祖先前缀保留，非祖先的
+    兄弟节点弹出；漏检的中间标题（如读到 3.1.3.1 时 3.1.3 缺失）补一个虚拟
+    祖先占位，仅用于还原 section_path，不创建标题块。这样即便 PP-StructureV3
+    漏检某层标题，深层编号也不会错挂到相邻兄弟（如 3.1.3.x 挂到 3.1.2）下。
 
     括号编号(1）/2）)作为最近非括号父级的子级；遇到同级括号先弹再压。
     """
@@ -285,10 +304,29 @@ def _push_stack(stack: list[tuple[str, int]], no: str) -> None:
         _is_appendix_no(item) for item, _ in stack
     ):
         stack.clear()
-    depth = _heading_depth(no, stack)
-    while stack and stack[-1][1] >= depth:
-        stack.pop()
-    stack.append((no, depth))
+
+    if not _is_dotted_no(no):
+        # 附录 / 括号 / 单层数字编号：沿用深度推导，按深度弹栈。
+        depth = _heading_depth(no, stack)
+        while stack and stack[-1][1] >= depth:
+            stack.pop()
+        stack.append((no, depth))
+        return
+
+    # 点号编号：按祖先链对齐。栈保持深度连续（stack[k-1] == (编号, k)）。
+    ancestors = _ancestors_of(no)
+    match = 0  # 已正确入栈的祖先前缀长度
+    for k, anc in enumerate(ancestors, start=1):
+        if k <= len(stack) and stack[k - 1] == (anc, k):
+            match = k
+        else:
+            break
+    # 弹掉非祖先的兄弟子树（栈顶是 3.1.2 而本号为 3.1.3.x 时弹掉它）。
+    del stack[match:]
+    # 补齐漏检的中间祖先（虚拟，仅用于路径，下游不据此创建块）。
+    for k, anc in enumerate(ancestors[match:], start=match + 1):
+        stack.append((anc, k))
+    stack.append((no, len(ancestors) + 1))
 
 
 # ---------- §6.3 交叉引用索引（正文 -> 图表/附录） ----------
