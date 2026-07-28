@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 
 import fitz  # PyMuPDF
@@ -35,6 +36,45 @@ def has_text_layer(page: fitz.Page, min_chars: int = 20) -> bool:
     return len(text.strip()) >= min_chars
 
 
+def native_scan_dpi(page: fitz.Page, coverage: float = 0.95) -> int | None:
+    """整页扫描图的原生 DPI；非整页单图页返回 None。
+
+    部分扫描件 PDF 把 MediaBox 设得很大（如 2100×2960pt≈29×41in），但内嵌
+    的扫描图实际只有 2550×3300px（≈Letter@300DPI）。按请求 DPI 渲染会把源
+    图放大数倍，纯插值无新细节，且页图/裁图偏大偏慢。这类页检测其原生
+    分辨率（图像素 / 图显示英寸），渲染时据此封顶，避免无谓放大。
+
+    判据：恰好一张图、且其显示矩形占页面 ≥ coverage（95%）才视作整页扫描。
+    占满一部分的图（论文插图、页眉小图）一律不算，保持请求 DPI 不变。
+    """
+    images = page.get_images(full=True)
+    if len(images) != 1:
+        return None
+    xref = images[0][0]
+    rects = page.get_image_rects(xref)
+    if not rects:
+        return None
+    rect = rects[0]
+    mb = page.mediabox
+    if mb.width <= 0 or mb.height <= 0:
+        return None
+    if rect.width / mb.width < coverage or rect.height / mb.height < coverage:
+        return None
+    info = page.parent.extract_image(xref)
+    disp_w_in = rect.width / 72.0
+    disp_h_in = rect.height / 72.0
+    if disp_w_in <= 0 or disp_h_in <= 0:
+        return None
+    # PDF 中的扫描图可能被非等比拉伸。取两个方向中较低的原生 DPI，保证
+    # 最终渲染不会在任一方向放大源位图。向下取整可避免四舍五入后轻微放大。
+    return max(
+        1,
+        math.floor(
+            min(info["width"] / disp_w_in, info["height"] / disp_h_in)
+        ),
+    )
+
+
 def _rel_path(path: Path) -> str:
     """返回相对项目根的路径串；不在项目根下时回退绝对路径。"""
     from src.paths import PROJECT_ROOT
@@ -50,6 +90,11 @@ def _render_meta_path(pages_dir: Path) -> Path:
     return pages_dir / "_render_meta.json"
 
 
+# 渲染缓存结构版本：封顶/裁剪等渲染逻辑变化时 +1，使旧缓存自动失效重渲染。
+# 当前版本：按横纵最低原生 DPI 封顶，并记录每页实际渲染 DPI。
+_RENDER_SCHEMA = 3
+
+
 def _try_load_cache(
     pages_dir: Path, pdf_path: Path, dpi: int
 ) -> list[dict] | None:
@@ -62,6 +107,9 @@ def _try_load_cache(
         return None
     try:
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        # 渲染逻辑版本不一致（如封顶规则改过）-> 旧缓存失效。
+        if meta.get("render_schema") != _RENDER_SCHEMA:
+            return None
         if meta.get("dpi") != dpi:
             return None
         stat = pdf_path.stat()
@@ -90,6 +138,7 @@ def _try_load_cache(
                     "page_image": _rel_path(img_path),
                     "width": p["width"],
                     "height": p["height"],
+                    "render_dpi": int(p["render_dpi"]),
                     "has_text_layer": p["has_text_layer"],
                 }
             )
@@ -104,6 +153,7 @@ def _write_cache(
     """渲染完成后写缓存；写入失败不影响主流程。"""
     stat = pdf_path.stat()
     meta = {
+        "render_schema": _RENDER_SCHEMA,
         "dpi": dpi,
         "pdf_name": pdf_path.name,
         "pdf_mtime": stat.st_mtime,
@@ -128,7 +178,7 @@ def render_pdf(
     命中缓存（见模块文档）时跳过渲染，直接返回缓存的每页元数据。
 
     返回: [{"page": 1-based, "page_image": rel_path, "width": px, "height": px,
-            "has_text_layer": bool}, ...]
+            "render_dpi": 实际渲染DPI, "has_text_layer": bool}, ...]
     """
     pages_dir = out_dir / "pages"
     pages_dir.mkdir(parents=True, exist_ok=True)
@@ -139,18 +189,26 @@ def render_pdf(
 
     results: list[dict] = []
 
+    capped_pages: list[int] = []  # 被原生分辨率封顶的页号（提示用）
+
     doc = fitz.open(str(pdf_path))
     try:
-        zoom = dpi / 72.0  # PDF 默认 72 DPI
-        matrix = fitz.Matrix(zoom, zoom)
         for i, page in enumerate(doc):
             page_num = i + 1  # 1-based
 
             # 文本层检查（渲染前，在原始页面上做）
             text_layer = has_text_layer(page)
 
+            # 整页扫描图：用其原生分辨率封顶，避免放大插值（见 native_scan_dpi）。
+            page_dpi = dpi
+            native = native_scan_dpi(page)
+            if native is not None and native < dpi:
+                page_dpi = native
+                capped_pages.append(page_num)
+
             # 渲染
-            pix = page.get_pixmap(matrix=matrix)
+            zoom = page_dpi / 72.0  # PDF 默认 72 DPI
+            pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom))
             img_name = f"p{page_num:03d}.png"
             img_path = pages_dir / img_name
             pix.save(str(img_path))
@@ -161,11 +219,20 @@ def render_pdf(
                     "page_image": _rel_path(img_path),
                     "width": pix.width,
                     "height": pix.height,
+                    "render_dpi": page_dpi,
                     "has_text_layer": text_layer,
                 }
             )
     finally:
         doc.close()
+
+    if capped_pages:
+        # 不假设整份 PDF 一致：只报告被封顶的页。表明渲染分辨率被原生扫描
+        # 分辨率限制，避免放大插值；版面检测仍读 PDF 本身，不受影响。
+        print(
+            f"  [render] {pdf_path.name}: {len(capped_pages)}/{len(results)} 页按"
+            f"原生扫描分辨率渲染（请求 {dpi} DPI，扫描件未放大）"
+        )
 
     _write_cache(pages_dir, pdf_path, dpi, results)
     return results

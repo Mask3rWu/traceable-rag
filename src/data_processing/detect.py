@@ -66,7 +66,8 @@ def detect_pdf(
     config = config or ParseConfig()
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "assets").mkdir(exist_ok=True)
-    pipe = pipeline if pipeline is not None else build_pipeline(config)
+    # 通过兼容别名构造，保留既有调用方和测试对 _build_pipeline 的替换能力。
+    pipe = pipeline if pipeline is not None else _build_pipeline(config)
 
     # 1. 调用产线（整 PDF 一次）
     # 必须物化结果：既用于 JSON，也用于 Markdown，避免整份 PDF 推理两次。

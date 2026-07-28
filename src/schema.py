@@ -83,6 +83,7 @@ class Page(BaseModel):
     page: int  # 1-based
     width: int  # 像素宽
     height: int  # 像素高
+    render_dpi: Optional[int] = None  # 页图实际 DPI；扫描页可能低于请求值
     has_text_layer: bool = False  # 是否有原生文本层
     page_image: Optional[str] = None  # pages/pXXX.png 路径（相对项目根）
     blocks: list[Block] = Field(default_factory=list)
