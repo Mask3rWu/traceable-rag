@@ -220,6 +220,7 @@ processed/parsed/{doc_id}/
   structurev3.md                PP-StructureV3 Markdown（图表配对参考）
   pages/                        逐页渲染图（用于 bbox→可视回溯）
     p017.png
+    _render_meta.json           渲染缓存（DPI + 源 PDF mtime/size + 每页元数据）
   assets/                       裁剪出的图片/表格/公式子图（喂 MLLM / 回显）
     p017_fig03.png
 ```
@@ -351,6 +352,7 @@ PP-StructureV3 把"图"和"图标题"检测为两个独立块，但**不会把�
 - **断点续跑**：默认 `--skip-existing`，已存在 `doc.json` 的文档直接跳过。中途失败后重跑同命令即续。
 - **单篇失败隔离**：某篇出错被记录并跳过，不中断其余文档；退出码非零，便于脚本检测。
 - **进度**：每篇打印 `[N/M] doc_id: ok|skipped|failed (页数, 块数, 耗时)`，末尾汇总。
+- **渲染结果缓存**：`render_pdf` 落盘 `pages/_render_meta.json`，记录 DPI 与源 PDF 的 mtime/size。命中（DPI 一致、源 PDF 未改、页图齐全）时跳过 `PDF->图片`，直接复用已有页图--`--reuse-detection` 重跑后处理时不再重复转图。需强制重渲染时删 `pages/` 目录或换 `--dpi`。
 
 常用命令（conda env `dba-py311`）：
 
