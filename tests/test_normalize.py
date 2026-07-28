@@ -140,6 +140,69 @@ class NormalizeTest(unittest.TestCase):
         self.assertEqual(blocks[0].block_type, "formula")
         self.assertEqual(blocks[0].formula_no, "1")
 
+    def test_block_confidence_backfilled_from_layout_detection_score(self):
+        # parsing_res_list 不带 score，但与之对齐的 layout_det_res.boxes[].score
+        # 有版面检测置信度，应回填到 block.confidence，而不是留 0.0。
+        page = {
+            "width": 100,
+            "height": 100,
+            "parsing_res_list": [
+                {
+                    "block_label": "text",
+                    "block_content": "正文",
+                    "block_bbox": [10, 10, 90, 20],
+                    "block_id": 1,
+                    "block_order": 1,
+                },
+                {
+                    "block_label": "table",
+                    "block_content": "<table/>",
+                    "block_bbox": [10, 30, 90, 60],
+                    "block_id": 2,
+                    "block_order": 2,
+                },
+            ],
+            "layout_det_res": {
+                "boxes": [
+                    {"label": "text", "score": 0.73, "coordinate": [10, 10, 90, 20]},
+                    {"label": "table", "score": 0.95, "coordinate": [10, 30, 90, 60]},
+                ]
+            },
+        }
+
+        blocks = normalize_page_blocks(page, "doc", 1, 100, 100)
+
+        self.assertEqual(len(blocks), 2)
+        self.assertEqual(blocks[0].confidence, 0.73)
+        self.assertEqual(blocks[1].confidence, 0.95)
+
+    def test_block_confidence_falls_back_to_iou_when_bbox_not_exact(self):
+        # 坐标未精确命中时，按 IoU≥0.9 取最近邻 layout box 的分数。
+        page = {
+            "width": 100,
+            "height": 100,
+            "parsing_res_list": [
+                {
+                    "block_label": "text",
+                    "block_content": "正文",
+                    "block_bbox": [10, 10, 90, 20],
+                    "block_id": 1,
+                    "block_order": 1,
+                },
+            ],
+            "layout_det_res": {
+                "boxes": [
+                    # 与 parsing 块 IoU 接近 1（仅边界 1px 差异）。
+                    {"label": "text", "score": 0.66, "coordinate": [11, 10, 90, 20]},
+                ]
+            },
+        }
+
+        blocks = normalize_page_blocks(page, "doc", 1, 100, 100)
+
+        self.assertEqual(len(blocks), 1)
+        self.assertEqual(blocks[0].confidence, 0.66)
+
 
 if __name__ == "__main__":
     unittest.main()

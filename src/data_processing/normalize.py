@@ -99,6 +99,46 @@ def _caption_language(text: str) -> str:
     return "unknown"
 
 
+class _LayoutScoreIndex:
+    """按坐标查 layout_det_res 的版面检测置信度。
+
+    parsing_res_list 与 layout_det_res.boxes 通常一一对应（同序、同 bbox/label），
+    但不保证永远如此。先按坐标元组精确命中；未命中时按 IoU≥0.9 取最近邻，
+    仍无则回退 0.0。坐标用四舍五入取整作为 key，容忍浮点抖动。
+    """
+
+    def __init__(self, boxes: list[dict]):
+        self._exact: dict[tuple[int, int, int, int], float] = {}
+        self._all: list[tuple[list[int], float]] = []
+        for box in boxes or []:
+            coord = box.get("coordinate")
+            if not isinstance(coord, list) or len(coord) != 4:
+                continue
+            key = tuple(int(round(v)) for v in coord)
+            score = float(box.get("score", 0.0))
+            self._exact.setdefault(key, score)
+            self._all.append(([int(round(v)) for v in coord], score))
+
+    def lookup(self, bbox_raw: list) -> float:
+        if not isinstance(bbox_raw, list) or len(bbox_raw) != 4 or not self._all:
+            return 0.0
+        key = tuple(int(round(v)) for v in bbox_raw)
+        if key in self._exact:
+            return self._exact[key]
+        # 兜底：IoU≥0.9 的最近邻（应对个别页顺序/数值不一致）
+        target = [int(round(v)) for v in bbox_raw]
+        best = 0.0
+        for coord, score in self._all:
+            if _bbox_iou(target, coord) >= 0.9 and score > best:
+                best = score
+        return best
+
+
+def _build_layout_score_index(page_res: dict) -> _LayoutScoreIndex:
+    boxes = page_res.get("layout_det_res", {}).get("boxes", []) or []
+    return _LayoutScoreIndex(boxes)
+
+
 def normalize_page_blocks(
     page_res: dict,
     document_id: str,
@@ -115,6 +155,11 @@ def normalize_page_blocks(
     """
     blocks_raw = page_res.get("parsing_res_list", [])
     out: list[Block] = []
+
+    # parsing_res_list 不带 per-block 置信度，但与之索引对齐的
+    # layout_det_res.boxes[].score 有版面检测置信度（已验证两列表 bbox/label
+    # 一一对应）。按坐标建索引回填，让每个 block 带上有意义的 confidence。
+    score_index = _build_layout_score_index(page_res)
 
     detector_width = page_res.get("width") or page_width
     detector_height = page_res.get("height") or page_height
@@ -183,7 +228,7 @@ def normalize_page_blocks(
             bbox_pixel=[int(v) for v in bbox_pixel],
             text=text,
             source_method="ocr",
-            confidence=0.0,  # parsing_res_list 不带 per-block score
+            confidence=score_index.lookup(bbox_raw),  # 版面检测置信度（见 _build_layout_score_index）
             image_crop=image_crop,
             image_crop_raw=image_crop,
             label_no=label_no,
