@@ -25,6 +25,7 @@ import re
 import shutil
 import warnings
 from pathlib import Path
+from typing import Sequence
 
 from src.config import ParseConfig, apply_env
 
@@ -53,6 +54,7 @@ def detect_pdf(
     config: ParseConfig | None = None,
     *,
     pipeline=None,
+    rendered_pages: Sequence[dict] | None = None,
 ) -> dict:
     """对单 PDF 跑 PP-StructureV3，落盘原始结果，返回元数据。
 
@@ -69,14 +71,65 @@ def detect_pdf(
     # 通过兼容别名构造，保留既有调用方和测试对 _build_pipeline 的替换能力。
     pipe = pipeline if pipeline is not None else _build_pipeline(config)
 
-    # 1. 调用产线（整 PDF 一次）
+    # 1. 调用产线（整 PDF 一次）。未检测到目标水印时 prediction_input 就是
+    # 原始 pdf_path，确保其他文档的推理输入和既有行为完全不变。
+    prediction_input = pdf_path
+    watermarks = {}
+    watermark_metadata_path = None
+    if config.use_watermark_preprocessing and rendered_pages:
+        from src.data_processing.watermark import prepare_watermark_input
+
+        prediction_input, watermarks, watermark_metadata_path = prepare_watermark_input(
+            pdf_path, out_dir, rendered_pages
+        )
     # 必须物化结果：既用于 JSON，也用于 Markdown，避免整份 PDF 推理两次。
-    results = list(pipe.predict(str(pdf_path), **config.to_predict_kwargs()))
+    try:
+        if prediction_input == pdf_path:
+            results = list(pipe.predict(str(pdf_path), **config.to_predict_kwargs()))
+        else:
+            # Preserve untouched pages exactly on the original prediction path.
+            # The cleaned document contributes only confirmed watermark pages.
+            original_results = list(
+                pipe.predict(str(pdf_path), **config.to_predict_kwargs())
+            )
+            cleaned_results = list(
+                pipe.predict(str(prediction_input), **config.to_predict_kwargs())
+            )
+            cleaned_by_index = {
+                int(result.json["res"].get("page_index", index)): result
+                for index, result in enumerate(cleaned_results)
+            }
+            results = []
+            for index, result in enumerate(original_results):
+                page_index = int(result.json["res"].get("page_index", index))
+                if page_index + 1 in watermarks:
+                    cleaned = cleaned_by_index.get(page_index)
+                    if cleaned is None:
+                        raise ValueError(f"清洗检测结果缺少第 {page_index + 1} 页")
+                    results.append(cleaned)
+                else:
+                    results.append(result)
+    finally:
+        if prediction_input != pdf_path:
+            prediction_input.unlink(missing_ok=True)
 
     # 2. 汇总所有页的 json，落盘 structurev3.json
     all_pages = []
     for r in results:
         res = r.json["res"]
+        page_index = int(res.get("page_index", len(all_pages)))
+        watermark = watermarks.get(page_index + 1)
+        if watermark is not None:
+            res["watermark"] = {
+                "detected": True,
+                "watermark_type": watermark.watermark_type,
+                "mask_ratio": watermark.mask_ratio,
+                "bbox": watermark.bbox,
+                "template_similarity": watermark.template_similarity,
+                "cleaned_image": watermark.cleaned_image,
+            }
+            # Raw output should continue to identify the actual source document.
+            res["input_path"] = str(pdf_path)
         all_pages.append(res)
     all_pages.sort(key=lambda page: int(page.get("page_index", 0)))
 
@@ -107,11 +160,12 @@ def detect_pdf(
         ]
 
     md_files = sorted(tmp_md.glob("*.md"), key=natural_key)
-    if md_files:
+    if md_files and not watermarks:
         merged = "\n\n".join(f.read_text(encoding="utf-8") for f in md_files)
         md_path.write_text(merged, encoding="utf-8")
     else:
-        # 保存接口异常时仍提供可审查的降级 Markdown，原始 JSON 不受影响。
+        # 水印页来自清洗 PDF、其他页来自原 PDF，文件名前缀不同，不能依赖
+        # save_to_markdown 的文件名排序。直接按原始页序生成可审查 Markdown。
         fallback_pages = []
         for page in all_pages:
             contents = [
@@ -161,4 +215,8 @@ def detect_pdf(
         "structurev3_json": stored_path(sv3_json),
         "structurev3_md": stored_path(md_path),
         "imgs_dir": stored_path(dst_imgs) if dst_imgs.exists() else None,
+        "watermarks": stored_path(watermark_metadata_path)
+        if watermark_metadata_path is not None
+        else None,
+        "watermark_pages": sorted(watermarks),
     }

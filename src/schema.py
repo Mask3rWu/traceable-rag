@@ -86,6 +86,10 @@ class Page(BaseModel):
     render_dpi: Optional[int] = None  # 页图实际 DPI；扫描页可能低于请求值
     has_text_layer: bool = False  # 是否有原生文本层
     page_image: Optional[str] = None  # pages/pXXX.png 路径（相对项目根）
+    watermark_detected: bool = False
+    watermark_type: Optional[str] = None
+    watermark_ratio: float = 0.0
+    watermark_bbox: Optional[list[float]] = None
     blocks: list[Block] = Field(default_factory=list)
 
 

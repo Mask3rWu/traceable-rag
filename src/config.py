@@ -29,6 +29,10 @@ class ParseConfig:
     use_seal_recognition: bool = False
     use_region_detection: bool = True  # 多栏分块，恢复阅读顺序
 
+    # Only activates after repeated, large central orange GJB marks are confirmed.
+    # Documents with no match continue through the original PDF prediction path.
+    use_watermark_preprocessing: bool = True
+
     # 模型源：本机已验证 ModelScope 可用
     model_source: str = "modelscope"
 

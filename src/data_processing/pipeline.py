@@ -44,6 +44,17 @@ def _project_relative(path: Path) -> str:
     return str(path).replace("\\", "/")
 
 
+def _intersection_ratio(bbox: list[float], other: list[float]) -> float:
+    left = max(bbox[0], other[0])
+    top = max(bbox[1], other[1])
+    right = min(bbox[2], other[2])
+    bottom = min(bbox[3], other[3])
+    if right <= left or bottom <= top:
+        return 0.0
+    area = max(0.0, bbox[2] - bbox[0]) * max(0.0, bbox[3] - bbox[1])
+    return ((right - left) * (bottom - top) / area) if area else 0.0
+
+
 def parse_pdf(
     pdf_path: Path,
     *,
@@ -72,7 +83,13 @@ def parse_pdf(
     if reuse_detection:
         detected_pages = _load_detection(out_dir)
     else:
-        detect_pdf(pdf_path, out_dir, config, pipeline=pipeline)
+        detect_pdf(
+            pdf_path,
+            out_dir,
+            config,
+            pipeline=pipeline,
+            rendered_pages=rendered_pages,
+        )
         detected_pages = _load_detection(out_dir)
 
     detected_by_index = {
@@ -100,13 +117,30 @@ def parse_pdf(
             rendered["height"],
             config.layout_visual_fallback_min_score,
         )
+        watermark = detected.get("watermark") or {}
+        watermark_bbox = watermark.get("bbox")
+        if watermark_bbox:
+            for block in blocks:
+                if _intersection_ratio(block.bbox, watermark_bbox) >= 0.05:
+                    if "watermark_affected" not in block.quality_flags:
+                        block.quality_flags.append("watermark_affected")
         for block in blocks:
             if block.image_crop:
                 raw_crop = _project_relative(out_dir / block.image_crop)
                 block.image_crop_raw = raw_crop
                 block.image_crop = raw_crop
         all_blocks.extend(blocks)
-        pages.append(Page(**rendered, document_id=document_id, blocks=blocks))
+        pages.append(
+            Page(
+                **rendered,
+                document_id=document_id,
+                watermark_detected=bool(watermark.get("detected")),
+                watermark_type=watermark.get("watermark_type"),
+                watermark_ratio=float(watermark.get("mask_ratio", 0.0)),
+                watermark_bbox=watermark_bbox,
+                blocks=blocks,
+            )
+        )
 
     build_relations(all_blocks)
     crop_visual_blocks(pages, out_dir, config)
@@ -281,6 +315,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=0.90,
         help="补回 layout-only 图片候选的最低置信度（默认 0.90）",
     )
+    parser.add_argument(
+        "--watermark-preprocessing",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="检测并弱化重复出现的橙色 GJB 水印（默认开启）",
+    )
     return parser
 
 
@@ -324,6 +364,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         crop_padding_bottom_ratio=args.crop_padding_bottom,
         crop_padding_min_px=args.crop_padding_min_px,
         layout_visual_fallback_min_score=args.layout_fallback_min_score,
+        use_watermark_preprocessing=args.watermark_preprocessing,
     )
     summary = parse_pdfs(
         pdfs,
