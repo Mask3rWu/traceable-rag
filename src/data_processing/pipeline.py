@@ -21,6 +21,7 @@ from src.schema import Document, Page
 from src.data_processing.crop import crop_visual_blocks
 from src.data_processing.detect import build_pipeline, detect_pdf
 from src.data_processing.markdown import write_document_markdown
+from src.data_processing.noise import filter_document_noise
 from src.data_processing.normalize import normalize_page_blocks
 from src.data_processing.relations import build_relations
 from src.data_processing.render import render_pdf
@@ -103,7 +104,6 @@ def parse_pdf(
         )
 
     pages: list[Page] = []
-    all_blocks = []
     for rendered in rendered_pages:
         page_num = rendered["page"]
         detected = detected_by_index.get(page_num - 1)
@@ -129,7 +129,6 @@ def parse_pdf(
                 raw_crop = _project_relative(out_dir / block.image_crop)
                 block.image_crop_raw = raw_crop
                 block.image_crop = raw_crop
-        all_blocks.extend(blocks)
         pages.append(
             Page(
                 **rendered,
@@ -142,19 +141,27 @@ def parse_pdf(
             )
         )
 
-    build_relations(all_blocks)
-    crop_visual_blocks(pages, out_dir, config)
     document = Document(
         document_id=document_id,
         source_file=pdf_path.name,
         total_pages=len(pages),
         pages=pages,
     )
+    noise_counts = filter_document_noise(document)
+    filtered_blocks = [block for page in document.pages for block in page.blocks]
+    build_relations(filtered_blocks)
+    crop_visual_blocks(document.pages, out_dir, config)
     (out_dir / "doc.json").write_text(
         json.dumps(document.model_dump(mode="json"), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
     write_document_markdown(document, out_dir)
+    removed = sum(noise_counts.values())
+    if removed:
+        print(
+            f"  [noise] {document_id}: removed {removed} blocks "
+            f"({', '.join(f'{name}={count}' for name, count in noise_counts.items() if count)})"
+        )
     return document
 
 
