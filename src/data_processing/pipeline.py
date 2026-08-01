@@ -28,7 +28,7 @@ from src.data_processing.render import render_pdf
 
 
 def _load_detection(out_dir: Path) -> list[dict]:
-    path = out_dir / "structurev3.json"
+    path = out_dir / "structure.json"
     if not path.is_file():
         raise FileNotFoundError(f"缺少可复用的检测结果: {path}")
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -66,7 +66,7 @@ def parse_pdf(
 ) -> Document:
     """执行渲染、版面检测、归一化和关系构建，写出 ``doc.json``。
 
-    ``reuse_detection`` 复用已有 structurev3.json，适合只重跑后处理和测试。
+    ``reuse_detection`` 复用已有 structure.json，适合只重跑后处理和测试。
     ``pipeline`` 可传入已构造的 PPStructureV3 产线在多篇间复用（批量解析时
     整批只建一次模型）；仅 ``not reuse_detection`` 时用到。
     """
@@ -93,6 +93,77 @@ def parse_pdf(
         )
         detected_pages = _load_detection(out_dir)
 
+    return _build_document_from_detection(
+        document_id=document_id,
+        source_file=pdf_path.name,
+        rendered_pages=rendered_pages,
+        detected_pages=detected_pages,
+        out_dir=out_dir,
+        config=config,
+    )
+
+
+def rebuild_document_from_structure(
+    pdf_path: Path,
+    *,
+    config: ParseConfig | None = None,
+    out_dir: Path | None = None,
+) -> Document:
+    """Rebuild ``doc.*`` from ``structure.json`` without rendering the PDF.
+
+    Existing ``doc.json`` supplies the page-image metadata used to preserve
+    pixel-coordinate scaling and generate visual crops. The raw structure file
+    supplies all detected blocks.
+    """
+    pdf_path = Path(pdf_path).resolve()
+    if not pdf_path.is_file() or pdf_path.suffix.lower() != ".pdf":
+        raise FileNotFoundError(f"PDF does not exist: {pdf_path}")
+
+    config = config or ParseConfig()
+    document_id = doc_id_from_path(pdf_path)
+    out_dir = Path(out_dir) if out_dir is not None else doc_out_dir(document_id)
+    doc_json_path = out_dir / "doc.json"
+    if not doc_json_path.is_file():
+        raise FileNotFoundError(
+            f"Existing doc.json is required for no-render rebuild: {doc_json_path}"
+        )
+
+    previous = Document.model_validate_json(doc_json_path.read_text(encoding="utf-8"))
+    if previous.document_id != document_id:
+        raise ValueError(
+            f"doc.json document_id does not match source PDF: "
+            f"{previous.document_id!r} != {document_id!r}"
+        )
+    rendered_pages = [
+        {
+            "page": page.page,
+            "width": page.width,
+            "height": page.height,
+            "render_dpi": page.render_dpi,
+            "has_text_layer": page.has_text_layer,
+            "page_image": page.page_image,
+        }
+        for page in previous.pages
+    ]
+    return _build_document_from_detection(
+        document_id=document_id,
+        source_file=pdf_path.name,
+        rendered_pages=rendered_pages,
+        detected_pages=_load_detection(out_dir),
+        out_dir=out_dir,
+        config=config,
+    )
+
+
+def _build_document_from_detection(
+    *,
+    document_id: str,
+    source_file: str,
+    rendered_pages: Sequence[dict],
+    detected_pages: Sequence[dict],
+    out_dir: Path,
+    config: ParseConfig,
+) -> Document:
     detected_by_index = {
         int(page.get("page_index", index)): page
         for index, page in enumerate(detected_pages)
@@ -143,7 +214,7 @@ def parse_pdf(
 
     document = Document(
         document_id=document_id,
-        source_file=pdf_path.name,
+        source_file=source_file,
         total_pages=len(pages),
         pages=pages,
     )
@@ -172,6 +243,7 @@ def parse_pdfs(
     skip_existing: bool = True,
     limit: int | None = None,
     reuse_detection: bool = False,
+    skip_render: bool = False,
     out_root: Path | str | None = None,
 ) -> dict:
     """批量解析多份 PDF。
@@ -185,6 +257,9 @@ def parse_pdfs(
     返回汇总 ``{total, ok, skipped, failed}``，``failed`` 为
     ``[{doc_id, source, error}]``。
     """
+    if skip_render and not reuse_detection:
+        raise ValueError("skip_render requires reuse_detection=True")
+
     config = config or ParseConfig()
     paths = [Path(p) for p in pdf_paths]
     if limit is not None:
@@ -215,13 +290,20 @@ def parse_pdfs(
             continue
 
         try:
-            document = parse_pdf(
-                pdf_path,
-                config=config,
-                out_dir=_doc_dir(document_id),
-                reuse_detection=reuse_detection,
-                pipeline=pipe,
-            )
+            if skip_render:
+                document = rebuild_document_from_structure(
+                    pdf_path,
+                    config=config,
+                    out_dir=_doc_dir(document_id),
+                )
+            else:
+                document = parse_pdf(
+                    pdf_path,
+                    config=config,
+                    out_dir=_doc_dir(document_id),
+                    reuse_detection=reuse_detection,
+                    pipeline=pipe,
+                )
             elapsed = time.perf_counter() - started
             print(
                 f"[{index}/{total}] {document_id}: ok "
@@ -289,7 +371,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--reuse-detection",
         action="store_true",
-        help="复用输出目录中的 structurev3.json，仅重跑后处理（不加载模型）",
+        help="复用输出目录中的 structure.json，仅重跑后处理（不加载模型）",
     )
     parser.add_argument("--dpi", type=int, default=200, help="页图渲染 DPI（默认 200）")
     parser.add_argument(

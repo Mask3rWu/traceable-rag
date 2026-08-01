@@ -15,7 +15,7 @@ _MARKDOWN_HEADING_RE = re.compile(r"^#{1,6}\s*")
 
 
 def write_document_markdown(document: Document, out_dir: Path) -> Path:
-    """写出最终 ``doc.md``；原始 ``structurev3.md`` 继续作为模型留底。"""
+    """写出最终 ``doc.md``；原始 ``structure.md`` 继续作为模型留底。"""
     out_dir = Path(out_dir)
     blocks = [block for page in document.pages for block in page.blocks]
     by_id = {block.block_id: block for block in blocks}

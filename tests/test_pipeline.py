@@ -4,15 +4,21 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import fitz
+from PIL import Image
 
 from src.config import ParseConfig
-from src.data_processing.pipeline import parse_pdf, parse_pdfs
+from src.data_processing.pipeline import (
+    parse_pdf,
+    parse_pdfs,
+    rebuild_document_from_structure,
+)
 
 
 def _make_fixture(tmp: Path, name: str) -> Path:
-    """在 tmp/out/{name} 下预置一份可复用的 structurev3.json，并返回对应 PDF 路径。
+    """在 tmp/out/{name} 下预置一份可复用的 structure.json，并返回对应 PDF 路径。
 
     走 reuse_detection=True，不依赖 paddle。fixture 与单篇测试同源。
     """
@@ -36,7 +42,7 @@ def _make_fixture(tmp: Path, name: str) -> Path:
             {"block_label": "text", "block_content": "如图1所示", "block_bbox": [5, 42, 45, 48], "block_id": 3, "block_order": 3},
         ],
     }]
-    (doc_dir / "structurev3.json").write_text(
+    (doc_dir / "structure.json").write_text(
         json.dumps(raw, ensure_ascii=False), encoding="utf-8"
     )
     return pdf_path
@@ -67,7 +73,7 @@ class PipelineTest(unittest.TestCase):
                     {"block_label": "text", "block_content": "如图1所示", "block_bbox": [5, 42, 45, 48], "block_id": 3, "block_order": 3},
                 ],
             }]
-            (output / "structurev3.json").write_text(
+            (output / "structure.json").write_text(
                 json.dumps(raw, ensure_ascii=False), encoding="utf-8"
             )
 
@@ -93,6 +99,65 @@ class PipelineTest(unittest.TestCase):
             self.assertTrue(Path(figure.figure_crop).is_file())
             self.assertEqual(paragraph.references, [figure.block_id])
             self.assertEqual(paragraph.section_path, ["1"])
+            self.assertTrue((output / "doc.json").is_file())
+            self.assertTrue((output / "doc.md").is_file())
+
+    def test_rebuilds_from_structure_without_rendering_pdf(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pdf_path = root / "sample.pdf"
+            pdf_path.write_bytes(b"placeholder")
+            output = root / "out"
+            output.mkdir()
+            pages_dir = output / "pages"
+            pages_dir.mkdir()
+            Image.new("RGB", (100, 100), "white").save(pages_dir / "p001.png")
+            raw = [{
+                "page_index": 0,
+                "width": 50,
+                "height": 50,
+                "parsing_res_list": [
+                    {
+                        "block_label": "text",
+                        "block_content": "Rebuilt body text",
+                        "block_bbox": [5, 5, 45, 10],
+                        "block_id": 0,
+                        "block_order": 0,
+                    }
+                ],
+            }]
+            (output / "structure.json").write_text(
+                json.dumps(raw), encoding="utf-8"
+            )
+            (output / "doc.json").write_text(
+                json.dumps(
+                    {
+                        "document_id": "sample",
+                        "source_file": "sample.pdf",
+                        "total_pages": 1,
+                        "pages": [
+                            {
+                                "document_id": "sample",
+                                "page": 1,
+                                "width": 100,
+                                "height": 100,
+                                "render_dpi": 72,
+                                "has_text_layer": True,
+                                "page_image": str((pages_dir / "p001.png").resolve()),
+                                "blocks": [],
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            with patch("src.data_processing.pipeline.render_pdf") as render:
+                document = rebuild_document_from_structure(pdf_path, out_dir=output)
+
+            render.assert_not_called()
+            self.assertEqual(document.block_count, 1)
+            self.assertEqual(document.pages[0].width, 100)
             self.assertTrue((output / "doc.json").is_file())
             self.assertTrue((output / "doc.md").is_file())
 

@@ -58,9 +58,9 @@ class DetectTest(unittest.TestCase):
                 metadata = detect_pdf(Path("sample.pdf"), out_dir)
 
             self.assertEqual(pipe.calls, 1)
-            self.assertTrue(Path(metadata["structurev3_json"]).is_file())
-            self.assertTrue(Path(metadata["structurev3_md"]).is_file())
-            raw = json.loads((out_dir / "structurev3.json").read_text(encoding="utf-8"))
+            self.assertTrue(Path(metadata["structure_json"]).is_file())
+            self.assertTrue(Path(metadata["structure_md"]).is_file())
+            raw = json.loads((out_dir / "structure.json").read_text(encoding="utf-8"))
             self.assertEqual(raw[0]["page_index"], 0)
 
     def test_markdown_pages_use_natural_numeric_order(self):
@@ -74,9 +74,9 @@ class DetectTest(unittest.TestCase):
             with patch("src.data_processing.detect._build_pipeline", return_value=pipe):
                 detect_pdf(Path("sample.pdf"), out_dir)
 
-            markdown = (out_dir / "structurev3.md").read_text(encoding="utf-8")
+            markdown = (out_dir / "structure.md").read_text(encoding="utf-8")
             self.assertEqual(markdown, "one\n\ntwo\n\nten")
-            raw = json.loads((out_dir / "structurev3.json").read_text(encoding="utf-8"))
+            raw = json.loads((out_dir / "structure.json").read_text(encoding="utf-8"))
             self.assertEqual([page["page_index"] for page in raw], [1, 2, 10])
 
     def test_no_watermark_keeps_original_prediction_input(self):
@@ -143,7 +143,7 @@ class DetectTest(unittest.TestCase):
                     rendered_pages=[{"page": 1}, {"page": 2}],
                 )
 
-            raw = json.loads((out_dir / "structurev3.json").read_text("utf-8"))
+            raw = json.loads((out_dir / "structure.json").read_text("utf-8"))
             contents = [page["parsing_res_list"][0]["block_content"] for page in raw]
             self.assertEqual(contents, ["original-0", "clean-1"])
             self.assertEqual(pipe.inputs, ["sample.pdf", str(cleaned_pdf)])

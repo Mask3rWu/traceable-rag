@@ -151,7 +151,7 @@ def normalize_page_blocks(
 
     ``page_width``/``page_height`` 是最终页图的像素尺寸。PP-StructureV3
     解析 PDF 时可能使用另一 DPI，因此先把检测坐标缩放到页图坐标系，再做
-    [0, 1] 归一化。原始坐标仍完整保留在 structurev3.json 中。
+    [0, 1] 归一化。原始坐标仍完整保留在 structure.json 中。
     """
     blocks_raw = page_res.get("parsing_res_list", [])
     out: list[Block] = []

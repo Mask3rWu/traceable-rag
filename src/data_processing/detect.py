@@ -2,8 +2,8 @@
 
 对应 pdf-parser.md §4。负责调用 PP-StructureV3 产线，落盘原始结果。
 单次调用处理整份 PDF（产线内部逐页处理），输出：
-- structurev3.json  全部页的原始解析结果（留底，便于重跑 normalize）
-- structurev3.md     Markdown（图表配对参考，normalize 用）
+- structure.json  全部页的原始解析结果（留底，便于重跑 normalize）
+- structure.md     Markdown（图表配对参考，normalize 用）
 - imgs/              图片子图（PP-StructureV3 自动裁剪，喂 MLLM）
 
 实测输出结构（PP-StructureV3，format_block_content=True）：
@@ -62,7 +62,7 @@ def detect_pdf(
     整批只建一次模型）；为 None 时自行 ``build_pipeline``，保持单篇旧行为。
 
     返回: {"pages": [ {page_index, width, height, block_count}, ... ],
-           "structurev3_json": rel_path, "structurev3_md": rel_path,
+           "structure_json": rel_path, "structure_md": rel_path,
            "imgs_dir": rel_path}
     """
     config = config or ParseConfig()
@@ -113,7 +113,7 @@ def detect_pdf(
         if prediction_input != pdf_path:
             prediction_input.unlink(missing_ok=True)
 
-    # 2. 汇总所有页的 json，落盘 structurev3.json
+    # 2. 汇总所有页的 json，落盘 structure.json
     all_pages = []
     for r in results:
         res = r.json["res"]
@@ -135,13 +135,13 @@ def detect_pdf(
 
     from src.paths import PROJECT_ROOT
 
-    sv3_json = out_dir / "structurev3.json"
+    sv3_json = out_dir / "structure.json"
     sv3_json.write_text(
         json.dumps(all_pages, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 
     # 3. 落盘 Markdown：用产线的 save_to_markdown，自动跨页合并 + 图片相对路径处理
-    md_path = out_dir / "structurev3.md"
+    md_path = out_dir / "structure.md"
     # save_to_markdown 写到指定目录，文件名固定；先存到临时目录再改名
     tmp_md = out_dir / "_md_tmp"
     shutil.rmtree(tmp_md, ignore_errors=True)
@@ -212,8 +212,8 @@ def detect_pdf(
             }
             for p in all_pages
         ],
-        "structurev3_json": stored_path(sv3_json),
-        "structurev3_md": stored_path(md_path),
+        "structure_json": stored_path(sv3_json),
+        "structure_md": stored_path(md_path),
         "imgs_dir": stored_path(dst_imgs) if dst_imgs.exists() else None,
         "watermarks": stored_path(watermark_metadata_path)
         if watermark_metadata_path is not None

@@ -116,7 +116,7 @@ for res in output:
 CLI 等价：
 
 ```bash
-paddleocr pp_structurev3 -i doc.pdf \
+paddleocr pp_structure -i doc.pdf \
   --use_table_recognition True \
   --use_formula_recognition True \
   --use_chart_recognition False \
@@ -216,8 +216,8 @@ PP-StructureV3 原始 JSON 直接用**不够**：缺块 ID、缺交叉引用、�
 资料/                           原始 PDF，永不修改
 processed/parsed/{doc_id}/
   doc.json                      增强结构化结果（最终产物，喂后续切分）
-  structurev3.json              PP-StructureV3 原始 JSON（留底，便于重跑后处理）
-  structurev3.md                PP-StructureV3 Markdown（图表配对参考）
+  structure.json              PP-StructureV3 原始 JSON（留底，便于重跑后处理）
+  structure.md                PP-StructureV3 Markdown（图表配对参考）
   pages/                        逐页渲染图（用于 bbox→可视回溯）
     p017.png
     _render_meta.json           渲染缓存（DPI + 源 PDF mtime/size + 每页元数据）
@@ -305,7 +305,7 @@ PP-StructureV3 把"图"和"图标题"检测为两个独立块，但**不会把�
   ├─[PP-StructureV3]
   │     layout(PP-DocLayoutV3) + OCR(PP-OCRv5) + table(SLANeXt) + formula(PP-FormulaNet)
   │     chart=off → figure 区域直接裁剪
-  │     → structurev3.json + structurev3.md + assets/*.png
+  │     → structure.json + structure.md + assets/*.png
   │
   ├─[解析层后处理]
   │     标签归一(block_type) + block_id 分配 + 坐标归一化
@@ -369,7 +369,7 @@ conda run -n dba-py311 python -m src.data_processing --papers-only --limit 2 --n
 # 指定路径
 conda run -n dba-py311 python -m src.data_processing 资料/论文/foo.pdf 资料/论文/bar.pdf
 
-# 只重跑后处理（复用已有 structurev3.json，不加载模型）
+# 只重跑后处理（复用已有 structure.json，不加载模型）
 conda run -n dba-py311 python -m src.data_processing --all --reuse-detection
 ```
 
@@ -380,7 +380,7 @@ conda run -n dba-py311 python -m src.data_processing --all --reuse-detection
 | `--papers-only` / `--gjb-only` / `--all` | 枚举 `资料/论文` / `资料/国军标` / 全部 |
 | `--skip-existing` / `--no-skip-existing` | 是否跳过已存在 `doc.json`（默认开） |
 | `--limit N` | 最多处理 N 篇（冒烟用） |
-| `--reuse-detection` | 复用 `structurev3.json`，仅重跑归一/关系/裁图，不加载模型 |
+| `--reuse-detection` | 复用 `structure.json`，仅重跑归一/关系/裁图，不加载模型 |
 | `--dpi` / `--crop-padding-*` / `--layout-fallback-min-score` | 渲染与裁剪参数（同单篇） |
 
 > 批量解析只加载一次模型，是相对单篇逐次调用最大的性能改进。GPU 单卡串行最稳，不做多进程（会抢显存）。若中途个别篇 OOM，靠失败隔离继续，事后对失败列表重跑即可。
