@@ -384,4 +384,46 @@ conda run -n dba-py311 python -m src.data_processing --all --reuse-detection
 | `--dpi` / `--crop-padding-*` / `--layout-fallback-min-score` | 渲染与裁剪参数（同单篇） |
 
 > 批量解析只加载一次模型，是相对单篇逐次调用最大的性能改进。GPU 单卡串行最稳，不做多进程（会抢显存）。若中途个别篇 OOM，靠失败隔离继续，事后对失败列表重跑即可。
+## 12. 当前实施基线与后续 chunk
 
+本节是当前项目状态的实施基线；若与前文试点性描述冲突，以本节为准。
+
+### 12.1 当前状态
+
+- `doc.json` 是解析层正式机器输入，`structure.json`/`structure.md` 只用于排错和重跑，不应直接喂给后续切分。
+- `block_id`、`section_path`、`references`、`caption_of`、`caption_ids`、`continuation_of`、`continues_to` 和页面坐标已经是后续处理的稳定回链字段。
+- 解析层已经具备开始 chunk 的条件；chunk 不需要等待所有图表完成 MLLM 描述。
+- `visual_enrichment.json` 是可替换的检索辅助结果，不是解析事实。它可能不存在，也可能包含 `status=error`；两种情况都不能阻塞文本 chunk。
+- 当前主流程仍以 PP-StructureV3 OCR/表格/公式结果为准。原生 PDF 文本层覆盖不是现行主流程，不应作为 chunk 的前置依赖。
+
+### 12.2 chunk 前的最低校验（P0）
+
+chunk 程序启动时应检查并记录以下问题，但不要因为单个异常块中止整篇文档：
+
+1. `block_id` 在文档内唯一，且 `document_id`、页码和坐标存在。
+2. `references`、`caption_of`、`caption_ids`、`continuation_of`、`continues_to` 指向存在的块；无效关系进入质量告警。
+3. 图表块缺少裁图、视觉增强文件缺失或 MLLM 失败时，保留图表正文/OCR/caption，并标记 `visual_unavailable`。
+4. `section_path=[]` 允许存在，用于封面、前置页或未归属内容；不得简单丢弃。
+5. 输出 chunk 必须保留 `document_id`、`block_ids`、页码、`section_path`、来源文件和图表回链信息。
+
+### 12.3 推荐 chunk 策略：章节约束 + 语义切分
+
+不建议只按章节切，也不建议脱离章节做纯语义切分。推荐两阶段混合策略：
+
+**第一阶段：章节约束。** 按 `section_path` 建立章节范围，标题块作为边界；默认不跨越不同的顶层章节。没有章节路径的块归入文档前置区或最近的稳定章节，并保留该归属标记。
+
+**第二阶段：语义切分。** 在同一章节内部，以段落、列表、公式、表格、图表及其 caption/引用关系为最小语义单元，再按 token/字符上限合并。优先在段落边界断开，不在句中截断；超长段落才进行句级切分。
+
+以下内容应视为不可拆分或强绑定单元：标题与其后的正文起始块；figure/table 与 caption；正文引用块与被引用图表的回链信息；跨页连续块；公式本体与公式编号。
+
+建议首版每个 chunk 约 400--800 中文字或 512--900 tokens，允许表格/公式等结构单元适度超限；相邻 chunk 保留 50--100 tokens 轻量重叠，但不要重复整张表或整段图注。
+
+### 12.4 输出与优先级
+
+首版 chunk 应写入独立的 `chunks.jsonl`（或等价版本化文件），不改写 `doc.json`。每条记录至少包含：`chunk_id`、`document_id`、`text`、`block_ids`、`page_start`、`page_end`、`section_path`、`references`、`source_file`、`quality_flags`。
+
+- **P0：** 冻结字段契约；实现章节约束的最小 chunk；保留 block/page/source 回链；允许视觉增强缺失。
+- **P1：** 加入关系完整性校验、表格/公式专门处理、chunk 统计和小规模召回验证；为视觉增强记录模型名、提示词版本和生成时间。
+- **P2：** 再做语义模型辅助边界、行列级表格切分、增量重建、跨文档去重和系统化评估。
+
+结论：当前可以立即开始 chunk。首版采用“章节作为硬边界、语义单元作为切分粒度、结构关系作为不可破坏约束”的混合策略；MLLM 图表解析作为异步增强，不作为 chunk 的阻塞条件。
