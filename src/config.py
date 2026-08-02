@@ -6,6 +6,115 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, field
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+from src.paths import PROJECT_ROOT
+
+
+class ConfigError(ValueError):
+    """Raised when required application configuration is missing or invalid."""
+
+
+def _positive_int_env(name: str, *, default: int) -> int:
+    raw_value = os.getenv(name, str(default)).strip()
+    try:
+        value = int(raw_value)
+    except ValueError as exc:
+        raise ConfigError(f"{name} must be an integer") from exc
+    if value <= 0:
+        raise ConfigError(f"{name} must be greater than zero")
+    return value
+
+
+@dataclass(frozen=True)
+class EmbeddingConfig:
+    """Connection settings for an OpenAI-compatible embedding model."""
+
+    model: str
+    base_url: str
+    api_key: str = field(repr=False)
+    dimension: int = 1024
+    batch_size: int = 32
+
+    @classmethod
+    def from_env(cls, env_file: str | Path | None = None) -> "EmbeddingConfig":
+        """Load embedding settings, with process variables overriding ``.env``."""
+        dotenv_path = Path(env_file) if env_file is not None else PROJECT_ROOT / ".env"
+        load_dotenv(dotenv_path=dotenv_path, override=False)
+
+        names = {
+            "model": "EMBEDDING_MODEL",
+            "base_url": "EMBEDDING_BASE_URL",
+            "api_key": "EMBEDDING_API_KEY",
+        }
+        values = {
+            field_name: os.getenv(env_name, "").strip()
+            for field_name, env_name in names.items()
+        }
+        missing = [names[field_name] for field_name, value in values.items() if not value]
+        if missing:
+            raise ConfigError(
+                "Missing required embedding configuration: " + ", ".join(missing)
+            )
+
+        values["base_url"] = values["base_url"].rstrip("/")
+        dimension = _positive_int_env("EMBEDDING_DIMENSION", default=1024)
+        batch_size = _positive_int_env("EMBEDDING_BATCH_SIZE", default=32)
+        return cls(**values, dimension=dimension, batch_size=batch_size)
+
+
+@dataclass(frozen=True)
+class DatabaseConfig:
+    """Connection settings for the project's PostgreSQL/pgvector database."""
+
+    host: str
+    port: int
+    database: str
+    user: str
+    password: str = field(repr=False)
+
+    @classmethod
+    def from_env(cls, env_file: str | Path | None = None) -> "DatabaseConfig":
+        """Load database settings from the project ``.env`` file."""
+        dotenv_path = Path(env_file) if env_file is not None else PROJECT_ROOT / ".env"
+        load_dotenv(dotenv_path=dotenv_path, override=False)
+
+        names = {
+            "host": "DB_HOST",
+            "port": "DB_PORT",
+            "database": "DB_NAME",
+            "user": "DB_USER",
+            "password": "DB_PASSWORD",
+        }
+        values = {
+            field_name: os.getenv(env_name, "").strip()
+            for field_name, env_name in names.items()
+        }
+        missing = [names[field_name] for field_name, value in values.items() if not value]
+        if missing:
+            raise ConfigError(
+                "Missing required database configuration: " + ", ".join(missing)
+            )
+
+        try:
+            port = int(values.pop("port"))
+        except ValueError as exc:
+            raise ConfigError("DB_PORT must be an integer") from exc
+        if not 1 <= port <= 65535:
+            raise ConfigError("DB_PORT must be between 1 and 65535")
+        return cls(port=port, **values)
+
+    def connection_kwargs(self) -> dict[str, str | int]:
+        """Return keyword arguments accepted by ``psycopg.connect``."""
+        return {
+            "host": self.host,
+            "port": self.port,
+            "dbname": self.database,
+            "user": self.user,
+            "password": self.password,
+        }
 
 
 @dataclass
