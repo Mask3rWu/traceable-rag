@@ -1,0 +1,38 @@
+{"question_id": "Q0001", "question": "针对本标准规定了装备战场损伤评估与修复(简称战场抢修）手册的内容、格式要求和编制方法。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于l 战场损伤 battlefield damage，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P003_B14"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于战场损伤评估 battlefield damage assessment,BDA，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P003_B16"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于战场损伤修复 battlefield damage repair, BDR，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于装备战场损伤评估与修复手册 的编写要求的资料中，关于损伤评估后，在战场上运用应急修理措施，将损伤的装备迅速恢复到能执行当前任，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P003_B19"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于损伤部分：或将原来担负非基本功能的完好部分转换到损伤的基本功能的电、液、气路中。，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P004_B01"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于也称拆拼修理，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P004_B07"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于自制元器件、零部件以替换损伤件。包括按图制配、按样（品）制配、无样（品）制配等。，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P004_B11"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于战场损伤评估人员和修理人员，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P004_B16"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《装备战场损伤评估与修复手册 的编写要求》，关于现役装备若无战场损伤评估与修复手册，应当遵循什么要求？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P004_B19"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于按装备组成图白上而下地分析各项目损伤对装备基本功能的影响，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P005_B01"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于针对每个基本功能项目的损伤模式及损伤原因，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P005_B05"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "针对如果不能找到可行的抢修方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P005_B07"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对注明“战场损伤评估与修复方法只能在战斗中根据指挥员的决断使用。战斗任务完成后，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P005_B20"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在装备战场损伤评估与修复手册 的编写要求中有关5.2的部分，针对C.强调手册提供的是应急修理准则与方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P006_B03"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对强调手册中的一些特殊方法的应用可能会缩短装备的寿命或损坏零部件，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P006_B13"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于规定与该装备有关人员（包括使用人员、维修人员和装备管理人员）的战场损伤评，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P006_B18"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对a.所有评估结果及修理措施，都须加以记录。对于，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P006_B28"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于C.当零部件损伤不能修复或拆卸时，应当遵循什么要求？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P007_B03"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《装备战场损伤评估与修复手册 的编写要求》的5、5.5，针对本章提供手册适用装备或重要部件的战场损伤评估的内容、方法、程序和损伤评估报告表。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P007_B05"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于提供各重要部件完成其战斗任务的各项必要功能的损伤评估程序。评估程序的格式可以是流程图，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P007_B22"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "针对应简要说明所用损伤评估程序的使用方法。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P007_B24"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于损伤评估报告表的示例见附录E（补充件）。，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P008_B10"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "针对b.修理方法索引。列出本章内所包含的所有修复方法的清单。示例见附录F(补充件）。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P008_B16"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于装备战场损伤评估与修复手册 的编写要求的资料中，针对b.说明。简要说明该项目损伤的特性和原因、修复方法的准则和要求以及其他，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P008_B21"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "针对e.所需资源。列出进行该项战场损伤修复所需保障资源清单，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P008_B24"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于h.其他方案。完成同一修理可能不止有一种方法，应当遵循什么要求？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P008_B27"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "关于b.修复评估程序，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P009_B06"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于该章内以后各条应遵照5，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P009_B09"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《装备战场损伤评估与修复手册 的编写要求》，关于手册附录用于给出专门提供的清单或辅助说明。每一附录应有一简明的引言，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P009_B13"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "针对本附录列出该手册涉及的各战场抢修方法所，文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P009_B17"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "针对必要时，可列出该手册涉及的所有战场抢修方法的索引，示例见附录F（补充件），文中采用了什么方法或技术路线？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P009_B24"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "关于若不遵守用电安全注意事项，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P010_B12"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "表格中关于序号、项、目列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P013_B05"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在装备战场损伤评估与修复手册 的编写要求中有关附录D的部分，关于a.根据所提出的一系列询问对某一特定的系统或能力进行快速评估；，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P013_B07"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "表格中关于基本功能状态、能修复吗?、修复后系统状态列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P014_B02"], "source_granularity": "none"}
+{"question_id": "Q0037", "question": "关于图H一1提供的战场损伤评估与修复分析逻辑决断图，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P017_B01"], "source_granularity": "none"}
+{"question_id": "Q0038", "question": "关于本标准主要起草人，文中作了怎样的说明？", "evidence_block_ids": ["装备战场损伤评估与修复手册的编写要求_P018_B03"], "source_granularity": "none"}

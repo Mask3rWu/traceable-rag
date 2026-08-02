@@ -1,0 +1,12 @@
+{"question_id": "Q0001", "question": "关于为水面舰艇在核爆环境中的抗核加固设计建造，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于核爆环境中舰艇毁伤等级一般分为三级：严重毁伤、中等毁伤和轻微毁伤。，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P003_B12"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于毁伤特征：主甲板产生皱折，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P003_B20"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于在动力装置中，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P004_B01"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于核爆环境中舰艇毁伤等级的划分的资料中，关于毁伤特征：烟、气道局部堵塞或压扁，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P004_B06"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于毁伤特征：导弹弹体凹陷。弹翼折裂。发射架导轨有明显的内缩和外张，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P004_B14"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于在雷达设备中，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P004_B23"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于毁伤特征：曲面薄板状天线反射体略有卷曲变形；圆管振子天线反射体的合金管个别折断，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P005_B01"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于毁伤特征：电台收、发信机机壳严重变形，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P005_B06"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《核爆环境中舰艇毁伤等级的划分》，关于毁伤特征：电台收、发信机基本无损，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P005_B12"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于从整舰毁伤特征出发，文中作了怎样的说明？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P005_B18"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于毁伤特征：上层建筑壁板的最大永久挠度与壁板短边长度之比小于5%，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["核爆环境中舰艇毁伤等级的划分_P005_B27"], "source_granularity": "none"}

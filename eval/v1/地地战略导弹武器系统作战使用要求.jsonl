@@ -1,0 +1,28 @@
+{"question_id": "Q0001", "question": "针对本标准规定了在地地战略导弹武器系统作战使用要求论证时与毁伤能力有关的性能，文中采用了什么方法或技术路线？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P002_B04"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于核爆冲击波对地面目标造成破坏的圆形区域。毁伤域的半径即为毁伤半径。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P002_B11"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于可靠毁伤概率reliable damage probability 弹着，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P002_B15"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于与地地战略导弹武器系统的毁伤能力有关的作战使用性能指标，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P003_B03"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于地地战略导弹武器系统作战使用要求 论证方法毀伤能力的资料中，关于打击目标及有关参数，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P003_B11"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于对线目标和面目标的定量毁伤要求，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P003_B13"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于根据核导弹的威力、比高和目标的抗压强度计算毁伤半径。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P003_B17"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于从附录A（补充件）等超压曲线上查取或按附录B（补充件）公式（B2）计算比毁伤半径，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P003_B24"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于根据核导弹的毁伤半径和命中精度即可算出点目标的毁伤概率，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B09"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《地地战略导弹武器系统作战使用要求 论证方法毀伤能力》，关于根据核导弹的毁伤半径、命中精度和目标长度即可算出线目标的平均相对毁伤，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B13"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于根据核导弹的毁伤半径、命中精度和目标半径即可算出圆形面目标的平均相对毁伤，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B17"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "针对爆高误差对命中精度的影响按附录F方法F2计算。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B21"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于根据欲打击目标的类型、破坏等级选定其抗压强度值。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B24"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于从所选取的比高中找出最大值和最小值，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P004_B26"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在地地战略导弹武器系统作战使用要求 论证方法毀伤能力中有关6.2.3的部分，关于根据作战，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B02"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于针对所设定的威力系列值，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B04"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于以一定间隔设置一个适当的命中精度系列值。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B05"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于计算线目标对应于威力和命中精度系列的可靠毁伤概率和平均相对毁伤。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B08"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于选取能够满足毁伤要求的威力、命中精度配合数据，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B10"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《地地战略导弹武器系统作战使用要求 论证方法毀伤能力》的6、6.2、6.2.3，关于在所选威力、命中精度配合数据中，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B12"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于按照威力和命中精度指标的选定值，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B16"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于按照改变后的威力和命中精度重新对上述目标进行毁伤效果计算。，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B17"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于将比高误差最大值化为标准偏差，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B19"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "关于根据型号研制期间，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B23"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于地地战略导弹武器系统作战使用要求 论证方法毀伤能力的资料中，关于在前面论证与分析的基础上，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P005_B27"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "关于解此方程求出目标的有利弹着区半径后，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P011_B11"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于爆高误差可能影响弹着点的纵向散布，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P013_B19"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "关于本标准由中国人民解放军第二炮兵第四研究所负责起草，文中作了怎样的说明？", "evidence_block_ids": ["地地战略导弹武器系统作战使用要求_P014_B13"], "source_granularity": "none"}

@@ -1,0 +1,20 @@
+{"question_id": "Q0001", "question": "关于本标准规定了舰船（总体、系统、设备）的可靠性、维修性参数选择和指标确定的要求，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P002_B08"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于本标准与GJB1909.1《装备可靠性维修性参数选择和指标确定要求总则》配套使用，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P002_B12"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于在规定的贮存条件下，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P002_B28"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于在规定的舰载条件下和装载时间内，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于装备可靠性维修性参数选择和 指标确定要求 舰船的资料中，关于舰船可靠性、维修性参数选择和指标确定要求应符合GJB1909.1的规定。，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P003_B08"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于可靠性、维修性参数选择和指标确定应按舰船寿命剖面、典型任务剖面进行。，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P003_B10"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "表格中关于序、号、参数名称列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["6-舰船_P005_B02"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于当选择参数表以外的参数时，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P005_B07"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于方案阶段应根据寿命剖面、任务剖面和可靠性、维修性使用指标进行可行性分析和，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P005_B10"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《装备可靠性维修性参数选择和 指标确定要求 舰船》，关于舰船的使用寿命剖面应说明从出厂交付到退役所经历的各主要事件及环境的时序。如总，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P005_B15"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于可靠性、维修性指标应在综合权衡基础上确定，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P006_B07"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于舰载导弹（含运载火箭）的可靠性、维修性参数选择及指标确定要求，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P006_B14"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于-舰炮的可靠性、维修性参数选择及指标确定要求，应当遵循什么要求？", "evidence_block_ids": ["6-舰船_P006_B16"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于舰船可靠性、维修性参数选择及指标确定示例参见附录A（参考件），文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P006_B19"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在装备可靠性维修性参数选择和 指标确定要求 舰船中有关附录A的部分，关于本例以该舰对海上目标作战的任务剖面为典型任务剖面，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P007_B15"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于本舰由通讯系统、导航系统、动力推进系统、电力系统、雷达系统、水声系统、指，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P008_B10"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于根据使用需求，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P008_B17"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于根据部队对在役类似舰船的工作情况统计，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P009_B08"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于根据舰船的系统构成方案，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P009_B20"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《装备可靠性维修性参数选择和 指标确定要求 舰船》的附录A，关于本标准主要起草人：刘杰、孙敬一、黄岗、张颖、闵金才。，文中作了怎样的说明？", "evidence_block_ids": ["6-舰船_P010_B05"], "source_granularity": "section_exact"}

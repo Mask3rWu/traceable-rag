@@ -1,0 +1,16 @@
+{"question_id": "Q0001", "question": "关于董泽恒2，李翔宇，陈高杰'1中国人民解放军91388部队，辽宁大连116，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P001_B08"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于舰船是现代海上作战的主要力量，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P002_B04"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对效模型及相关材料库、设备库的构建，文中采用了什么方法或技术路线？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P002_B07"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于）对补给船进行构效关系分析。调研补给船常用的船体结构与设备安装位置，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P002_B16"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于一种反舰导弹打击下补给船目标的 易损性分析方法的资料中，关于本文基于某型补给油船和调研得到的补给船的主要特点，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P003_B06"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于结合组成各个系统的关键部件，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P003_B13"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "表格中关于事件编号、事件名称、事件编号列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P004_B10"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "表格中关于事件编号、事件名称、事件编号列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P004_B15"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对对于以冲击振动破坏为主的次生破坏模式，文中采用了什么方法或技术路线？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P005_B07"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《一种反舰导弹打击下补给船目标的 易损性分析方法》，关于按照不同设备所处的安装部位，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P005_B16"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于功能毁伤评估是在物理毁伤评估结论的基础上，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P005_B27"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于当关键部件已经因受到直接破坏导致其毁伤后，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P006_B10"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于根据重度毁伤底事件与中间事件和顶事件的关系，文中作了怎样的说明？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P006_B16"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对设定4种典型工况，爆源分别设置在航、舱、艉和上层建筑4个位置，文中采用了什么方法或技术路线？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P006_B23"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在一种反舰导弹打击下补给船目标的 易损性分析方法中有关4.5的部分，针对本节选取了补给船内部179个位置作为爆点，文中采用了什么方法或技术路线？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P007_B08"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对通过对各种典型目标进行易损性分析，文中采用了什么方法或技术路线？", "evidence_block_ids": ["董泽恒_等_-_2024_-_一种反舰导弹打击下补给船目标的易损性分析方法_P008_B07"], "source_granularity": "none"}

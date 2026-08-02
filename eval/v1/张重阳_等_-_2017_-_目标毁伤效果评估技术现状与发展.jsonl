@@ -1,0 +1,12 @@
+{"question_id": "Q0001", "question": "针对评述了国外目标毁伤信息收集技术的最新研究成果，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P001_B04"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于目标毁伤效果评估技术在海湾战争之后受到越来越广泛的重视。2002年底~2003年初，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P001_B11"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对果评估模型及方法，已经从利用毁伤评估模型进行评估的阶段过渡到，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P002_B01"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对光学照相侦察卫星是发展最早、发射最多的侦察卫星，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P002_B07"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于目标毁伤效果评估技术现状与发展的资料中，针对美国现役有四颗长曲棍球雷达成像侦察卫星，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P002_B13"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于静止轨道和大椭圆轨道的卫星。徘徊者属于静止轨道电子侦察卫星，文中作了怎样的说明？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P003_B01"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对从目前的情况和未来一段时期可能的发展来看，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P003_B09"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对层次分析法(analytical hierarchy process，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P004_B04"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于从美、英等发达国家的战损评估成果来看，文中作了怎样的说明？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P004_B11"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《目标毁伤效果评估技术现状与发展》，关于影响目标毁伤信息传输和处理的因素有很多，应当遵循什么要求？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P005_B05"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于尽管有强大的信息收集技术和完善的评估模型方法，应当遵循什么要求？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P005_B10"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "针对大投入研究相关装备及技术，文中采用了什么方法或技术路线？", "evidence_block_ids": ["张重阳_等_-_2017_-_目标毁伤效果评估技术现状与发展_P006_B01"], "source_granularity": "none"}

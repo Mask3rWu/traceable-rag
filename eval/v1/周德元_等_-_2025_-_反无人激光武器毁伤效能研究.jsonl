@@ -1,0 +1,16 @@
+{"question_id": "Q0001", "question": "针对周德元，李杰，李立功（中国华阴兵器试验中心，陕西渭南714200），文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P001_B06"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于展迅速，加之其成本低廉，操作简单，受到各国军队的高度重视，在纳卡冲突、俄，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P001_B17"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对本文基于反无人试验中激光武器毁伤郊狼无人机的现状，文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P002_B06"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对在反无人试验中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P002_B20"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于反无人激光武器毀伤效能研究的资料中，关于化深度会不断加深，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B18"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于式中，a为郊狼无人机表面材料的吸收系数，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B28"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于式中，σ是玻尔兹曼常数，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B07"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对用的是各项异性碳纤维复合材料，因此对机翼、尾翼、垂尾以及机身进行铺层分析，铺层，文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B24"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于其中郊狼无人机表面的初温和环境温度均设置为22℃，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B33"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《反无人激光武器毀伤效能研究》，针对通过以上分析可以看出，文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P005_B08"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于图12所示的是激光束在辐照郊狼无人机机头、机翼和垂尾时的温度对比情况，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P006_B08"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "表格中关于无人机零部件、机头/机身、机翼/尾翼列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P007_B07"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于(2)激光武器在毁伤郊狼无人机时，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P007_B22"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于人机所暴露的问题，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P008_B03"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在反无人激光武器毀伤效能研究中有关4.2.2的部分，关于(2)提高激光武器的瞄准精度和光束的稳定性，文中作了怎样的说明？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P008_B07"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对（3）没有对激光武器毁伤无人机的效能进行系统完整的评估，文中采用了什么方法或技术路线？", "evidence_block_ids": ["周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P008_B12"], "source_granularity": "none"}

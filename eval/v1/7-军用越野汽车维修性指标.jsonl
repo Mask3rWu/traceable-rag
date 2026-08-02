@@ -1,0 +1,16 @@
+{"question_id": "Q0001", "question": "针对本标准规定了军用越野汽车的维修性参数及指标、维修约束条件和指标验证方法。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P001_B04"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "针对基层级（含驾驶员）平均修复时间的度量方法为，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P001_B14"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对驾驶员千公里保养工时的度量方法为，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P001_B18"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于下述指标是根据使用需求分析确定的军用越野汽车维修性使用指标的门限值，文中作了怎样的说明？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B04"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于军用越野汽车维修性指标的资料中，关于b.基层级（含驾驶员）千公里修复性维修工时：1.3~1.6man·hl/10³km，文中作了怎样的说明？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B07"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于e.千公里总维修工时：5.6~7.4man·h/10km，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B10"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于c.驾驶员千公里保养工时：1.8~2.2man·h/10km;，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B14"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于e.千公里总维修工时：8.3~10.9man·h/10km。，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B16"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于c.驾驶员千公里保养工时：2.8~36man·h/10km;，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B20"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《军用越野汽车维修性指标》，关于e.千公里总维修工时：19.1~25.1man·h/10²km。，文中作了怎样的说明？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B22"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "针对基层级（含驾驶员）平均修复时间的验证，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P002_B28"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "针对统计值的计算：种类指标应计人的总维修工时与总的试验里程之比，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P003_B02"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于A2.1指挥车典型任务剖面如图A2所示，文中作了怎样的说明？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P004_B05"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "表格中关于序号、任务名称、主要内容列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P006_B02"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在军用越野汽车维修性指标中有关附录A的部分，表格中关于维、修、主列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P008_B02"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于本标准主要起草人：于江、廖四平、徐安桃、郭后荣、董连玉、韦见民。，文中作了怎样的说明？", "evidence_block_ids": ["7-军用越野汽车维修性指标_P008_B07"], "source_granularity": "none"}

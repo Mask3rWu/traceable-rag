@@ -1,0 +1,38 @@
+{"question_id": "Q0001", "question": "关于（1.北京理工大学爆炸科学与安全防护全国重点实验室，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P001_B06"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于problem. The experimental results sh，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于综上，已有研究一般仅针对单优化指标进行火力分配问题求解，且仅在武器分配层，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B10"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对本文针对任意复杂作战环境的多作战区协同打击目标群火力资源分配问题建立数学，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P003_B06"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于融合毀伤特征的火力资源优化分配算法的资料中，关于）从各作战区到各子目标的飞行路径均存在一个被拦截概率，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P003_B12"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "针对）为达到作战目的，目标的被毁伤等级存在约束，即每个目标有一个要求的毁伤等级阈值，所，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P003_B17"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于）各作战区与各子目标之间的距离表示为一个矩阵D= [di,j]M×M,其，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P003_B22"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于在导弹发射时，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P004_B10"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于在计算交叉时，除了两个导弹间的距离，还，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P004_B21"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《融合毀伤特征的火力资源优化分配算法》，关于式中：4表示导弹被拦截比例；qkij为从作战区i向子目标i发射类型k导弹的被拦截概率，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P005_B08"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于上述优化问题中，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P005_B17"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "针对通过设定约束条件，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P005_B22"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "针对核心设计思路在于提升优化能力的同时尽可能降低算法复杂度。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P006_B07"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对）火力资源高效优化分配。在给出所选择的作战区和单目标毁伤方案后，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P007_B05"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在融合毀伤特征的火力资源优化分配算法中有关2.2.1的部分，针对在作战区和子目标比较分散的场景下，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P007_B14"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于）火力突防能力。受敌方拦截系统部署位置、导弹型号突防能力等因素的影响，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P007_B22"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于式中：ik表示毁伤方案i对第k类型导弹的需求数量，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B08"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于）毁伤方案效费比。在某些场景下存在最大化效费比的需求，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B15"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于在获取作战区和毁伤方案的高层次特征的基础上，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B24"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《融合毀伤特征的火力资源优化分配算法》的2、2.3，关于式中：融合权重d,…,ds ≥0且∑wis ds =1，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B06"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "针对对算法1和算法2 中:X= [k,i,j]kxMxN ,k,ij 为1表示可打击，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B12"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于邻域交换作战区算子以当前解中两个作战区之间的资源交互为目标，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P010_B10"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于邻域更换作战区算子有助于加速收敛到局部最优解，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P010_B16"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "针对效能函数计算根据1.3节建立的火力资源分配目标函数模型进行实现。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P010_B25"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于融合毀伤特征的火力资源优化分配算法的资料中，关于步骤2加权求和。将每个准则的值乘以相应的权重，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B06"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "关于进行特征抽取后，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B12"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "针对如果使用蒙特卡洛方法，每生成一次火力分配方案，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B19"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "针对权重系数设置如表2所示，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P012_B07"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于在单目标毁伤方案总适应度特征权重中，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P012_B14"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《融合毀伤特征的火力资源优化分配算法》，针对在对单目标毁伤方案总适应度特征权重分析的实验中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P013_B20"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "关于设定作战区数量为15个，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P013_B26"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "针对在实验3中，毁伤预案的数量测试范围为1~10，随着毁伤预案数量的增加，理，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B05"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "表格中关于目标可、打击、概率列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B13"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "关于为实际使用导弹型号与所提供的导弹型号数量的比值.作战区使用率定义为实际使，文中作了怎样的说明？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P015_B20"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在融合毀伤特征的火力资源优化分配算法中有关4.2的部分，针对性以及与实际火力资源分配任务场景的相符性，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P016_B14"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "表格中关于规模分类、N、M列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B05"], "source_granularity": "none"}
+{"question_id": "Q0037", "question": "表格中关于Table、8、Algorithm列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B19"], "source_granularity": "none"}
+{"question_id": "Q0038", "question": "针对）针对火力资源分配算法优化求解效率低的问题.提出了火力分配高效优化算法.，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P018_B06"], "source_granularity": "none"}

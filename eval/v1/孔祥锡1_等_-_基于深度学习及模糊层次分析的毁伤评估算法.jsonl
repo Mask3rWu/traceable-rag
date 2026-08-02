@@ -1,0 +1,36 @@
+{"question_id": "Q0001", "question": "关于http://hkxb.buaa.edu.cn hkxb @ buaa.edu.cn，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P001_B02"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于北京航空航天大学自动化科学与电气工程学院，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P001_B06"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对更加有效的作战计划和战术[3]。然而，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P001_B14"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对模糊层次分析法通过将不确定性量化为模糊集合，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于基于深度学习及模糊层次分析的毁伤评估算法的资料中，针对具有更高的准确性和效率，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P002_B06"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于络，用于作战场景下不同类别对象的部件、毁伤检测，获取有效的毁伤信息，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P003_B02"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于由于战场环境错综复杂，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P003_B10"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于则认为第个检测结果是可信的，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于虽然在目标检测子系统的第1层级和第2层级之间添加了关键区域提取器以提高对，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P004_B12"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《基于深度学习及模糊层次分析的毁伤评估算法》，关于过程，分别沿着2个空间方向聚合特征，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P005_B03"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于其中：c表示通道数；g(i)表示H方向上第i个位置()(）具（）重中，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P005_B16"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于对于打击对象和毁伤部件的检测保持了较高的检测速度的同时在精度上也有了明显的提升，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P006_B04"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于进行多分类，会出现较多毁伤部件类别的误检，因此在数据集的处理上，对所有部，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P006_B08"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于将该矩阵送入匈牙利模块中进行线性匹配，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P006_B14"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在基于深度学习及模糊层次分析的毁伤评估算法中有关1.1.3的部分，针对最小值：为第j列的最小值。对于变换矩阵M，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B04"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对匈牙利模块并不能解决所有毁伤框的分类一重与等等，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B11"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对对于目标检测系统输出的毁伤类别Cdm以及各部件毁伤特征θu，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P008_B07"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于动力模块在可见光和红外等视觉传感器下，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P008_B11"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于通过对每个模块中部件的重要性进行划分，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P009_B13"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《基于深度学习及模糊层次分析的毁伤评估算法》的1、1.2、1.2.2，关于其中：μa(x)∈[0,1]；a、b、c分别表示三角形的左、，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P009_B19"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "针对因此，采用三角模糊数作为Satty标度值构建判断矩阵标度表，具体取值见表1，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P010_B07"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于在毁伤评估体系中，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P010_B26"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于在目标检测头输出检测结果后，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P011_B02"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "针对上述过程对毁伤分类器输出的一般毁伤进行了评估，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P011_B09"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于基于深度学习及模糊层次分析的毁伤评估算法的资料中，针对为了提高Yolov5模型在地面目标毁伤评估任务中的性能，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P011_B14"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "针对在可见光和红外场景下，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P012_B05"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于图13为可见光和红外情况下装甲车单体在毁伤前后的部件和毁伤检测结果，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P012_B17"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "关于图16展示了在可见光和红外情况下多架战斗机在毁伤前后的部件和毁伤检测结果，文中作了怎样的说明？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P013_B13"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于在实际测试中，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P013_B28"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《基于深度学习及模糊层次分析的毁伤评估算法》，表格中关于场景、对象、类型列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P014_B09"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "针对综合实验结果和分析表明，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P014_B12"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "针对本节进行基于模糊层次分析法的对地目标毁伤等级评估试验，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P015_B07"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "表格中关于毁伤部件、毁伤特征θ、毁伤等级列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P015_B22"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "针对基于军事目标的毁伤检测和评估问题，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P016_B06"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在基于深度学习及模糊层次分析的毁伤评估算法中有关3的部分，针对）设计了基于毁伤树和多种权重体系的毁伤评估子系统，文中采用了什么方法或技术路线？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P016_B10"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "关于To address the detection and assessm，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P018_B10"], "source_granularity": "none"}

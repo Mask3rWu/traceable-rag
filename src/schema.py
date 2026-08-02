@@ -105,3 +105,35 @@ class Document(BaseModel):
     @property
     def block_count(self) -> int:
         return sum(len(p.blocks) for p in self.pages)
+
+
+class ChunkVisualAsset(BaseModel):
+    """A visual block linked from a chunk for retrieval and source display."""
+
+    block_id: str
+    block_type: str
+    page: int
+    relation: str = "contained"  # contained / referenced
+    image_crop: Optional[str] = None
+    description: Optional[str] = None
+    status: str = "unavailable"
+
+
+class Chunk(BaseModel):
+    """Retrieval unit derived from ``doc.json`` without changing parser facts."""
+
+    schema_version: int = 1
+    chunk_id: str
+    document_id: str
+    text: str
+    visual_text: str = ""
+    overlap_text: str = ""
+    block_ids: list[str]
+    overlap_block_ids: list[str] = Field(default_factory=list)
+    page_start: int
+    page_end: int
+    section_path: list[str] = Field(default_factory=list)
+    references: list[str] = Field(default_factory=list)
+    source_file: str
+    visual_assets: list[ChunkVisualAsset] = Field(default_factory=list)
+    quality_flags: list[str] = Field(default_factory=list)

@@ -1,0 +1,20 @@
+{"question_id": "Q0001", "question": "关于针对目前目标易损性评估存在的评估模型和方法及流程繁多杂乱、评估系统时效性，应当遵循什么要求？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "针对易损性是军事领域中一项非常重要的目标特性[3]，通常，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P001_B18"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对型、方法和系统在内的目标易损性分析与评估的通用流程。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于由图3可知，1）目标结构由部件1（C₁）、部件2(C2)、…、部件 i(，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P002_B17"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于目标易损性评估通用流程研究的资料中，关于在设计目标尤其是复杂目标过程中，应当遵循什么要求？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P003_B04"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于典型毁伤元有破片、动能弹丸、金属射流、杆射流、爆炸成型弹丸、冲击波、爆轰，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P003_B20"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于毁伤元的毁伤参量取决于弹药战斗部的物理结构及材料参量，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P004_B04"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于对于不同类型的毁伤元，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于毁伤元状态空间中的矢量和具有一定毁伤参量值的毁伤元是一一对应关系。对于状态空间为V=，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P004_B11"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《目标易损性评估通用流程研究》，关于同一种毁伤元的基本毁伤参量的类型和数量是相同的，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P004_B14"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于毁伤元特的征度分布函数描述的是毁伤元的特征度L在作用域内的时空分布规律，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P004_B19"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "文中如何定义毁伤元毁伤场？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P005_B05"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于除了毁伤元特征度分布的影响因素外，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P005_B07"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对）毁伤级别的描述一般是定性的，其划分具有一定主观性，通常，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P005_B11"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在目标易损性评估通用流程研究中有关5的部分，关于战场上目标的物理结构大多非常复杂，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P005_B17"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于确定目标部件在特定毁伤元作用下可能产生的每一种毁伤模式的毁伤准则是评估目，文中作了怎样的说明？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P005_B23"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对目前常用的毁伤准则有，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P006_B05"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对法，用于飞机目标毁伤评估，设计了相应的流程和操作步骤，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P007_B03"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "针对从上述目标易损性/毁伤效果评估的相关研究可知，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P007_B05"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《目标易损性评估通用流程研究》的83，针对从目标特性分析、毁伤元特性分析、目标毁伤级别划分、目标关键部件分析、目标，文中采用了什么方法或技术路线？", "evidence_block_ids": ["武双章_等_-_2024_-_目标易损性评估通用流程研究_P008_B04"], "source_granularity": "section_exact"}

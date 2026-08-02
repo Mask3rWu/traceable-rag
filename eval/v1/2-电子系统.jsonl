@@ -1,0 +1,25 @@
+{"question_id":"Q0001","question":"电子系统可靠性、维修性参数选择和指标确定要求适用于哪些研制阶段？","evidence_block_ids":["2-电子系统_P002_B07"],"source_granularity":"none"}
+{"question_id":"Q0002","question":"电子系统可靠性、维修性参数和指标应反映哪些方面的要求？","evidence_block_ids":["2-电子系统_P003_B25"],"source_granularity":"none"}
+{"question_id":"Q0003","question":"隶属于电子系统的设备，其可靠性、维修性指标应如何确定？","evidence_block_ids":["2-电子系统_P003_B26"],"source_granularity":"none"}
+{"question_id":"Q0004","question":"隶属于某武器装备的电子系统和设备，在订购方提出特殊要求时应如何处理参数和指标？","evidence_block_ids":["2-电子系统_P004_B01"],"source_granularity":"none"}
+{"question_id":"Q0005","question":"可靠性、维修性参数选择表中的★、△、√和（√）分别表示什么？","evidence_block_ids":["2-电子系统_P005_B03","2-电子系统_P005_B04","2-电子系统_P005_B05","2-电子系统_P005_B06"],"source_granularity":"none"}
+{"question_id":"Q0006","question":"选择电子系统可靠性、维修性参数时，需要遵循哪些基本原则？","evidence_block_ids":["2-电子系统_P005_B07","2-电子系统_P005_B08","2-电子系统_P005_B09"],"source_granularity":"none"}
+{"question_id":"Q0007","question":"电子系统的寿命剖面和任务剖面分别应描述哪些事件？","evidence_block_ids":["2-电子系统_P006_B03","2-电子系统_P006_B05"],"source_granularity":"none"}
+{"question_id":"Q0008","question":"建立电子系统故障判别准则时，应根据什么制定并具体规定哪些内容？","evidence_block_ids":["2-电子系统_P006_B07"],"source_granularity":"none"}
+{"question_id":"Q0009","question":"初步确定可靠性、维修性使用指标时需要进行哪几方面的权衡？","evidence_block_ids":["2-电子系统_P006_B11","2-电子系统_P006_B12","2-电子系统_P006_B13","2-电子系统_P006_B14","2-电子系统_P006_B15"],"source_granularity":"none"}
+{"question_id":"Q0010","question":"初步确定的可靠性、维修性使用指标随后需要如何转换和纳入研制要求？","evidence_block_ids":["2-电子系统_P006_B16","2-电子系统_P006_B18"],"source_granularity":"none"}
+{"question_id":"Q0011","question":"在方案阶段，承制方和订购方分别需要完成哪些可靠性、维修性工作？","evidence_block_ids":["2-电子系统_P006_B21","2-电子系统_P006_B22"],"source_granularity":"none"}
+{"question_id":"Q0012","question":"将可靠性、维修性使用参数和指标转换为合同参数和指标时，应包含哪两类指标值？","evidence_block_ids":["2-电子系统_P006_B24"],"source_granularity":"none"}
+{"question_id":"Q0013","question":"大型复杂电子系统可以采用什么方式评估其可靠性、维修性水平？","evidence_block_ids":["2-电子系统_P006_B27"],"source_granularity":"none"}
+{"question_id":"Q0014","question":"野战通信网应用示例中的作战通信任务持续多久，对战场维修车维修时间有什么要求？","evidence_block_ids":["2-电子系统_P008_B09"],"source_granularity":"none"}
+{"question_id":"Q0015","question":"以往现场试验统计出的野战通信网平均故障间隔时间、平均修复时间和使用可用度分别是多少？","evidence_block_ids":["2-电子系统_P008_B11","2-电子系统_P008_B12","2-电子系统_P008_B13","2-电子系统_P008_B14"],"source_granularity":"none"}
+{"question_id":"Q0016","question":"野战通信网在什么情况下判为系统故障，什么情况下判为致命故障？","evidence_block_ids":["2-电子系统_P010_B02"],"source_granularity":"none"}
+{"question_id":"Q0017","question":"野战通信网为什么选择使用可用度和任务可靠度，还选择了哪些参数来表述维修性和耐久性？","evidence_block_ids":["2-电子系统_P010_B04"],"source_granularity":"none"}
+{"question_id":"Q0018","question":"新研制野战通信网在论证阶段初步确定的四项可靠性、维修性使用指标门限值是什么？","evidence_block_ids":["2-电子系统_P010_B06","2-电子系统_P010_B07","2-电子系统_P010_B08","2-电子系统_P010_B09","2-电子系统_P010_B10"],"source_granularity":"none"}
+{"question_id":"Q0019","question":"野战通信网的哪些使用指标可以直接作为合同指标，哪项指标需要进行转换？","evidence_block_ids":["2-电子系统_P010_B25","2-电子系统_P010_B26"],"source_granularity":"none"}
+{"question_id":"Q0020","question":"野战通信网任务剖面从接受任务开始，经过哪些主要通信联络阶段和作战分支，最后转入什么状态？","evidence_block_ids":["2-电子系统_P009_B01"],"source_granularity":"none"}
+{"question_id":"Q0021","question":"根据电子系统可靠性维修性参数与指标相关的国军标，论证阶段需要分析哪些可靠性、维修性需求和已有系统情况？","evidence_block_ids":["2-电子系统_P005_B12","2-电子系统_P005_B13","2-电子系统_P006_B01"],"source_granularity":"document_approximate"}
+{"question_id":"Q0022","question":"根据《GJB 1909.10-98 装备可靠性维修性参数选择和指标确定要求 电子系统》，电子系统一般依据哪些标准进行可靠性、维修性验证试验？","evidence_block_ids":["2-电子系统_P006_B26"],"source_granularity":"document_exact"}
+{"question_id":"Q0023","question":"根据电子系统可靠性维修性指标相关的国军标，野战通信网的可靠性指标采用什么方法验证？","evidence_block_ids":["2-电子系统_P011_B16"],"source_granularity":"document_approximate"}
+{"question_id":"Q0024","question":"根据军用电子系统可靠性维修性指标相关的国军标，军用警戒雷达的日、周、月、年预防性维修停机时间及送厂翻修要求分别是什么？","evidence_block_ids":["2-电子系统_P012_B12"],"source_granularity":"document_approximate"}
+{"question_id":"Q0025","question":"根据电子系统可靠性维修性指标国军标中关于军用警戒雷达验证时机的部分，各类指标分别应在什么时机验证或评估？","evidence_block_ids":["2-电子系统_P013_B11","2-电子系统_P013_B12","2-电子系统_P013_B13"],"source_granularity":"section_approximate"}

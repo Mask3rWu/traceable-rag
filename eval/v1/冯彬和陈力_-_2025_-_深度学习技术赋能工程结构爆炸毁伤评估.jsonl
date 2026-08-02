@@ -1,0 +1,14 @@
+{"question_id": "Q0001", "question": "关于现代战争条件下，文中作了怎样的说明？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P001_B06"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "针对研究从工程结构爆炸毁伤评估的核心流程出发，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P001_B08"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对工程结构模型智能生成可划分为外部信息重构和内部信息生成两个步骤，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对工程结构外部信息重构本质上属于计算机视觉中的特征识别问题，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P002_B06"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于深度学习技术赋能工程结构爆炸毁伤评估的资料中，针对工程结构内部信息生成早先多依赖基于参数化规则及优化算法的方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P003_B03"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "文中如何定义毁伤效应？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P003_B06"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对虽然爆炸问题是动态问题，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P004_B04"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对要实现物理系统的三维全场时空预测首先，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对步的物理状态表示为前一步或几步物理状态的因变量，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P005_B02"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《深度学习技术赋能工程结构爆炸毁伤评估》，针对基于影像数据判断毁伤等级对应于计算机视觉领域中的特征识别与分类问题，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P005_B05"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "针对如前所述，目前工程结构毁伤后评估的发展显著滞后于事前评估，但已有的众多深，文中采用了什么方法或技术路线？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P006_B03"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于东南大学爆炸安全防护教育部工程研究中心e-mail，文中作了怎样的说明？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P006_B09"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于对所有来稿作者、审稿专家、期刊编辑部的大力支持表示感谢。，文中作了怎样的说明？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P007_B03"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于同济大学副教授、博土生导师，文中作了怎样的说明？", "evidence_block_ids": ["冯彬和陈力_-_2025_-_深度学习技术赋能工程结构爆炸毁伤评估_P007_B08"], "source_granularity": "none"}

@@ -1,0 +1,14 @@
+{"question_id": "Q0001", "question": "关于（1.西安工业大学电子信息工程学院西安710000）（2.西安工业大学机，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P001_B05"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于在实际作战条件下，应当遵循什么要求？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P001_B13"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于为了准确评估战斗部对目标的毁伤程度，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P002_B08"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对以地面装甲车为对象，文中采用了什么方法或技术路线？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P003_B06"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于地面装甲类目标毁伤建模与评估方法的资料中，针对破片的发散角度是θ，文中采用了什么方法或技术路线？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P003_B15"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于式中：νm为战斗部爆炸时的速度，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P004_B10"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于若破片击中了轻型装甲车的油箱，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P004_B21"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对在轻型装甲车的等效模型中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P004_B36"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于某毁伤等级下N枚动能毁伤元命中第呈现面下所有易损部件的毁伤概率为，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P005_B08"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《地面装甲类目标毁伤建模与评估方法》，针对在目标坐标系上建立地面装甲车的空间几何模型Q，文中采用了什么方法或技术路线？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P005_B23"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于合金预制破片2000枚，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P006_B03"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于由图11可知，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P006_B13"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于)在破片各参数不变的情况下，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P007_B06"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于本刊已许可万方数据库、中国学术期刊（光盘版）电子杂志社在中国知网及其系列，文中作了怎样的说明？", "evidence_block_ids": ["刘方_等_-_2024_-_地面装甲类目标毁伤建模与评估方法_P007_B29"], "source_granularity": "none"}

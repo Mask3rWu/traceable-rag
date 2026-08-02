@@ -1,0 +1,10 @@
+{"question_id": "Q0001", "question": "关于（1．陆军炮兵防空兵学院机械工程系，文中作了怎样的说明？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P001_B06"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "针对采用检测图像变化进行毁伤评估具有显著优点，文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P001_B21"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对）基于图像分类的变化检测方法：该方法先对2幅或多幅图像进行单独分类和标记，文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P002_B05"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于梯度向量可作为描述图像局部灰度变化的纹理特征。对于像元i，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P002_B12"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于一种基于图像变化检测的目标毁伤评估方法的资料中，针对因灰度差分图像仅由变化和非变化2类像元表示，文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P002_B27"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "针对对于该式，如果将此完全数据的似然函数看做xd和Θ固定，因自变量y为随机变，文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P003_B08"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对）根据权值wP），文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P003_B26"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于首先利用改进的Canny算子对包含目标的图像进行边缘检测，文中作了怎样的说明？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对笔者提出的图像变化检测方法利用图像的灰度和纹理信息，文中采用了什么方法或技术路线？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P004_B20"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《一种基于图像变化检测的目标毁伤评估方法》，关于该方法已成功应用于某旋转弹项目中。经多次飞行试验验证可知：该方法具有可行性和有效性，应当遵循什么要求？", "evidence_block_ids": ["徐永会和袁诗桐_-_2025_-_一种基于图像变化检测的目标毁伤评估方法_P005_B10"], "source_granularity": "document_exact"}

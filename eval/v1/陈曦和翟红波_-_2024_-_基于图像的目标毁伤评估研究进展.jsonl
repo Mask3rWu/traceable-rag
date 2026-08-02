@@ -1,0 +1,22 @@
+{"question_id": "Q0001", "question": "针对目标毁伤评估是现代战争中不可或缺的环节，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于Key words: damage assessment，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P001_B18"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对细，没有针对评估方法方向进行研究且未能充分介绍毁伤评估技术方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P002_B02"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对综合国内外在基于图像的毁伤评估工作的研究现状，在信息技术高速发展的今天，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P002_B08"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于基于图像的目标毀伤评估研究进展的资料中，针对）时效性低。毁伤评估，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P002_B15"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于给定一系列打击前后目标区域图像数据集I={r，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P002_B21"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对不论利用何种图像进行毁伤评估工作，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P003_B10"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于这一类别下，毁伤评估是在科研、军事演习训练的环境下进行的，基本都是利用无，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P003_B15"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对该方法的优点有：①能够考虑受力下的物理过程和结构响应，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P003_B26"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《基于图像的目标毀伤评估研究进展》，针对该方法的缺点包括：①由于该方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P004_B08"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "针对此方法的缺点如下：①由于目前技术限制，数据采集和三维重建，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P004_B15"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于式（1）中：B表示像素变化区域；I表示经配准后的打击后图，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P004_B31"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于基于SAR遥感类图像使用像素级变化检测能够解决自动化程度低、时效性差和泛用性弱的问题，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P005_B07"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对该方法的缺陷如下：①特征提取难度较大。损伤特征的提取，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P005_B12"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在基于图像的目标毀伤评估研究进展中有关4.2.1的部分，关于式（2）中：Z表示毁伤评估结果，文中作了怎样的说明？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P005_B19"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对此方法通过搭建神经网络结构，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P006_B04"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对这种方法基于打击前后的目标区域图像，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P006_B11"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对此方法旨在设计针对打击目标功能特性的指标，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P006_B17"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "针对该方法的优点包括：①抗干扰能力强。在计算毁伤等级时，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P006_B23"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《基于图像的目标毀伤评估研究进展》的4、4.3，针对智能弹药利用目标检测方法进行毁伤评估是一种基于计算机视觉技术的毁伤评估方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P007_B06"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "针对目前大多数基于图像的毁伤评估方法都集中在某一类型的目标上，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P007_B15"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "针对在本文的工作中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["陈曦和翟红波_-_2024_-_基于图像的目标毁伤评估研究进展_P007_B24"], "source_granularity": "none"}

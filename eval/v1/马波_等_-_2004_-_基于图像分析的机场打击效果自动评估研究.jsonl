@@ -1,0 +1,6 @@
+{"question_id": "Q0001", "question": "针对．根据机场这一典型目标的成像特点，文中采用了什么方法或技术路线？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于机的滑跑方向与跑道长度方向成一夹角来起降，文中作了怎样的说明？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P001_B21"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于（包括敌人伪装的“假弹坑”）统统是白色，文中作了怎样的说明？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P002_B13"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对b.利用上节方法从配准图像中分割出打击后的毁伤跑道灰度图，文中采用了什么方法或技术路线？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P002_B20"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于基于图像分析的机场打击效果自动评估研究的资料中，关于b．将真实弹坑图与完好跑道区域图“相加”，文中作了怎样的说明？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P003_B04"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于实验表明，该打击效果评估方案所需的时间短，评估的结果直观，可为作战指挥系，文中作了怎样的说明？", "evidence_block_ids": ["马波_等_-_2004_-_基于图像分析的机场打击效果自动评估研究_P003_B23"], "source_granularity": "none"}

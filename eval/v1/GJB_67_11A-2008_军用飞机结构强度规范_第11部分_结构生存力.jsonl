@@ -1,0 +1,36 @@
+{"question_id": "Q0001", "question": "针对本部分代替GJB67.11-1985《军用飞机强度和刚度规范核武器效应》，文中采用了什么方法或技术路线？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P004_B16"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于应实现任务剖面、性能、航程、操作、安全性、可靠性、维修性和产品保障等设计一体化，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P005_B18"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于)飞行操纵面，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P005_B23"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于a)根据每次执行任务阶段（从起飞直至武器投放返回）所确定的飞行和任务基本，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P006_B05"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于军用飞机结构强度规范 第11部分：结构生存力的资料中，关于b)确定各种破坏方式对飞行基本功能和任务基本功能的影响：，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P006_B12"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于i) 确定在给定的威胁命中条件下，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P006_B19"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于a）根据3.2.1和4.1.1.3中的任务威胁对探测回避提供必要的支持数据，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P007_B11"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于c)通过生存力设计的权衡分析确定出探测回避的最有效的结构组合，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P007_B16"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于a）机体结构的损伤容限能力应满足实战的，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P007_B33"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《军用飞机结构强度规范 第11部分：结构生存力》，关于f)应选择材料和保护涂层，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P008_B04"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "针对e）最大响应应与有关构件的使用要求和响应限制的验证一起给出。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P008_B13"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于d)适用的飞机重量、重心位置和几何可变形状部件的配重；，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P008_B19"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于在概念设计阶段就应确定飞机可能遭遇的核威胁，还应考虑非核环境的威胁，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P008_B30"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于应确定飞机部件在每次基本飞行中的功能和作用，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P009_B05"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在军用飞机结构强度规范 第11部分：结构生存力中有关3.2.2.4.2的部分，关于部件可能暴露于威胁之中的损伤机理，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P009_B16"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于a）由任务威胁根据3.2.2和4.2.1.3对探测回避提供必要的支持数据，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P009_B31"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于c)通过生存力设计的权衡分析确定出探测回避的最有效的结构组合，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P010_B04"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于飞机结构带有战伤后，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P010_B11"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于e)飞机抗核加固（包括对机载电子计算机及其他对核电磁脉冲、γ剂量率、γ总，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P010_B16"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《军用飞机结构强度规范 第11部分：结构生存力》的4、4.1、4.1.1、4.1.1.2，关于b)穿透型损伤可按弹丸尺寸适当放大，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P011_B02"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于应进行生存力提高权衡，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P011_B08"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于d)确定不能在野外修理的子系统及部件，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P011_B21"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于g)战伤修理流程的推荐模式如图1所示。承制方应根据推荐模式所规定的流程，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P012_B02"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "关于试验用的每种构件应提供构件标记、试件编号、威胁的大小和类型、冲击过程中结，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P012_B11"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于军用飞机结构强度规范 第11部分：结构生存力的资料中，针对b)确定空勤舱防护装置安全水平，文中采用了什么方法或技术路线？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P013_B08"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "关于b)损伤结构静、动力特性分析：通过有限元计算等手段，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P013_B19"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于当数据库不足以支持4.2.1所要求的验证时，应当遵循什么要求？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P014_B09"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "关于系统特性和等级或动作产生拒绝或降低使用一种或多种威胁系统的能力，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P014_B24"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于炸弹、炮弹、弹丸等爆炸时，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P015_B07"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《军用飞机结构强度规范 第11部分：结构生存力》，关于电磁通量 electromagnetic flux 单位时间通过某一表面，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P015_B12"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "关于光辐射 light radiation 核爆炸时产生的高温高压火球辐射出，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P015_B18"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "关于所有种类的常规武器、定向能量以及生化武器，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P016_B01"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "关于威胁机理与目标或目标元件之间相互作用的性质、类型、形式及状态的描述。，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P016_B11"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "关于处在核或非核环境中的飞机，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P016_B21"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在军用飞机结构强度规范 第11部分：结构生存力中有关6.1.40的部分，关于不妨碍飞机完成其指定任务，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P016_B34"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "关于遭受损坏后，飞机坠毁、爆炸或破坏至完全不能使用、无法大修或虽可以大修但不，文中作了怎样的说明？", "evidence_block_ids": ["GJB_67_11A-2008_军用飞机结构强度规范_第11部分_结构生存力_P017_B15"], "source_granularity": "none"}

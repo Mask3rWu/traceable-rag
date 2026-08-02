@@ -1,0 +1,16 @@
+{"question_id": "Q0001", "question": "关于《装备可靠性维修性参数选择和指标确定要求》系列标准是GJB368《装备维，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P002_B01"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于本标准与系列标准的其它各项标准配套使用，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P003_B09"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于可靠性、维修性合同参数reliability and maintaina，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P003_B19"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于装备必须达到的使用指标.它能满足装备的使用需求，应当遵循什么要求？", "evidence_block_ids": ["1-总则_P004_B03"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 总则的资料中，关于指在功能、技术水平、复杂程度、使用环境、使用和保障方案等方面相似的产品。，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P004_B09"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于b 装备的使用要求·例如战时和平时，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P004_B17"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于可常性、维修性使用参数的选择应反映战备完好性、任务成功性维修人力费用和保，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P004_B21"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对c.预期，文中采用了什么方法或技术路线？", "evidence_block_ids": ["1-总则_P004_B29"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于e.验证方法，如，应当遵循什么要求？", "evidence_block_ids": ["1-总则_P005_B08"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《装备可靠性维修性 参数选择和指标确定要求 总则》，关于装备中分系统或设备的可靠性、维修性指标也可单独提出，但，应当遵循什么要求？", "evidence_block_ids": ["1-总则_P005_B13"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于b.订购方初步确定新装备的寿命剖面，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P005_B19"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于e．可靠性、维修性使用指标经评审后，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P005_B22"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于c．订购方与承制方共同协商，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P005_B27"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对a、b一--考虑产品复杂性、使用环境和维修级别等因素的转换系数，文中采用了什么方法或技术路线？", "evidence_block_ids": ["1-总则_P007_B11"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在装备可靠性维修性 参数选择和指标确定要求 总则中有关附录A的部分，关于b．对影响指标转换系数的因素进行分析，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P007_B20"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于本标准主要起草人，文中作了怎样的说明？", "evidence_block_ids": ["1-总则_P008_B04"], "source_granularity": "none"}

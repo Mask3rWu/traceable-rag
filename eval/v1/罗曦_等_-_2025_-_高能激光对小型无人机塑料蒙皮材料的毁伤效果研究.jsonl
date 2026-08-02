@@ -1,0 +1,14 @@
+{"question_id": "Q0001", "question": "关于罗曦，张昊春，汤欣卓，唐邱宇，王海翔（哈尔滨工业大学能源科学与工程学院，，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P001_B08"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于As a new type of directed-energy wea，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P001_B16"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对场仿真模型对高能激光打击过程进行仿真，文中采用了什么方法或技术路线？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P002_B06"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于本文拟以无人机典型结构与工况为对象，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P002_B10"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于高能激光对小型无人机塑料蒙皮材料的 毀伤效果研究的资料中，表格中关于No.、DJI、Air3列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P003_B14"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于于碳纤维和工程塑料，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P004_B03"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于高能激光在大气中传播时，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P004_B09"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于对于大气吸收等线性传输效应，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P004_B13"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于力耦合效应，实现对目标的毁伤，激光辐照无人机示意图如图3所示，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P004_B20"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《高能激光对小型无人机塑料蒙皮材料的 毀伤效果研究》，关于式中：To为初始温度（K），文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P005_B07"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于处半径；ΔT（K)为内外壁面温差。其边界条件为：内表面受均匀热应力p，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P005_B16"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "表格中关于Parameter、Value、Parameter列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P005_B22"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于无法保证。可能引发舱盖密封结构完整性破坏，文中作了怎样的说明？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P006_B03"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对本研究通过系统分析高能激光打击无人机的毁伤机理，文中采用了什么方法或技术路线？", "evidence_block_ids": ["罗曦_等_-_2025_-_高能激光对小型无人机塑料蒙皮材料的毁伤效果研究_P006_B16"], "source_granularity": "none"}

@@ -1,0 +1,16 @@
+{"question_id": "Q0001", "question": "针对战术激光武器是反制无人机的有效手段之一，文中采用了什么方法或技术路线？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于德国莱茵金属公司研制了一种50kW的高能激光武器，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P002_B06"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对以美国海军的舰载激光武器系统（Laser Weapons System，文中采用了什么方法或技术路线？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P002_B11"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于战术激光武器主要由指挥控制系统、高能激光器、精密瞄准跟踪系统和光束控制系统组成，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于战术激光武器对无人机毀伤效果仿真分析研究的资料中，关于大气传输效应对战术激光武器的影响主要有大气衰减和大气湍流两方面影响。其中，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P003_B15"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于激光经过大气传输后，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P004_B07"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于式中，β为战术激光武器初始发射的光束质量，由战术激光武器的设计性能所决定，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P004_B12"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对远场光斑大小同样受战术激光武器系统的跟瞄系统精度影响，文中采用了什么方法或技术路线？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P004_B17"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于高能激光对无人机的损伤受无人机材料的影响很大，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P004_B23"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《战术激光武器对无人机毀伤效果仿真分析研究》，关于毁伤距离是战术激光武器的重要作战指标，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P005_B03"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于作战想定为，LaWS装备在海军军舰上，在某海域执行巡逻任务，无人机蜂群从，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P005_B06"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于高功率激光在大气中传输，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P005_B15"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "针对相关研究表明[13]，战术激光武器射程大于5km，文中采用了什么方法或技术路线？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P006_B04"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于无人机材料的激光烧蚀速率与激光波长和脉冲宽度有关，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P006_B06"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在战术激光武器对无人机毀伤效果仿真分析研究中有关5的部分，关于GUO Hao REN Guang-sen GAN Lin ( 6389，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P008_B07"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于Key words laser technique，文中作了怎样的说明？", "evidence_block_ids": ["梁巍巍_等_-_2024_-_战术激光武器对无人机毁伤效果仿真分析研究_P008_B09"], "source_granularity": "none"}

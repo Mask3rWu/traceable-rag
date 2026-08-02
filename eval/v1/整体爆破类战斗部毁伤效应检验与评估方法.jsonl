@@ -1,0 +1,24 @@
+{"question_id": "Q0001", "question": "关于本标准起草单位，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "该资料规定的适用范围和对象是什么？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于冲击波传播过程中距爆心某点处，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P003_B17"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于装甲等）的毁伤程度和毁伤半径，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P004_B01"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于整体爆破类战斗部毀伤效应检验 与评估方法的资料中，关于根据测量获得的爆炸威力参数评估整体爆破战斗部威力是否满足指标要求。，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P004_B10"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于主要测量装备性能要求参考GJB6390.3-2008。，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P004_B24"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对c）采用自由场超压传感器时，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P004_B37"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "表格中关于距爆心距离(m)、传感器编号、传感器灵敏度列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P005_B19"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于从测量得到的冲击波超压曲线中直接读取冲击波正压区作用时间t+。，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P006_B11"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《整体爆破类战斗部毀伤效应检验 与评估方法》，关于测量距爆心不同距离处爆炸冲击波超压一一时间曲线，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P006_B26"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于b)壁面式传感器安装在具有一定刚性的支架上，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P007_B06"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于h)确定战斗部正常起爆后，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P007_B18"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于a）检验直接命中方式时，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P007_B36"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对a）静爆试验后，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P008_B05"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在整体爆破类战斗部毀伤效应检验 与评估方法中有关6.1.2.3的部分，表格中关于序号、结构件、破坏情况列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P008_B14"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于c）对照建筑物毁伤标准，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P008_B28"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对采用经过充分验证的专业通用软件或专用计算软件进行数值模拟计算。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P009_B05"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对a)建立整体爆破战斗部对典型建筑物的毁伤效应计算模型：，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P009_B15"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "针对利用静爆试验和飞行试验以及仿真计算方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P009_B22"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《整体爆破类战斗部毀伤效应检验 与评估方法》的6、6.2、6.2.2、6.2.2.2，针对b)计算整体爆破战斗部爆炸威力，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P009_B31"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于b)根据各轻装甲目标靶标及效应物毁伤特征量，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P010_B09"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于b）靶标及效应物建设规模及布设方式应综合考虑导弹命中精度和爆炸威力。，文中作了怎样的说明？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P010_B16"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "针对主要验证战斗部装药和不同类型轻装甲目标材质的材料模型及参数。可，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P010_B31"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "针对综合地面静爆试验和飞行试验结果，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体爆破类战斗部毁伤效应检验与评估方法_P011_B03"], "source_granularity": "none"}

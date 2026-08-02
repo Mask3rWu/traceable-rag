@@ -1,0 +1,20 @@
+{"question_id": "Q0001", "question": "关于本标准起草单位，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "该资料规定的适用范围和对象是什么？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于整体侵爆类战斗部自然破片的数量、质量分布、初速分布、空间分布等性能。，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对采用地面静爆试验方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P003_B27"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于整体侵爆类战斗部毀伤效应 检验与评估方法的资料中，关于c）战斗部垂直放置时，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P004_B02"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "针对c)完成冲击波超压测量仪校正及小药量预试验测量检验：，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P004_B13"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于e)将冲击波超压特性参数和冲击波冲量与理论计算结果和TNT炸药进行对比分析，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P004_B22"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对a)测速可，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P005_B14"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对一般采用图2所示的破片分布回收靶回收破片、测量破片的空间分布，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P005_B21"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《整体侵爆类战斗部毀伤效应 检验与评估方法》，关于e)破分布回收靶高度H根据对应的ψ角不小于15°确定。，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P005_B35"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于a）将回收自然破片按照不少于15个质量等级进行分拣、称重、查数；，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P006_B14"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于a）将破片分布回收靶分布角度θ（见图2)按照不大于5°分成相等的若干区域；，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P006_B29"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于b)典型多层建筑物主要包括框架结构和剪力墙结构建筑物：，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P007_B06"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对a)目标特性参数确认，可，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P007_B11"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在整体侵爆类战斗部毀伤效应 检验与评估方法中有关7.2.2.2的部分，关于对靶标进行落点、侵彻轨迹、冲击波超压、破片分布、结构破坏情况、效应物破坏，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P007_B37"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对a）在靶标内布设超压传感器测量系统、效应物，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P008_B08"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对d)若试验没有布设效应物，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P008_B21"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对d）在条件不具备的条件下也可用综合试验进行联合验证。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P009_B02"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于利用5.5部分得到冲击波数据和冲击波反射关系，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P009_B22"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《整体侵爆类战斗部毀伤效应 检验与评估方法》的7、7.3、7.3.3、7.3.3.4，关于b）对计算得到的毁伤数据进行专家确认或审查，文中作了怎样的说明？", "evidence_block_ids": ["整体侵爆类战斗部毁伤效应检验与评估方法_P009_B28"], "source_granularity": "section_exact"}

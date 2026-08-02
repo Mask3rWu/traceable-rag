@@ -1,0 +1,46 @@
+{"question_id": "Q0001", "question": "关于本标准规定了军用飞机（含航空发动机、机载导弹及其他飞机分系统、机载设备和重要零部件，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P003_B05"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于《航空装备可靠性和维修性工程管理暂行规定》11993年2月国防科学技术工业委员会，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["5-军用飞机_P003_B14"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于出动架次率sortie generation rate，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于在规定条件下，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P004_B01"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 军用飞机的资料中，关于产品在规定的储存条件下和规定的储存寿命内，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P004_B05"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于在规定的时间内，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P004_B13"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对航空发动机的一种可靠性参数。其度量方法为：在发动机每千飞行小时中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P004_B19"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对与保障费用有关的维修性参数。其度量方法为：在规定时间内，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P004_B23"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对与保障费用有关的维修性参数。其度量方法为：在规定的时间内，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P005_B05"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《装备可靠性维修性 参数选择和指标确定要求 军用飞机》，关于在规定的条件下和规定的时间内，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P005_B09"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于在内场或后方维修的测试中，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P005_B15"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于在规定的条件下，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P005_B21"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于军用飞机可靠性和维修性参数选择和指标确定应符合《航空装备可靠性和维修性工，应当遵循什么要求？", "evidence_block_ids": ["5-军用飞机_P007_B03"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于在工程研制（含设计定型）阶段，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P007_B06"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在装备可靠性维修性 参数选择和指标确定要求 军用飞机中有关4的部分，针对在生产（含生产定型）阶段，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P007_B09"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "表格中关于序、号、参数名称列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["5-军用飞机_P008_B02"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于b.由于平时或战时使用要求的重点不同，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P010_B04"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于c.A类及部分B类产品选用可靠性（含安全性）和（或）耐久性参数，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P010_B08"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于a.综合参数由其相关参数构成，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P010_B13"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《装备可靠性维修性 参数选择和指标确定要求 军用飞机》的5、5.1、5.1.2、5.1.2.4，关于C.同类且性质相近的参数，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P010_B15"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于应详细说明军用飞机从首飞到退役报废所经历的事件序列和环境，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P010_B22"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于可靠性、维修性参数选择及指标的确定，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P011_B03"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "针对c.以满足军用飞机对性能、可靠性和维修性使用要求为原则并在经费和进度条件的制约下，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P011_B06"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "针对a．对飞机安全性和任务成功性影响较大的部件、机载设备或分系统，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P011_B14"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 军用飞机的资料中，针对c.对可靠性要求极高，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P011_B16"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "针对b、对需按实际使用、保障条件，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P011_B21"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "针对受可靠性和维修性综合影响的战备完好性、任务成功性等指标的验证方法及其适用范围一般为：，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P012_B01"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "针对b．合同中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P012_B03"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于可利用本标准的附录A和GJB1909.1中的附录A（参考件）提供的参数及，应当遵循什么要求？", "evidence_block_ids": ["5-军用飞机_P012_B08"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《装备可靠性维修性 参数选择和指标确定要求 军用飞机》，关于建立有效的可靠性、维修性信息系统，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P012_B13"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "针对本附录提供的转换模型，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P013_B05"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "关于入E 在外场环境下，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P014_B12"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "关于LDMF 在外场环境下，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P014_B17"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "关于注·1）直接维修工时在这里指在规定的条件下和规定的时间内，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P014_B21"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在装备可靠性维修性 参数选择和指标确定要求 军用飞机中有关附录B的部分，关于一般应根据目标值来确定门限值。目标值要求应优于门限值要求。，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P015_B08"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "针对一般可根据相似产品的经验和可靠性、维修性增长模型确定研制结束门限值或研制，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P015_B13"], "source_granularity": "none"}
+{"question_id": "Q0037", "question": "针对验证值是根据研制结束最低可接受值或门限值及其验证方案得出的具体数值，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P015_B19"], "source_granularity": "none"}
+{"question_id": "Q0038", "question": "关于歼击机主要用于歼灭空中敌机和飞航式空袭兵器。它以空战方式夺取制空权，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P017_B08"], "source_granularity": "none"}
+{"question_id": "Q0039", "question": "表格中关于战备完好性、使用可用度、Ao列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["5-军用飞机_P019_B02"], "source_granularity": "none"}
+{"question_id": "Q0040", "question": "在《装备可靠性维修性 参数选择和指标确定要求 军用飞机》的附录C，关于现役同类机种的使用可用度-一般为0.5左右，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P019_B08"], "source_granularity": "section_exact"}
+{"question_id": "Q0041", "question": "针对某战斗机的数据为执行2h任务，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P019_B14"], "source_granularity": "none"}
+{"question_id": "Q0042", "question": "关于目前同类机种的统计数据约为35一40工时/飞行小时。为减少维修人力、降低费用，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P020_B03"], "source_granularity": "none"}
+{"question_id": "Q0043", "question": "针对确定成熟期门限值，将可靠性维修性指标转换为合同参数的规定值与最低可接受值。对，文中采用了什么方法或技术路线？", "evidence_block_ids": ["5-军用飞机_P020_B07"], "source_granularity": "none"}
+{"question_id": "Q0044", "question": "关于b.将平均故障间隔飞行小时TMPHBF转换为平均故障间隔时间TRF，文中作了怎样的说明？", "evidence_block_ids": ["5-军用飞机_P021_B06"], "source_granularity": "none"}
+{"question_id": "Q0045", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 军用飞机的资料中，表格中关于合同中参数项目、规定值、目标值列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["5-军用飞机_P021_B15"], "source_granularity": "document_approximate"}
+{"question_id": "Q0046", "question": "表格中关于误、正、序号列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["5-军用飞机_P023_B01"], "source_granularity": "none"}

@@ -1,0 +1,22 @@
+{"question_id": "Q0001", "question": "关于（1.63871部队，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P001_B05"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于modules for data acquisition, multi-，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对近年来，人工智能技术的快速发展为解决上述问题提供了新思路，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P002_B08"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对理论建模与计算依托物理与工程学知识，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P002_B14"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于基於人工智能的弹药毀伤效能评估 优化框架研究的资料中，针对首先，靶场试验法尽管数据真实可靠，却存在明显的经济与时间成本问题，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P003_B06"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "针对此外，许多高维度、跨时间的数据无法通过人工方式完整提取与分析，亟需依托智，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P003_B11"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于）图像识别辅助评估，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于深度学习是机器学习的一种特殊形式，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P004_B04"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对强化学习是一种基于决策的机器学习方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P004_B10"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《基於人工智能的弹药毀伤效能评估 优化框架研究》，针对强化学习的突出优势在于其“闭环”优化能力，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P004_B15"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于AI驱动的弹药毁伤评估体系的架构应包括4个主要模块。，应当遵循什么要求？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P005_B06"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于）核心功能。对数据采集模块传送过来的原始数据进行清洗、标准化、归一化、异，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P005_B12"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "针对）需求硬件。AI建模模块，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P005_B18"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对在实战环境中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P005_B24"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在基於人工智能的弹药毀伤效能评估 优化框架研究中有关3.3的部分，针对在弹药毁伤效能评估中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P006_B11"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对虽然机器学习、深度学习和强化学习在弹药毁伤效能评估中各自有独特的优势和应用场景，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P007_B04"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对AI算法优化路径的实现，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P007_B12"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对尽管发展迅速，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P008_B04"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于）虚实结合平台。借助仿真与数字孪生技术，应当遵循什么要求？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P008_B11"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《基於人工智能的弹药毀伤效能评估 优化框架研究》的4，针对（2）鲁棒性评估。开展对抗样本测试、输入扰动分析与边界条件检验，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P008_B15"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于）跨学科协同与标准建设，应当遵循什么要求？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P009_B03"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于总之，人工智能为弹药毁伤效能评估提供了技术革新路径，可大幅提升其科学性、，文中作了怎样的说明？", "evidence_block_ids": ["杨伟涛_等_-_2025_-_基于人工智能的弹药毁伤效能评估优化框架研究_P009_B09"], "source_granularity": "none"}

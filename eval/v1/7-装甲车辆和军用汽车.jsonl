@@ -1,0 +1,34 @@
+{"question_id": "Q0001", "question": "关于本标准规定了装甲车辆和军用汽车可靠性、维修性参数选择和指标确定的要求。，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "针对QCn 29008.4-91汽车产品质量检验可靠性统计计算方法及故障模式，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P002_B20"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于装甲车辆和军用汽车在规定的条件下和首次大修前工作时间内，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P003_B04"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于装甲车辆和军用汽车在规定的条件下和规定的时间内，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P003_B10"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用的资料中，关于装甲车辆和军用汽车在规定的条件下，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P003_B14"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于在规定的条件下和规定的时间内，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P003_B20"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于军用汽车在规定的条件下，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P003_B26"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于装甲车辆和军用汽车配属火炮的可靠性、维修性参数选择及指标确定要求应符合G，应当遵循什么要求？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P004_B03"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于表1和表2中的时间是在装甲车辆和军用汽车的寿命剖面中持续期的度量。根据所选用的参数，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用汽车》，关于在选择参数时，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P004_B10"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于装甲车辆和军用汽车的寿命剖面应说明从交付使用到大修时的一个大修间隔期内，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P004_B16"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "表格中关于序、号、1列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P006_B02"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于在签定研制合同和任务书时，应当遵循什么要求？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P006_B12"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于某装甲车辆是未来战争中地面作战的突击兵器；主要作战目标是与敌方的同类武器相抗衡，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P008_B09"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用中有关附录A的部分，关于装甲车辆寿命剖面的事件和顺序如图A1所示。环境条件的描述略。，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P008_B15"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对根据装甲车辆实际情况和验证试验的，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P008_B22"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对在考核试验和使用中出现的、经分析认定是由装甲车辆或某一部分的产品质量缺陷引起的故障。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P010_B07"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于a、计算任务可靠性使用指标时，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P010_B12"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于d．计算基本可靠性合同指标时，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P010_B15"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用汽车》的附录A，针对在平时考核试验中应扣除占致命性故障总数70%的战斗损伤，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P011_B12"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于现役装甲车辆的TBF=180km，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P011_B20"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于A2.2.2承制方与订购方共同协商，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P012_B03"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于考虑到新研装甲车辆与现役同类装甲车辆的维修方案基本相同，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P012_B09"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "关于A2.2.2.4将百公里修复性维修工时的使用指标转换为合同指标，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P012_B26"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用的资料中，针对A2.2.4承制方与订购方按有关标准规定，文中采用了什么方法或技术路线？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P013_B03"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "关于本附录以军用越野汽车（以下简称军车）为例说明军车可靠性、维修性参数选择和指标确定过程，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P014_B05"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于军车从装备部队到寿命终结或退出使用，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P014_B24"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "表格中关于时、序、1列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P015_B04"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于军车的保养分为日常保养、定期保养、换季保养和停驶车保养，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P015_B09"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《装备可靠性维修性 参数选择和指标确定要求 装甲车辆和军用汽车》，关于级保养；每两年行驶里程不足17500km的车辆，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P016_B01"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "关于根据现役军车可靠性、维修性水平和使用的，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P016_B18"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "关于承制方与订购方共同协商，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P017_B04"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "关于试验时，由于试验道路与使用道路的区别，应将使用道路转换为试验道路，其转换系数为0.6，应当遵循什么要求？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P017_B13"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "关于本标准主要起草人：李良巧、黄跃德、李长福、张启成、党文江、于江、康继纲、刘宗恕、康勇，文中作了怎样的说明？", "evidence_block_ids": ["7-装甲车辆和军用汽车_P017_B22"], "source_granularity": "none"}

@@ -1,0 +1,18 @@
+{"question_id": "Q0001", "question": "关于http ://journal. nudt. edu. cn，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B03"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于毁伤效果评估是武器研发、弹药使用、战术与战略制定的重要基础性工作[，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B15"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于从文献调研的结果看，应当遵循什么要求？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P002_B04"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对下面运用该方法于未确知条件下多枚导弹打击不规则面目标毁伤效果的评估上。，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P002_B09"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于未确知条件下多枚导弹打击不规则面目标的毁伤效果评估的资料中，关于)输入导弹相关数据，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P003_B09"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于准点为目标中央（0，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P003_B16"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于对于未确知变量的建模与处理，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P004_B06"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于定义2[18]对于x在0 <(x) <1上,如果信度分布函数是一个连续的严格递增函数，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P004_B11"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于图5（a）中，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P004_B23"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《未确知条件下多枚导弹打击不规则面目标的毁伤效果评估》，关于式中，E=(α)是E信度分布函数的逆函数，R=R(1−α)是威力半径R信，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P005_B13"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于为了从量化角度对未确知性有更加深入的研究，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P005_B20"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于为了得到更加可靠的评估结果，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P005_B26"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于E和R对A的影响并不相互独立，其敏感性无法单独分析，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P006_B10"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于在不敏感区域的未确知性较低但在敏感区域的未确知性较高。因此，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P007_B03"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在未确知条件下多枚导弹打击不规则面目标的毁伤效果评估中有关4.2的部分，关于式中，和分别表示E和R的信度函数，S和S分别表示E和R的信度熵，C和C分，文中作了怎样的说明？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P007_B12"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对对毁伤效果的未确知程度影响最大的关键属性是R。为了提高评估工作的效率，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P007_B21"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于前的[37723，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P008_B06"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对仿真实验的结果表明，文中采用了什么方法或技术路线？", "evidence_block_ids": ["王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P008_B11"], "source_granularity": "none"}

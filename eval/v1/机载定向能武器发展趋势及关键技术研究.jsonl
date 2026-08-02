@@ -1,0 +1,12 @@
+{"question_id": "Q0001", "question": "针对为应对机载定向能武器对空战的影响，文中采用了什么方法或技术路线？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于technologies , and sustained inputs ，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于随着蜂群无人机、集群低成本弹药的快速发展，应当遵循什么要求？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P002_B08"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于击巡航导弹、弹道导弹和卫星等，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P002_B13"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于机载定向能武器发展趋势及关键技术研究的资料中，关于但高能激光、高功率微波武器也不是万能的，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P002_B17"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "针对空基机载高能激光武器发展时间久，文中采用了什么方法或技术路线？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P003_B06"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于文献「15提出高能激光武器在发展过程中其自身面临的主要困难是高能量难、远，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P003_B16"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对台、大气、目标作用关系复杂，涉及大量基础理论、工程实践等领域，文中采用了什么方法或技术路线？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P004_B03"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "针对注重试验技术与研发技术的体系化经费投入，文中采用了什么方法或技术路线？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P004_B08"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《机载定向能武器发展趋势及关键技术研究》，针对持续进行演示验证试飞，文中采用了什么方法或技术路线？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P004_B14"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于．由于高能激光、高功率微波与栽机、大气、目标作用复杂，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P005_B06"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于随着高能激光、高功率微波武器的逐步使用，文中作了怎样的说明？", "evidence_block_ids": ["机载定向能武器发展趋势及关键技术研究_P005_B09"], "source_granularity": "none"}

@@ -1,0 +1,94 @@
+{"question_id": "Q0001", "question": "针对本标准规定了战术导弹武器系统（以下简称武器系统）核破坏等级的划分、判定、，文中采用了什么方法或技术路线？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P003_B05"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于核破坏等级 grades of nuclear damage，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于核坏等级表征参数characteristic parameter for，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P003_B21"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于导弹及其发射设备、制导站三者分离，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P003_B23"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于战术导弹武器系统 核破坏等级的资料中，关于导弹置于筒内，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P004_B05"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于关键设备 key equipment 在作战使用中起决定作用，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P004_B07"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "关于武器系统的关键设备、要害部位和二次效应设备、件的核破坏特征，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P005_B03"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于车载导弹：表层严重打麻、划伤；锦纶丝布、天线护罩、有机玻璃烧蚀等。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P005_B16"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于车载导弹：载车与导弹翻滚，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P005_B22"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《战术导弹武器系统 核破坏等级》，关于筒（箱）弹的筒（箱）体压陷、变形，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B01"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于简（箱）弹的筒（箱）整体变形、破裂；导弹严重受损、解体等。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B04"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于制导站、导弹发射、供电等关键设备受到破坏；天线液压升降、旋转装置，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B10"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于筒（箱）弹的筒（箱）整体变形、破裂；导弹严重受损、解体等。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B14"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于导弹及发射架：导弹表层严重打麻、划伤，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B18"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在战术导弹武器系统 核破坏等级中有关5.1.1.4.3的部分，关于导弹及发射架：导弹与发射架整体翻滚，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B24"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于制导、目标指示、导弹发射等关键设备受到损坏，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P006_B29"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "关于发射装置载导弹：导弹表面打麻、划伤，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P007_B05"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于发射装置载导弹：弹体、翼面及与车连接部位局部变形，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P007_B09"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "关于指挥通信车：厢体、驾驶室严重变形，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P007_B11"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《战术导弹武器系统 核破坏等级》的5、5.1、5.1.1、5.1.1.6、5.1.1.6.3，关于指挥通信车：厢体严重倾斜或破碎；设备脱落或倒塌致严重破坏；车体严重变形等。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P007_B15"], "source_granularity": "section_exact"}
+{"question_id": "Q0021", "question": "关于发射筒局部变形；测角仪内部油脂熔化.污染光学镜片，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P007_B20"], "source_granularity": "none"}
+{"question_id": "Q0022", "question": "关于发射设备外表漆层及便携装具烧蚀：外露光学镜片、保护玻璃破裂，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B01"], "source_granularity": "none"}
+{"question_id": "Q0023", "question": "关于由武器系统使用单位的上一级作战部门与技术部门联合组织，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B07"], "source_granularity": "none"}
+{"question_id": "Q0024", "question": "关于由复核组成员对各协坏部位各自独立地判断，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B10"], "source_granularity": "none"}
+{"question_id": "Q0025", "question": "在关于战术导弹武器系统 核破坏等级的资料中，关于d．附录A（补充件）列出的破坏部位、特征及其加权值；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B14"], "source_granularity": "document_approximate"}
+{"question_id": "Q0026", "question": "关于将复核组各成员填写的附录B（补充件）表中各打分值，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B16"], "source_granularity": "none"}
+{"question_id": "Q0027", "question": "关于将落入该核破坏等级区间的破坏部位数作为参与计算核破坏程度表征量Y值的破坏部位数N。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P008_B18"], "source_granularity": "none"}
+{"question_id": "Q0028", "question": "关于依据计算所得Y值和第4.4条规定，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P009_B04"], "source_granularity": "none"}
+{"question_id": "Q0029", "question": "关于式中：Y，一——武器系统或分系统的综合核破坏程度表征量；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P009_B09"], "source_granularity": "none"}
+{"question_id": "Q0030", "question": "根据《战术导弹武器系统 核破坏等级》，关于A类武器系统核破坏等级判定应按图1所示的基本程序进行。，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P009_B14"], "source_granularity": "document_exact"}
+{"question_id": "Q0031", "question": "关于利用公式（2）和表1计算制导站综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P009_B16"], "source_granularity": "none"}
+{"question_id": "Q0032", "question": "关于制导站主设备、供电主设备、辅助设备需依实有单件设备，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P009_B20"], "source_granularity": "none"}
+{"question_id": "Q0033", "question": "关于利用公式（2）和表2计算火力单元发射设备综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P010_B14"], "source_granularity": "none"}
+{"question_id": "Q0034", "question": "关于利用公式(2）和表3计算武器系统的核破坏程度表征量Ym。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P011_B06"], "source_granularity": "none"}
+{"question_id": "Q0035", "question": "在战术导弹武器系统 核破坏等级中有关5.1.1.8.1的部分，关于B类武器系统核破坏等级的判定应按图2所示的基本程序进行。，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P011_B16"], "source_granularity": "section_approximate"}
+{"question_id": "Q0036", "question": "关于由于搜索（指挥）雷达通常是单车装备，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P012_B02"], "source_granularity": "none"}
+{"question_id": "Q0037", "question": "关于Y=Yml，即第i个联装导弹及发射制导设备核破坏程度表征量；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P012_B06"], "source_granularity": "none"}
+{"question_id": "Q0038", "question": "针对按照第5.1.2.2.2.3条要求和方法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P012_B10"], "source_granularity": "none"}
+{"question_id": "Q0039", "question": "关于利用表5和公式（2)计算武器系统综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P012_B18"], "source_granularity": "none"}
+{"question_id": "Q0040", "question": "在《战术导弹武器系统 核破坏等级》的5、5.1、5.1.1、5.1.1.8、5.1.1.8.1，关于C类武器系统核破坏等级的判定应按图3所示的基本程序进行。，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P013_B05"], "source_granularity": "section_exact"}
+{"question_id": "Q0041", "question": "关于利用公式（2）和表6计算制导站综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P013_B07"], "source_granularity": "none"}
+{"question_id": "Q0042", "question": "表格中关于序号i、装备类别、综合比例系数列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P014_B02"], "source_granularity": "none"}
+{"question_id": "Q0043", "question": "关于利用公式（2）计算火力单元联装导弹发射设备综合核破坏程度表征量Ymlr。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P014_B11"], "source_granularity": "none"}
+{"question_id": "Q0044", "question": "关于A₁=Aml=1/N，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P014_B14"], "source_granularity": "none"}
+{"question_id": "Q0045", "question": "在关于战术导弹武器系统 核破坏等级的资料中，关于按第5.1.2.2.3.5条规定计算直接支援设备综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P015_B05"], "source_granularity": "document_approximate"}
+{"question_id": "Q0046", "question": "表格中关于序号i、装备类别、综合比例系数列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P015_B08"], "source_granularity": "none"}
+{"question_id": "Q0047", "question": "关于D类武器系统核破坏等级判定应按图4所示的基本程序进行。，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P015_B15"], "source_granularity": "none"}
+{"question_id": "Q0048", "question": "表格中关于序号i、装备类别、综合比例系数An列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P016_B04"], "source_granularity": "none"}
+{"question_id": "Q0049", "question": "关于Y=Yr，即目标指示雷达各组成设备的核破坏程度表征量；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P016_B09"], "source_granularity": "none"}
+{"question_id": "Q0050", "question": "根据《战术导弹武器系统 核破坏等级》，关于利用公式（2）计算火力单元发射架综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P016_B17"], "source_granularity": "document_exact"}
+{"question_id": "Q0051", "question": "关于利用公式(2）和表12计算武器系统的核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P017_B03"], "source_granularity": "none"}
+{"question_id": "Q0052", "question": "关于依据Y值和第4.4条规定，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P017_B10"], "source_granularity": "none"}
+{"question_id": "Q0053", "question": "关于利用公式(2）和表13计算制导或日标指示设备综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P018_B01"], "source_granularity": "none"}
+{"question_id": "Q0054", "question": "关于Y一Y，即制导或目标指示各组成设备的核破坏程度表征量；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P018_B06"], "source_granularity": "none"}
+{"question_id": "Q0055", "question": "在战术导弹武器系统 核破坏等级中有关5.1.1.8.1的部分，关于Y一Y，即火力单元中第i个导弹发射设备的综合核破坏表征量值；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P018_B12"], "source_granularity": "section_approximate"}
+{"question_id": "Q0056", "question": "关于利用公式（2）和表14计算火力单元导弹及发射设备综合核破坏程度表征量Yml值。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P018_B19"], "source_granularity": "none"}
+{"question_id": "Q0057", "question": "关于利用公式（2）和表15计算武器系统综合核破坏程度表征量Yw。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P018_B25"], "source_granularity": "none"}
+{"question_id": "Q0058", "question": "关于F类武器系统核破坏等级判定应按图6所示的基本程序进行。，应当遵循什么要求？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P019_B10"], "source_granularity": "none"}
+{"question_id": "Q0059", "question": "关于利用公式（2）和表16计算导弹火力射击单元主战斗装备（导弹与机动发射装置，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P020_B02"], "source_granularity": "none"}
+{"question_id": "Q0060", "question": "在《战术导弹武器系统 核破坏等级》的5、5.1、5.1.1、5.1.1.8、5.1.1.8.1，表格中关于序号i、装备类别、综合比例系数Ami列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P020_B09"], "source_granularity": "section_exact"}
+{"question_id": "Q0061", "question": "关于A₁=Am=1/N，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P020_B14"], "source_granularity": "none"}
+{"question_id": "Q0062", "question": "关于Y，一Ym，即导弹运载单元中导弹与运弹车的核破坏程度表征量；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P020_B18"], "source_granularity": "none"}
+{"question_id": "Q0063", "question": "关于利用公式（2）和表18计算火力单位战斗、运弹装备的核破坏程度表征量Ymy 值。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P021_B04"], "source_granularity": "none"}
+{"question_id": "Q0064", "question": "关于利用公式(2）和表19计算武器系统的综合核破坏程度表征量Y值。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P021_B12"], "source_granularity": "none"}
+{"question_id": "Q0065", "question": "在关于战术导弹武器系统 核破坏等级的资料中，表格中关于序号i、装备类别、综合比例系数列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P021_B18"], "source_granularity": "document_approximate"}
+{"question_id": "Q0066", "question": "关于利用公式(2)和表20计算发射制导设备综合核破坏程度表征量Y。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P022_B06"], "source_granularity": "none"}
+{"question_id": "Q0067", "question": "关于由于一级检测仪结构筒单、体积小、故Yt应取5.1.2.2.8.2条中计算所得的Y值。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P022_B13"], "source_granularity": "none"}
+{"question_id": "Q0068", "question": "关于依据Y值和第4.4条规定，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P023_B08"], "source_granularity": "none"}
+{"question_id": "Q0069", "question": "关于核破坏等级的预测，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P023_B16"], "source_granularity": "none"}
+{"question_id": "Q0070", "question": "根据《战术导弹武器系统 核破坏等级》，关于将预测所需参数爆炸当量Q、比例爆高h1代入该类武器系统对应的三个核破坏半径数值表，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P023_B20"], "source_granularity": "document_exact"}
+{"question_id": "Q0071", "question": "关于D类武器系统核破坏半径数值表，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P024_B07"], "source_granularity": "none"}
+{"question_id": "Q0072", "question": "针对在战术技术指标论证阶段，文中采用了什么方法或技术路线？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P024_B14"], "source_granularity": "none"}
+{"question_id": "Q0073", "question": "关于ΔP0-武器系统核破坏程度表征超压计算基础值，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P024_B19"], "source_granularity": "none"}
+{"question_id": "Q0074", "question": "关于a．新型武器系统战术技术性能、核环境下的作战需求，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P024_B27"], "source_granularity": "none"}
+{"question_id": "Q0075", "question": "在战术导弹武器系统 核破坏等级中有关5.3.1.1.3的部分，关于以查图、表计算的ΔP，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P025_B06"], "source_granularity": "section_approximate"}
+{"question_id": "Q0076", "question": "关于c．当权衡认为研制的武器系统抗核爆炸强度，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P025_B10"], "source_granularity": "none"}
+{"question_id": "Q0077", "question": "关于b．关键设备、要害部位可能的抗核薄弱部位和薄弱环节；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P026_B01"], "source_granularity": "none"}
+{"question_id": "Q0078", "question": "关于b.对研制武器系统的抗核薄弱部位和薄弱环节及其解决的途径和难点进行系统预计；，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P026_B07"], "source_granularity": "none"}
+{"question_id": "Q0079", "question": "针对一般应选取系统中关键设备，文中采用了什么方法或技术路线？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P026_B10"], "source_granularity": "none"}
+{"question_id": "Q0080", "question": "在《战术导弹武器系统 核破坏等级》的附录A，表格中关于破坏部位及破坏特征、编号、加权值C.列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P028_B02"], "source_granularity": "section_exact"}
+{"question_id": "Q0081", "question": "表格中关于破坏部位及破坏特征、编号、加权值C列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P029_B04"], "source_granularity": "none"}
+{"question_id": "Q0082", "question": "表格中关于破坏部位及破坏特征、编号、加权值C列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P030_B05"], "source_granularity": "none"}
+{"question_id": "Q0083", "question": "表格中关于序号i、破坏部位、加权值列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P031_B07"], "source_granularity": "none"}
+{"question_id": "Q0084", "question": "表格中关于处理意见、破坏等级、磁方位（°）列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P033_B05"], "source_granularity": "none"}
+{"question_id": "Q0085", "question": "在关于战术导弹武器系统 核破坏等级的资料中，关于本附录提供了应用本标准判定、预测武器系统遭受核破坏等级及抗核强度论证要求，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P044_B04"], "source_granularity": "document_approximate"}
+{"question_id": "Q0086", "question": "表格中关于装备名称、Y值、核破坏等级列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P045_B02"], "source_granularity": "none"}
+{"question_id": "Q0087", "question": "表格中关于序号i、装备名称、综合比例系数A列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P045_B07"], "source_granularity": "none"}
+{"question_id": "Q0088", "question": "关于G1.2.2利用表G1和公式（2）计算火力单元值班导弹综合核破坏程度表征量值Ym。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P046_B05"], "source_granularity": "none"}
+{"question_id": "Q0089", "question": "关于G1.2.4.1武器系统各分系统综合比例系数如第5.1.2.2.2.7条表3所列。，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P046_B19"], "source_granularity": "none"}
+{"question_id": "Q0090", "question": "根据《战术导弹武器系统 核破坏等级》，关于G1.2.4.3由于Y=75.6.根据第4.4条规定，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P046_B22"], "source_granularity": "document_exact"}
+{"question_id": "Q0091", "question": "关于G2.2将预测给定的Q=1000于吨，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P047_B02"], "source_granularity": "none"}
+{"question_id": "Q0092", "question": "关于G3.1.2按保卫目标遭受百万吨高空核爆(h₁一200）的波及受轻微破坏提出强度要求，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P047_B06"], "source_granularity": "none"}
+{"question_id": "Q0093", "question": "关于G3.2.2待定系数A的选取。依给出的根据和条件，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P047_B14"], "source_granularity": "none"}
+{"question_id": "Q0094", "question": "关于本标准由空军第五研究所、总参炮兵装备技术研究所、海军海红七工程办公室、海，文中作了怎样的说明？", "evidence_block_ids": ["战术导弹武器系统核破坏等级_P047_B20"], "source_granularity": "none"}

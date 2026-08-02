@@ -1,0 +1,18 @@
+{"question_id": "Q0001", "question": "关于引用格式：宋轩，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于quantity was maintained , which veri，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P003_B01"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对跨尺度特征交互能力的同时.降低了模型复杂度和计算开销，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P003_B07"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于YOLO中的Focus模块通过切片操作将空间信息转为通道信息，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P003_B14"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于《郑州大学学报(理学版）》网络首发论文的资料中，关于其中：z是第c个通道的压缩结果：x(i，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P004_B11"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于）特征加权：将学习到的通道权重应用于原始特征图.增强重要特征并抑制不重要，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P004_B16"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对与灵活性的同时，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P005_B01"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "关于）自底向上路径（bottom-up）输出特征生成其计算公式为，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P005_B06"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "关于其中：Input是输入特征图的第c个通道，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P005_B13"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《《郑州大学学报(理学版）》网络首发论文》，针对YOLOv11默认的CIoU损失函数[17]虽然考虑中心点距离、重叠面积及纵横比等，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P005_B18"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "关于其中：式（11)为宽度方向的归一化距离差；式（12)为高度方向的归一化距离差：（b，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P006_B02"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "关于实验数据中，坦克相关图像的获取主要通过百度图片、谷歌图片这两个主流搜索引擎完成，文中作了怎样的说明？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P006_B19"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "针对实验环境配置如下：操作系统，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P006_B27"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "针对）召回率（Recal）：表示实际为正类的样本中被模型正确预测为正类的比例，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P007_B06"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在《郑州大学学报(理学版）》网络首发论文中有关3.3的部分，针对除上述4个评价指标外，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P007_B14"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "针对在目标检测模型性能评估中，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P007_B23"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "表格中关于模型、Precision/%、Recall/列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P008_B05"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "针对设计方面，为了消除传统多尺度特征融合计算效率低的影响，提出了DS-BiF，文中采用了什么方法或技术路线？", "evidence_block_ids": ["宋轩_等_-_2025_-_基于改进YOLO的装甲目标毁伤状态估计方法_P008_B14"], "source_granularity": "none"}

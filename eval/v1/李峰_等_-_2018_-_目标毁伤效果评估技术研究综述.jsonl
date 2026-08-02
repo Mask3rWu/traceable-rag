@@ -1,0 +1,8 @@
+{"question_id": "Q0001", "question": "关于（陆军工程大学石家庄校区装备指挥与管理系，文中作了怎样的说明？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P001_B07"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于Key words: damage effect evaluation，文中作了怎样的说明？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P001_B16"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "针对历史经验法是根据古今中外大大小小的战争，文中采用了什么方法或技术路线？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P002_B11"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "针对模糊综合评判法是一种基于模糊数学的综合评判方法。该方法以模糊数学的隶属度理论为基础，文中采用了什么方法或技术路线？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P002_B18"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于目标毁伤效果评估技术研究综述的资料中，针对蒙特卡罗法又称随机模拟法，文中采用了什么方法或技术路线？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P003_B04"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于国外，尤其是发达国家，对数据采集和数据管理十分重视，例如，为了收集毁伤信，文中作了怎样的说明？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P003_B10"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "表格中关于名称、开发人员、系统功能列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P003_B18"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对本文对近年来目标毁伤效果评估技术的研究进行了回顾和总结，文中采用了什么方法或技术路线？", "evidence_block_ids": ["李峰_等_-_2018_-_目标毁伤效果评估技术研究综述_P004_B09"], "source_granularity": "none"}

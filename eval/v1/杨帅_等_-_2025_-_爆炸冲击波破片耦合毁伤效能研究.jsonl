@@ -1,0 +1,20 @@
+{"question_id": "Q0001", "question": "关于（1.中北大学机电工程学院，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P001_B05"], "source_granularity": "none"}
+{"question_id": "Q0002", "question": "关于Key words: explosive shock wave，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P001_B15"], "source_granularity": "none"}
+{"question_id": "Q0003", "question": "关于在杀爆弹的研究方面取得了有目共睹的成绩。但由于杀爆战斗部的爆炸作用过程极为复杂，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P002_B03"], "source_granularity": "none"}
+{"question_id": "Q0004", "question": "关于在爆炸近区，由于爆炸过程在极短时间内会瞬间释放出大量的能量，造成爆源周围，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P002_B10"], "source_granularity": "none"}
+{"question_id": "Q0005", "question": "在关于爆炸冲击波/破片耦合毀伤效能研究的资料中，关于不同爆炸作用场的划分，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P003_B07"], "source_granularity": "document_approximate"}
+{"question_id": "Q0006", "question": "关于通过计算破片速度衰减情况以及爆炸冲击波的速度-位移情况，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P003_B22"], "source_granularity": "none"}
+{"question_id": "Q0007", "question": "针对值计算中，效应靶模型和破片群模型的计算网格为八节点、六面体单元类型，计算，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P004_B03"], "source_granularity": "none"}
+{"question_id": "Q0008", "question": "针对在该方法中，在效应靶迎爆面的计算网格处设置网格集以引导对应的爆炸冲击波压，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P004_B13"], "source_granularity": "none"}
+{"question_id": "Q0009", "question": "表格中关于材料、ρ/、(g列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P004_B22"], "source_granularity": "none"}
+{"question_id": "Q0010", "question": "根据《爆炸冲击波/破片耦合毀伤效能研究》，针对基于前文建立的数值计算模型，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P004_B33"], "source_granularity": "document_exact"}
+{"question_id": "Q0011", "question": "针对由表4和图6可知，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P005_B13"], "source_granularity": "none"}
+{"question_id": "Q0012", "question": "表格中关于参数、距离R/m、0.2列出了哪些对应关系、分类或指标？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P005_B34"], "source_granularity": "none"}
+{"question_id": "Q0013", "question": "关于式中：A为圆柱型效应靶的最大变形值；d为圆柱型效应靶的直径，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P006_B11"], "source_granularity": "none"}
+{"question_id": "Q0014", "question": "关于杀爆联合作用下LY12CZ铝和45 钢材料效应靶的强度等效因子与变形量A之间的关系，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P007_B04"], "source_granularity": "none"}
+{"question_id": "Q0015", "question": "在爆炸冲击波/破片耦合毀伤效能研究中有关3.2.1的部分，关于为实现不同爆炸场景中杀爆联合作用下效应靶破坏程度的定量预测，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P007_B10"], "source_granularity": "section_approximate"}
+{"question_id": "Q0016", "question": "关于的穿孔带位置处极易发生应力集中现象。因此，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P007_B23"], "source_granularity": "none"}
+{"question_id": "Q0017", "question": "针对当前基于数值计算结果拟合得到的爆炸联合作用和爆炸相关作用毁伤效能的计算公式，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P008_B10"], "source_granularity": "none"}
+{"question_id": "Q0018", "question": "关于了大面积的应力集中现象，文中作了怎样的说明？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P008_B16"], "source_granularity": "none"}
+{"question_id": "Q0019", "question": "针对本文通过理论计算和数值模拟相结合的方法对多种爆炸作用场下爆炸冲击波和破片，文中采用了什么方法或技术路线？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P009_B09"], "source_granularity": "none"}
+{"question_id": "Q0020", "question": "在《爆炸冲击波/破片耦合毀伤效能研究》的4，关于(3）在爆炸初始参数相同的前提下，文中给出的相关数值、条件或结论是什么？", "evidence_block_ids": ["杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P009_B13"], "source_granularity": "section_exact"}
