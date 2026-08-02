@@ -300,23 +300,64 @@ PP-StructureV3 把"图"和"图标题"检测为两个独立块，但**不会把�
 ```
 资料/*.pdf
   │
-  ├─[PyMuPDF 逐页渲染] pages/pXXX.png  (+ 文本层检查，供 6.5 增强)
+  ├─[PyMuPDF 渲染与页元数据]
+  │     PDF -> pages/pXXX.png + pages/_render_meta.json
+  │     检查文本层、页尺寸、DPI；页图是坐标回溯和裁图依据
   │
   ├─[PP-StructureV3]
   │     layout(PP-DocLayoutV3) + OCR(PP-OCRv5) + table(SLANeXt) + formula(PP-FormulaNet)
   │     chart=off → figure 区域直接裁剪
   │     → structure.json + structure.md + assets/*.png
   │
-  ├─[解析层后处理]
-  │     标签归一(block_type) + block_id 分配 + 坐标归一化
-  │     + caption↔figure 配对(6.1) + section_path(6.2)
-  │     + 交叉引用索引(6.3) + (可选)原生文本覆盖(6.5)
-  │     → doc.json
+  ├─[归一与清洗]
+  │     structure.json -> 统一 Block
+  │     标签归一(block_type) + block_id 分配 + 坐标归一化 + 水印/噪声过滤
   │
-  └─→ processed/parsed/{doc_id}/doc.json   （后续切分/证据抽取/检索的输入）
-        ↓ (后续环节，不在解析层)
-   切分策略 → 证据抽取 → RAG 检索 → 带引用溯源的毁伤评估准则
+  ├─[结构关系构建]
+  │     caption <-> figure/table 配对 + section_path 标题层级
+  │     + 正文对图表/公式/章节的 references + 跨页 continuation
+  │
+  ├─[关系异常检测：非阻塞]
+  │     检查目标存在、关系类型、双向图注回链、图注/续接章节兼容性
+  │     异常写入相关 block.quality_flags，并输出 relation_validation.jsonl
+  │     doc.json 保留所有解析事实；报告用于定位，不自动改写原关系
+  │
+  ├─[视觉裁图与人工审阅]
+  │     figure/table + 合法图注 -> assets/crops/*.png
+  │     doc.json + doc.md
+  │
+  └─→ processed/parsed/{doc_id}/
+        ├─ doc.json                         解析层正式机器输入
+        ├─ doc.md                           人工审阅视图
+        ├─ relation_validation.jsonl        关系异常清单；空文件表示未发现规则异常
+        └─ assets/crops/*.png               图表回溯与视觉增强输入
+             │
+             ├─[Chunk 构建]
+             │   仅含标题的父节点不独立入库；正文继承完整 heading_path
+             │   同章节正文-公式、图表-图注、跨页续接块强绑定；跨章节关系不合并
+             │   -> chunks.jsonl (text + embedding_text + provenance)
+             │
+             ├─[可选视觉增强]
+             │   crops + 上下文 -> visual_enrichment.json
+             │
+             └─[索引与问答]
+                 embedding_text -> 向量索引
+                 section_path / heading_path / block_ids / page -> metadata、过滤与引用回显
+                 检索 -> 证据抽取 -> 带来源引用的毁伤评估准则
 ```
+
+### 8.1 产物职责与异常定位
+
+| 看到的问题 | 首先检查 | 处理位置 |
+|---|---|---|
+| OCR 文字、表格或公式错误 | `structure.json`、页图 | 检测模型或归一化 |
+| 标题层级或章节归属错误 | `doc.json` 的 `section_path` | `relations.build_section_paths` |
+| 图表和图注错配 | `relation_validation.jsonl`、双方 `caption_of` / `caption_ids`、页图坐标 | `relations.pair_captions` |
+| 正文引用未带出公式 | `doc.json.references` 与 `chunks.jsonl.block_ids` | chunk 强绑定规则 |
+| chunk 跨章节、空正文或缺标题上下文 | `chunks.jsonl` | chunk 构建规则 |
+| 图表描述缺失或裁图不可用 | `visual_enrichment.json`、`assets/crops` | 视觉增强或裁图 |
+
+异常检测不替代人工审阅。它把全量人工筛查缩小为两类样本：`relation_validation.jsonl` 中的告警记录，以及少量无告警的随机抽样。每条告警都含源/目标 block ID 与页码，可直接回到 `doc.json` 和页图确认。
 
 ## 9. 故障排查
 

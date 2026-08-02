@@ -15,6 +15,11 @@ from typing import Any, Iterable, Sequence
 
 from src.paths import PROJECT_ROOT
 from src.schema import Block, Chunk, ChunkVisualAsset, Document
+from src.data_processing.relation_validation import (
+    REPORT_NAME,
+    validate_relations,
+    write_relation_validation_report,
+)
 
 
 OUTPUT_NAME = "chunks.jsonl"
@@ -190,14 +195,39 @@ def _build_units(blocks: list[Block]) -> list[_Unit]:
     """Bind relations whose members must not be separated across chunks."""
     by_id = {block.block_id: block for block in blocks}
     groups = _DisjointSet(by_id)
+
+    def compatible_sections(left: Block, right: Block) -> bool:
+        return not (
+            left.section_path
+            and right.section_path
+            and left.section_path != right.section_path
+        )
+
     for block in blocks:
         for target in (block.continuation_of, block.continues_to):
-            if target:
+            if target and target in by_id and compatible_sections(block, by_id[target]):
                 groups.union(block.block_id, target)
+        for reference in block.references:
+            target = by_id.get(reference)
+            # A formula without the surrounding explanation is rarely useful
+            # for retrieval. Keep same-section formula citations together while
+            # preserving the section boundary as a hard invariant.
+            if (
+                target is not None
+                and target.block_type == "formula"
+                and target.section_path == block.section_path
+            ):
+                groups.union(block.block_id, target.block_id)
         if block.block_type in VISUAL_TYPES:
             for caption_id in block.caption_ids:
-                groups.union(block.block_id, caption_id)
-        if block.block_type == "caption" and block.caption_of:
+                if caption_id in by_id and compatible_sections(block, by_id[caption_id]):
+                    groups.union(block.block_id, caption_id)
+        if (
+            block.block_type == "caption"
+            and block.caption_of
+            and block.caption_of in by_id
+            and compatible_sections(block, by_id[block.caption_of])
+        ):
             groups.union(block.block_id, block.caption_of)
 
     # A heading carries the first semantic unit of its own section.
@@ -218,7 +248,18 @@ def _build_units(blocks: list[Block]) -> list[_Unit]:
     result = []
     for values in members.values():
         values.sort(key=lambda block: position[block.block_id])
-        result.append(_Unit(values, [block.text for block in values if block.text.strip()]))
+        # Headings are retrieval context, not primary evidence. They are
+        # represented through heading_path and embedding_text below.
+        result.append(
+            _Unit(
+                values,
+                [
+                    block.text
+                    for block in values
+                    if block.block_type != "heading" and block.text.strip()
+                ],
+            )
+        )
     result.sort(key=lambda unit: min(position[block.block_id] for block in unit.blocks))
     return result
 
@@ -227,7 +268,13 @@ _SENTENCE_BOUNDARY = re.compile(r"(?<=[。！？!?；;])|(?<=\.)\s+")
 
 
 def _split_long_unit(unit: _Unit, max_chars: int) -> list[_Unit]:
-    if len(unit.blocks) != 1 or unit.blocks[0].block_type not in TEXT_OVERLAP_TYPES:
+    text_blocks = [
+        block for block in unit.blocks if block.block_type in TEXT_OVERLAP_TYPES
+    ]
+    other_blocks = [block for block in unit.blocks if block not in text_blocks]
+    if len(text_blocks) != 1 or any(
+        block.block_type != "heading" for block in other_blocks
+    ):
         return [unit]
     text = unit.text
     if len(text) <= max_chars:
@@ -249,6 +296,44 @@ def _split_long_unit(unit: _Unit, max_chars: int) -> list[_Unit]:
     if current:
         fragments.append(current)
     return [_Unit(unit.blocks, [fragment]) for fragment in fragments]
+
+
+def _heading_title(text: str, section_id: str) -> str:
+    """Return a clean heading label without Markdown or section numbering."""
+    value = re.sub(r"^\s*#{1,6}\s*", "", text).strip()
+    value = " ".join(value.split())
+    if section_id:
+        value = re.sub(rf"^{re.escape(section_id)}(?:\.+\s*|\s+)", "", value).strip()
+    return value
+
+
+def _heading_paths(blocks: list[Block]) -> dict[tuple[str, ...], str]:
+    paths: dict[tuple[str, ...], str] = {}
+    for block in blocks:
+        if block.block_type != "heading" or not block.section_path:
+            continue
+        key = tuple(block.section_path)
+        title = _heading_title(block.text, block.section_path[-1])
+        if title and key not in paths:
+            paths[key] = title
+    return paths
+
+
+def _heading_path(section_path: list[str], headings: dict[tuple[str, ...], str]) -> list[str]:
+    result = []
+    for index, section_id in enumerate(section_path, start=1):
+        key = tuple(section_path[:index])
+        title = headings.get(key, "")
+        result.append(f"{section_id} {title}".strip())
+    return result
+
+
+def _embedding_text(document: Document, heading_path: list[str], text: str) -> str:
+    parts = [f"Document: {document.document_id}"]
+    if heading_path:
+        parts.append(f"Section: {' > '.join(heading_path)}")
+    parts.append(f"Content: {text}")
+    return "\n".join(parts)
 
 
 def _same_section(left: _Unit, right: _Unit) -> bool:
@@ -328,13 +413,17 @@ def build_chunks(
     blocks = _all_blocks(document)
     by_id = {block.block_id: block for block in blocks}
     warnings = validate_document(document)
-    packed = _pack_units(_build_units(blocks), config)
+    units = [unit for unit in _build_units(blocks) if unit.text]
+    packed = _pack_units(units, config)
+    headings = _heading_paths(blocks)
     chunks: list[Chunk] = []
     previous_units: list[_Unit] = []
 
     for index, units in enumerate(packed, start=1):
         primary_blocks = _unique_blocks(block for unit in units for block in unit.blocks)
         text = "\n\n".join(unit.text for unit in units if unit.text)
+        section_path = list(units[0].section_path)
+        heading_path = _heading_path(section_path, headings)
         references = _unique(ref for block in primary_blocks for ref in block.references)
         flags = _unique(
             flag
@@ -384,13 +473,15 @@ def build_chunks(
                 chunk_id=f"{document.document_id}_C{index:05d}",
                 document_id=document.document_id,
                 text=text,
+                embedding_text=_embedding_text(document, heading_path, text),
                 visual_text="\n".join(_unique(descriptions)),
                 overlap_text=overlap_text,
                 block_ids=_unique(block.block_id for block in primary_blocks),
                 overlap_block_ids=overlap_ids,
                 page_start=min(block.page for block in primary_blocks),
                 page_end=max(block.page for block in primary_blocks),
-                section_path=list(units[0].section_path),
+                section_path=section_path,
+                heading_path=heading_path,
                 references=references,
                 source_file=document.source_file,
                 visual_assets=visual_assets,
@@ -415,6 +506,8 @@ def chunk_document(
     """Load one parsed document and atomically replace its JSONL chunk view."""
     doc_json = Path(doc_json)
     document, document_warnings = _load_document(doc_json)
+    relation_issues = validate_relations(_all_blocks(document))
+    write_relation_validation_report(doc_json.parent / REPORT_NAME, relation_issues)
     visual_path = visual_path or doc_json.parent / VISUAL_OUTPUT_NAME
     visual_items, visual_available = _load_visual_enrichment(visual_path)
     available_assets = {

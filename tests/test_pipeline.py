@@ -101,6 +101,7 @@ class PipelineTest(unittest.TestCase):
             self.assertEqual(paragraph.section_path, ["1"])
             self.assertTrue((output / "doc.json").is_file())
             self.assertTrue((output / "doc.md").is_file())
+            self.assertTrue((output / "relation_validation.jsonl").is_file())
 
     def test_rebuilds_from_structure_without_rendering_pdf(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -122,10 +122,11 @@ class ChunkVisualAsset(BaseModel):
 class Chunk(BaseModel):
     """Retrieval unit derived from ``doc.json`` without changing parser facts."""
 
-    schema_version: int = 1
+    schema_version: int = 2
     chunk_id: str
     document_id: str
     text: str
+    embedding_text: str = ""
     visual_text: str = ""
     overlap_text: str = ""
     block_ids: list[str]
@@ -133,6 +134,7 @@ class Chunk(BaseModel):
     page_start: int
     page_end: int
     section_path: list[str] = Field(default_factory=list)
+    heading_path: list[str] = Field(default_factory=list)
     references: list[str] = Field(default_factory=list)
     source_file: str
     visual_assets: list[ChunkVisualAsset] = Field(default_factory=list)
