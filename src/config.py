@@ -117,6 +117,43 @@ class DatabaseConfig:
         }
 
 
+@dataclass(frozen=True)
+class ResearchModelConfig:
+    """Connection settings for an OpenAI-compatible research model."""
+
+    model: str
+    base_url: str
+    api_key: str = field(repr=False)
+    max_queries: int = 4
+    evidence_limit: int = 10
+
+    @classmethod
+    def from_env(cls, env_file: str | Path | None = None) -> "ResearchModelConfig":
+        dotenv_path = Path(env_file) if env_file is not None else PROJECT_ROOT / ".env"
+        load_dotenv(dotenv_path=dotenv_path, override=False)
+
+        names = {
+            "model": "RESEARCH_MODEL",
+            "base_url": "RESEARCH_BASE_URL",
+            "api_key": "RESEARCH_API_KEY",
+        }
+        values = {
+            field_name: os.getenv(env_name, "").strip()
+            for field_name, env_name in names.items()
+        }
+        missing = [names[field_name] for field_name, value in values.items() if not value]
+        if missing:
+            raise ConfigError(
+                "Missing required research model configuration: " + ", ".join(missing)
+            )
+        values["base_url"] = values["base_url"].rstrip("/")
+        return cls(
+            **values,
+            max_queries=_positive_int_env("RESEARCH_MAX_QUERIES", default=4),
+            evidence_limit=_positive_int_env("RESEARCH_EVIDENCE_LIMIT", default=10),
+        )
+
+
 @dataclass
 class ParseConfig:
     """PP-StructureV3 调用配置。"""

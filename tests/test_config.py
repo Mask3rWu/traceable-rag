@@ -6,7 +6,13 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from src.config import ConfigError, DatabaseConfig, EmbeddingConfig, ParseConfig
+from src.config import (
+    ConfigError,
+    DatabaseConfig,
+    EmbeddingConfig,
+    ParseConfig,
+    ResearchModelConfig,
+)
 
 
 class ConfigTest(unittest.TestCase):
@@ -96,3 +102,22 @@ class ConfigTest(unittest.TestCase):
         }
         with patch.dict(os.environ, env, clear=True), self.assertRaises(ConfigError):
             DatabaseConfig.from_env()
+
+    def test_research_model_config_loads_limits_and_hides_key(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            env_file = Path(tmp) / ".env"
+            env_file.write_text(
+                "RESEARCH_MODEL=test-model\n"
+                "RESEARCH_BASE_URL=https://research.example/v1/\n"
+                "RESEARCH_API_KEY=test-secret\n"
+                "RESEARCH_MAX_QUERIES=3\n"
+                "RESEARCH_EVIDENCE_LIMIT=7\n",
+                encoding="utf-8",
+            )
+
+            config = ResearchModelConfig.from_env(env_file)
+
+        self.assertEqual(config.base_url, "https://research.example/v1")
+        self.assertEqual(config.max_queries, 3)
+        self.assertEqual(config.evidence_limit, 7)
+        self.assertNotIn("test-secret", repr(config))
