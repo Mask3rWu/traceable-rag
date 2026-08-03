@@ -62,7 +62,8 @@ by summarizing, comparing, and verifying relevant source conclusions; this evide
 required in both deliverable modes.
 Use small focused queries, shortlist the most relevant evidence, inspect exact source excerpts,
 and stop broad searching once the questions have reasonable coverage. Respect all upstream
-decisions. Every factual claim needs exact citation quotes. Every
+decisions. Every factual claim needs one or more evidence IDs; the system fills exact source
+quotes. Every
 evidence item used in chapter prose must have an EvidenceContribution explaining why it is
 relevant and the concise auditable inference it supports. This inference is a justification,
 not hidden chain-of-thought. Put prose in ContentBlocks and link every used evidence ID to the

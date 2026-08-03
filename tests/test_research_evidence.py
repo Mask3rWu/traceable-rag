@@ -3,7 +3,6 @@ from __future__ import annotations
 import unittest
 
 from src.research.evidence import (
-    CitationValidationError,
     CitationVerifier,
     EvidenceResolver,
     merge_evidence,
@@ -67,14 +66,14 @@ class ResearchEvidenceTest(unittest.TestCase):
         self.assertEqual(merged[0].section_path, ["3 损伤", "3.1 装甲"])
         self.assertEqual(merged[0].visual_assets[0].page, 3)
 
-    def test_verifies_provenance_and_exact_claim_quote(self):
+    def test_verifies_provenance_without_exact_claim_quote(self):
         verifier = CitationVerifier(self.catalog)
         evidence = verifier.verify_evidence(self.resolver.resolve("装甲损伤", result()))
         claim = Claim(
             claim_id="cl-1",
             text="装甲破裂降低结构防护能力。",
             conclusion_type="direct",
-            citations=[Citation(evidence_id=evidence.evidence_id, quote="降低结构防护能力")],
+            citations=[Citation(evidence_id=evidence.evidence_id)],
         )
 
         verified = verifier.verify_claim(claim, {evidence.evidence_id: evidence})
@@ -82,7 +81,7 @@ class ResearchEvidenceTest(unittest.TestCase):
         self.assertTrue(evidence.verified)
         self.assertTrue(verified.citation_verified)
 
-    def test_rejects_quote_not_present_in_source(self):
+    def test_ignores_model_quote_not_present_in_source(self):
         verifier = CitationVerifier(self.catalog)
         evidence = verifier.verify_evidence(self.resolver.resolve("装甲损伤", result()))
         claim = Claim(
@@ -92,8 +91,9 @@ class ResearchEvidenceTest(unittest.TestCase):
             citations=[Citation(evidence_id=evidence.evidence_id, quote="发动机完全损坏")],
         )
 
-        with self.assertRaisesRegex(CitationValidationError, "quote is absent"):
-            verifier.verify_claim(claim, {evidence.evidence_id: evidence})
+        verified = verifier.verify_claim(claim, {evidence.evidence_id: evidence})
+        self.assertTrue(verified.citation_verified)
+        self.assertEqual(verified.citations[0].quote, evidence.quote)
 
     def test_rejects_stale_retrieval_result(self):
         stale = result().model_copy(update={"content_hash": "b" * 64})

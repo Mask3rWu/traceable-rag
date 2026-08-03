@@ -58,12 +58,12 @@ class Evidence(BaseModel):
 
 
 class Citation(BaseModel):
-    """An exact source span used to support one claim."""
+    """A source anchor; the exact quote is filled from verified evidence."""
 
     model_config = ConfigDict(frozen=True)
 
     evidence_id: str
-    quote: str = Field(min_length=1)
+    quote: str = ""
 
 
 class Claim(BaseModel):

@@ -33,7 +33,7 @@ processed/research/agent-runs/<run_id>/run.json
 - `search_knowledge` 只向模型返回来源元数据和短预览；正文通过 `read_evidence` 按需读取。
 - Fast Agent 至少成功检索一次，并声明有效 Evidence ID 后才能提交答案。
 - 每个章节 Worker 先提交对相关来源的总结、比较和核验结果；在 `normative_synthesis` 模式下，再提交与来源事实分离的规范性设计。Worker 提交正文块、核验 Claim、Decision 和公开推断。
-- 证据链由 `Claim.citations` 表达：每条结论通过精确引文关联到所使用的 Evidence，不再要求单独的 `EvidenceContribution` 采用理由记录。
+- 证据链由 `Claim.citations` 表达：Worker 只提交 Evidence ID，系统从已核验证据中回填精确引文，不再要求模型逐字复述原文。
 - 全局决策通过依赖关系传递给后续章节；上游证据不足时，下游依赖章节不会盲目执行。
 - 首轮章节研究证据不足或结构提交失败时，调度器会把明确的 `gaps`/`diagnostics` 反馈给同一章节 Worker 做一次补充研究；仍未完成才阻塞下游。阻塞章节不会再次启动 Worker，也不会继续调用一致性模型。
 - Worker 的消息上下文和正文读取预算相互独立，Evidence 注册表在一次请求内共享并去重。
@@ -119,13 +119,13 @@ conda run -n dba-py311 python scripts/run_research.py `
 
 - `Evidence`：稳定 evidence/chunk ID、内容哈希、文件、页码、章节、块 ID、原文、
   视觉资产和每轮检索排名。
-- `Claim`：结论文本、`direct/synthesized/normative/hypothesis` 类型及精确引文。
+- `Claim`：结论文本、`direct/synthesized/normative/hypothesis` 类型、Evidence ID 及系统回填的精确引文。
 - `Conflict`：相关结论与证据、处理状态和可选解决说明。
 - `DocumentPlan`：章节目标、研究问题、依赖关系、产出/使用的全局决策和验收条件。
 - `ResearchPacket`：章节正文块、Claim、Decision、Conflict 和证据缺口。
 - `AgentRun`：路由、`completed/incomplete` 结果状态、章节计划、一致性问题、答案、去重 Evidence 和章节研究包。
 
-引用核验目前验证内容哈希、文档、页码、块归属和引文是否存在于原文中。它不判断
+引用核验目前验证 Evidence ID 存在且证据已通过内容哈希、文档、页码、块归属和原文核验；模型提交的引文不会作为可信输入。它不判断
 “原文是否在语义上足以推出结论”，这需要后续独立的语义蕴含评测和人工审核。
 
 来源展示 UI 后续直接读取 `run.json`，不参与来源事实的生成或核验。

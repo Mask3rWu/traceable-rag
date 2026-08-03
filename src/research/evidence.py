@@ -105,7 +105,7 @@ def merge_evidence(current: Sequence[Evidence], incoming: Sequence[Evidence]) ->
 
 
 class CitationVerifier:
-    """Verify provenance and exact quotations; semantic entailment is out of scope."""
+    """Verify provenance anchors; semantic entailment is out of scope."""
 
     def __init__(self, catalog: ChunkCatalog) -> None:
         self.catalog = catalog
@@ -136,14 +136,20 @@ class CitationVerifier:
     def verify_claim(self, claim: Claim, evidence_by_id: dict[str, Evidence]) -> Claim:
         if not claim.citations:
             raise CitationValidationError(f"Claim {claim.claim_id} has no citations")
+        citations: list[Citation] = []
         for citation in claim.citations:
-            self._verify_citation(claim.claim_id, citation, evidence_by_id)
-        return claim.model_copy(update={"citation_verified": True})
+            evidence = self._verify_citation(
+                claim.claim_id, citation, evidence_by_id
+            )
+            citations.append(citation.model_copy(update={"quote": evidence.quote}))
+        return claim.model_copy(
+            update={"citations": citations, "citation_verified": True}
+        )
 
     @staticmethod
     def _verify_citation(
         claim_id: str, citation: Citation, evidence_by_id: dict[str, Evidence]
-    ) -> None:
+    ) -> Evidence:
         evidence = evidence_by_id.get(citation.evidence_id)
         if evidence is None:
             raise CitationValidationError(
@@ -153,7 +159,4 @@ class CitationVerifier:
             raise CitationValidationError(
                 f"Claim {claim_id} cites unverified evidence {citation.evidence_id}"
             )
-        if _normalized(citation.quote) not in _normalized(evidence.quote):
-            raise CitationValidationError(
-                f"Claim {claim_id} quote is absent from {citation.evidence_id}"
-            )
+        return evidence

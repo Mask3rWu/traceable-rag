@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 from src.research.client import ResearchDraft
-from src.research.evidence import CitationValidationError, CitationVerifier, EvidenceResolver
+from src.research.evidence import CitationVerifier, EvidenceResolver
 from src.research.models import Citation, Claim, Conflict
 from src.research.store import ResearchRunStore
 from src.research.workflow import ResearchWorkflow
@@ -110,19 +110,16 @@ class ResearchWorkflowTest(unittest.TestCase):
         self.assertEqual([call.tool for call in run.tool_calls], ["plan_queries", "search", "search", "search", "synthesize", "verify_citations"])
         self.assertEqual(persisted.status, "completed")
 
-    def test_persists_failed_run_when_citation_is_invalid(self):
+    def test_replaces_model_quote_with_verified_evidence_quote(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            workflow, _, _ = self._build(root, bad_quote=True)
+            workflow, _, store = self._build(root, bad_quote=True)
 
-            with self.assertRaises(CitationValidationError):
-                workflow.run("装甲破裂有什么影响？")
+            run = workflow.run("装甲破裂有什么影响？")
+            persisted = store.load(run.run_id)
 
-            run_files = list(root.glob("*/run.json"))
-            self.assertEqual(len(run_files), 1)
-            persisted = run_files[0].read_text(encoding="utf-8")
-            self.assertIn('"status": "failed"', persisted)
-            self.assertIn("CitationValidationError", persisted)
+            self.assertEqual(run.claims[0].citations[0].quote, run.evidence[0].quote)
+            self.assertEqual(persisted.status, "completed")
 
     def test_rejects_duplicate_claim_ids(self):
         claims = [

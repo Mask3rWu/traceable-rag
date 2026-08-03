@@ -127,8 +127,17 @@ class EvidenceWorkspace:
             with read_lock:
                 new_ids = requested - read_ids
                 if len(read_ids) + len(new_ids) > workspace.max_evidence_reads:
-                    raise ValueError(
-                        f"Evidence read budget exceeded ({workspace.max_evidence_reads})"
+                    return json.dumps(
+                        {
+                            "status": "budget_reached",
+                            "message": (
+                                f"Evidence read limit reached ({workspace.max_evidence_reads}). "
+                                "Use the evidence already read to write and submit this chapter."
+                            ),
+                            "available_evidence_ids": sorted(read_ids),
+                            "requested_in_budget": sorted(requested & read_ids),
+                        },
+                        ensure_ascii=False,
                     )
                 read_ids.update(new_ids)
             return json.dumps(workspace.read(evidence_ids), ensure_ascii=False)
