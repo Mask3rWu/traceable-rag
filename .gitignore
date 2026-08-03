@@ -5,6 +5,10 @@ __pycache__/
 *.egg
 build/
 dist/
+web/node_modules/
+web/dist/
+web/test-results/
+web/playwright-report/
 .eggs/
 
 # ===== 虚拟环境 =====

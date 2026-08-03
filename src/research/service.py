@@ -6,6 +6,7 @@ from typing import Any
 
 from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
+from langchain_core.callbacks import BaseCallbackHandler
 from langfuse.langchain import CallbackHandler
 
 from src.config import ResearchModelConfig
@@ -24,23 +25,36 @@ class RoutedResearchAgent:
     config: ResearchModelConfig
     langfuse: Langfuse | None = None
 
-    def run(self, request: str) -> tuple[AgentRun, Any]:
-        callbacks = []
+    def run(
+        self,
+        request: str,
+        *,
+        run_id: str | None = None,
+        trace_id: str | None = None,
+        callbacks: list[BaseCallbackHandler] | None = None,
+    ) -> tuple[AgentRun, Any]:
+        resolved_callbacks = list(callbacks or [])
         if self.langfuse is not None:
-            callbacks.append(
+            resolved_trace_id = trace_id or self.langfuse.create_trace_id(seed=run_id)
+            resolved_callbacks.append(
                 CallbackHandler(
-                    public_key=self.config.langfuse_public_key, update_trace=True
+                    public_key=self.config.langfuse_public_key,
+                    update_trace=True,
+                    trace_context={"trace_id": resolved_trace_id},
                 )
             )
+            trace_id = resolved_trace_id
         runnable_config = {
-            "callbacks": callbacks,
+            "callbacks": resolved_callbacks,
             "run_name": "research-router",
             "tags": ["research-agent"],
             "metadata": {"entrypoint": "routed-research-agent"},
             "recursion_limit": self.config.max_steps * 4 + 8,
         }
         try:
-            return self.runtime.run(request, config=runnable_config)
+            return self.runtime.run(
+                request, config=runnable_config, run_id=run_id, trace_id=trace_id
+            )
         finally:
             if self.langfuse is not None:
                 self.langfuse.flush()
@@ -71,6 +85,9 @@ def build_research_agent(
         workspace=workspace,
         store=store,
         max_steps=resolved.max_steps,
+        fast_max_steps=resolved.fast_max_steps,
+        worker_max_steps=resolved.worker_max_steps,
+        supervisor_max_steps=resolved.supervisor_max_steps,
         max_workers=resolved.max_workers,
         max_subtasks=resolved.max_subtasks,
     )

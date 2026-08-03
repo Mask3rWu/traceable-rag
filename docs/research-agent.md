@@ -40,6 +40,9 @@ RESEARCH_API_KEY=<your-key>
 RESEARCH_MAX_QUERIES=4
 RESEARCH_EVIDENCE_LIMIT=10
 RESEARCH_MAX_STEPS=12
+RESEARCH_FAST_MAX_STEPS=8
+RESEARCH_WORKER_MAX_STEPS=18
+RESEARCH_SUPERVISOR_MAX_STEPS=12
 RETRIEVAL_DEFAULT_TOP_K=8
 RESEARCH_MAX_EVIDENCE_READS=12
 RESEARCH_MAX_WORKERS=4
@@ -49,6 +52,9 @@ LANGFUSE_PUBLIC_KEY=
 LANGFUSE_SECRET_KEY=
 LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
+
+`RESEARCH_MAX_STEPS` 是兼容回退值。Fast、Worker 和 Supervisor 默认分别使用
+8、18、12 个模型决策步骤；Worker 需要多轮搜索和正文读取，因此预算高于快速问答。
 
 启用 Langfuse 后，一次用户请求对应一条根 trace。Router、Fast/Supervisor、
 `delegate_research`、Worker、LLM 和检索工具均作为其下 observations 上报。

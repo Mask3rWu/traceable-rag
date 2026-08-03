@@ -48,6 +48,7 @@ class ReactState(TypedDict, total=False):
     messages: Annotated[list[BaseMessage], add_messages]
     steps: int
     result: dict[str, Any]
+    task: str
 
 
 class RootState(TypedDict, total=False):
@@ -69,6 +70,9 @@ class AgentRuntime:
         workspace: EvidenceWorkspace,
         store: AgentRunStore | None = None,
         max_steps: int = 12,
+        fast_max_steps: int | None = None,
+        worker_max_steps: int | None = None,
+        supervisor_max_steps: int | None = None,
         max_workers: int = 4,
         max_subtasks: int = 8,
     ) -> None:
@@ -78,6 +82,9 @@ class AgentRuntime:
         self.workspace = workspace
         self.store = store or AgentRunStore()
         self.max_steps = max_steps
+        self.fast_max_steps = fast_max_steps or min(max_steps, 8)
+        self.worker_max_steps = worker_max_steps or max(max_steps, 18)
+        self.supervisor_max_steps = supervisor_max_steps or max_steps
         self.max_workers = max_workers
         self.max_subtasks = max_subtasks
         self._packets: list[ResearchPacket] = []
@@ -137,9 +144,10 @@ class AgentRuntime:
         tools: Sequence[BaseTool],
         submit_name: str,
         result_model: type[BaseModel],
-        exhausted_result: Callable[[], BaseModel],
+        exhausted_result: Callable[[ReactState, bool], BaseModel],
         can_submit: Callable[[dict[str, Any]], bool] | None = None,
         graph_name: str,
+        step_limit: int,
     ):
         bound_model = self.model.bind_tools(list(tools))
         tool_node = ToolNode(tools, handle_tool_errors=True)
@@ -165,7 +173,7 @@ class AgentRuntime:
                 and submission_allowed
             ):
                 return "submit"
-            if state.get("steps", 0) >= self.max_steps:
+            if state.get("steps", 0) >= step_limit:
                 return "exhausted"
             return "tools" if calls else "exhausted"
 
@@ -177,8 +185,10 @@ class AgentRuntime:
             result = result_model.model_validate(call["args"])
             return {"result": result.model_dump(mode="json")}
 
-        def exhausted(_: ReactState) -> dict:
-            result = exhausted_result()
+        def exhausted(state: ReactState) -> dict:
+            result = exhausted_result(
+                state, state.get("steps", 0) >= step_limit
+            )
             return {"result": result.model_dump(mode="json")}
 
         builder = StateGraph(ReactState)
@@ -205,12 +215,17 @@ class AgentRuntime:
             tools=tools,
             submit_name="submit_answer",
             result_model=AgentAnswer,
-            exhausted_result=lambda: AgentAnswer(
+            exhausted_result=lambda _, budget_exhausted: AgentAnswer(
                 content="未能在执行预算内形成可靠答案。",
-                limitations=["Agent step budget exhausted"],
+                limitations=[
+                    "Agent step budget exhausted"
+                    if budget_exhausted
+                    else "Agent stopped without submitting a grounded answer"
+                ],
             ),
             can_submit=self._can_submit_fast_answer,
             graph_name="fast-react-agent",
+            step_limit=self.fast_max_steps,
         )
 
     def _build_worker_graph(self):
@@ -220,13 +235,22 @@ class AgentRuntime:
             tools=tools,
             submit_name="submit_research",
             result_model=ResearchPacket,
-            exhausted_result=lambda: ResearchPacket(
-                task="unfinished research task",
+            exhausted_result=lambda state, budget_exhausted: ResearchPacket(
+                task=state.get("task", "unfinished research task"),
                 status="insufficient",
-                summary="The worker did not finish within its step budget.",
-                gaps=["Agent step budget exhausted"],
+                summary=(
+                    "The worker did not finish within its step budget."
+                    if budget_exhausted
+                    else "The worker stopped without submitting a research packet."
+                ),
+                gaps=[
+                    "Agent step budget exhausted"
+                    if budget_exhausted
+                    else "Worker stopped without calling submit_research"
+                ],
             ),
             graph_name="research-worker",
+            step_limit=self.worker_max_steps,
         )
 
     def _validate_fast_answer(self, answer: AgentAnswer) -> None:
@@ -263,11 +287,15 @@ class AgentRuntime:
             # history and evidence-read budget while sharing the evidence registry.
             worker_graph = runtime._build_worker_graph()
             state = worker_graph.invoke(
-                {"messages": [HumanMessage(content=request)], "steps": 0},
+                {
+                    "messages": [HumanMessage(content=request)],
+                    "steps": 0,
+                    "task": task,
+                },
                 {
                     **config,
                     "run_name": "research-worker",
-                    "recursion_limit": runtime.max_steps * 2 + 4,
+                    "recursion_limit": runtime.worker_max_steps * 2 + 4,
                 },
             )
             packet = ResearchPacket.model_validate(state["result"])
@@ -338,12 +366,17 @@ class AgentRuntime:
             tools=tools,
             submit_name="submit_answer",
             result_model=AgentAnswer,
-            exhausted_result=lambda: AgentAnswer(
+            exhausted_result=lambda _, budget_exhausted: AgentAnswer(
                 content="研究调度未能在执行预算内完成。",
-                limitations=["Supervisor step budget exhausted"],
+                limitations=[
+                    "Supervisor step budget exhausted"
+                    if budget_exhausted
+                    else "Supervisor stopped without submitting a verified deliverable"
+                ],
             ),
             can_submit=self._can_submit_supervisor_answer,
             graph_name="research-supervisor",
+            step_limit=self.supervisor_max_steps,
         )
 
     def _build_root_graph(self):
@@ -368,7 +401,7 @@ class AgentRuntime:
                 {
                     **config,
                     "run_name": "fast-react-agent",
-                    "recursion_limit": self.max_steps * 2 + 4,
+                    "recursion_limit": self.fast_max_steps * 2 + 4,
                 },
             )
             return {"answer": result["result"]}
@@ -379,7 +412,7 @@ class AgentRuntime:
                 {
                     **config,
                     "run_name": "research-supervisor",
-                    "recursion_limit": self.max_steps * 2 + 4,
+                    "recursion_limit": self.supervisor_max_steps * 2 + 4,
                     "max_concurrency": self.max_workers,
                 },
             )
@@ -400,7 +433,12 @@ class AgentRuntime:
         return builder.compile(name="research-router")
 
     def run(
-        self, request: str, *, config: RunnableConfig | None = None
+        self,
+        request: str,
+        *,
+        config: RunnableConfig | None = None,
+        run_id: str | None = None,
+        trace_id: str | None = None,
     ) -> tuple[AgentRun, Any]:
         if not request.strip():
             raise ValueError("request must not be blank")
@@ -417,11 +455,13 @@ class AgentRuntime:
             answer = AgentAnswer.model_validate(state["answer"])
             self.workspace.validate_evidence_ids(answer.evidence_ids)
             run = AgentRun(
+                **({"run_id": run_id} if run_id is not None else {}),
                 request=request.strip(),
                 route=route,
                 answer=answer,
                 evidence=self.workspace.evidence,
                 worker_packets=self.packets,
+                trace_id=trace_id,
             )
             path = self.store.save(run)
             return run, path

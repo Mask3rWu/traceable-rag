@@ -136,6 +136,9 @@ class ResearchModelConfig:
     max_queries: int = 4
     evidence_limit: int = 10
     max_steps: int = 12
+    fast_max_steps: int = 8
+    worker_max_steps: int = 18
+    supervisor_max_steps: int = 12
     retrieval_top_k: int = 8
     max_evidence_reads: int = 12
     max_workers: int = 4
@@ -173,11 +176,21 @@ class ResearchModelConfig:
                 "LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY are required when "
                 "LANGFUSE_ENABLED is true"
             )
+        max_steps = _positive_int_env("RESEARCH_MAX_STEPS", default=12)
         return cls(
             **values,
             max_queries=_positive_int_env("RESEARCH_MAX_QUERIES", default=4),
             evidence_limit=_positive_int_env("RESEARCH_EVIDENCE_LIMIT", default=10),
-            max_steps=_positive_int_env("RESEARCH_MAX_STEPS", default=12),
+            max_steps=max_steps,
+            fast_max_steps=_positive_int_env(
+                "RESEARCH_FAST_MAX_STEPS", default=min(max_steps, 8)
+            ),
+            worker_max_steps=_positive_int_env(
+                "RESEARCH_WORKER_MAX_STEPS", default=max(max_steps, 18)
+            ),
+            supervisor_max_steps=_positive_int_env(
+                "RESEARCH_SUPERVISOR_MAX_STEPS", default=max_steps
+            ),
             retrieval_top_k=_positive_int_env("RETRIEVAL_DEFAULT_TOP_K", default=8),
             max_evidence_reads=_positive_int_env("RESEARCH_MAX_EVIDENCE_READS", default=12),
             max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),

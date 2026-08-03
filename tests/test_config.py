@@ -120,4 +120,7 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.base_url, "https://research.example/v1")
         self.assertEqual(config.max_queries, 3)
         self.assertEqual(config.evidence_limit, 7)
+        self.assertEqual(config.fast_max_steps, 8)
+        self.assertEqual(config.worker_max_steps, 18)
+        self.assertEqual(config.supervisor_max_steps, 12)
         self.assertNotIn("test-secret", repr(config))

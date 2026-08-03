@@ -42,4 +42,5 @@ class AgentRun(BaseModel):
     answer: AgentAnswer
     evidence: list[Evidence] = Field(default_factory=list)
     worker_packets: list[ResearchPacket] = Field(default_factory=list)
+    trace_id: str | None = None
     created_at: datetime = Field(default_factory=utc_now)
