@@ -15,7 +15,12 @@ from src.research.agent_store import AgentRunStore
 from src.research.service import RoutedResearchAgent, build_research_agent
 
 
-TERMINAL_STATUSES: set[RunStatus] = {"cancelled", "completed", "failed"}
+TERMINAL_STATUSES: set[RunStatus] = {
+    "cancelled",
+    "completed",
+    "incomplete",
+    "failed",
+}
 
 
 @dataclass
@@ -85,11 +90,11 @@ class RunManager:
             with managed.condition:
                 managed.result = result
                 managed.trace_id = result.trace_id
-                managed.status = "completed"
+                managed.status = result.outcome
                 managed.updated_at = utc_now()
             self._emit(
                 managed,
-                "completed",
+                result.outcome,
                 {
                     "route": result.route.mode,
                     "evidence_count": len(result.evidence),
@@ -202,7 +207,7 @@ class RunManager:
         return RunDetail(
             run_id=run.run_id,
             request=run.request,
-            status="completed",
+            status=run.outcome,
             route=run.route.mode,
             route_reason=run.route.reason,
             trace_id=run.trace_id,

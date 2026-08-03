@@ -42,6 +42,7 @@ const eventNames = [
   'cancel_requested',
   'cancelled',
   'completed',
+  'incomplete',
   'failed',
 ]
 
@@ -55,7 +56,7 @@ export function subscribeRun(
     source.addEventListener(name, (raw) => {
       const event = raw as MessageEvent<string>
       onEvent(JSON.parse(event.data) as RunEvent)
-      if (['completed', 'failed', 'cancelled'].includes(name)) {
+      if (['completed', 'incomplete', 'failed', 'cancelled'].includes(name)) {
         source.close()
         onDisconnect()
       }

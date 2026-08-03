@@ -10,7 +10,13 @@ from src.research.agent_models import AgentRun
 
 
 RunStatus = Literal[
-    "queued", "running", "cancel_requested", "cancelled", "completed", "failed"
+    "queued",
+    "running",
+    "cancel_requested",
+    "cancelled",
+    "completed",
+    "incomplete",
+    "failed",
 ]
 
 

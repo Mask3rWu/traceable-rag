@@ -7,7 +7,16 @@ from src.research.models import (
     Evidence,
     ResearchRun,
 )
-from src.research.agent_models import AgentAnswer, AgentRun, ResearchPacket, RouteDecision
+from src.research.agent_models import (
+    AgentAnswer,
+    AgentRun,
+    ChapterPlan,
+    ContentBlock,
+    DecisionRecord,
+    DocumentPlan,
+    ResearchPacket,
+    RouteDecision,
+)
 from src.research.workflow import ResearchWorkflow
 
 __all__ = [
@@ -19,6 +28,10 @@ __all__ = [
     "ResearchWorkflow",
     "AgentAnswer",
     "AgentRun",
+    "ChapterPlan",
+    "ContentBlock",
+    "DecisionRecord",
+    "DocumentPlan",
     "ResearchPacket",
     "RouteDecision",
 ]

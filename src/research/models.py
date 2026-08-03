@@ -71,7 +71,7 @@ class Claim(BaseModel):
 
     claim_id: str
     text: str = Field(min_length=1)
-    conclusion_type: Literal["direct", "synthesized", "hypothesis"]
+    conclusion_type: Literal["direct", "synthesized", "normative", "hypothesis"]
     citations: list[Citation] = Field(default_factory=list)
     citation_verified: bool = False
 

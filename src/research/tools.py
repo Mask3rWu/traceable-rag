@@ -32,7 +32,7 @@ class EvidenceWorkspace:
         resolver: EvidenceResolver,
         verifier: CitationVerifier,
         default_top_k: int = 8,
-        max_evidence_reads: int = 12,
+        max_evidence_reads: int = 20,
     ) -> None:
         self.retrieval = retrieval
         self.resolver = resolver

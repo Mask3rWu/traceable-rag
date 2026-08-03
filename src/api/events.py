@@ -37,11 +37,19 @@ class AgentEventCallback(BaseCallbackHandler):
             "research-router",
             "router",
             "fast-react-agent",
-            "research-supervisor",
-            "research-worker",
+            "chapter_planner",
+            "chapter_research",
+            "consistency_review",
+            "document_assembler",
         }
-        if name in visible:
-            self.emit("stage_started", {"stage": name})
+        if name in visible or name.startswith("chapter-worker:"):
+            data = {"stage": name}
+            metadata = kwargs.get("metadata")
+            if isinstance(metadata, dict):
+                for key in ("chapter_id", "chapter_title"):
+                    if key in metadata:
+                        data[key] = _preview(metadata[key])
+            self.emit("stage_started", data)
 
     def on_chain_end(self, outputs: dict[str, Any], **kwargs: Any) -> None:
         run_id = kwargs.get("run_id")

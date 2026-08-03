@@ -8,12 +8,21 @@ BM25 与 RRF；模型自主决定检索词、证据读取、补充检索和停�
 
 ```text
 请求 -> Router -> Fast ReAct (聚焦问答)
-             \-> Supervisor ReAct (复杂研究/标准生成)
-                    -> delegate_research -> Worker ReAct
+             \-> Chapter Planner (章节与依赖 DAG)
+                    -> Chapter Scheduler (按依赖分波次并发)
+                         -> Chapter Worker ReAct (章节级研究)
+                    -> Consistency Reviewer
+                    -> Deterministic Assembler
 ```
 
-只有 Supervisor 可以创建 Worker。Worker 只能检索、读取证据并提交结构化
-`ResearchPacket`，不能继续创建子 Agent。最终运行结果默认写到：
+复杂任务先生成结构化 `DocumentPlan`。基础章节负责术语、范围、分级体系等全局
+决策；依赖章节只有在上游完成并产生所需 `DecisionRecord` 后才会执行。同一依赖层
+的章节可以并发，Worker 不能继续创建子 Agent。请求生成新标准时，计划使用
+`normative_synthesis` 模式：先完成资料的总结、比较、冲突核验和适用性分析，再基于
+这份证据综合设计新的标准。它不是跳过 `evidence_summary` 的捷径，而是“证据综合 +
+规范性设计”的组合交付。不要求资料中已经存在一份完全相同的成品标准。新规则必须
+标记为 `normative`，并公开参考依据、迁移理由、假设、替代方案和验证要求。
+`evidence_summary` 则表示证据综合本身就是最终交付物。最终运行结果默认写到：
 
 ```text
 processed/research/agent-runs/<run_id>/run.json
@@ -23,10 +32,13 @@ processed/research/agent-runs/<run_id>/run.json
 
 - `search_knowledge` 只向模型返回来源元数据和短预览；正文通过 `read_evidence` 按需读取。
 - Fast Agent 至少成功检索一次，并声明有效 Evidence ID 后才能提交答案。
-- Supervisor 只有收到带核验 Claim/Evidence 的 `sufficient` Worker 结果后才能提交标准。
+- 每个章节 Worker 先提交对相关来源的总结、比较和核验结果；在 `normative_synthesis` 模式下，再提交与来源事实分离的规范性设计。Worker 提交正文块、核验 Claim、Decision 和公开推断。
+- 证据链由 `Claim.citations` 表达：每条结论通过精确引文关联到所使用的 Evidence，不再要求单独的 `EvidenceContribution` 采用理由记录。
+- 全局决策通过依赖关系传递给后续章节；上游证据不足时，下游依赖章节不会盲目执行。
+- 首轮章节研究证据不足或结构提交失败时，调度器会把明确的 `gaps`/`diagnostics` 反馈给同一章节 Worker 做一次补充研究；仍未完成才阻塞下游。阻塞章节不会再次启动 Worker，也不会继续调用一致性模型。
 - Worker 的消息上下文和正文读取预算相互独立，Evidence 注册表在一次请求内共享并去重。
-- Langfuse callback 从根图透传到 Router、Supervisor、Worker、模型和工具调用。
-- 不保存模型隐藏思维链；本地 `run.json` 保存最终答案、Evidence 和 Worker 研究包。
+- Langfuse callback 从根图透传到 Router、Planner、章节 Worker、Reviewer、模型和工具调用。
+- 不保存模型隐藏思维链；只保存可审计的依据、公开推断、假设和替代方案。
 
 ## DeepSeek 配置
 
@@ -44,7 +56,7 @@ RESEARCH_FAST_MAX_STEPS=8
 RESEARCH_WORKER_MAX_STEPS=18
 RESEARCH_SUPERVISOR_MAX_STEPS=12
 RETRIEVAL_DEFAULT_TOP_K=8
-RESEARCH_MAX_EVIDENCE_READS=12
+RESEARCH_MAX_EVIDENCE_READS=20
 RESEARCH_MAX_WORKERS=4
 RESEARCH_MAX_SUBTASKS=8
 LANGFUSE_ENABLED=false
@@ -53,11 +65,13 @@ LANGFUSE_SECRET_KEY=
 LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
 
-`RESEARCH_MAX_STEPS` 是兼容回退值。Fast、Worker 和 Supervisor 默认分别使用
-8、18、12 个模型决策步骤；Worker 需要多轮搜索和正文读取，因此预算高于快速问答。
+`RESEARCH_MAX_STEPS` 是兼容回退值。Fast 和 Chapter Worker 默认分别使用 8、18 个
+模型决策步骤；Worker 需要多轮搜索和正文读取，因此预算高于快速问答。
+`RESEARCH_SUPERVISOR_MAX_STEPS` 当前作为协调器兼容配置保留；章节规划、一致性审查和
+确定性组装各执行一次，不进入旧的 Supervisor ReAct 循环。
 
-启用 Langfuse 后，一次用户请求对应一条根 trace。Router、Fast/Supervisor、
-`delegate_research`、Worker、LLM 和检索工具均作为其下 observations 上报。
+启用 Langfuse 后，一次用户请求对应一条根 trace。Router、Planner、Fast/Chapter
+Worker、Consistency Reviewer、Assembler、LLM 和检索工具均作为其下 observations 上报。
 
 `RESEARCH_MODEL` 可以替换为服务端实际开放的其他 DeepSeek 模型名。模型密钥不会
 写入 `run.json`、工具调用记录或日志。Embedding 和 PostgreSQL 仍读取已有的
@@ -105,10 +119,11 @@ conda run -n dba-py311 python scripts/run_research.py `
 
 - `Evidence`：稳定 evidence/chunk ID、内容哈希、文件、页码、章节、块 ID、原文、
   视觉资产和每轮检索排名。
-- `Claim`：结论文本、`direct/synthesized/hypothesis` 类型及精确引文。
+- `Claim`：结论文本、`direct/synthesized/normative/hypothesis` 类型及精确引文。
 - `Conflict`：相关结论与证据、处理状态和可选解决说明。
-- `ResearchPacket`：Worker 的任务状态、Claim、Conflict、证据 ID 和证据缺口。
-- `AgentRun`：路由决策、最终答案、去重 Evidence 和所有 Worker 研究包。
+- `DocumentPlan`：章节目标、研究问题、依赖关系、产出/使用的全局决策和验收条件。
+- `ResearchPacket`：章节正文块、Claim、Decision、Conflict 和证据缺口。
+- `AgentRun`：路由、`completed/incomplete` 结果状态、章节计划、一致性问题、答案、去重 Evidence 和章节研究包。
 
 引用核验目前验证内容哈希、文档、页码、块归属和引文是否存在于原文中。它不判断
 “原文是否在语义上足以推出结论”，这需要后续独立的语义蕴含评测和人工审核。
