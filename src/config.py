@@ -143,6 +143,10 @@ class ResearchModelConfig:
     max_evidence_reads: int = 40
     max_workers: int = 4
     max_subtasks: int = 8
+    document_max_chars: int = 6000
+    chapter_max_chars: int = 1600
+    chapter_max_claims: int = 10
+    chapter_max_decisions: int = 4
     langfuse_enabled: bool = False
     langfuse_public_key: str = field(default="", repr=False)
     langfuse_secret_key: str = field(default="", repr=False)
@@ -195,6 +199,18 @@ class ResearchModelConfig:
             max_evidence_reads=_positive_int_env("RESEARCH_MAX_EVIDENCE_READS", default=40),
             max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),
             max_subtasks=_positive_int_env("RESEARCH_MAX_SUBTASKS", default=8),
+            document_max_chars=_positive_int_env(
+                "RESEARCH_DOCUMENT_MAX_CHARS", default=6000
+            ),
+            chapter_max_chars=_positive_int_env(
+                "RESEARCH_CHAPTER_MAX_CHARS", default=1600
+            ),
+            chapter_max_claims=_positive_int_env(
+                "RESEARCH_CHAPTER_MAX_CLAIMS", default=10
+            ),
+            chapter_max_decisions=_positive_int_env(
+                "RESEARCH_CHAPTER_MAX_DECISIONS", default=4
+            ),
             langfuse_enabled=langfuse_enabled,
             langfuse_public_key=langfuse_public_key,
             langfuse_secret_key=langfuse_secret_key,

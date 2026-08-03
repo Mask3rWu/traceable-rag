@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import threading
 from collections.abc import Callable, Sequence
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -39,7 +40,9 @@ from src.research.tools import EvidenceWorkspace
 FAST_PROMPT = """You are a traceable knowledge-base question-answering agent.
 Rewrite the user's need into focused searches. Use search_knowledge, inspect previews, and
 read only the evidence needed. You may search again when coverage is weak. Answer only from
-retrieved evidence. Cite evidence IDs inline and finish by calling submit_answer."""
+retrieved evidence. The answer is public user content: provide the conclusion directly, without
+source names, document titles, citations, or evidence/Claim/Decision IDs. Keep evidence IDs only
+in the structured evidence_ids field and finish by calling submit_answer."""
 
 PLANNER_PROMPT = """You are the planning component of a research supervisor. Create a
 chapter-level plan for the requested structured deliverable. Each chapter must have bounded
@@ -47,27 +50,36 @@ research questions and acceptance criteria. Put shared terminology, scope, class
 frameworks, and other global decisions in foundational chapters. Express execution order with
 depends_on. A chapter that creates a reusable decision declares its stable ID in
 produces_decisions; every consumer declares that ID in required_decisions and depends on its
-producer. Independent chapters may run in parallel. Do not make factual claims or invent
+producer. Each plan entry is exactly one final top-level chapter. Give chapters disjoint scopes;
+never ask one chapter to recreate the complete document or material assigned to another chapter.
+Independent chapters may run in parallel. Do not copy a source document's table of contents or
+chapter numbering into the plan. Do not make factual claims or invent
 evidence in the plan. Every chapter must first summarize, compare, and verify the relevant
 sources. Choose evidence_summary when that evidence synthesis is the final deliverable. Choose
 normative_synthesis when the request additionally asks for a new standard, taxonomy, threshold
 system, or operating rule; this mode includes the evidence synthesis and adds a separate design
 layer based on it. Use concise
 stable ASCII identifiers and preserve the user's language.
+The final deliverable is an operational standard for its end users, not a literature review.
+Plan chapters around conclusions, definitions, criteria, tables, decision rules, procedures,
+templates, and examples. Do not create a chapter whose user-facing content is mainly a source
+comparison or an evidence summary; source comparison belongs in the structured claims,
+decisions, conflicts, and evidence metadata.
 Return only a JSON object matching the supplied schema."""
 
 WORKER_PROMPT = """You are a chapter research worker handling one bounded chapter. Work
-through every research question using iterative search_knowledge and read_evidence calls. Start
-by summarizing, comparing, and verifying relevant source conclusions; this evidence synthesis is
-required in both deliverable modes.
+through every research question using iterative search_knowledge and read_evidence calls. First
+summarize, compare, and verify relevant source conclusions internally; this evidence synthesis
+is required in both deliverable modes but must remain in the structured audit metadata, not in
+the public ContentBlock.
 Use small focused queries, shortlist the most relevant evidence, inspect exact source excerpts,
 and stop broad searching once the questions have reasonable coverage. Respect all upstream
 decisions. Every factual claim needs one or more evidence IDs; the system fills exact source
-quotes. Every
-evidence item used in chapter prose must have an EvidenceContribution explaining why it is
-relevant and the concise auditable inference it supports. This inference is a justification,
-not hidden chain-of-thought. Put prose in ContentBlocks and link every used evidence ID to the
-block, claim, or decision it supports. Distinguish direct, synthesized, normative, and
+quotes. Submit exactly one ContentBlock for this chapter. Its heading must be null and its
+markdown must not contain Markdown headings or recreate nested chapters. Link every Claim,
+Decision, and used evidence ID to that single block. Keep the evidence synthesis compact; do not
+reproduce a source standard's structure, table of contents, or unrelated clauses. Distinguish
+direct, synthesized, normative, and
 hypothesis conclusions. In normative_synthesis mode, the requested standard is allowed to be
 new, but only after evidence synthesis: use the verified source comparison as design input and
 keep source conclusions separate from proposed rules. Create explicit normative rules instead of
@@ -75,7 +87,19 @@ requiring a source that already contains the finished standard. Mark designed ru
 thresholds as normative, explain the transfer rationale, list assumptions and alternatives,
 state validation requirements, and use lower confidence where empirical calibration is absent.
 Do not mark a chapter insufficient merely because the exact requested standard is absent.
-Never present a proposed rule as a source fact. Finish by calling submit_chapter with a compact
+Never present a proposed rule as a source fact.
+
+The ContentBlock is public, end-user standard text. It must contain conclusions and operational
+rules only: definitions, requirements, thresholds, tables, decision steps, output formats, and
+examples. Do not put source names, author names, document titles, standard numbers, evidence IDs,
+Claim/Decision IDs, inline citations, literature comparisons, or phrases such as "according to"
+or "the source shows" in the ContentBlock. Keep all source reasoning in Claim.citations and
+DecisionRecord.rationale/evidence_ids, which are audit metadata shown separately by the system.
+Do not expose internal labels such as C1, D1, CH4-C1, or ev-... in public prose.
+
+One ContentBlock is a structured container, not one paragraph. Use multiple paragraphs separated
+by blank lines, bullet lists, tables, decision trees, and examples as appropriate. Do not collapse
+the whole chapter into a single dense paragraph. Finish by calling submit_chapter with a compact
 structured chapter artifact."""
 
 ROUTER_PROMPT = """Classify the execution mode for a knowledge-base request. Choose fast
@@ -120,8 +144,20 @@ class AgentRuntime:
         supervisor_max_steps: int | None = None,
         max_workers: int = 4,
         max_subtasks: int = 8,
+        document_max_chars: int = 6000,
+        chapter_max_chars: int = 1600,
+        chapter_max_claims: int = 10,
+        chapter_max_decisions: int = 4,
     ) -> None:
-        if min(max_steps, max_workers, max_subtasks) <= 0:
+        if min(
+            max_steps,
+            max_workers,
+            max_subtasks,
+            document_max_chars,
+            chapter_max_chars,
+            chapter_max_claims,
+            chapter_max_decisions,
+        ) <= 0:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
         self.workspace = workspace
@@ -133,6 +169,10 @@ class AgentRuntime:
         self.supervisor_max_steps = supervisor_max_steps or max_steps
         self.max_workers = max_workers
         self.max_subtasks = max_subtasks
+        self.document_max_chars = document_max_chars
+        self.chapter_max_chars = chapter_max_chars
+        self.chapter_max_claims = chapter_max_claims
+        self.chapter_max_decisions = chapter_max_decisions
         self._packets: list[ResearchPacket] = []
         self._lock = threading.RLock()
         self._run_lock = threading.Lock()
@@ -163,13 +203,15 @@ class AgentRuntime:
 
         return submit_answer
 
-    def _submit_chapter_tool(self, chapter: ChapterPlan) -> BaseTool:
+    def _submit_chapter_tool(
+        self, chapter: ChapterPlan, chapter_char_limit: int | None = None
+    ) -> BaseTool:
         @tool(args_schema=ResearchPacket)
         def submit_chapter(**kwargs: Any) -> str:
             """Submit a grounded chapter artifact and stop this worker."""
 
             packet = ResearchPacket.model_validate(kwargs)
-            self._validate_packet(packet, chapter)
+            self._validate_packet(packet, chapter, chapter_char_limit)
             return "submitted"
 
         return submit_chapter
@@ -272,14 +314,24 @@ class AgentRuntime:
             step_limit=self.fast_max_steps,
         )
 
-    def _build_chapter_graph(self, chapter: ChapterPlan):
+    def _build_chapter_graph(
+        self, chapter: ChapterPlan, chapter_char_limit: int | None = None
+    ):
+        prose_limit = chapter_char_limit or self.chapter_max_chars
         tools = [
             *self.workspace.make_retrieval_tools(),
-            self._submit_chapter_tool(chapter),
+            self._submit_chapter_tool(chapter, prose_limit),
         ]
 
         return self._build_react_graph(
-            prompt=WORKER_PROMPT,
+            prompt=(
+                f"{WORKER_PROMPT}\nHard output contract for this chapter: exactly one "
+                f"ContentBlock, at most {prose_limit} characters of chapter prose, "
+                f"{self.chapter_max_claims} Claims, and "
+                f"{self.chapter_max_decisions} Decisions. Use short unnumbered local "
+                "labels inside prose when needed. The document assembler owns the block "
+                "heading and all chapter numbering."
+            ),
             tools=tools,
             submit_name="submit_chapter",
             result_model=ResearchPacket,
@@ -318,6 +370,10 @@ class AgentRuntime:
             raise ValueError("Search the knowledge base before submitting an answer")
         if not answer.evidence_ids:
             raise ValueError("A grounded answer requires at least one evidence ID")
+        if re.search(r"(?i)\bev-[a-z0-9]+\b|\b(?:C|D)\d+\b", answer.content):
+            raise ValueError(
+                "Public answer content must not contain internal evidence, Claim, or Decision IDs"
+            )
         self.workspace.validate_evidence_ids(answer.evidence_ids)
 
     def _can_submit_fast_answer(self, args: dict[str, Any]) -> bool:
@@ -333,11 +389,60 @@ class AgentRuntime:
                 f"Document plan exceeds chapter budget ({self.max_subtasks})"
             )
 
-    def _validate_packet(self, packet: ResearchPacket, chapter: ChapterPlan) -> None:
+    def _validate_packet(
+        self,
+        packet: ResearchPacket,
+        chapter: ChapterPlan,
+        chapter_char_limit: int | None = None,
+    ) -> None:
+        prose_limit = chapter_char_limit or self.chapter_max_chars
         if packet.chapter_id != chapter.chapter_id:
             raise ValueError("Chapter artifact has the wrong chapter ID")
         if packet.chapter_title != chapter.title:
             raise ValueError("Chapter artifact has the wrong chapter title")
+
+        if packet.content_blocks and len(packet.content_blocks) != 1:
+            raise ValueError(
+                "A chapter artifact must contain exactly one ContentBlock; merge all "
+                f"chapter prose into one block (got {len(packet.content_blocks)})"
+            )
+        prose_chars = sum(
+            len(block.markdown) + len(block.heading or "")
+            for block in packet.content_blocks
+        )
+        if prose_chars > prose_limit:
+            raise ValueError(
+                "Chapter prose exceeds the character budget "
+                f"({prose_chars} > {prose_limit}); remove detail owned by "
+                "other chapters and condense the evidence synthesis"
+            )
+        if len(packet.claims) > self.chapter_max_claims:
+            raise ValueError(
+                "Chapter artifact exceeds the Claim budget "
+                f"({len(packet.claims)} > {self.chapter_max_claims}); keep only claims "
+                "needed by this chapter"
+            )
+        if len(packet.decisions) > self.chapter_max_decisions:
+            raise ValueError(
+                "Chapter artifact exceeds the Decision budget "
+                f"({len(packet.decisions)} > {self.chapter_max_decisions})"
+            )
+        for block in packet.content_blocks:
+            if block.heading:
+                raise ValueError(
+                    "The single ContentBlock must not define a heading; the document "
+                    f"assembler uses the ChapterPlan title: {block.heading!r}"
+                )
+            if re.search(r"(?m)^\s*#{1,6}\s+", block.markdown):
+                raise ValueError(
+                    "Chapter prose must not contain Markdown headings; use bold labels, "
+                    "lists, or tables inside the single ContentBlock"
+                )
+            if re.search(r"(?i)\bev-[a-z0-9]+\b|\b(?:C|D)\d+\b", block.markdown):
+                raise ValueError(
+                    "Public chapter prose must not contain internal evidence, Claim, or "
+                    "Decision IDs; keep them in structured metadata"
+                )
 
         claim_ids = {item.claim_id for item in packet.claims}
         decision_ids = {item.decision_id for item in packet.decisions}
@@ -349,22 +454,47 @@ class AgentRuntime:
         if len(block_ids) != len(packet.content_blocks):
             raise ValueError("Content block IDs must be unique within a chapter")
 
+        uncited_claims = [item.claim_id for item in packet.claims if not item.citations]
+        if uncited_claims:
+            raise ValueError(
+                f"Every Claim must cite evidence: {sorted(uncited_claims)}"
+            )
         cited = {
             citation.evidence_id
             for claim in packet.claims
             for citation in claim.citations
         }
-        used = set(cited)
-        used.update(
+        decision_evidence = {
             evidence_id
             for decision in packet.decisions
             for evidence_id in decision.evidence_ids
-        )
-        used.update(
-            evidence_id
-            for block in packet.content_blocks
-            for evidence_id in block.evidence_ids
-        )
+        }
+        used = cited | decision_evidence
+
+        if packet.content_blocks:
+            block = packet.content_blocks[0]
+            if set(block.claim_ids) != claim_ids:
+                raise ValueError(
+                    "The single ContentBlock must reference every Claim exactly once"
+                )
+            if set(block.decision_ids) != decision_ids:
+                raise ValueError(
+                    "The single ContentBlock must reference every Decision exactly once"
+                )
+            if set(block.evidence_ids) != used:
+                unexplained = set(block.evidence_ids) - used
+                missing = used - set(block.evidence_ids)
+                details = []
+                if unexplained:
+                    details.append(
+                        f"evidence without a Claim or Decision reason: {sorted(unexplained)}"
+                    )
+                if missing:
+                    details.append(f"reasoned evidence missing from block: {sorted(missing)}")
+                raise ValueError(
+                    "The single ContentBlock evidence must exactly match evidence explained "
+                    "by Claims or Decisions; " + "; ".join(details)
+                )
         self.workspace.validate_evidence_ids(used)
         evidence_by_id = self.workspace.evidence_by_id()
         packet.claims = [
@@ -394,9 +524,10 @@ class AgentRuntime:
                     )
 
         if packet.status == "sufficient":
-            if not packet.content_blocks or not packet.claims or not used:
+            if len(packet.content_blocks) != 1 or not packet.claims or not used:
                 raise ValueError(
-                    "A sufficient chapter requires prose, verified claims, and used evidence"
+                    "A sufficient chapter requires exactly one prose block, verified claims, "
+                    "and used evidence"
                 )
             missing_decisions = set(chapter.produces_decisions) - decision_ids
             if missing_decisions:
@@ -469,6 +600,14 @@ class AgentRuntime:
         request = {
             "document_title": plan.title,
             "deliverable_mode": plan.deliverable_mode,
+            "document_structure": [
+                {
+                    "ordinal": item.ordinal,
+                    "chapter_id": item.chapter_id,
+                    "title": item.title,
+                }
+                for item in sorted(plan.chapters, key=lambda item: item.ordinal)
+            ],
             "chapter": chapter.model_dump(mode="json"),
             "upstream": self._upstream_context(chapter, completed),
             "previous_attempt": (
@@ -483,13 +622,26 @@ class AgentRuntime:
             ),
             "instructions": (
                 "Return only this chapter. Use the declared chapter_id and chapter_title. "
-                "Every Evidence ID appearing in prose must have a contribution record. "
+                "Treat document_structure as a hard ownership boundary: do not write sections "
+                "owned by another chapter. Do not add chapter numbers or reuse numbering from "
+                "sources. The ContentBlock is public standard text: write conclusions and "
+                "operational rules only, with no source names, citations, evidence IDs, or "
+                "internal Claim/Decision IDs. Use multiple paragraphs separated by blank lines "
+                "when the chapter has multiple conclusions. Submit exactly one ContentBlock "
+                "with heading=null and no Markdown headings. It must reference every Claim and "
+                "Decision, and its evidence_ids must exactly match evidence explained by Claim "
+                "citations or Decisions; these fields are metadata and are not printed in the "
+                "public document. "
                 "When previous_attempt reports evidence gaps, focus new searches on them. "
                 "When it reports diagnostics, correct the structured submission before doing "
                 "more broad retrieval."
             ),
         }
-        graph = self._build_chapter_graph(chapter)
+        chapter_char_limit = min(
+            self.chapter_max_chars,
+            max(1, self.document_max_chars // len(plan.chapters)),
+        )
+        graph = self._build_chapter_graph(chapter, chapter_char_limit)
         metadata = dict(config.get("metadata") or {})
         metadata.update({"chapter_id": chapter.chapter_id, "chapter_title": chapter.title})
         state = graph.invoke(
@@ -508,7 +660,7 @@ class AgentRuntime:
             },
         )
         packet = ResearchPacket.model_validate(state["result"])
-        self._validate_packet(packet, chapter)
+        self._validate_packet(packet, chapter, chapter_char_limit)
         return packet
 
     def _run_chapter_with_followup(
@@ -763,11 +915,8 @@ class AgentRuntime:
                 if block.heading:
                     lines.extend(["", f"### {block.heading}"])
                 text = block.markdown.strip()
-                missing_inline = [
-                    item for item in block.evidence_ids if item not in text
-                ]
-                if missing_inline:
-                    text += " " + " ".join(f"[{item}]" for item in missing_inline)
+                if "\\n" in text and "\n" not in text:
+                    text = text.replace("\\n", "\n")
                 lines.extend(["", text])
                 for evidence_id in block.evidence_ids:
                     if evidence_id not in used_evidence:

@@ -36,6 +36,9 @@ processed/research/agent-runs/<run_id>/run.json
 - 证据链由 `Claim.citations` 表达：Worker 只提交 Evidence ID，系统从已核验证据中回填精确引文，不再要求模型逐字复述原文。
 - 全局决策通过依赖关系传递给后续章节；上游证据不足时，下游依赖章节不会盲目执行。
 - 首轮章节研究证据不足或结构提交失败时，调度器会把明确的 `gaps`/`diagnostics` 反馈给同一章节 Worker 做一次补充研究；仍未完成才阻塞下游。阻塞章节不会再次启动 Worker，也不会继续调用一致性模型。
+- 每个 Worker 会收到完整章节目录作为内容所有权边界，但只能提交当前章节。一个完成章节必须且只能提交一个 `ContentBlock`，块标题为空且正文不能包含 Markdown 章节标题；章节标题与编号由组装器统一生成，禁止照搬来源文档的目录编号。
+- 整份文档默认最多 6000 个正文字符，并按计划章节数平均分配；每章还受 1600 字符硬上限，以及 10 个 Claim、4 个 Decision 的上限约束。超出预算的 `submit_chapter` 会被拒绝并要求压缩重写；这些限制可通过 `RESEARCH_DOCUMENT_MAX_CHARS` 和 `RESEARCH_CHAPTER_MAX_*` 配置调整。
+- Claim 与 Decision 是多对多关系：Claim 记录证据支持的事实，Decision 记录基于一个或多个 Claim 形成的规则。正文块中的每个 Evidence ID 必须由 Claim citation 或 Decision rationale 给出使用原因，且正文块必须关联本章全部 Claim、Decision 和 Evidence。
 - Worker 的消息上下文和正文读取预算相互独立，Evidence 注册表在一次请求内共享并去重。
 - Langfuse callback 从根图透传到 Router、Planner、章节 Worker、Reviewer、模型和工具调用。
 - 不保存模型隐藏思维链；只保存可审计的依据、公开推断、假设和替代方案。
@@ -59,6 +62,10 @@ RETRIEVAL_DEFAULT_TOP_K=8
 RESEARCH_MAX_EVIDENCE_READS=20
 RESEARCH_MAX_WORKERS=4
 RESEARCH_MAX_SUBTASKS=8
+RESEARCH_DOCUMENT_MAX_CHARS=6000
+RESEARCH_CHAPTER_MAX_CHARS=1600
+RESEARCH_CHAPTER_MAX_CLAIMS=10
+RESEARCH_CHAPTER_MAX_DECISIONS=4
 LANGFUSE_ENABLED=false
 LANGFUSE_PUBLIC_KEY=
 LANGFUSE_SECRET_KEY=

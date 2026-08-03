@@ -87,7 +87,11 @@ function EvidenceInspector({ run, evidence }: { run: RunDetail; evidence: Eviden
 
 function ChapterResearch({ packet, evidenceById, onEvidence }: { packet: ResearchPacket | null; evidenceById: Map<string, Evidence>; onEvidence: (id: string) => void }) {
   if (!packet) return <div className="inspector-empty"><ListTree size={22} /><p>选择一个章节查看研究依据和推断。</p></div>
-  const usedEvidence = Array.from(new Set(packet.claims.flatMap((claim) => claim.citations.map((citation) => citation.evidence_id))))
+  const usedEvidence = Array.from(new Set([
+    ...packet.content_blocks.flatMap((block) => block.evidence_ids),
+    ...packet.claims.flatMap((claim) => claim.citations.map((citation) => citation.evidence_id)),
+    ...packet.decisions.flatMap((decision) => decision.evidence_ids),
+  ]))
   return (
     <div className="chapter-research">
       <div className="research-summary">
@@ -106,10 +110,15 @@ function ChapterResearch({ packet, evidenceById, onEvidence }: { packet: Researc
       <div className="contribution-list">
         {usedEvidence.map((evidenceId) => {
           const evidence = evidenceById.get(evidenceId)
+          const claims = packet.claims.filter((claim) => claim.citations.some((citation) => citation.evidence_id === evidenceId))
+          const decisions = packet.decisions.filter((decision) => decision.evidence_ids.includes(evidenceId))
           return (
             <button className="contribution-item" key={evidenceId} onClick={() => onEvidence(evidenceId)}>
               <div><code>{evidenceId}</code><ChevronRight size={14} /></div>
               <strong>{evidence?.source_file ?? '未知来源'}</strong>
+              {claims.map((claim) => <p className="contribution-reason" key={claim.claim_id}><span>支撑结论</span>{claim.text}</p>)}
+              {decisions.map((decision) => <p className="contribution-inference" key={decision.decision_id}><span>形成决策</span>{decision.statement}：{decision.rationale}</p>)}
+              {claims.length === 0 && decisions.length === 0 ? <p className="contribution-missing">未记录该证据的使用原因</p> : null}
             </button>
           )
         })}

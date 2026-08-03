@@ -90,6 +90,10 @@ def build_research_agent(
         supervisor_max_steps=resolved.supervisor_max_steps,
         max_workers=resolved.max_workers,
         max_subtasks=resolved.max_subtasks,
+        document_max_chars=resolved.document_max_chars,
+        chapter_max_chars=resolved.chapter_max_chars,
+        chapter_max_claims=resolved.chapter_max_claims,
+        chapter_max_decisions=resolved.chapter_max_decisions,
     )
     langfuse = None
     if resolved.langfuse_enabled:

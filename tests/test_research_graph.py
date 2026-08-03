@@ -320,7 +320,7 @@ class ResearchGraphTest(unittest.TestCase):
                 "content_blocks": [
                     {
                         "block_id": block_id,
-                        "markdown": f"{title}正文 [ev-test]",
+                        "markdown": f"{title}正文",
                         "claim_ids": [claim_id],
                         "decision_ids": [decision_id] if decision_id else [],
                         "evidence_ids": ["ev-test"],
@@ -381,7 +381,7 @@ class ResearchGraphTest(unittest.TestCase):
 
         self.assertEqual([item.chapter_id for item in run.worker_packets], ["levels", "movement"])
         self.assertEqual(run.worker_packets[0].decisions[0].decision_id, "D-LEVELS")
-        self.assertIn("[ev-test]", run.answer.content)
+        self.assertNotIn("ev-test", run.answer.content)
         self.assertEqual(run.answer.evidence_ids, ["ev-test"])
 
     def test_normative_decision_requires_auditable_design_metadata(self):
@@ -413,7 +413,7 @@ class ResearchGraphTest(unittest.TestCase):
                 "content_blocks": [
                     {
                         "block_id": "B-levels",
-                        "markdown": "建议采用四级分类 [ev-test]",
+                        "markdown": "建议采用四级分类",
                         "claim_ids": ["C-levels"],
                         "decision_ids": ["D-LEVELS"],
                         "evidence_ids": ["ev-test"],
@@ -443,6 +443,248 @@ class ResearchGraphTest(unittest.TestCase):
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
 
         with self.assertRaisesRegex(ValueError, "assumptions"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_chapter_rejects_content_block_heading(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "按章节生成",
+                "chapters": [
+                    {
+                        "chapter_id": "data",
+                        "ordinal": 1,
+                        "title": "数据要求",
+                        "objective": "规定数据要求",
+                        "research_questions": ["需要哪些数据"],
+                        "acceptance_criteria": ["形成数据要求"],
+                    }
+                ],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "content_blocks": [
+                    {
+                        "block_id": "B-data",
+                        "heading": "5.1 数据需求类型",
+                        "markdown": "数据要求",
+                        "claim_ids": ["C-data"],
+                        "evidence_ids": ["ev-test"],
+                    }
+                ],
+                "claims": [
+                    {
+                        "claim_id": "C-data",
+                        "text": "资料规定了数据要求",
+                        "conclusion_type": "direct",
+                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                    }
+                ],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "must not define a heading"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_chapter_rejects_internal_ids_in_public_prose(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "按章节生成",
+                "chapters": [
+                    {
+                        "chapter_id": "scope",
+                        "ordinal": 1,
+                        "title": "范围",
+                        "objective": "规定范围",
+                        "research_questions": ["适用范围是什么"],
+                        "acceptance_criteria": ["形成范围"],
+                    }
+                ],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "content_blocks": [
+                    {
+                        "block_id": "B-scope",
+                        "markdown": "结论 C1",
+                        "claim_ids": ["C-scope"],
+                        "evidence_ids": ["ev-test"],
+                    }
+                ],
+                "claims": [
+                    {
+                        "claim_id": "C-scope",
+                        "text": "适用范围已定义",
+                        "conclusion_type": "direct",
+                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                    }
+                ],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "internal evidence"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_assembler_keeps_public_prose_separate_from_evidence_metadata(self):
+        plan = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "按章节生成",
+                "chapters": [
+                    {
+                        "chapter_id": "scope",
+                        "ordinal": 1,
+                        "title": "范围",
+                        "objective": "规定范围",
+                        "research_questions": ["适用范围是什么"],
+                        "acceptance_criteria": ["形成范围"],
+                    }
+                ],
+            }
+        )
+        packet = ResearchPacket.model_validate(
+            {
+                "task": "规定范围",
+                "chapter_id": "scope",
+                "chapter_title": "范围",
+                "status": "sufficient",
+                "summary": "研究完成",
+                "content_blocks": [
+                    {
+                        "block_id": "B-scope",
+                        "markdown": "第一段结论。\n\n第二段结论。",
+                        "claim_ids": ["C-scope"],
+                        "evidence_ids": ["ev-test"],
+                    }
+                ],
+                "claims": [
+                    {
+                        "claim_id": "C-scope",
+                        "text": "适用范围已定义",
+                        "conclusion_type": "direct",
+                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                    }
+                ],
+            }
+        )
+
+        answer = AgentRuntime._assemble_answer(plan, [packet], [])
+
+        self.assertIn("第一段结论。\n\n第二段结论。", answer.content)
+        self.assertNotIn("ev-test", answer.content)
+        self.assertEqual(answer.evidence_ids, ["ev-test"])
+
+    def test_chapter_rejects_prose_over_character_budget(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "按章节生成",
+                "chapters": [
+                    {
+                        "chapter_id": "scope",
+                        "ordinal": 1,
+                        "title": "范围",
+                        "objective": "规定范围",
+                        "research_questions": ["适用范围是什么"],
+                        "acceptance_criteria": ["形成范围"],
+                    }
+                ],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "content_blocks": [
+                    {
+                        "block_id": "B-scope",
+                        "markdown": "超长正文内容非常多过多",
+                        "claim_ids": ["C-scope"],
+                        "evidence_ids": ["ev-test"],
+                    }
+                ],
+                "claims": [
+                    {
+                        "claim_id": "C-scope",
+                        "text": "资料支持适用范围",
+                        "conclusion_type": "direct",
+                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                    }
+                ],
+            }
+        )
+        runtime = AgentRuntime(
+            model=_ScriptedModel(route="fast"),
+            workspace=_Workspace(),
+            chapter_max_chars=10,
+        )
+
+        with self.assertRaisesRegex(ValueError, "character budget"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_chapter_rejects_evidence_without_claim_or_decision_reason(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "按章节生成",
+                "chapters": [
+                    {
+                        "chapter_id": "scope",
+                        "ordinal": 1,
+                        "title": "范围",
+                        "objective": "规定范围",
+                        "research_questions": ["适用范围是什么"],
+                        "acceptance_criteria": ["形成范围"],
+                    }
+                ],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "content_blocks": [
+                    {
+                        "block_id": "B-scope",
+                        "markdown": "适用范围",
+                        "claim_ids": ["C-scope"],
+                        "evidence_ids": ["ev-test", "ev-unexplained"],
+                    }
+                ],
+                "claims": [
+                    {
+                        "claim_id": "C-scope",
+                        "text": "资料支持适用范围",
+                        "conclusion_type": "direct",
+                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                    }
+                ],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "without a Claim or Decision reason"):
             runtime._validate_packet(packet, chapter)
 
 
