@@ -1,27 +1,32 @@
 # 领域研究 Agent
 
-当前实现是研究 Agent 的第一个可运行纵向切片。它复用现有 Dense、BM25 与 RRF，
-不实现模型 Reranker，也不依赖前端 UI。关键阶段由代码中的显式工作流约束，模型只
-负责检索词规划和基于给定证据的结构化综合。
+当前主入口是基于 LangGraph/LangChain 的路由 ReAct Agent。它复用现有 Dense、
+BM25 与 RRF；模型自主决定检索词、证据读取、补充检索和停止时机。旧的固定纵向
+工作流仍保留在 `scripts/run_research.py`，用于兼容和对照。
 
-## 运行流程
-
-```text
-问题
-  -> 规划检索词
-  -> 逐词混合检索
-  -> 解析并去重 Evidence
-  -> 生成 Claim / Conflict
-  -> 核验来源、块归属与精确引文
-  -> 原子写入 run.json
-```
-
-每次状态切换和每轮检索后都会更新 `run.json`。失败运行也会保留，`status` 为
-`failed`，`error` 记录异常类型和信息。默认路径为：
+统一入口先由 Router 判断任务复杂度：
 
 ```text
-processed/research/runs/<run_id>/run.json
+请求 -> Router -> Fast ReAct (聚焦问答)
+             \-> Supervisor ReAct (复杂研究/标准生成)
+                    -> delegate_research -> Worker ReAct
 ```
+
+只有 Supervisor 可以创建 Worker。Worker 只能检索、读取证据并提交结构化
+`ResearchPacket`，不能继续创建子 Agent。最终运行结果默认写到：
+
+```text
+processed/research/agent-runs/<run_id>/run.json
+```
+
+## ReAct 运行约束
+
+- `search_knowledge` 只向模型返回来源元数据和短预览；正文通过 `read_evidence` 按需读取。
+- Fast Agent 至少成功检索一次，并声明有效 Evidence ID 后才能提交答案。
+- Supervisor 只有收到带核验 Claim/Evidence 的 `sufficient` Worker 结果后才能提交标准。
+- Worker 的消息上下文和正文读取预算相互独立，Evidence 注册表在一次请求内共享并去重。
+- Langfuse callback 从根图透传到 Router、Supervisor、Worker、模型和工具调用。
+- 不保存模型隐藏思维链；本地 `run.json` 保存最终答案、Evidence 和 Worker 研究包。
 
 ## DeepSeek 配置
 
@@ -34,13 +39,43 @@ RESEARCH_BASE_URL=https://api.deepseek.com
 RESEARCH_API_KEY=<your-key>
 RESEARCH_MAX_QUERIES=4
 RESEARCH_EVIDENCE_LIMIT=10
+RESEARCH_MAX_STEPS=12
+RETRIEVAL_DEFAULT_TOP_K=8
+RESEARCH_MAX_EVIDENCE_READS=12
+RESEARCH_MAX_WORKERS=4
+RESEARCH_MAX_SUBTASKS=8
+LANGFUSE_ENABLED=false
+LANGFUSE_PUBLIC_KEY=
+LANGFUSE_SECRET_KEY=
+LANGFUSE_BASE_URL=https://cloud.langfuse.com
 ```
+
+启用 Langfuse 后，一次用户请求对应一条根 trace。Router、Fast/Supervisor、
+`delegate_research`、Worker、LLM 和检索工具均作为其下 observations 上报。
 
 `RESEARCH_MODEL` 可以替换为服务端实际开放的其他 DeepSeek 模型名。模型密钥不会
 写入 `run.json`、工具调用记录或日志。Embedding 和 PostgreSQL 仍读取已有的
 `EMBEDDING_*` 与 `DB_*` 配置。
 
 ## 执行
+
+安装 Agent 依赖：
+
+```powershell
+conda run -n dba-py311 python -m pip install -r requirements-agent.txt
+```
+
+统一入口：
+
+```powershell
+conda run -n dba-py311 python scripts/run_agent.py `
+  "生成一份可溯源的装甲目标视觉毁伤评估标准"
+```
+
+## Legacy 固定工作流
+
+以下命令仅用于兼容和回归对照。其产物仍写到
+`processed/research/runs/<run_id>/run.json`：
 
 确保 Dense 和 BM25 索引已经构建，然后运行：
 
@@ -66,8 +101,8 @@ conda run -n dba-py311 python scripts/run_research.py `
   视觉资产和每轮检索排名。
 - `Claim`：结论文本、`direct/synthesized/hypothesis` 类型及精确引文。
 - `Conflict`：相关结论与证据、处理状态和可选解决说明。
-- `ToolCall`：查询规划、每轮搜索、综合和引用核验的输入与结果摘要。
-- `ResearchRun`：完整状态、上述对象、摘要、错误和时间信息。
+- `ResearchPacket`：Worker 的任务状态、Claim、Conflict、证据 ID 和证据缺口。
+- `AgentRun`：路由决策、最终答案、去重 Evidence 和所有 Worker 研究包。
 
 引用核验目前验证内容哈希、文档、页码、块归属和引文是否存在于原文中。它不判断
 “原文是否在语义上足以推出结论”，这需要后续独立的语义蕴含评测和人工审核。

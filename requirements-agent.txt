@@ -1,0 +1,5 @@
+-r requirements-retrieval.txt
+langchain>=1.0,<2
+langchain-openai>=1.0,<2
+langgraph>=1.0,<2
+langfuse>=3.0,<4

@@ -28,6 +28,15 @@ def _positive_int_env(name: str, *, default: int) -> int:
     return value
 
 
+def _bool_env(name: str, *, default: bool = False) -> bool:
+    raw_value = os.getenv(name, str(default)).strip().lower()
+    if raw_value in {"1", "true", "yes", "on"}:
+        return True
+    if raw_value in {"0", "false", "no", "off"}:
+        return False
+    raise ConfigError(f"{name} must be a boolean")
+
+
 @dataclass(frozen=True)
 class EmbeddingConfig:
     """Connection settings for an OpenAI-compatible embedding model."""
@@ -126,6 +135,15 @@ class ResearchModelConfig:
     api_key: str = field(repr=False)
     max_queries: int = 4
     evidence_limit: int = 10
+    max_steps: int = 12
+    retrieval_top_k: int = 8
+    max_evidence_reads: int = 12
+    max_workers: int = 4
+    max_subtasks: int = 8
+    langfuse_enabled: bool = False
+    langfuse_public_key: str = field(default="", repr=False)
+    langfuse_secret_key: str = field(default="", repr=False)
+    langfuse_base_url: str = "https://cloud.langfuse.com"
 
     @classmethod
     def from_env(cls, env_file: str | Path | None = None) -> "ResearchModelConfig":
@@ -147,10 +165,29 @@ class ResearchModelConfig:
                 "Missing required research model configuration: " + ", ".join(missing)
             )
         values["base_url"] = values["base_url"].rstrip("/")
+        langfuse_enabled = _bool_env("LANGFUSE_ENABLED", default=False)
+        langfuse_public_key = os.getenv("LANGFUSE_PUBLIC_KEY", "").strip()
+        langfuse_secret_key = os.getenv("LANGFUSE_SECRET_KEY", "").strip()
+        if langfuse_enabled and not (langfuse_public_key and langfuse_secret_key):
+            raise ConfigError(
+                "LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY are required when "
+                "LANGFUSE_ENABLED is true"
+            )
         return cls(
             **values,
             max_queries=_positive_int_env("RESEARCH_MAX_QUERIES", default=4),
             evidence_limit=_positive_int_env("RESEARCH_EVIDENCE_LIMIT", default=10),
+            max_steps=_positive_int_env("RESEARCH_MAX_STEPS", default=12),
+            retrieval_top_k=_positive_int_env("RETRIEVAL_DEFAULT_TOP_K", default=8),
+            max_evidence_reads=_positive_int_env("RESEARCH_MAX_EVIDENCE_READS", default=12),
+            max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),
+            max_subtasks=_positive_int_env("RESEARCH_MAX_SUBTASKS", default=8),
+            langfuse_enabled=langfuse_enabled,
+            langfuse_public_key=langfuse_public_key,
+            langfuse_secret_key=langfuse_secret_key,
+            langfuse_base_url=os.getenv(
+                "LANGFUSE_BASE_URL", "https://cloud.langfuse.com"
+            ).strip().rstrip("/"),
         )
 
 
