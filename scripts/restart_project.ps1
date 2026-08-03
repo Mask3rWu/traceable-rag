@@ -13,9 +13,24 @@ $backendOutLog = Join-Path $logRoot 'backend.out.log'
 $backendErrLog = Join-Path $logRoot 'backend.err.log'
 $frontendOutLog = Join-Path $logRoot 'frontend.out.log'
 $frontendErrLog = Join-Path $logRoot 'frontend.err.log'
+$stdinFile = Join-Path $logRoot 'empty.stdin'
 
 function Write-Step([string]$Message) {
     Write-Host "[cc] $Message" -ForegroundColor Cyan
+}
+
+function Wait-ForHttpEndpoint([string]$Uri, [int]$Attempts = 15) {
+    $lastError = $null
+    for ($attempt = 1; $attempt -le $Attempts; $attempt++) {
+        try {
+            Invoke-WebRequest -UseBasicParsing -Uri $Uri -TimeoutSec 2 | Out-Null
+            return
+        } catch {
+            $lastError = $_.Exception
+            if ($attempt -lt $Attempts) { Start-Sleep -Seconds 1 }
+        }
+    }
+    throw "Endpoint did not become available: $Uri. $($lastError.Message)"
 }
 
 function Get-ProjectProcesses {
@@ -63,6 +78,9 @@ if ($ApiPort -lt 1 -or $ApiPort -gt 65535) { throw 'ApiPort must be between 1 an
 if ($WebPort -lt 1 -or $WebPort -gt 65535) { throw 'WebPort must be between 1 and 65535.' }
 
 New-Item -ItemType Directory -Force -Path $logRoot | Out-Null
+if (-not (Test-Path -LiteralPath $stdinFile)) {
+    New-Item -ItemType File -Path $stdinFile | Out-Null
+}
 
 Write-Step 'Stopping old project API/Vite processes.'
 $oldProcesses = @(Get-ProjectProcesses)
@@ -95,10 +113,10 @@ if (-not $pythonExe -or -not (Test-Path -LiteralPath $pythonExe)) {
 if (-not $pythonExe -or -not (Test-Path -LiteralPath $pythonExe)) { throw "Could not resolve dba-py311 Python: $pythonExe" }
 
 Write-Step 'Starting the backend.'
-$backend = Start-Process -FilePath $pythonExe -ArgumentList @('scripts/run_api.py', '--host', '127.0.0.1', '--port', "$ApiPort") -WorkingDirectory $projectRoot -RedirectStandardOutput $backendOutLog -RedirectStandardError $backendErrLog -WindowStyle Hidden -PassThru
+$backend = Start-Process -FilePath $pythonExe -ArgumentList @('scripts/run_api.py', '--host', '127.0.0.1', '--port', "$ApiPort") -WorkingDirectory $projectRoot -RedirectStandardInput $stdinFile -RedirectStandardOutput $backendOutLog -RedirectStandardError $backendErrLog -WindowStyle Hidden -PassThru
 
 Write-Step 'Starting the frontend dev server.'
-$frontend = Start-Process -FilePath 'npm.cmd' -ArgumentList @('run', 'dev', '--', '--host', '127.0.0.1', '--port', "$WebPort") -WorkingDirectory (Join-Path $projectRoot 'web') -RedirectStandardOutput $frontendOutLog -RedirectStandardError $frontendErrLog -WindowStyle Hidden -PassThru
+$frontend = Start-Process -FilePath 'npm.cmd' -ArgumentList @('run', 'dev', '--', '--host', '127.0.0.1', '--port', "$WebPort") -WorkingDirectory (Join-Path $projectRoot 'web') -RedirectStandardInput $stdinFile -RedirectStandardOutput $frontendOutLog -RedirectStandardError $frontendErrLog -WindowStyle Hidden -PassThru
 
 Start-Sleep -Seconds 2
 $backendAlive = Get-Process -Id $backend.Id -ErrorAction SilentlyContinue
@@ -112,8 +130,8 @@ Write-Host "  Frontend logs: $frontendOutLog / $frontendErrLog"
 if (-not $backendAlive -or -not $frontendAlive) { Write-Warning 'A launcher exited early; inspect the logs.'; exit 1 }
 
 try {
-    Invoke-WebRequest -UseBasicParsing -Uri "http://127.0.0.1:$ApiPort/api/health" -TimeoutSec 5 | Out-Null
-    Invoke-WebRequest -UseBasicParsing -Uri "http://127.0.0.1:$WebPort/" -TimeoutSec 5 | Out-Null
+    Wait-ForHttpEndpoint "http://127.0.0.1:$ApiPort/api/health"
+    Wait-ForHttpEndpoint "http://127.0.0.1:$WebPort/"
     Write-Host 'Health checks passed.' -ForegroundColor Green
 }
 catch {
