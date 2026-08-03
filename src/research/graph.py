@@ -65,6 +65,13 @@ Plan chapters around conclusions, definitions, criteria, tables, decision rules,
 templates, and examples. Do not create a chapter whose user-facing content is mainly a source
 comparison or an evidence summary; source comparison belongs in the structured claims,
 decisions, conflicts, and evidence metadata.
+
+The foundational chapter that owns the terminology decision must populate that decision's
+glossary with one GlossaryEntry per controlled-vocabulary axis: a short axis name, the list of
+canonical terms only (never forbidden aliases), and an optional scope note. Every downstream
+chapter whose prose must obey that vocabulary declares the terminology decision's ID in
+required_glossary (in addition to required_decisions). Glossaries make terminology an executable
+contract, not a free-text declaration.
 Return only a JSON object matching the supplied schema."""
 
 WORKER_PROMPT = """You are a chapter research worker handling one bounded chapter. Work
@@ -320,6 +327,7 @@ class AgentRuntime:
         prose_limit = chapter_char_limit or self.chapter_max_chars
         tools = [
             *self.workspace.make_retrieval_tools(),
+            self.workspace.make_terminology_tool(),
             self._submit_chapter_tool(chapter, prose_limit),
         ]
 
@@ -330,7 +338,14 @@ class AgentRuntime:
                 f"{self.chapter_max_claims} Claims, and "
                 f"{self.chapter_max_decisions} Decisions. Use short unnumbered local "
                 "labels inside prose when needed. The document assembler owns the block "
-                "heading and all chapter numbering."
+                "heading and all chapter numbering.\n"
+                "Terminology self-check: when upstream glossary decisions are provided in "
+                "the request, call check_terminology with your draft content_blocks and "
+                "those decisions before submit_chapter. If it returns suspect_terms, "
+                "revise the prose to use only the canonical terms from the relevant axis. "
+                "check_terminology is advisory and never blocks submission; if you judge a "
+                "flagged term is not a controlled-vocabulary drift, you may keep it. "
+                "Always use the canonical terms from the glossary when writing terminology."
             ),
             tools=tools,
             submit_name="submit_chapter",
@@ -589,6 +604,25 @@ class AgentRuntime:
             ],
         }
 
+    @classmethod
+    def _glossary_context(
+        cls, chapter: ChapterPlan, completed: dict[str, ResearchPacket]
+    ) -> list[dict[str, Any]]:
+        """Flatten glossary-bearing decisions declared in required_glossary.
+
+        Only decisions that both the chapter requested via required_glossary and
+        actually carry a non-empty glossary are surfaced, so workers see an
+        executable vocabulary list rather than a free-text declaration.
+        """
+        packets = cls._ancestor_packets(chapter, completed)
+        wanted = set(chapter.required_glossary)
+        glossaries: list[dict[str, Any]] = []
+        for item in packets:
+            for decision in item.decisions:
+                if decision.decision_id in wanted and decision.glossary:
+                    glossaries.append(decision.model_dump(mode="json"))
+        return glossaries
+
     def _run_chapter(
         self,
         plan: DocumentPlan,
@@ -610,6 +644,7 @@ class AgentRuntime:
             ],
             "chapter": chapter.model_dump(mode="json"),
             "upstream": self._upstream_context(chapter, completed),
+            "glossary": self._glossary_context(chapter, completed),
             "previous_attempt": (
                 {
                     "summary": previous_attempt.summary,

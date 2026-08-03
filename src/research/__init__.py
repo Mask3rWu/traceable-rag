@@ -14,6 +14,7 @@ from src.research.agent_models import (
     ContentBlock,
     DecisionRecord,
     DocumentPlan,
+    GlossaryEntry,
     ResearchPacket,
     RouteDecision,
 )
@@ -32,6 +33,7 @@ __all__ = [
     "ContentBlock",
     "DecisionRecord",
     "DocumentPlan",
+    "GlossaryEntry",
     "ResearchPacket",
     "RouteDecision",
 ]

@@ -35,6 +35,7 @@ processed/research/agent-runs/<run_id>/run.json
 - 每个章节 Worker 先提交对相关来源的总结、比较和核验结果；在 `normative_synthesis` 模式下，再提交与来源事实分离的规范性设计。Worker 提交正文块、核验 Claim、Decision 和公开推断。
 - 证据链由 `Claim.citations` 表达：Worker 只提交 Evidence ID，系统从已核验证据中回填精确引文，不再要求模型逐字复述原文。
 - 全局决策通过依赖关系传递给后续章节；上游证据不足时，下游依赖章节不会盲目执行。
+- 术语决策可携带结构化 `glossary`：基础章节产出受控术语表（仅规范词，不含禁用别名），下游章节在 `required_glossary` 中声明消费。Worker 收到 `request.glossary` 作为前馈约束，并在 `submit_chapter` 前可调用只读的 `check_terminology` 自检——它按术语轴动态生成匹配模式，列出形似规范词但不在规范集内的疑似词。该工具是建议性的：永不阻塞提交，也不触发重跑；疑似词识别依赖从规范词派生的词形模式，不硬编码任何领域词汇。
 - 首轮章节研究证据不足或结构提交失败时，调度器会把明确的 `gaps`/`diagnostics` 反馈给同一章节 Worker 做一次补充研究；仍未完成才阻塞下游。阻塞章节不会再次启动 Worker，也不会继续调用一致性模型。
 - 每个 Worker 会收到完整章节目录作为内容所有权边界，但只能提交当前章节。一个完成章节必须且只能提交一个 `ContentBlock`，块标题为空且正文不能包含 Markdown 章节标题；章节标题与编号由组装器统一生成，禁止照搬来源文档的目录编号。
 - 整份文档默认最多 6000 个正文字符，并按计划章节数平均分配；每章还受 1600 字符硬上限，以及 10 个 Claim、4 个 Decision 的上限约束。超出预算的 `submit_chapter` 会被拒绝并要求压缩重写；这些限制可通过 `RESEARCH_DOCUMENT_MAX_CHARS` 和 `RESEARCH_CHAPTER_MAX_*` 配置调整。
@@ -128,7 +129,8 @@ conda run -n dba-py311 python scripts/run_research.py `
   视觉资产和每轮检索排名。
 - `Claim`：结论文本、`direct/synthesized/normative/hypothesis` 类型、Evidence ID 及系统回填的精确引文。
 - `Conflict`：相关结论与证据、处理状态和可选解决说明。
-- `DocumentPlan`：章节目标、研究问题、依赖关系、产出/使用的全局决策和验收条件。
+- `DecisionRecord`：决策陈述、类型、依据、关联 Claim/Evidence、规范性设计的假设/替代方案/验证要求、置信度，以及可选的受控术语表 `glossary`（`GlossaryEntry` 列表：术语轴名 + 规范词，不含禁用别名）。
+- `DocumentPlan`：章节目标、研究问题、依赖关系、产出/使用的全局决策、`required_glossary`（声明消费哪些术语表决策）和验收条件。
 - `ResearchPacket`：章节正文块、Claim、Decision、Conflict 和证据缺口。
 - `AgentRun`：路由、`completed/incomplete` 结果状态、章节计划、一致性问题、答案、去重 Evidence 和章节研究包。
 

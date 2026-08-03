@@ -28,6 +28,7 @@ class ChapterPlan(BaseModel):
     depends_on: list[str] = Field(default_factory=list)
     produces_decisions: list[str] = Field(default_factory=list)
     required_decisions: list[str] = Field(default_factory=list)
+    required_glossary: list[str] = Field(default_factory=list)
     acceptance_criteria: list[str] = Field(min_length=1)
 
 
@@ -118,6 +119,19 @@ class ContentBlock(BaseModel):
     evidence_ids: list[str] = Field(default_factory=list)
 
 
+class GlossaryEntry(BaseModel):
+    """One axis of a controlled-vocabulary decision (e.g. "杀伤等级", "毁伤程度").
+
+    Only canonical terms are listed; forbidden aliases are intentionally omitted
+    so the glossary travels to downstream workers as an executable vocabulary,
+    not a free-text declaration.
+    """
+
+    axis: str = Field(min_length=1)
+    canonical_terms: list[str] = Field(min_length=1)
+    scope: str = ""
+
+
 class DecisionRecord(BaseModel):
     decision_id: str = Field(min_length=1)
     statement: str = Field(min_length=1)
@@ -130,6 +144,7 @@ class DecisionRecord(BaseModel):
     validation_requirements: list[str] = Field(default_factory=list)
     confidence: Literal["high", "medium", "low"]
     applies_to_chapters: list[str] = Field(default_factory=list)
+    glossary: list[GlossaryEntry] = Field(default_factory=list)
 
 
 class ConsistencyIssue(BaseModel):
