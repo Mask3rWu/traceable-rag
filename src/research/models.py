@@ -54,16 +54,14 @@ class Evidence(BaseModel):
     quote_truncated: bool = False
     visual_assets: list[EvidenceVisual] = Field(default_factory=list)
     retrieval: list[RetrievalTrace] = Field(default_factory=list)
-    verified: bool = False
 
 
 class Citation(BaseModel):
-    """A source anchor; the exact quote is filled from verified evidence."""
+    """A source anchor pointing at an evidence excerpt."""
 
     model_config = ConfigDict(frozen=True)
 
     evidence_id: str
-    quote: str = ""
 
 
 class Claim(BaseModel):
@@ -73,7 +71,6 @@ class Claim(BaseModel):
     text: str = Field(min_length=1)
     conclusion_type: Literal["direct", "synthesized", "normative", "hypothesis"]
     citations: list[Citation] = Field(default_factory=list)
-    citation_verified: bool = False
 
 
 class Conflict(BaseModel):

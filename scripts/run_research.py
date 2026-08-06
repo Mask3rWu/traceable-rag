@@ -11,7 +11,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.config import ResearchModelConfig  # noqa: E402
 from src.research.client import OpenAIResearchModel  # noqa: E402
-from src.research.evidence import CitationVerifier, EvidenceResolver  # noqa: E402
+from src.research.evidence import EvidenceResolver  # noqa: E402
 from src.research.store import ResearchRunStore  # noqa: E402
 from src.research.workflow import ResearchWorkflow  # noqa: E402
 from src.retrieval.catalog import ChunkCatalog  # noqa: E402
@@ -51,7 +51,6 @@ def main() -> int:
         model=OpenAIResearchModel(config),
         retrieval=RetrievalService(),
         resolver=EvidenceResolver(catalog),
-        verifier=CitationVerifier(catalog),
         store=store,
         max_queries=max_queries,
         evidence_limit=evidence_limit,
@@ -62,7 +61,7 @@ def main() -> int:
     print(f"\nrun_id: {run.run_id}")
     print(f"run_json: {store.path_for(run.run_id).resolve()}")
     print(f"claims: {len(run.claims)}, evidence: {len(run.evidence)}, conflicts: {len(run.conflicts)}")
-    print("\nVerified claims:")
+    print("\nClaims:")
     for claim in run.claims:
         citations = ", ".join(
             sorted({citation.evidence_id for citation in claim.citations})

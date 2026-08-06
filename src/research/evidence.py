@@ -2,31 +2,16 @@
 from __future__ import annotations
 
 import hashlib
-import re
 from collections.abc import Sequence
 
-from src.research.models import (
-    Citation,
-    Claim,
-    Evidence,
-    EvidenceVisual,
-    RetrievalTrace,
-)
+from src.research.models import Evidence, EvidenceVisual, RetrievalTrace
 from src.retrieval.catalog import ChunkCatalog
 from src.retrieval.contracts import SearchResult
-
-
-class CitationValidationError(ValueError):
-    """Raised when persisted evidence cannot support a declared citation."""
 
 
 def _evidence_id(chunk_id: str) -> str:
     digest = hashlib.sha256(chunk_id.encode("utf-8")).hexdigest()[:12]
     return f"ev-{digest}"
-
-
-def _normalized(text: str) -> str:
-    return re.sub(r"\s+", "", text)
 
 
 class EvidenceResolver:
@@ -102,61 +87,3 @@ def merge_evidence(current: Sequence[Evidence], incoming: Sequence[Evidence]) ->
         )
         merged[item.evidence_id] = existing.model_copy(update={"retrieval": traces})
     return [merged[evidence_id] for evidence_id in order]
-
-
-class CitationVerifier:
-    """Verify provenance anchors; semantic entailment is out of scope."""
-
-    def __init__(self, catalog: ChunkCatalog) -> None:
-        self.catalog = catalog
-
-    def verify_evidence(self, evidence: Evidence) -> Evidence:
-        source = self.catalog.source(evidence.chunk_id)
-        chunk = source.chunk
-        failures: list[str] = []
-        if source.content_hash != evidence.content_hash:
-            failures.append("content hash")
-        if chunk.document_id != evidence.document_id:
-            failures.append("document ID")
-        if chunk.source_file != evidence.source_file:
-            failures.append("source file")
-        if (chunk.page_start, chunk.page_end) != (evidence.page_start, evidence.page_end):
-            failures.append("page range")
-        if not set(evidence.block_ids) <= set(chunk.block_ids):
-            failures.append("block IDs")
-        if _normalized(evidence.quote) not in _normalized(chunk.text):
-            failures.append("source quote")
-        if failures:
-            raise CitationValidationError(
-                f"Evidence {evidence.evidence_id} failed provenance checks: "
-                + ", ".join(failures)
-            )
-        return evidence.model_copy(update={"verified": True})
-
-    def verify_claim(self, claim: Claim, evidence_by_id: dict[str, Evidence]) -> Claim:
-        if not claim.citations:
-            raise CitationValidationError(f"Claim {claim.claim_id} has no citations")
-        citations: list[Citation] = []
-        for citation in claim.citations:
-            evidence = self._verify_citation(
-                claim.claim_id, citation, evidence_by_id
-            )
-            citations.append(citation.model_copy(update={"quote": evidence.quote}))
-        return claim.model_copy(
-            update={"citations": citations, "citation_verified": True}
-        )
-
-    @staticmethod
-    def _verify_citation(
-        claim_id: str, citation: Citation, evidence_by_id: dict[str, Evidence]
-    ) -> Evidence:
-        evidence = evidence_by_id.get(citation.evidence_id)
-        if evidence is None:
-            raise CitationValidationError(
-                f"Claim {claim_id} cites unknown evidence {citation.evidence_id}"
-            )
-        if not evidence.verified:
-            raise CitationValidationError(
-                f"Claim {claim_id} cites unverified evidence {citation.evidence_id}"
-            )
-        return evidence

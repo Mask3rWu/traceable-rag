@@ -4,7 +4,7 @@ from __future__ import annotations
 from uuid import uuid4
 
 from src.research.client import ResearchModel
-from src.research.evidence import CitationVerifier, EvidenceResolver, merge_evidence
+from src.research.evidence import EvidenceResolver, merge_evidence
 from src.research.models import Claim, Conflict, ResearchRun, ToolCall
 from src.research.store import ResearchRunStore
 from src.retrieval.service import RetrievalService
@@ -17,7 +17,6 @@ class ResearchWorkflow:
         model: ResearchModel,
         retrieval: RetrievalService,
         resolver: EvidenceResolver,
-        verifier: CitationVerifier,
         store: ResearchRunStore | None = None,
         max_queries: int = 4,
         evidence_limit: int = 10,
@@ -27,7 +26,6 @@ class ResearchWorkflow:
         self.model = model
         self.retrieval = retrieval
         self.resolver = resolver
-        self.verifier = verifier
         self.store = store or ResearchRunStore()
         self.max_queries = max_queries
         self.evidence_limit = evidence_limit
@@ -138,25 +136,7 @@ class ResearchWorkflow:
     def _verify(self, run: ResearchRun) -> None:
         run.status = "verifying"
         self.store.save(run)
-        run.evidence = [self.verifier.verify_evidence(item) for item in run.evidence]
-        evidence_by_id = {item.evidence_id: item for item in run.evidence}
-        run.claims = [
-            self.verifier.verify_claim(claim, evidence_by_id) for claim in run.claims
-        ]
         self._verify_conflicts(run)
-        run.tool_calls.append(
-            ToolCall(
-                call_id=uuid4().hex,
-                tool="verify_citations",
-                arguments={
-                    "claim_ids": [item.claim_id for item in run.claims],
-                },
-                result={
-                    "verified_evidence": len(run.evidence),
-                    "verified_claims": len(run.claims),
-                },
-            )
-        )
         self.store.save(run)
 
     @staticmethod

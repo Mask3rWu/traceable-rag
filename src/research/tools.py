@@ -9,7 +9,7 @@ from collections.abc import Callable, Sequence
 from langchain_core.tools import BaseTool, tool
 from pydantic import BaseModel, Field
 
-from src.research.evidence import CitationVerifier, EvidenceResolver, merge_evidence
+from src.research.evidence import EvidenceResolver, merge_evidence
 from src.research.models import Evidence
 from src.retrieval.service import RetrievalService
 
@@ -223,13 +223,11 @@ class EvidenceWorkspace:
         *,
         retrieval: RetrievalService,
         resolver: EvidenceResolver,
-        verifier: CitationVerifier,
         default_top_k: int = 8,
         max_evidence_reads: int = 20,
     ) -> None:
         self.retrieval = retrieval
         self.resolver = resolver
-        self.verifier = verifier
         self.default_top_k = default_top_k
         self.max_evidence_reads = max_evidence_reads
         self._evidence: list[Evidence] = []
@@ -262,10 +260,7 @@ class EvidenceWorkspace:
     def search(self, query: str, top_k: int | None = None) -> list[dict]:
         limit = min(top_k or self.default_top_k, 20)
         results = self.retrieval.search(query, limit=limit)
-        resolved = [
-            self.verifier.verify_evidence(item)
-            for item in self.resolver.resolve_many(query, results)
-        ]
+        resolved = self.resolver.resolve_many(query, results)
         with self._lock:
             self._evidence = merge_evidence(self._evidence, resolved)
             self._search_count += 1

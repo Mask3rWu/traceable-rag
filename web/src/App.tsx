@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
-  Activity, AlertTriangle, Bot, Check, CheckCircle2, ChevronRight, CircleStop,
+  Activity, AlertTriangle, Bot, Check, ChevronRight, CircleStop,
   Copy, FileSearch, History, Lightbulb, Link2, ListTree, PanelRight, Plus, RefreshCw,
   Search, Send, Sparkles, Users, X,
 } from 'lucide-react'

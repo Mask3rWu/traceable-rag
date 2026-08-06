@@ -13,7 +13,7 @@ from langfuse.langchain import CallbackHandler
 from src.config import ResearchModelConfig
 from src.research.agent_models import AgentRun
 from src.research.agent_store import AgentRunStore
-from src.research.evidence import CitationVerifier, EvidenceResolver
+from src.research.evidence import EvidenceResolver
 from src.research.graph import AgentRuntime
 from src.research.tools import EvidenceWorkspace
 from src.retrieval.catalog import ChunkCatalog
@@ -109,7 +109,6 @@ def build_research_agent(
     workspace = EvidenceWorkspace(
         retrieval=RetrievalService(),
         resolver=EvidenceResolver(catalog),
-        verifier=CitationVerifier(catalog),
         default_top_k=resolved.retrieval_top_k,
         max_evidence_reads=resolved.max_evidence_reads,
     )

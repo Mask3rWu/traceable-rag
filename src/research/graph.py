@@ -602,11 +602,6 @@ class AgentRuntime:
                     "by Claims or Decisions; " + "; ".join(details)
                 )
         self.workspace.validate_evidence_ids(used)
-        evidence_by_id = self.workspace.evidence_by_id()
-        packet.claims = [
-            self.workspace.verifier.verify_claim(claim, evidence_by_id)
-            for claim in packet.claims
-        ]
 
         for block in packet.content_blocks:
             if set(block.claim_ids) - claim_ids:

@@ -44,12 +44,10 @@ export interface Evidence {
   quote_truncated: boolean
   visual_assets: EvidenceVisual[]
   retrieval: RetrievalTrace[]
-  verified: boolean
 }
 
 export interface Citation {
   evidence_id: string
-  quote: string
 }
 
 export interface Claim {
@@ -57,7 +55,6 @@ export interface Claim {
   text: string
   conclusion_type: 'direct' | 'synthesized' | 'normative' | 'hypothesis'
   citations: Citation[]
-  citation_verified: boolean
 }
 
 export interface Conflict {

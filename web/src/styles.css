@@ -231,7 +231,6 @@ button { cursor: pointer; }
 .evidence-detail, .worker-detail { padding: 16px; overflow-y: auto; flex: 1; }
 .evidence-heading { display: flex; justify-content: space-between; align-items: center; }
 .evidence-id { font-family: Consolas, monospace; color: var(--green); font-size: 10px; }
-.verified { display: flex; gap: 4px; align-items: center; color: var(--green); font-size: 10px; }
 .evidence-detail h3 { font-size: 13px; line-height: 1.45; margin: 8px 0 4px; overflow-wrap: anywhere; }
 .source-path { color: var(--muted); font-size: 10px; line-height: 1.5; }
 .evidence-detail blockquote { margin: 14px 0; padding: 12px; background: #fff; border-left: 3px solid #779181; font-family: "Noto Serif SC", SimSun, serif; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -79,15 +79,8 @@ class _ScriptedModel:
         return _StructuredOutput(self, schema)
 
 
-class _Verifier:
-    def verify_claim(self, claim, evidence_by_id):
-        del evidence_by_id
-        return claim.model_copy(update={"citation_verified": True})
-
-
 class _Workspace(EvidenceWorkspace):
     def __init__(self) -> None:
-        self.verifier = _Verifier()
         self.reset_count = 0
 
     @property

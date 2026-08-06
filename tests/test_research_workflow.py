@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 from src.research.client import ResearchDraft
-from src.research.evidence import CitationVerifier, EvidenceResolver
+from src.research.evidence import EvidenceResolver
 from src.research.models import Citation, Claim, Conflict
 from src.research.store import ResearchRunStore
 from src.research.workflow import ResearchWorkflow
@@ -26,15 +26,14 @@ class _FakeRetrieval:
 
 
 class _FakeModel:
-    def __init__(self, evidence_id: str, *, bad_quote: bool = False) -> None:
+    def __init__(self, evidence_id: str) -> None:
         self.evidence_id = evidence_id
-        self.bad_quote = bad_quote
 
     def plan_queries(self, question: str, *, max_queries: int) -> list[str]:
         return [question, "结构防护 装甲破裂", "毁伤等级"][:max_queries]
 
     def synthesize(self, question, evidence):
-        quote = "不存在的引文" if self.bad_quote else "降低结构防护能力"
+        del evidence
         return ResearchDraft(
             summary="现有证据表明装甲破裂会降低结构防护能力。",
             claims=[
@@ -42,7 +41,7 @@ class _FakeModel:
                     claim_id="cl-1",
                     text="装甲破裂会降低结构防护能力。",
                     conclusion_type="direct",
-                    citations=[Citation(evidence_id=self.evidence_id, quote=quote)],
+                    citations=[Citation(evidence_id=self.evidence_id)],
                 )
             ],
             conflicts=[
@@ -57,7 +56,7 @@ class _FakeModel:
 
 
 class ResearchWorkflowTest(unittest.TestCase):
-    def _build(self, root: Path, *, bad_quote: bool = False):
+    def _build(self, root: Path):
         source = SourceChunk(
             chunk=Chunk(
                 chunk_id="doc_C0001",
@@ -84,10 +83,9 @@ class ResearchWorkflowTest(unittest.TestCase):
         retrieval = _FakeRetrieval(result)
         store = ResearchRunStore(root)
         workflow = ResearchWorkflow(
-            model=_FakeModel(evidence_id, bad_quote=bad_quote),
+            model=_FakeModel(evidence_id),
             retrieval=retrieval,
             resolver=EvidenceResolver(catalog),
-            verifier=CitationVerifier(catalog),
             store=store,
             max_queries=3,
             evidence_limit=5,
@@ -105,21 +103,8 @@ class ResearchWorkflowTest(unittest.TestCase):
         self.assertEqual(retrieval.queries, ["装甲破裂有什么影响？", "结构防护 装甲破裂", "毁伤等级"])
         self.assertEqual(len(run.evidence), 1)
         self.assertEqual(len(run.evidence[0].retrieval), 3)
-        self.assertTrue(run.claims[0].citation_verified)
-        self.assertTrue(run.evidence[0].verified)
-        self.assertEqual([call.tool for call in run.tool_calls], ["plan_queries", "search", "search", "search", "synthesize", "verify_citations"])
+        self.assertEqual([call.tool for call in run.tool_calls], ["plan_queries", "search", "search", "search", "synthesize"])
         self.assertEqual(persisted.status, "completed")
-
-    def test_replaces_model_quote_with_verified_evidence_quote(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            workflow, _, store = self._build(root, bad_quote=True)
-
-            run = workflow.run("装甲破裂有什么影响？")
-            persisted = store.load(run.run_id)
-
-            self.assertEqual(run.claims[0].citations[0].quote, run.evidence[0].quote)
-            self.assertEqual(persisted.status, "completed")
 
     def test_rejects_duplicate_claim_ids(self):
         claims = [
@@ -127,13 +112,13 @@ class ResearchWorkflowTest(unittest.TestCase):
                 claim_id="same",
                 text="第一条",
                 conclusion_type="direct",
-                citations=[Citation(evidence_id="ev-1", quote="引文")],
+                citations=[Citation(evidence_id="ev-1")],
             ),
             Claim(
                 claim_id="same",
                 text="第二条",
                 conclusion_type="direct",
-                citations=[Citation(evidence_id="ev-1", quote="引文")],
+                citations=[Citation(evidence_id="ev-1")],
             ),
         ]
         with self.assertRaisesRegex(ValueError, "duplicate claim IDs"):

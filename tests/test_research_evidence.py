@@ -2,12 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from src.research.evidence import (
-    CitationVerifier,
-    EvidenceResolver,
-    merge_evidence,
-)
-from src.research.models import Citation, Claim
+from src.research.evidence import EvidenceResolver, merge_evidence
 from src.retrieval.catalog import ChunkCatalog
 from src.retrieval.contracts import SearchResult
 from src.retrieval.indexing import SourceChunk
@@ -65,35 +60,6 @@ class ResearchEvidenceTest(unittest.TestCase):
         self.assertEqual([item.query for item in merged[0].retrieval], ["装甲损伤", "防护能力"])
         self.assertEqual(merged[0].section_path, ["3 损伤", "3.1 装甲"])
         self.assertEqual(merged[0].visual_assets[0].page, 3)
-
-    def test_verifies_provenance_without_exact_claim_quote(self):
-        verifier = CitationVerifier(self.catalog)
-        evidence = verifier.verify_evidence(self.resolver.resolve("装甲损伤", result()))
-        claim = Claim(
-            claim_id="cl-1",
-            text="装甲破裂降低结构防护能力。",
-            conclusion_type="direct",
-            citations=[Citation(evidence_id=evidence.evidence_id)],
-        )
-
-        verified = verifier.verify_claim(claim, {evidence.evidence_id: evidence})
-
-        self.assertTrue(evidence.verified)
-        self.assertTrue(verified.citation_verified)
-
-    def test_ignores_model_quote_not_present_in_source(self):
-        verifier = CitationVerifier(self.catalog)
-        evidence = verifier.verify_evidence(self.resolver.resolve("装甲损伤", result()))
-        claim = Claim(
-            claim_id="cl-1",
-            text="发动机已完全损坏。",
-            conclusion_type="direct",
-            citations=[Citation(evidence_id=evidence.evidence_id, quote="发动机完全损坏")],
-        )
-
-        verified = verifier.verify_claim(claim, {evidence.evidence_id: evidence})
-        self.assertTrue(verified.citation_verified)
-        self.assertEqual(verified.citations[0].quote, evidence.quote)
 
     def test_rejects_stale_retrieval_result(self):
         stale = result().model_copy(update={"content_hash": "b" * 64})
