@@ -1,13 +1,13 @@
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
-  Activity, AlertTriangle, BookOpen, Bot, Check, CheckCircle2, ChevronRight, CircleStop, Copy,
-  FileSearch, History, Lightbulb, Link2, ListTree, PanelRight, Plus, RefreshCw,
+  Activity, AlertTriangle, Bot, Check, CheckCircle2, ChevronRight, CircleStop,
+  Copy, FileSearch, History, Lightbulb, Link2, ListTree, PanelRight, Plus, RefreshCw,
   Search, Send, Sparkles, Users, X,
 } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { cancelRun, createRun, getRun, listRuns, subscribeRun, visualUrl } from './api'
-import type { Evidence, ResearchPacket, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
+import type { Claim, DecisionRecord, Evidence, ResearchPacket, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
 
 const activeStatuses = new Set<RunStatus>(['queued', 'running', 'cancel_requested'])
 const statusLabels: Record<RunStatus, string> = {
@@ -20,6 +20,7 @@ const eventLabels: Record<string, string> = {
   completed: '研究完成', incomplete: '研究未完整生成', failed: '研究失败',
 }
 const confidenceLabels = { high: '高', medium: '中', low: '低' }
+const conclusionLabels: Record<string, string> = { direct: '直接', synthesized: '综合', normative: '规范', hypothesis: '假设' }
 const packetStatusLabels: Record<ResearchPacket['status'], string> = {
   sufficient: '研究完成', insufficient: '参考依据不足', failed: '执行失败', blocked: '依赖阻塞',
 }
@@ -76,66 +77,103 @@ function ActivityTimeline({ events }: { events: RunEvent[] }) {
   )
 }
 
-function EvidenceInspector({ run, evidence }: { run: RunDetail; evidence: Evidence | null }) {
-  if (!evidence) return <div className="inspector-empty"><BookOpen size={22} /><p>选择一条研究依据，查看原文、页码和检索轨迹。</p></div>
+function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: {
+  run: RunDetail
+  evidence: Evidence
+  claims: Claim[]
+  decisions: DecisionRecord[]
+  selected: boolean
+  onSelect: (id: string | null) => void
+}) {
+  const ref = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    if (selected) ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+  }, [selected])
   return (
-    <article className="evidence-detail">
-      <div className="evidence-heading"><span className="evidence-id">{evidence.evidence_id}</span>{evidence.verified ? <span className="verified"><CheckCircle2 size={14} />已核验</span> : null}</div>
-      <h3>{evidence.source_file}</h3>
-      <p className="source-path">{pageLabel(evidence)} · {evidence.section_path.join(' › ') || '未标注章节'}</p>
-      <blockquote>{evidence.quote}</blockquote>
-      {evidence.visual_assets.map((visual) => (
-        <figure key={visual.block_id}>
-          {visual.image_crop ? <img src={visualUrl(run.run_id, evidence.evidence_id, visual.block_id)} alt={visual.description ?? visual.block_type} /> : null}
-          {visual.description ? <figcaption>{visual.description}</figcaption> : null}
-        </figure>
-      ))}
-      <section className="trace-list"><h4>检索轨迹</h4>{evidence.retrieval.map((trace, index) => <div key={`${trace.query}-${index}`}><span>#{trace.final_rank}</span><p>{trace.query}</p></div>)}</section>
+    <article ref={ref} className={`evidence-card${selected ? ' selected' : ''}`} onClick={() => onSelect(selected ? null : evidence.evidence_id)}>
+      <div className="evidence-card-head">
+        <strong className="evidence-card-title">{evidence.source_file}</strong>
+        <span className="evidence-card-meta"><code>{evidence.evidence_id}</code><ChevronRight size={15} /></span>
+      </div>
+      {decisions.length > 0 ? (
+        <section className="ec-sec">
+          <span className="ec-title">形成决策</span>
+          <div className="ec-sec-body usage-decision">
+            {decisions.map((decision) => <p key={decision.decision_id}><em>{decision.decision_id} [{conclusionLabels[decision.decision_type]}]</em>{decision.statement}</p>)}
+          </div>
+        </section>
+      ) : null}
+      {selected ? (
+        <>
+          {claims.length > 0 ? (
+            <section className="ec-sec">
+              <span className="ec-title">关键片段</span>
+              <div className="ec-sec-body usage-claim">
+                {claims.map((claim) => <p key={claim.claim_id}><em>{claim.claim_id} [{conclusionLabels[claim.conclusion_type]}]</em>{claim.text}</p>)}
+              </div>
+            </section>
+          ) : null}
+          <section className="ec-sec">
+            <span className="ec-title">片段概要</span>
+            <p className="evidence-card-preview">{evidence.quote}</p>
+          </section>
+          <section className="ec-sec">
+            <span className="ec-title">原文片段</span>
+            <p className="evidence-card-src">{evidence.section_path.join(' › ') || '未标注章节'} · {pageLabel(evidence)}</p>
+            <blockquote className="evidence-card-quote">{evidence.quote}</blockquote>
+            {evidence.visual_assets.length > 0 ? <div className="evidence-visuals">{evidence.visual_assets.map((visual) => visual.image_crop ? <figure key={visual.block_id}><img src={visualUrl(run.run_id, evidence.evidence_id, visual.block_id)} alt={visual.description ?? visual.block_type} />{visual.description ? <figcaption>{visual.description}</figcaption> : null}</figure> : null)}</div> : null}
+            {evidence.retrieval.length > 0 ? <section className="trace-list"><h4>检索轨迹</h4>{evidence.retrieval.map((trace, index) => <div key={`${trace.query}-${index}`}><span>#{trace.final_rank}</span><p>{trace.query}</p></div>)}</section> : null}
+          </section>
+        </>
+      ) : null}
     </article>
   )
 }
 
-function ChapterResearch({ packet, evidenceById, onEvidence }: { packet: ResearchPacket | null; evidenceById: Map<string, Evidence>; onEvidence: (id: string) => void }) {
-  if (!packet) return <div className="inspector-empty"><ListTree size={22} /><p>选择一个章节查看研究依据和推断。</p></div>
-  const usedEvidence = Array.from(new Set([
-    ...packet.content_blocks.flatMap((block) => block.evidence_ids),
-    ...packet.claims.flatMap((claim) => claim.citations.map((citation) => citation.evidence_id)),
-    ...packet.decisions.flatMap((decision) => decision.evidence_ids),
-  ]))
+function ChapterResearch({ run, packet, evidenceById, cardIds, selectedId, onSelect }: {
+  run: RunDetail
+  packet: ResearchPacket | null
+  evidenceById: Map<string, Evidence>
+  cardIds: string[]
+  selectedId: string | null
+  onSelect: (id: string | null) => void
+}) {
+  if (cardIds.length === 0) return <div className="inspector-empty"><ListTree size={22} /><p>暂无可展示的研究依据。</p></div>
   return (
     <div className="chapter-research">
-      <div className="research-summary">
-        <span className={`packet-status ${packet.status}`}>{packetStatusLabels[packet.status]}</span>
-        <p>{packet.summary}</p>
-      </div>
-      {(packet.decisions ?? []).map((decision) => (
-        <article className="decision-record" key={decision.decision_id}>
-          <div className="record-label"><Lightbulb size={14} />关键决策 <code>{decision.decision_id}</code><span>置信度 {confidenceLabels[decision.confidence]}</span></div>
-          <h3>{decision.statement}</h3>
-          <p>{decision.rationale}</p>
-          {decision.alternatives.length > 0 ? <div className="record-meta"><strong>考虑的替代方案</strong>{decision.alternatives.join('、')}</div> : null}
-          {decision.assumptions.length > 0 ? <div className="record-meta"><strong>适用假设</strong>{decision.assumptions.join('；')}</div> : null}
-        </article>
-      ))}
-      <div className="contribution-list">
-        {usedEvidence.map((evidenceId) => {
-          const evidence = evidenceById.get(evidenceId)
-          const claims = packet.claims.filter((claim) => claim.citations.some((citation) => citation.evidence_id === evidenceId))
-          const decisions = packet.decisions.filter((decision) => decision.evidence_ids.includes(evidenceId))
-          return (
-            <button className="contribution-item" key={evidenceId} onClick={() => onEvidence(evidenceId)}>
-              <div><code>{evidenceId}</code><ChevronRight size={14} /></div>
-              <strong>{evidence?.source_file ?? '未知来源'}</strong>
-              {claims.map((claim) => <p className="contribution-reason" key={claim.claim_id}><span>支撑结论</span>{claim.text}</p>)}
-              {decisions.map((decision) => <p className="contribution-inference" key={decision.decision_id}><span>形成决策</span>{decision.statement}：{decision.rationale}</p>)}
-              {claims.length === 0 && decisions.length === 0 ? <p className="contribution-missing">未记录该证据的使用原因</p> : null}
-            </button>
-          )
+      {packet ? (
+        <div className="research-summary">
+          <span className={`packet-status ${packet.status}`}>{packetStatusLabels[packet.status]}</span>
+          <p>{packet.summary}</p>
+        </div>
+      ) : null}
+      <div className="evidence-panel-head"><span>{packet ? '本章依据' : '采用依据'}</span><em>{cardIds.length}</em></div>
+      <div className="evidence-card-list">
+        {cardIds.map((id) => {
+          const evidence = evidenceById.get(id)
+          if (!evidence) return null
+          const claims = packet?.claims.filter((c) => c.citations.some((citation) => citation.evidence_id === id)) ?? []
+          const decisions = packet?.decisions.filter((d) => d.evidence_ids.includes(id)) ?? []
+          return <EvidenceCard key={id} run={run} evidence={evidence} claims={claims} decisions={decisions} selected={selectedId === id} onSelect={onSelect} />
         })}
-        {usedEvidence.length === 0 ? <div className="inspector-empty compact"><Link2 size={19} /><p>该章节尚未引用任何证据。</p></div> : null}
       </div>
-      {packet.gaps.length > 0 ? <section className="research-gaps"><h4>证据缺口</h4><ul>{packet.gaps.map((gap) => <li key={gap}>{gap}</li>)}</ul></section> : null}
-      {(packet.diagnostics ?? []).length > 0 ? <section className="research-gaps"><h4>执行诊断</h4><ul>{(packet.diagnostics ?? []).map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
+      {packet?.decisions.length ? (
+        <details className="decision-details">
+          <summary><Lightbulb size={14} />关键决策明细 <span>{packet.decisions.length}</span></summary>
+          {packet.decisions.map((decision) => (
+            <article className="decision-record" key={decision.decision_id}>
+              <div className="record-label"><code>{decision.decision_id}</code><span>{conclusionLabels[decision.decision_type]}</span><span>置信度 {confidenceLabels[decision.confidence]}</span></div>
+              <h3>{decision.statement}</h3>
+              <p>{decision.rationale}</p>
+              {decision.alternatives.length > 0 ? <div className="record-meta"><strong>考虑的替代方案</strong>{decision.alternatives.join('、')}</div> : null}
+              {decision.assumptions.length > 0 ? <div className="record-meta"><strong>适用假设</strong>{decision.assumptions.join('；')}</div> : null}
+              {decision.validation_requirements.length > 0 ? <div className="record-meta"><strong>验证要求</strong>{decision.validation_requirements.join('；')}</div> : null}
+            </article>
+          ))}
+        </details>
+      ) : null}
+      {packet?.gaps.length ? <section className="research-gaps"><h4>证据缺口</h4><ul>{packet.gaps.map((gap) => <li key={gap}>{gap}</li>)}</ul></section> : null}
+      {(packet?.diagnostics ?? []).length ? <section className="research-gaps"><h4>执行诊断</h4><ul>{(packet?.diagnostics ?? []).map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
     </div>
   )
 }
@@ -149,7 +187,6 @@ function App() {
   const [error, setError] = useState<string | null>(null)
   const [selectedEvidenceId, setSelectedEvidenceId] = useState<string | null>(null)
   const [selectedChapterId, setSelectedChapterId] = useState<string | null>(null)
-  const [inspectorMode, setInspectorMode] = useState<'chapter' | 'evidence'>('chapter')
   const [mobilePanel, setMobilePanel] = useState<'history' | 'result' | 'sources'>('result')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const subscription = useRef<(() => void) | null>(null)
@@ -182,7 +219,7 @@ function App() {
   }, [])
 
   const openRun = useCallback(async (runId: string) => {
-    subscription.current?.(); setError(null); setEvents([]); setSelectedEvidenceId(null); setInspectorMode('chapter')
+    subscription.current?.(); setError(null); setEvents([]); setSelectedEvidenceId(null)
     try {
       const detail = await getRun(runId)
       setSelectedRun(detail); selectInitialChapter(detail); setMobilePanel('result')
@@ -215,13 +252,16 @@ function App() {
   const workers = useMemo(() => selectedRun?.result?.worker_packets ?? [], [selectedRun])
   const plan = selectedRun?.result?.document_plan ?? null
   const evidenceById = useMemo(() => new Map(evidence.map((item) => [item.evidence_id, item])), [evidence])
-  const selectedEvidence = evidenceById.get(selectedEvidenceId ?? '') ?? null
   const selectedPacket = workers.find((item) => item.chapter_id === selectedChapterId) ?? null
   const answerEvidence = useMemo(() => new Set(selectedRun?.result?.answer.evidence_ids ?? []), [selectedRun])
   const chapterEvidence = useMemo(() => new Set(selectedPacket?.evidence_ids ?? []), [selectedPacket])
 
-  const showEvidence = (id: string) => { setSelectedEvidenceId(id); setInspectorMode('evidence'); setMobilePanel('sources') }
-  const chooseChapter = (chapterId: string) => { setSelectedChapterId(chapterId); setSelectedEvidenceId(null); setInspectorMode('chapter') }
+  const showEvidence = (id: string | null) => { setSelectedEvidenceId(id); setMobilePanel('sources') }
+  const chooseChapter = (chapterId: string) => { setSelectedChapterId(chapterId); setSelectedEvidenceId(null) }
+  const cardIds = useMemo(() => {
+    if (selectedPacket?.evidence_ids?.length) return selectedPacket.evidence_ids
+    return Array.from(answerEvidence)
+  }, [selectedPacket, answerEvidence])
 
   return (
     <div className="app-shell">
@@ -244,7 +284,7 @@ function App() {
           {error ? <div className="error-banner"><AlertTriangle size={17} />{error}<button onClick={() => setError(null)}><X size={15} /></button></div> : null}
           {!selectedRun ? <EmptyWorkspace /> : (
             <div className="run-view">
-              <div className="run-titlebar"><div><div className="route-line"><StatusBadge status={selectedRun.status} />{selectedRun.route ? <span className="route-badge">{selectedRun.route === 'fast' ? <Sparkles size={14} /> : <Users size={14} />}{selectedRun.route === 'fast' ? '快速检索' : '章节化多 Agent'}</span> : null}</div><h1>{selectedRun.request}</h1><div className="run-ids"><IdChip id={selectedRun.run_id} label="Run" copied={copiedId === selectedRun.run_id} onCopy={copyId} hint="运行 ID（对应 processed/research/agent-runs 目录）" />{selectedRun.trace_id ? <IdChip id={selectedRun.trace_id} label="Trace" copied={copiedId === selectedRun.trace_id} onCopy={copyId} hint="Langfuse 链路追踪 ID" /> : null}</div>{selectedRun.route_reason ? <p>{selectedRun.route_reason}</p> : null}</div>{activeStatuses.has(selectedRun.status) ? <button className="stop-button" onClick={stop}><CircleStop size={16} />停止</button> : null}</div>
+              <div className="run-titlebar"><div><div className="route-line"><StatusBadge status={selectedRun.status} />{selectedRun.route ? <span className="route-badge">{selectedRun.route === 'fast' ? <Sparkles size={14} /> : <Users size={14} />}{selectedRun.route === 'fast' ? '快速检索' : '章节化多 Agent'}</span> : null}</div><h1>{selectedRun.request}</h1><div className="run-ids"><IdChip id={selectedRun.run_id} label="Run" copied={copiedId === selectedRun.run_id} onCopy={copyId} hint="运行 ID（对应 processed/research/agent-runs 目录）" />{selectedRun.trace_id ? <IdChip id={selectedRun.trace_id} label="Trace" copied={copiedId === selectedRun.trace_id} onCopy={copyId} hint="Langfuse 链路追踪 ID" /> : null}</div></div>{activeStatuses.has(selectedRun.status) ? <button className="stop-button" onClick={stop}><CircleStop size={16} />停止</button> : null}</div>
               {activeStatuses.has(selectedRun.status) ? <section className="activity-section"><div className="section-heading"><Activity size={17} /><h2>运行活动</h2></div><ActivityTimeline events={events} /></section> : null}
               {selectedRun.error ? <div className="failure"><AlertTriangle size={18} /><div><strong>运行失败</strong><p>{selectedRun.error}</p></div></div> : null}
               {selectedRun.result ? (
@@ -258,7 +298,7 @@ function App() {
                     </article>
                   </div>
                 ) : (
-                  <article className="answer-document"><div className="answer-header"><span>研究结果</span><div><span>{evidence.length} 条证据</span></div></div><ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedRun.result.answer.content}</ReactMarkdown>{selectedRun.result.answer.limitations.length > 0 ? <section className="limitations"><h3><AlertTriangle size={17} />限制与缺口</h3><ul>{selectedRun.result.answer.limitations.map((item) => <li key={item}>{item}</li>)}</ul></section> : null}<section className="answer-sources"><h3>引用来源</h3><div className="source-buttons">{selectedRun.result.answer.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}>{id}<ChevronRight size={14} /></button>)}</div></section></article>
+                  <article className="answer-document"><div className="answer-header"><span>研究结果</span><div><span>{answerEvidence.size} 条证据</span></div></div><ReactMarkdown remarkPlugins={[remarkGfm]}>{selectedRun.result.answer.content}</ReactMarkdown>{selectedRun.result.answer.limitations.length > 0 ? <section className="limitations"><h3><AlertTriangle size={17} />限制与缺口</h3><ul>{selectedRun.result.answer.limitations.map((item) => <li key={item}>{item}</li>)}</ul></section> : null}<section className="answer-sources"><h3>引用来源</h3><div className="source-buttons">{selectedRun.result.answer.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}>{id}<ChevronRight size={14} /></button>)}</div></section></article>
                 )
               ) : null}
             </div>
@@ -266,8 +306,7 @@ function App() {
         </section>
 
         <aside className={`inspector-panel mobile-${mobilePanel}`}>
-          <div className="inspector-tabs"><button className={inspectorMode === 'chapter' ? 'active' : ''} onClick={() => setInspectorMode('chapter')}><Lightbulb size={15} />本章依据 <span>{chapterEvidence.size}</span></button><button className={inspectorMode === 'evidence' ? 'active' : ''} onClick={() => setInspectorMode('evidence')}><BookOpen size={15} />原文 <span>{evidence.length}</span></button></div>
-          {inspectorMode === 'chapter' ? <ChapterResearch packet={selectedPacket} evidenceById={evidenceById} onEvidence={showEvidence} /> : <><div className="evidence-list">{evidence.map((item) => <button key={item.evidence_id} className={`${selectedEvidenceId === item.evidence_id ? 'selected' : ''} ${answerEvidence.has(item.evidence_id) ? 'cited' : ''}`} onClick={() => setSelectedEvidenceId(item.evidence_id)}><div><span>{item.evidence_id}</span><em className={chapterEvidence.has(item.evidence_id) ? 'final' : answerEvidence.has(item.evidence_id) ? 'worker' : 'candidate'}>{chapterEvidence.has(item.evidence_id) ? '本章采用' : answerEvidence.has(item.evidence_id) ? '正文采用' : '检索候选'}</em></div><strong>{item.source_file}</strong><p>{pageLabel(item)} · {item.section_path.at(-1) ?? '未标注章节'}</p></button>)}</div><EvidenceInspector run={selectedRun ?? ({ run_id: '' } as RunDetail)} evidence={selectedEvidence} /></>}
+          <ChapterResearch run={selectedRun ?? ({ run_id: '' } as RunDetail)} packet={selectedPacket} evidenceById={evidenceById} cardIds={cardIds} selectedId={selectedEvidenceId} onSelect={showEvidence} />
         </aside>
       </main>
     </div>
