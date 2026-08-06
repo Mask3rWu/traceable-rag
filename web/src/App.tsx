@@ -29,6 +29,52 @@ function formatTime(value: string): string {
   return new Intl.DateTimeFormat('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(value))
 }
 
+const _HTML_TABLE_RE = /<\s*(?:table|tbody|thead|tfoot|tr|td|th|html|body)\b/i
+const _QUOTE_SAFE_TAGS = new Set(['html', 'body', 'table', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'caption', 'div', 'p', 'span', 'em', 'i', 'strong', 'b', 'u', 'sub', 'sup', 'br'])
+const _QUOTE_SAFE_ATTRS = new Set(['colspan', 'rowspan', 'width', 'height', 'valign', 'align', 'scope'])
+
+function sanitizeQuoteElement(el: HTMLElement): void {
+  for (const child of Array.from(el.children)) sanitizeQuoteElement(child as HTMLElement)
+  const tag = el.tagName.toLowerCase()
+  if (tag === 'script' || tag === 'style' || tag === 'iframe' || tag === 'object' || tag === 'embed' || tag === 'link') {
+    el.remove()
+    return
+  }
+  if (tag === 'img') {
+    el.remove()
+    return
+  }
+  if (!_QUOTE_SAFE_TAGS.has(tag)) {
+    const parent = el.parentElement
+    if (parent) {
+      while (el.firstChild) parent.insertBefore(el.firstChild, el)
+      el.remove()
+    }
+    return
+  }
+  for (const attr of Array.from(el.attributes)) {
+    if (attr.name.toLowerCase().startsWith('on') || !_QUOTE_SAFE_ATTRS.has(attr.name.toLowerCase())) {
+      el.removeAttribute(attr.name)
+    }
+  }
+}
+
+function renderQuote(quote: string): { html: string | null; plain: string } {
+  const plain = quote
+  if (!_HTML_TABLE_RE.test(quote)) return { html: null, plain }
+  let documentRef: Document
+  try {
+    documentRef = new DOMParser().parseFromString('<!doctype html><html><body></body></html>', 'text/html')
+    documentRef.body.innerHTML = quote
+  } catch {
+    return { html: null, plain }
+  }
+  sanitizeQuoteElement(documentRef.body)
+  const html = documentRef.body.innerHTML
+  if (!html.trim()) return { html: null, plain }
+  return { html, plain }
+}
+
 function pageLabel(evidence: Evidence): string {
   return evidence.page_start === evidence.page_end ? `第 ${evidence.page_start} 页` : `第 ${evidence.page_start}-${evidence.page_end} 页`
 }
@@ -77,6 +123,14 @@ function ActivityTimeline({ events }: { events: RunEvent[] }) {
   )
 }
 
+function QuoteBlock({ quote }: { quote: string }) {
+  const { html, plain } = renderQuote(quote)
+  if (html !== null) {
+    return <blockquote className="evidence-card-quote evidence-card-quote--html" dangerouslySetInnerHTML={{ __html: html }} />
+  }
+  return <blockquote className="evidence-card-quote">{plain}</blockquote>
+}
+
 function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: {
   run: RunDetail
   evidence: Evidence
@@ -116,7 +170,7 @@ function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: 
           <section className="ec-sec">
             <span className="ec-title">原文片段</span>
             <p className="evidence-card-src">{evidence.section_path.join(' › ') || '未标注章节'} · {pageLabel(evidence)}</p>
-            <blockquote className="evidence-card-quote">{evidence.quote}</blockquote>
+            <QuoteBlock quote={evidence.quote} />
             {evidence.visual_assets.length > 0 ? <div className="evidence-visuals">{evidence.visual_assets.map((visual) => visual.image_crop ? <figure key={visual.block_id}><img src={visualUrl(run.run_id, evidence.evidence_id, visual.block_id)} alt={visual.description ?? visual.block_type} />{visual.description ? <figcaption>{visual.description}</figcaption> : null}</figure> : null)}</div> : null}
             {evidence.retrieval.length > 0 ? <section className="trace-list"><h4>检索轨迹</h4>{evidence.retrieval.map((trace, index) => <div key={`${trace.query}-${index}`}><span>#{trace.final_rank}</span><p>{trace.query}</p></div>)}</section> : null}
           </section>

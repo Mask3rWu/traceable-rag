@@ -209,6 +209,12 @@ button { cursor: pointer; }
 
 .evidence-card-src { margin: 0 0 6px; color: var(--muted); font-size: 9px; overflow-wrap: anywhere; }
 .evidence-card-quote { margin: 0; padding: 12px; background: #fafbfa; border-left: 3px solid #779181; font-family: "Noto Serif SC", SimSun, serif; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.evidence-card-quote--html { white-space: normal; overflow: auto; max-height: 420px; }
+.evidence-card-quote--html div, .evidence-card-quote--html p, .evidence-card-quote--html .table-body { max-width: 100%; }
+.evidence-card-quote--html table { border-collapse: collapse; width: auto; min-width: 60%; max-width: 100%; margin: 4px 0; font-family: var(--font-sans, inherit); font-size: 11px; line-height: 1.5; }
+.evidence-card-quote--html table, .evidence-card-quote--html th, .evidence-card-quote--html td { border: 1px solid #b9c2bc; }
+.evidence-card-quote--html th, .evidence-card-quote--html td { padding: 4px 8px; white-space: normal; }
+.evidence-card-quote--html th { background: #eef1ee; font-weight: 600; }
 .evidence-visuals { display: grid; gap: 10px; margin-top: 9px; }
 .evidence-visuals figure { margin: 0; }
 .evidence-visuals img { width: 100%; display: block; border: 1px solid var(--line); }
