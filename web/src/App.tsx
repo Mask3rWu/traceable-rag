@@ -7,7 +7,7 @@ import {
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { cancelRun, createRun, getRun, listRuns, subscribeRun, visualUrl } from './api'
-import type { Claim, DecisionRecord, Evidence, ResearchPacket, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
+import type { ChapterPlan, Claim, DecisionRecord, Evidence, ResearchPacket, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
 
 const activeStatuses = new Set<RunStatus>(['queued', 'running', 'cancel_requested'])
 const statusLabels: Record<RunStatus, string> = {
@@ -126,24 +126,28 @@ function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: 
   )
 }
 
-function ChapterResearch({ run, packet, evidenceById, cardIds, selectedId, onSelect }: {
+function ChapterResearch({ run, packet, chapter, evidenceById, cardIds, selectedId, onSelect }: {
   run: RunDetail
   packet: ResearchPacket | null
+  chapter: ChapterPlan | null
   evidenceById: Map<string, Evidence>
   cardIds: string[]
   selectedId: string | null
   onSelect: (id: string | null) => void
 }) {
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => { scrollRef.current?.scrollTo({ top: 0 }) }, [packet])
   if (cardIds.length === 0) return <div className="inspector-empty"><ListTree size={22} /><p>暂无可展示的研究依据。</p></div>
   return (
-    <div className="chapter-research">
+    <div ref={scrollRef} className="chapter-research">
+      {chapter ? <div className="research-chapter-badge"><span>第 {chapter.ordinal} 章</span>{packet?.chapter_title ?? chapter.title}</div> : null}
       {packet ? (
         <div className="research-summary">
           <span className={`packet-status ${packet.status}`}>{packetStatusLabels[packet.status]}</span>
           <p>{packet.summary}</p>
         </div>
       ) : null}
-      <div className="evidence-panel-head"><span>{packet ? '本章依据' : '采用依据'}</span><em>{cardIds.length}</em></div>
+      <div className="evidence-panel-head"><span>依据</span><em>{cardIds.length}</em></div>
       <div className="evidence-card-list">
         {cardIds.map((id) => {
           const evidence = evidenceById.get(id)
@@ -186,6 +190,7 @@ function App() {
   const [mobilePanel, setMobilePanel] = useState<'history' | 'result' | 'sources'>('result')
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const subscription = useRef<(() => void) | null>(null)
+  const resultPanelRef = useRef<HTMLElement | null>(null)
 
   const refreshRuns = useCallback(async () => setRuns((await listRuns()).items), [])
 
@@ -218,7 +223,7 @@ function App() {
     subscription.current?.(); setError(null); setEvents([]); setSelectedEvidenceId(null)
     try {
       const detail = await getRun(runId)
-      setSelectedRun(detail); selectInitialChapter(detail); setMobilePanel('result')
+      setSelectedRun(detail); selectInitialChapter(detail); setMobilePanel('result'); resultPanelRef.current?.scrollTo({ top: 0 })
       if (activeStatuses.has(detail.status)) {
         subscription.current = subscribeRun(runId, (event) => {
           setEvents((current) => [...current.filter((item) => item.sequence !== event.sequence), event])
@@ -248,12 +253,15 @@ function App() {
   const workers = useMemo(() => selectedRun?.result?.worker_packets ?? [], [selectedRun])
   const plan = selectedRun?.result?.document_plan ?? null
   const evidenceById = useMemo(() => new Map(evidence.map((item) => [item.evidence_id, item])), [evidence])
-  const selectedPacket = workers.find((item) => item.chapter_id === selectedChapterId) ?? null
+  const planChapters = useMemo(() => plan ? [...plan.chapters].sort((a, b) => a.ordinal - b.ordinal) : [], [plan])
+  const packetByChapterId = useMemo(() => { const map = new Map<string, ResearchPacket>(); for (const item of workers) if (item.chapter_id) map.set(item.chapter_id, item); return map }, [workers])
+  const selectedPacket = useMemo(() => selectedChapterId ? packetByChapterId.get(selectedChapterId) ?? null : null, [selectedChapterId, packetByChapterId])
+  const selectChapter = useMemo(() => planChapters.find((c) => c.chapter_id === selectedChapterId) ?? null, [planChapters, selectedChapterId])
   const answerEvidence = useMemo(() => new Set(selectedRun?.result?.answer.evidence_ids ?? []), [selectedRun])
-  const chapterEvidence = useMemo(() => new Set(selectedPacket?.evidence_ids ?? []), [selectedPacket])
 
   const showEvidence = (id: string | null) => { setSelectedEvidenceId(id); setMobilePanel('sources') }
-  const chooseChapter = (chapterId: string) => { setSelectedChapterId(chapterId); setSelectedEvidenceId(null) }
+  const scrollToChapter = (chapterId: string) => { document.getElementById(`chapter-${chapterId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
+  const focusChapterEvidence = (chapterId: string) => { setSelectedChapterId(chapterId); setSelectedEvidenceId(null); setMobilePanel('sources') }
   const cardIds = useMemo(() => {
     if (selectedPacket?.evidence_ids?.length) return selectedPacket.evidence_ids
     return Array.from(answerEvidence)
@@ -275,7 +283,7 @@ function App() {
           <div className="run-list">{runs.map((run) => <button key={run.run_id} className={`run-item ${selectedRun?.run_id === run.run_id ? 'selected' : ''}`} onClick={() => openRun(run.run_id)}><div className="run-item-top"><StatusBadge status={run.status} /><time>{formatTime(run.created_at)}</time></div><p>{run.request}</p><div className="run-meta"><span>{run.route === 'fast' ? '快速路径' : run.route === 'supervisor' ? '章节研究' : '等待路由'}</span><span>{run.evidence_count} 条证据</span></div></button>)}{runs.length === 0 ? <p className="no-runs">尚无研究记录</p> : null}</div>
         </aside>
 
-        <section className={`result-panel mobile-${mobilePanel}`}>
+        <section ref={resultPanelRef} className={`result-panel mobile-${mobilePanel}`}>
           <form className="composer" onSubmit={submit}><textarea value={prompt} onChange={(event) => setPrompt(event.target.value)} placeholder="输入领域问题，或描述需要生成的评估标准..." rows={2} /><button type="submit" disabled={!prompt.trim() || submitting} title="提交研究任务">{submitting ? <RefreshCw className="spin" size={18} /> : <Send size={18} />}<span>开始研究</span></button></form>
           {error ? <div className="error-banner"><AlertTriangle size={17} />{error}<button onClick={() => setError(null)}><X size={15} /></button></div> : null}
           {!selectedRun ? <EmptyWorkspace /> : (
@@ -286,11 +294,15 @@ function App() {
               {selectedRun.result ? (
                 plan ? (
                   <div className="chapter-workspace">
-                    <nav className="chapter-toc" aria-label="章节目录"><div><ListTree size={15} /><strong>章节目录</strong></div>{[...plan.chapters].sort((a, b) => a.ordinal - b.ordinal).map((chapter) => { const packet = workers.find((item) => item.chapter_id === chapter.chapter_id); return <button key={chapter.chapter_id} className={selectedChapterId === chapter.chapter_id ? 'selected' : ''} onClick={() => chooseChapter(chapter.chapter_id)}><span>{chapter.ordinal}</span><div><strong>{chapter.title}</strong><small>{packet ? packetStatusLabels[packet.status] : '待研究'}</small></div><i className={packet?.status ?? 'pending'} /></button>})}</nav>
+                    <nav className="chapter-toc" aria-label="章节目录"><div><ListTree size={15} /><strong>章节目录</strong></div>{planChapters.map((chapter) => { const packet = packetByChapterId.get(chapter.chapter_id); return <button key={chapter.chapter_id} className={selectedChapterId === chapter.chapter_id ? 'selected' : ''} onClick={() => scrollToChapter(chapter.chapter_id)}><span>{chapter.ordinal}</span><div><strong>{chapter.title}</strong><small>{packet ? packetStatusLabels[packet.status] : '待研究'}</small></div><i className={packet?.status ?? 'pending'} /></button>})}</nav>
                     <article className="answer-document chapter-document">
-                      <div className="answer-header"><span>{selectedPacket?.chapter_title ?? plan.title}</span><div><span>{chapterEvidence.size} 条本章依据</span></div></div>
-                      {selectedPacket?.content_blocks?.length ? selectedPacket.content_blocks.map((block) => <section className="content-block" id={block.block_id} key={block.block_id}>{block.heading ? <h3>{block.heading}</h3> : null}<ReactMarkdown remarkPlugins={[remarkGfm]}>{block.markdown}</ReactMarkdown><div className="block-sources">{block.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}><Link2 size={12} />{id}</button>)}</div></section>) : <div className="chapter-empty"><AlertTriangle size={20} /><p>{selectedPacket?.summary ?? '该章节尚未产生研究正文。'}</p></div>}
-                      {selectedPacket?.gaps.length ? <section className="limitations"><h3><AlertTriangle size={17} />本章限制与缺口</h3><ul>{selectedPacket.gaps.map((item) => <li key={item}>{item}</li>)}</ul></section> : null}
+                      <div className="answer-header"><span>{plan.title}</span></div>
+                      {planChapters.map((chapter) => { const packet = packetByChapterId.get(chapter.chapter_id); const evidenceCount = packet?.evidence_ids?.length ?? 0; return (
+                        <section className="chapter-section" id={`chapter-${chapter.chapter_id}`} key={chapter.chapter_id}>
+                          <div className="answer-header chapter-header"><span>第 {chapter.ordinal} 章 · {packet?.chapter_title ?? chapter.title}</span><div><button className="chapter-evidence-link" onClick={() => focusChapterEvidence(chapter.chapter_id)} disabled={evidenceCount === 0}>{evidenceCount} 条本章依据</button></div></div>
+                          {packet?.content_blocks?.length ? packet.content_blocks.map((block) => <section className="content-block" id={block.block_id} key={block.block_id}>{block.heading ? <h3>{block.heading}</h3> : null}<ReactMarkdown remarkPlugins={[remarkGfm]}>{block.markdown}</ReactMarkdown><div className="block-sources">{block.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}><Link2 size={12} />{id}</button>)}</div></section>) : <div className="chapter-empty"><AlertTriangle size={20} /><p>{packet?.summary ?? '该章节尚未产生研究正文。'}</p></div>}
+                        </section>
+                      ) })}
                     </article>
                   </div>
                 ) : (
@@ -302,7 +314,7 @@ function App() {
         </section>
 
         <aside className={`inspector-panel mobile-${mobilePanel}`}>
-          <ChapterResearch run={selectedRun ?? ({ run_id: '' } as RunDetail)} packet={selectedPacket} evidenceById={evidenceById} cardIds={cardIds} selectedId={selectedEvidenceId} onSelect={showEvidence} />
+          <ChapterResearch run={selectedRun ?? ({ run_id: '' } as RunDetail)} packet={selectedPacket} chapter={selectChapter} evidenceById={evidenceById} cardIds={cardIds} selectedId={selectedEvidenceId} onSelect={showEvidence} />
         </aside>
       </main>
     </div>
