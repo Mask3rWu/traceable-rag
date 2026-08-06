@@ -159,6 +159,28 @@ class ConsistencyReport(BaseModel):
     issues: list[ConsistencyIssue] = Field(default_factory=list)
 
 
+class ChapterSubmission(BaseModel):
+    """The model-facing artifact a chapter worker emits via submit_chapter.
+
+    It carries only what the model must generate: the research content and its
+    audit metadata. Program-owned identity (task, chapter_id, chapter_title,
+    depends_on) is injected from the ChapterPlan by the runtime, and the
+    top-level evidence_ids is derived from Claim/Decision citations in
+    _validate_packet, so neither appears here. status is restricted to the two
+    outcomes a worker can reach on its own: failed/blocked packets are built by
+    the runtime (_failed_packet/_blocked_packet) and never emitted by the model.
+    """
+
+    status: Literal["sufficient", "insufficient"]
+    summary: str = Field(min_length=1)
+    content_blocks: list[ContentBlock] = Field(default_factory=list)
+    claims: list[Claim] = Field(default_factory=list)
+    decisions: list[DecisionRecord] = Field(default_factory=list)
+    conflicts: list[Conflict] = Field(default_factory=list)
+    gaps: list[str] = Field(default_factory=list)
+    diagnostics: list[str] = Field(default_factory=list)
+
+
 class ResearchPacket(BaseModel):
     task: str = Field(min_length=1)
     chapter_id: str | None = None

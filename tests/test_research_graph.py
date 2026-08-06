@@ -14,7 +14,7 @@ from src.research.agent_models import (
 )
 from src.research.agent_store import AgentRunStore
 from src.research.graph import AgentRuntime
-from src.research.tools import EvidenceWorkspace
+from src.research.tools import EvidenceAliasRegistry, EvidenceWorkspace
 
 
 def _tool_call(name: str, args: dict, call_id: str) -> AIMessage:
@@ -224,30 +224,22 @@ class ResearchGraphTest(unittest.TestCase):
                 _tool_call(
                     "submit_chapter",
                     {
-                        "task": "研究毁伤等级",
-                        "chapter_id": "levels",
-                        "chapter_title": "一、毁伤等级",
                         "status": "insufficient",
                         "summary": "未找到足够证据",
                         "claims": [],
                         "conflicts": [],
                         "gaps": ["缺少等级定义"],
-                        "evidence_ids": [],
                     },
                     "worker-submit",
                 ),
                 _tool_call(
                     "submit_chapter",
                     {
-                        "task": "研究毁伤等级",
-                        "chapter_id": "levels",
-                        "chapter_title": "一、毁伤等级",
                         "status": "insufficient",
                         "summary": "补充检索后仍无足够证据",
                         "claims": [],
                         "conflicts": [],
                         "gaps": ["缺少等级定义"],
-                        "evidence_ids": [],
                     },
                     "worker-followup-submit",
                 ),
@@ -304,10 +296,6 @@ class ResearchGraphTest(unittest.TestCase):
             block_id = f"B-{chapter_id}"
             decision_id = "D-LEVELS" if decision else None
             return {
-                "task": title,
-                "chapter_id": chapter_id,
-                "chapter_title": title,
-                "depends_on": [] if decision else ["levels"],
                 "status": "sufficient",
                 "summary": f"{title}研究完成",
                 "content_blocks": [
@@ -345,7 +333,6 @@ class ResearchGraphTest(unittest.TestCase):
                     if decision_id
                     else []
                 ),
-                "evidence_ids": ["ev-test"],
             }
 
         model = _ScriptedModel(
@@ -679,6 +666,68 @@ class ResearchGraphTest(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "without a Claim or Decision reason"):
             runtime._validate_packet(packet, chapter)
+
+    def test_canonicalize_injects_identity_and_omits_evidence_ids(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "测试",
+                "chapters": [
+                    {
+                        "chapter_id": "scope",
+                        "ordinal": 1,
+                        "title": "范围",
+                        "objective": "规定范围",
+                        "research_questions": ["适用范围是什么"],
+                        "depends_on": ["foundation"],
+                        "acceptance_criteria": ["形成范围"],
+                    },
+                    {
+                        "chapter_id": "foundation",
+                        "ordinal": 2,
+                        "title": "基础",
+                        "objective": "基础",
+                        "research_questions": ["基础是什么"],
+                        "acceptance_criteria": ["基础"],
+                    },
+                ],
+            }
+        ).chapters[0]
+
+        # A worker emits only the research artifact: no identity fields and no
+        # top-level evidence_ids. _canonicalize_packet_payload must inject the
+        # identity from the plan and leave evidence_ids to _validate_packet,
+        # which derives it from Claim/Decision citations.
+        payload = {
+            "status": "sufficient",
+            "summary": "研究完成",
+            "content_blocks": [
+                {
+                    "block_id": "B-scope",
+                    "markdown": "适用范围",
+                    "claim_ids": ["C-scope"],
+                    "evidence_ids": ["ev-test"],
+                }
+            ],
+            "claims": [
+                {
+                    "claim_id": "C-scope",
+                    "text": "资料支持适用范围",
+                    "conclusion_type": "direct",
+                    "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                }
+            ],
+        }
+
+        result = AgentRuntime._canonicalize_packet_payload(
+            payload, chapter, EvidenceAliasRegistry()
+        )
+
+        self.assertEqual(result["task"], "规定范围")
+        self.assertEqual(result["chapter_id"], "scope")
+        self.assertEqual(result["chapter_title"], "范围")
+        self.assertEqual(result["depends_on"], ["foundation"])
+        self.assertNotIn("evidence_ids", result)
 
 
 if __name__ == "__main__":

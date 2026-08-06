@@ -27,6 +27,7 @@ from src.research.agent_models import (
     AgentAnswer,
     AgentRun,
     ChapterPlan,
+    ChapterSubmission,
     ConsistencyIssue,
     ConsistencyReport,
     DocumentPlan,
@@ -230,9 +231,16 @@ class AgentRuntime:
         aliases: EvidenceAliasRegistry,
         chapter_char_limit: int | None = None,
     ) -> BaseTool:
-        @tool(args_schema=ResearchPacket)
+        @tool(args_schema=ChapterSubmission)
         def submit_chapter(**kwargs: Any) -> str:
-            """Submit a grounded chapter artifact and stop this worker."""
+            """Submit a grounded chapter artifact and stop this worker.
+
+            Emit only the research content (status, summary, content_blocks,
+            claims, decisions, conflicts, gaps, diagnostics). chapter_id,
+            chapter_title, depends_on, and task are injected from the plan, and
+            the top-level evidence_ids is derived from your citations, so do not
+            include those fields.
+            """
 
             packet = ResearchPacket.model_validate(
                 self._canonicalize_packet_payload(kwargs, chapter, aliases)
@@ -460,7 +468,7 @@ class AgentRuntime:
         chapter: ChapterPlan,
         aliases: EvidenceAliasRegistry,
     ) -> dict[str, Any]:
-        normalized = ResearchPacket.model_validate(payload).model_dump(mode="json")
+        normalized = ChapterSubmission.model_validate(payload).model_dump(mode="json")
         translated = aliases.translate_payload(normalized)
         stable_decisions = set(chapter.produces_decisions)
         prefix = f"{chapter.chapter_id}:"
@@ -479,6 +487,13 @@ class AgentRuntime:
                 decision_map.get(item, item if item in stable_decisions else prefix + item)
                 for item in block.get("decision_ids", [])
             ]
+        # Inject program-owned identity fields. The model never emits these;
+        # they are sourced from the plan so the worker cannot mislabel its own
+        # chapter or invent a dependency graph. evidence_ids is left to
+        # _validate_packet, which derives it from Claim/Decision citations.
+        translated["task"] = chapter.objective
+        translated["chapter_id"] = chapter.chapter_id
+        translated["chapter_title"] = chapter.title
         translated["depends_on"] = list(chapter.depends_on)
         return translated
 
@@ -502,10 +517,9 @@ class AgentRuntime:
         chapter_char_limit: int | None = None,
     ) -> None:
         prose_limit = chapter_char_limit or self.chapter_max_chars
-        if packet.chapter_id != chapter.chapter_id:
-            raise ValueError("Chapter artifact has the wrong chapter ID")
-        if packet.chapter_title != chapter.title:
-            raise ValueError("Chapter artifact has the wrong chapter title")
+        # chapter_id/chapter_title are injected from the plan in
+        # _canonicalize_packet_payload, so they always match by construction;
+        # validating them would only re-check program-owned state.
 
         if packet.content_blocks and len(packet.content_blocks) != 1:
             raise ValueError(
@@ -751,7 +765,9 @@ class AgentRuntime:
                 else None
             ),
             "instructions": (
-                "Return only this chapter. Use the declared chapter_id and chapter_title. "
+                "Return only this chapter. Identity fields (chapter_id, "
+                "chapter_title, depends_on, task) are injected from the plan, so "
+                "emit only the research artifact and never those fields. "
                 "Treat document_structure as a hard ownership boundary: do not write sections "
                 "owned by another chapter. Do not add chapter numbers or reuse numbering from "
                 "sources. The ContentBlock is public standard text: write conclusions and "
