@@ -114,10 +114,6 @@ function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: 
             </section>
           ) : null}
           <section className="ec-sec">
-            <span className="ec-title">片段概要</span>
-            <p className="evidence-card-preview">{evidence.quote}</p>
-          </section>
-          <section className="ec-sec">
             <span className="ec-title">原文片段</span>
             <p className="evidence-card-src">{evidence.section_path.join(' › ') || '未标注章节'} · {pageLabel(evidence)}</p>
             <blockquote className="evidence-card-quote">{evidence.quote}</blockquote>

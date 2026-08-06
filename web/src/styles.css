@@ -197,7 +197,7 @@ button { cursor: pointer; }
 .usage-decision { background: #f4f6f4; color: #4c5650; border-left: 2px solid var(--blue); }
 .usage-claim em { color: var(--green); }
 .usage-decision em { color: #6b8580; }
-.evidence-card-preview { margin: 0; color: #6b736e; font-size: 10px; line-height: 1.6; overflow-wrap: anywhere; font-family: "Noto Serif SC", SimSun, serif; }
+
 .evidence-card-src { margin: 0 0 6px; color: var(--muted); font-size: 9px; overflow-wrap: anywhere; }
 .evidence-card-quote { margin: 0; padding: 12px; background: #fafbfa; border-left: 3px solid #779181; font-family: "Noto Serif SC", SimSun, serif; font-size: 12px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
 .evidence-visuals { display: grid; gap: 10px; margin-top: 9px; }
