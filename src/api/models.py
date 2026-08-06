@@ -28,6 +28,10 @@ class RunCreate(BaseModel):
     request: str = Field(min_length=1, max_length=20_000)
 
 
+class RunResume(BaseModel):
+    start_chapter: str | None = Field(default=None, min_length=1, max_length=120)
+
+
 class RunEvent(BaseModel):
     sequence: int
     type: str

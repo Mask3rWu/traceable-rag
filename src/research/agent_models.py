@@ -191,5 +191,24 @@ class AgentRun(BaseModel):
     consistency_issues: list[ConsistencyIssue] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
     worker_packets: list[ResearchPacket] = Field(default_factory=list)
+    evidence_aliases: dict[str, dict[str, str]] = Field(default_factory=dict)
+    parent_run_id: str | None = None
+    attempt: int = Field(default=1, ge=1)
+    review_revised: bool = False
+    review_verified: bool = True
+    requires_human_review: bool = False
     trace_id: str | None = None
+    created_at: datetime = Field(default_factory=utc_now)
+
+
+class RunCheckpoint(BaseModel):
+    run_id: str
+    request: str
+    route: RouteDecision
+    document_plan: DocumentPlan
+    evidence: list[Evidence] = Field(default_factory=list)
+    worker_packets: list[ResearchPacket] = Field(default_factory=list)
+    evidence_aliases: dict[str, dict[str, str]] = Field(default_factory=dict)
+    parent_run_id: str | None = None
+    attempt: int = Field(default=1, ge=1)
     created_at: datetime = Field(default_factory=utc_now)

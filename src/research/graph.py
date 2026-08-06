@@ -32,9 +32,10 @@ from src.research.agent_models import (
     DocumentPlan,
     ResearchPacket,
     RouteDecision,
+    RunCheckpoint,
 )
 from src.research.agent_store import AgentRunStore
-from src.research.tools import EvidenceWorkspace
+from src.research.tools import EvidenceAliasRegistry, EvidenceWorkspace
 
 
 FAST_PROMPT = """You are a traceable knowledge-base question-answering agent.
@@ -127,6 +128,7 @@ class ReactState(TypedDict, total=False):
     steps: int
     result: dict[str, Any]
     task: str
+    nudged: bool
 
 
 class RootState(TypedDict, total=False):
@@ -136,6 +138,7 @@ class RootState(TypedDict, total=False):
     packets: list[dict[str, Any]]
     issues: list[dict[str, Any]]
     answer: dict[str, Any]
+    review_revised: bool
 
 
 class AgentRuntime:
@@ -181,9 +184,16 @@ class AgentRuntime:
         self.chapter_max_claims = chapter_max_claims
         self.chapter_max_decisions = chapter_max_decisions
         self._packets: list[ResearchPacket] = []
+        self._evidence_aliases: dict[str, EvidenceAliasRegistry] = {}
+        self._cancel_check: Callable[[], bool] = lambda: False
+        self._current_run_id: str | None = None
+        self._current_parent_run_id: str | None = None
+        self._current_attempt = 1
+        self._current_request = ""
         self._lock = threading.RLock()
         self._run_lock = threading.Lock()
-        self._fast_graph = self._build_fast_graph()
+        self._fast_aliases = EvidenceAliasRegistry()
+        self._fast_graph = self._build_fast_graph(self._fast_aliases)
         self.graph = self._build_root_graph()
 
     @property
@@ -194,6 +204,7 @@ class AgentRuntime:
     @staticmethod
     def _submit_answer_tool(
         validator: Callable[[AgentAnswer], None] | None = None,
+        transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     ) -> BaseTool:
         @tool(args_schema=AgentAnswer)
         def submit_answer(
@@ -201,9 +212,12 @@ class AgentRuntime:
         ) -> str:
             """Submit the final answer and stop this agent."""
 
-            answer = AgentAnswer(
-                content=content, evidence_ids=evidence_ids, limitations=limitations
-            )
+            payload = {
+                "content": content,
+                "evidence_ids": evidence_ids,
+                "limitations": limitations,
+            }
+            answer = AgentAnswer.model_validate(transform(payload) if transform else payload)
             if validator is not None:
                 validator(answer)
             return "submitted"
@@ -211,13 +225,18 @@ class AgentRuntime:
         return submit_answer
 
     def _submit_chapter_tool(
-        self, chapter: ChapterPlan, chapter_char_limit: int | None = None
+        self,
+        chapter: ChapterPlan,
+        aliases: EvidenceAliasRegistry,
+        chapter_char_limit: int | None = None,
     ) -> BaseTool:
         @tool(args_schema=ResearchPacket)
         def submit_chapter(**kwargs: Any) -> str:
             """Submit a grounded chapter artifact and stop this worker."""
 
-            packet = ResearchPacket.model_validate(kwargs)
+            packet = ResearchPacket.model_validate(
+                self._canonicalize_packet_payload(kwargs, chapter, aliases)
+            )
             self._validate_packet(packet, chapter, chapter_char_limit)
             return "submitted"
 
@@ -233,6 +252,7 @@ class AgentRuntime:
         exhausted_result: Callable[[ReactState, bool], BaseModel],
         graph_name: str,
         step_limit: int,
+        result_transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     ):
         bound_model = self.model.bind_tools(list(tools))
         tool_node = ToolNode(tools, handle_tool_errors=True)
@@ -250,7 +270,7 @@ class AgentRuntime:
                 return "tools"
             if state.get("steps", 0) >= step_limit:
                 return "exhausted"
-            return "exhausted"
+            return "nudge" if not state.get("nudged") else "exhausted"
 
         def after_tools(state: ReactState) -> str:
             message = state["messages"][-1]
@@ -274,8 +294,25 @@ class AgentRuntime:
             call = next(
                 item for item in message.tool_calls if item["name"] == submit_name
             )
-            result = result_model.model_validate(call["args"])
+            args = call["args"]
+            if result_transform is not None:
+                args = result_transform(args)
+            result = result_model.model_validate(args)
             return {"result": result.model_dump(mode="json")}
+
+        def nudge(_: ReactState) -> dict:
+            return {
+                "messages": [
+                    HumanMessage(
+                        content=(
+                            f"You must finish now by calling {submit_name}. "
+                            "Do not perform more broad searches. Correct any reported "
+                            "validation error and submit the structured result."
+                        )
+                    )
+                ],
+                "nudged": True,
+            }
 
         def exhausted(state: ReactState) -> dict:
             result = exhausted_result(state, state.get("steps", 0) >= step_limit)
@@ -285,12 +322,18 @@ class AgentRuntime:
         builder.add_node("agent", call_model)
         builder.add_node("tools", tool_node)
         builder.add_node("submit", submit)
+        builder.add_node("nudge", nudge)
         builder.add_node("exhausted", exhausted)
         builder.add_edge(START, "agent")
         builder.add_conditional_edges(
             "agent",
             next_step,
-            {"tools": "tools", "submit": "submit", "exhausted": "exhausted"},
+            {
+                "tools": "tools",
+                "submit": "submit",
+                "nudge": "nudge",
+                "exhausted": "exhausted",
+            },
         )
         builder.add_conditional_edges(
             "tools",
@@ -298,12 +341,14 @@ class AgentRuntime:
             {"agent": "agent", "submit": "submit", "exhausted": "exhausted"},
         )
         builder.add_edge("submit", END)
+        builder.add_edge("nudge", "agent")
         builder.add_edge("exhausted", END)
         return builder.compile(name=graph_name)
 
-    def _build_fast_graph(self):
-        tools = self.workspace.make_retrieval_tools()
-        tools.append(self._submit_answer_tool(self._validate_fast_answer))
+    def _build_fast_graph(self, aliases: EvidenceAliasRegistry):
+        translate = aliases.translate_payload
+        tools = self._retrieval_tools(aliases)
+        tools.append(self._submit_answer_tool(self._validate_fast_answer, translate))
         return self._build_react_graph(
             prompt=FAST_PROMPT,
             tools=tools,
@@ -319,16 +364,20 @@ class AgentRuntime:
             ),
             graph_name="fast-react-agent",
             step_limit=self.fast_max_steps,
+            result_transform=translate,
         )
 
     def _build_chapter_graph(
-        self, chapter: ChapterPlan, chapter_char_limit: int | None = None
+        self,
+        chapter: ChapterPlan,
+        aliases: EvidenceAliasRegistry,
+        chapter_char_limit: int | None = None,
     ):
         prose_limit = chapter_char_limit or self.chapter_max_chars
         tools = [
-            *self.workspace.make_retrieval_tools(),
+            *self._retrieval_tools(aliases),
             self.workspace.make_terminology_tool(),
-            self._submit_chapter_tool(chapter, prose_limit),
+            self._submit_chapter_tool(chapter, aliases, prose_limit),
         ]
 
         return self._build_react_graph(
@@ -346,6 +395,9 @@ class AgentRuntime:
                 "check_terminology is advisory and never blocks submission; if you judge a "
                 "flagged term is not a controlled-vocabulary drift, you may keep it. "
                 "Always use the canonical terms from the glossary when writing terminology."
+                " Evidence references exposed by search are short aliases such as E1 and E2. "
+                "Use those aliases exactly in read_evidence and every structured evidence field; "
+                "the system resolves them to stable provenance IDs before persistence."
             ),
             tools=tools,
             submit_name="submit_chapter",
@@ -355,7 +407,18 @@ class AgentRuntime:
             ),
             graph_name="chapter-research-worker",
             step_limit=self.worker_max_steps,
+            result_transform=lambda args: self._canonicalize_packet_payload(
+                args, chapter, aliases
+            ),
         )
+
+    def _retrieval_tools(self, aliases: EvidenceAliasRegistry) -> list[BaseTool]:
+        try:
+            return self.workspace.make_retrieval_tools(aliases, self._cancel_check)
+        except TypeError as exc:
+            if "positional argument" not in str(exc) and "unexpected keyword" not in str(exc):
+                raise
+            return self.workspace.make_retrieval_tools()
 
     @staticmethod
     def _failed_packet(
@@ -390,6 +453,34 @@ class AgentRuntime:
                 "Public answer content must not contain internal evidence, Claim, or Decision IDs"
             )
         self.workspace.validate_evidence_ids(answer.evidence_ids)
+
+    @staticmethod
+    def _canonicalize_packet_payload(
+        payload: dict[str, Any],
+        chapter: ChapterPlan,
+        aliases: EvidenceAliasRegistry,
+    ) -> dict[str, Any]:
+        normalized = ResearchPacket.model_validate(payload).model_dump(mode="json")
+        translated = aliases.translate_payload(normalized)
+        stable_decisions = set(chapter.produces_decisions)
+        prefix = f"{chapter.chapter_id}:"
+        decisions = translated.get("decisions") or []
+        decision_map: dict[str, str] = {}
+        for decision in decisions:
+            raw_id = str(decision.get("decision_id", ""))
+            if raw_id in stable_decisions or raw_id.startswith(prefix):
+                canonical = raw_id
+            else:
+                canonical = prefix + raw_id
+            decision_map[raw_id] = canonical
+            decision["decision_id"] = canonical
+        for block in translated.get("content_blocks") or []:
+            block["decision_ids"] = [
+                decision_map.get(item, item if item in stable_decisions else prefix + item)
+                for item in block.get("decision_ids", [])
+            ]
+        translated["depends_on"] = list(chapter.depends_on)
+        return translated
 
     def _can_submit_fast_answer(self, args: dict[str, Any]) -> bool:
         try:
@@ -555,7 +646,9 @@ class AgentRuntime:
 
     @staticmethod
     def _ancestor_packets(
-        chapter: ChapterPlan, completed: dict[str, ResearchPacket]
+        chapter: ChapterPlan,
+        completed: dict[str, ResearchPacket],
+        plan: DocumentPlan,
     ) -> list[ResearchPacket]:
         ordered: list[ResearchPacket] = []
         seen: set[str] = set()
@@ -564,7 +657,8 @@ class AgentRuntime:
             if chapter_id in seen:
                 return
             packet = completed[chapter_id]
-            for dependency in packet.depends_on:
+            planned = next(item for item in plan.chapters if item.chapter_id == chapter_id)
+            for dependency in planned.depends_on:
                 collect(dependency)
             seen.add(chapter_id)
             ordered.append(packet)
@@ -575,9 +669,12 @@ class AgentRuntime:
 
     @classmethod
     def _upstream_context(
-        cls, chapter: ChapterPlan, completed: dict[str, ResearchPacket]
+        cls,
+        chapter: ChapterPlan,
+        completed: dict[str, ResearchPacket],
+        plan: DocumentPlan,
     ) -> dict[str, Any]:
-        packets = cls._ancestor_packets(chapter, completed)
+        packets = cls._ancestor_packets(chapter, completed, plan)
         return {
             "chapters": [
                 {
@@ -606,7 +703,10 @@ class AgentRuntime:
 
     @classmethod
     def _glossary_context(
-        cls, chapter: ChapterPlan, completed: dict[str, ResearchPacket]
+        cls,
+        chapter: ChapterPlan,
+        completed: dict[str, ResearchPacket],
+        plan: DocumentPlan,
     ) -> list[dict[str, Any]]:
         """Flatten glossary-bearing decisions declared in required_glossary.
 
@@ -614,7 +714,7 @@ class AgentRuntime:
         actually carry a non-empty glossary are surfaced, so workers see an
         executable vocabulary list rather than a free-text declaration.
         """
-        packets = cls._ancestor_packets(chapter, completed)
+        packets = cls._ancestor_packets(chapter, completed, plan)
         wanted = set(chapter.required_glossary)
         glossaries: list[dict[str, Any]] = []
         for item in packets:
@@ -643,8 +743,8 @@ class AgentRuntime:
                 for item in sorted(plan.chapters, key=lambda item: item.ordinal)
             ],
             "chapter": chapter.model_dump(mode="json"),
-            "upstream": self._upstream_context(chapter, completed),
-            "glossary": self._glossary_context(chapter, completed),
+            "upstream": self._upstream_context(chapter, completed, plan),
+            "glossary": self._glossary_context(chapter, completed, plan),
             "previous_attempt": (
                 {
                     "summary": previous_attempt.summary,
@@ -676,7 +776,8 @@ class AgentRuntime:
             self.chapter_max_chars,
             max(1, self.document_max_chars // len(plan.chapters)),
         )
-        graph = self._build_chapter_graph(chapter, chapter_char_limit)
+        aliases = self._evidence_aliases.setdefault(chapter.chapter_id, EvidenceAliasRegistry())
+        graph = self._build_chapter_graph(chapter, aliases, chapter_char_limit)
         metadata = dict(config.get("metadata") or {})
         metadata.update({"chapter_id": chapter.chapter_id, "chapter_title": chapter.title})
         state = graph.invoke(
@@ -727,11 +828,22 @@ class AgentRuntime:
         )
 
     def _execute_plan(
-        self, plan: DocumentPlan, config: RunnableConfig
+        self,
+        plan: DocumentPlan,
+        config: RunnableConfig,
+        initial_packets: Sequence[ResearchPacket] | None = None,
     ) -> list[ResearchPacket]:
+        if self._cancel_check():
+            raise RuntimeError("Research run was cancelled")
         remaining = {item.chapter_id: item for item in plan.chapters}
-        completed: dict[str, ResearchPacket] = {}
+        completed: dict[str, ResearchPacket] = {
+            item.chapter_id: item for item in (initial_packets or [])
+        }
+        for chapter_id in completed:
+            remaining.pop(chapter_id, None)
         while remaining:
+            if self._cancel_check():
+                raise RuntimeError("Research run was cancelled")
             ready = sorted(
                 (
                     chapter
@@ -745,7 +857,7 @@ class AgentRuntime:
 
             runnable: list[ChapterPlan] = []
             for chapter in ready:
-                ancestors = self._ancestor_packets(chapter, completed)
+                ancestors = self._ancestor_packets(chapter, completed, plan)
                 failed_dependencies = [
                     item.chapter_id
                     for item in ancestors
@@ -789,9 +901,14 @@ class AgentRuntime:
                     }
                     wave_results: dict[str, ResearchPacket] = {}
                     for future in as_completed(futures):
+                        if self._cancel_check():
+                            raise RuntimeError("Research run was cancelled")
                         chapter = futures[future]
-                        wave_results[chapter.chapter_id] = future.result()
+                        packet = future.result()
+                        packet.depends_on = list(chapter.depends_on)
+                        wave_results[chapter.chapter_id] = packet
                 completed.update(wave_results)
+                self._save_checkpoint(plan, completed)
 
             for chapter in ready:
                 remaining.pop(chapter.chapter_id)
@@ -803,6 +920,30 @@ class AgentRuntime:
         with self._lock:
             self._packets = ordered
         return ordered
+
+    def _save_checkpoint(
+        self, plan: DocumentPlan, completed: dict[str, ResearchPacket]
+    ) -> None:
+        if not self._current_run_id:
+            return
+        self.store.save_checkpoint(
+            RunCheckpoint(
+                run_id=self._current_run_id,
+                request=self._current_request or plan.title,
+                route=RouteDecision(
+                    mode="supervisor", reason="resumable chapter checkpoint"
+                ),
+                document_plan=plan,
+                evidence=self.workspace.evidence,
+                worker_packets=list(completed.values()),
+                evidence_aliases={
+                    key: registry.export()
+                    for key, registry in self._evidence_aliases.items()
+                },
+                parent_run_id=self._current_parent_run_id,
+                attempt=self._current_attempt,
+            )
+        )
 
     @staticmethod
     def _structural_consistency_issues(
@@ -925,6 +1066,63 @@ class AgentRuntime:
             ],
         }
 
+    def _revise_reviewed_chapters(
+        self,
+        plan: DocumentPlan,
+        packets: list[ResearchPacket],
+        issues: list[ConsistencyIssue],
+        config: RunnableConfig,
+    ) -> tuple[list[ResearchPacket], bool]:
+        errors_by_chapter: dict[str, list[str]] = {}
+        for issue in issues:
+            if issue.severity != "error":
+                continue
+            for chapter_id in issue.chapter_ids:
+                errors_by_chapter.setdefault(chapter_id, []).append(
+                    f"Consistency review: {issue.description} Required correction: {issue.recommendation}"
+                )
+        if not errors_by_chapter:
+            return packets, False
+
+        completed = {item.chapter_id: item for item in packets if item.chapter_id}
+        by_plan = {item.chapter_id: item for item in plan.chapters}
+        revised = False
+        for chapter_id in sorted(
+            errors_by_chapter, key=lambda item: by_plan[item].ordinal
+        ):
+            if self._cancel_check():
+                raise RuntimeError("Research run was cancelled")
+            previous = completed[chapter_id]
+            repair_context = previous.model_copy(
+                update={
+                    "diagnostics": list(
+                        dict.fromkeys(
+                            [*previous.diagnostics, *errors_by_chapter[chapter_id]]
+                        )
+                    )
+                }
+            )
+            candidate = self._run_chapter(
+                plan, by_plan[chapter_id], completed, config, previous_attempt=repair_context
+            )
+            if candidate.status == "sufficient":
+                completed[chapter_id] = candidate
+                revised = True
+            else:
+                previous.diagnostics = list(
+                    dict.fromkeys(
+                        [
+                            *previous.diagnostics,
+                            "Consistency revision failed; original sufficient chapter retained",
+                            *candidate.diagnostics,
+                        ]
+                    )
+                )
+        ordered = [completed[item.chapter_id] for item in sorted(plan.chapters, key=lambda x: x.ordinal)]
+        with self._lock:
+            self._packets = ordered
+        return ordered, revised
+
     @staticmethod
     def _assemble_answer(
         plan: DocumentPlan,
@@ -998,20 +1196,32 @@ class AgentRuntime:
 
         def plan_document(state: RootState, config: RunnableConfig) -> dict:
             schema = json.dumps(DocumentPlan.model_json_schema(), ensure_ascii=False)
-            plan = planner.invoke(
-                [
-                    SystemMessage(
-                        content=(
-                            f"{PLANNER_PROMPT}\nMaximum chapters: {self.max_subtasks}.\n"
-                            f"JSON schema: {schema}"
+            messages = [
+                SystemMessage(
+                    content=(
+                        f"{PLANNER_PROMPT}\nMaximum chapters: {self.max_subtasks}.\n"
+                        f"JSON schema: {schema}"
+                    )
+                ),
+                HumanMessage(content=state["request"]),
+            ]
+            last_error: Exception | None = None
+            for _ in range(2):
+                try:
+                    plan = planner.invoke(messages, config=config)
+                    self._validate_plan(plan)
+                    return {"plan": plan.model_dump(mode="json")}
+                except Exception as exc:
+                    last_error = exc
+                    messages.append(
+                        HumanMessage(
+                            content=(
+                                "The previous plan failed schema validation: "
+                                f"{type(exc).__name__}: {exc}. Return corrected JSON only."
+                            )
                         )
-                    ),
-                    HumanMessage(content=state["request"]),
-                ],
-                config=config,
-            )
-            self._validate_plan(plan)
-            return {"plan": plan.model_dump(mode="json")}
+                    )
+            raise RuntimeError(f"Planner failed after one correction retry: {last_error}")
 
         def research_chapters(state: RootState, config: RunnableConfig) -> dict:
             plan = DocumentPlan.model_validate(state["plan"])
@@ -1023,7 +1233,10 @@ class AgentRuntime:
             packets = [ResearchPacket.model_validate(item) for item in state["packets"]]
             issues = self._structural_consistency_issues(plan, packets)
             if any(item.status != "sufficient" for item in packets):
-                return {"issues": [item.model_dump(mode="json") for item in issues]}
+                return {
+                    "issues": [item.model_dump(mode="json") for item in issues],
+                    "review_revised": False,
+                }
             report = reviewer.invoke(
                 [
                     SystemMessage(
@@ -1046,7 +1259,14 @@ class AgentRuntime:
                     continue
                 if issue.issue_id not in {item.issue_id for item in issues}:
                     issues.append(issue)
-            return {"issues": [item.model_dump(mode="json") for item in issues]}
+            revised_packets, revised = self._revise_reviewed_chapters(
+                plan, packets, issues, config
+            )
+            return {
+                "packets": [item.model_dump(mode="json") for item in revised_packets],
+                "issues": [item.model_dump(mode="json") for item in issues],
+                "review_revised": revised,
+            }
 
         def assemble(state: RootState) -> dict:
             plan = DocumentPlan.model_validate(state["plan"])
@@ -1082,10 +1302,18 @@ class AgentRuntime:
         config: RunnableConfig | None = None,
         run_id: str | None = None,
         trace_id: str | None = None,
+        parent_run_id: str | None = None,
+        attempt: int = 1,
+        cancel_check: Callable[[], bool] | None = None,
     ) -> tuple[AgentRun, Any]:
         if not request.strip():
             raise ValueError("request must not be blank")
         with self._run_lock:
+            self._current_run_id = run_id
+            self._current_parent_run_id = parent_run_id
+            self._current_attempt = attempt
+            self._current_request = request.strip()
+            self._cancel_check = cancel_check or (lambda: False)
             self.workspace.reset()
             with self._lock:
                 self._packets.clear()
@@ -1105,6 +1333,7 @@ class AgentRuntime:
                 ConsistencyIssue.model_validate(item)
                 for item in state.get("issues", [])
             ]
+            review_revised = bool(state.get("review_revised", False))
             outcome = (
                 "completed"
                 if (
@@ -1112,7 +1341,6 @@ class AgentRuntime:
                     and bool(answer.evidence_ids)
                     or route.mode == "supervisor"
                     and all(item.status == "sufficient" for item in self.packets)
-                    and not any(item.severity == "error" for item in issues)
                 )
                 else "incomplete"
             )
@@ -1126,7 +1354,132 @@ class AgentRuntime:
                 consistency_issues=issues,
                 evidence=self.workspace.evidence,
                 worker_packets=self.packets,
+                evidence_aliases={
+                    key: registry.export()
+                    for key, registry in self._evidence_aliases.items()
+                },
+                parent_run_id=parent_run_id,
+                attempt=attempt,
+                review_revised=review_revised,
+                review_verified=not review_revised,
+                requires_human_review=any(
+                    item.severity == "error" for item in issues
+                ),
                 trace_id=trace_id,
             )
             path = self.store.save(run)
+            self._cancel_check = lambda: False
+            return run, path
+
+    def resume(
+        self,
+        checkpoint: RunCheckpoint,
+        *,
+        run_id: str | None = None,
+        trace_id: str | None = None,
+        config: RunnableConfig | None = None,
+        start_chapter: str | None = None,
+        cancel_check: Callable[[], bool] | None = None,
+    ) -> tuple[AgentRun, Any]:
+        """Continue a supervisor run without repeating completed chapter work."""
+        with self._run_lock:
+            self._current_run_id = run_id
+            self._current_parent_run_id = checkpoint.run_id
+            self._current_attempt = checkpoint.attempt + 1
+            self._current_request = checkpoint.request
+            self._cancel_check = cancel_check or (lambda: False)
+            self.workspace.reset()
+            self.workspace.restore(checkpoint.evidence)
+            self._evidence_aliases = {}
+            for chapter_id, mapping in checkpoint.evidence_aliases.items():
+                aliases = EvidenceAliasRegistry()
+                aliases.restore(mapping)
+                self._evidence_aliases[chapter_id] = aliases
+
+            plan = checkpoint.document_plan
+            initial_packets = list(checkpoint.worker_packets)
+            if start_chapter:
+                chapter_by_id = {item.chapter_id: item for item in plan.chapters}
+                if start_chapter not in chapter_by_id:
+                    raise ValueError(f"Unknown chapter: {start_chapter}")
+                start_ordinal = chapter_by_id[start_chapter].ordinal
+                initial_packets = [
+                    packet
+                    for packet in initial_packets
+                    if packet.chapter_id in chapter_by_id
+                    and chapter_by_id[packet.chapter_id].ordinal < start_ordinal
+                ]
+            else:
+                initial_packets = [
+                    packet
+                    for packet in initial_packets
+                    if packet.status == "sufficient"
+                ]
+
+            runnable_config = config or {"recursion_limit": self.max_steps * 4 + 8}
+            packets = self._execute_plan(
+                plan, runnable_config, initial_packets=initial_packets
+            )
+            issues = self._structural_consistency_issues(plan, packets)
+            revised = False
+            if all(item.status == "sufficient" for item in packets):
+                reviewer = self.model.with_structured_output(
+                    ConsistencyReport, method="json_mode"
+                )
+                report = reviewer.invoke(
+                    [
+                        SystemMessage(
+                            content=(
+                                f"{REVIEW_PROMPT}\nJSON schema: "
+                                f"{json.dumps(ConsistencyReport.model_json_schema(), ensure_ascii=False)}"
+                            )
+                        ),
+                        HumanMessage(
+                            content=json.dumps(
+                                self._review_payload(plan, packets), ensure_ascii=False
+                            )
+                        ),
+                    ],
+                    config=runnable_config,
+                )
+                known_chapters = {item.chapter_id for item in plan.chapters}
+                issues.extend(
+                    item
+                    for item in report.issues
+                    if not (set(item.chapter_ids) - known_chapters)
+                    and item.issue_id not in {current.issue_id for current in issues}
+                )
+                packets, revised = self._revise_reviewed_chapters(
+                    plan, packets, issues, runnable_config
+                )
+            answer = self._assemble_answer(plan, packets, issues)
+            run = AgentRun(
+                **({"run_id": run_id} if run_id else {}),
+                request=checkpoint.request,
+                route=checkpoint.route,
+                outcome=(
+                    "completed"
+                    if all(item.status == "sufficient" for item in packets)
+                    else "incomplete"
+                ),
+                answer=answer,
+                document_plan=plan,
+                consistency_issues=issues,
+                evidence=self.workspace.evidence,
+                worker_packets=packets,
+                evidence_aliases={
+                    key: aliases.export()
+                    for key, aliases in self._evidence_aliases.items()
+                },
+                parent_run_id=checkpoint.run_id,
+                attempt=checkpoint.attempt + 1,
+                review_revised=revised,
+                review_verified=not revised,
+                requires_human_review=any(
+                    item.severity == "error" for item in issues
+                ),
+                trace_id=trace_id,
+            )
+            path = self.store.save(run)
+            self._cancel_check = lambda: False
             return run, path

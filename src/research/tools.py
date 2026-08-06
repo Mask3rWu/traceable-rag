@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import re
 import threading
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 
 from langchain_core.tools import BaseTool, tool
 from pydantic import BaseModel, Field
@@ -33,6 +33,67 @@ class CheckTerminologyInput(BaseModel):
     )
 
 
+class EvidenceAliasRegistry:
+    """Worker-local aliases for stable evidence IDs exposed to the model."""
+
+    def __init__(self, aliases: dict[str, str] | None = None) -> None:
+        self._alias_to_id = dict(aliases or {})
+        self._id_to_alias = {value: key for key, value in self._alias_to_id.items()}
+        self._lock = threading.RLock()
+
+    def alias(self, evidence_id: str) -> str:
+        with self._lock:
+            existing = self._id_to_alias.get(evidence_id)
+            if existing is not None:
+                return existing
+            alias = f"E{len(self._alias_to_id) + 1}"
+            self._alias_to_id[alias] = evidence_id
+            self._id_to_alias[evidence_id] = alias
+            return alias
+
+    def resolve(self, value: str) -> str:
+        with self._lock:
+            if value in self._id_to_alias:
+                return value
+            # Keep compatibility with persisted/test fixtures that already use
+            # stable IDs; new model responses should use E1/E2 aliases.
+            if value.lower().startswith("ev-"):
+                return value
+            try:
+                return self._alias_to_id[value.upper()]
+            except KeyError as exc:
+                available = ", ".join(self._alias_to_id) or "none"
+                raise ValueError(
+                    f"Unknown evidence alias {value}; available aliases: {available}"
+                ) from exc
+
+    def export(self) -> dict[str, str]:
+        with self._lock:
+            return dict(self._alias_to_id)
+
+    def restore(self, aliases: dict[str, str]) -> None:
+        with self._lock:
+            self._alias_to_id = dict(aliases)
+            self._id_to_alias = {
+                evidence_id: alias
+                for alias, evidence_id in self._alias_to_id.items()
+            }
+
+    def translate_payload(self, value):
+        """Translate evidence fields in a model-produced structured payload."""
+        if isinstance(value, list):
+            return [self.translate_payload(item) for item in value]
+        if not isinstance(value, dict):
+            return value
+        translated = {}
+        for key, item in value.items():
+            if key == "evidence_id" and isinstance(item, str):
+                translated[key] = self.resolve(item)
+            elif key == "evidence_ids" and isinstance(item, list):
+                translated[key] = [self.resolve(entry) for entry in item]
+            else:
+                translated[key] = self.translate_payload(item)
+        return translated
 def extract_glossary(decisions: Sequence[dict]) -> list[dict]:
     """Flatten every decision's ``glossary`` into a list of axis dicts.
 
@@ -185,6 +246,11 @@ class EvidenceWorkspace:
             self._evidence.clear()
             self._search_count = 0
 
+    def restore(self, evidence: Sequence[Evidence]) -> None:
+        with self._lock:
+            self._evidence = list(evidence)
+            self._search_count = 0
+
     @property
     def search_count(self) -> int:
         with self._lock:
@@ -238,7 +304,11 @@ class EvidenceWorkspace:
         if unknown:
             raise ValueError(f"Unknown evidence IDs: {sorted(unknown)}")
 
-    def make_retrieval_tools(self) -> list[BaseTool]:
+    def make_retrieval_tools(
+        self,
+        aliases: EvidenceAliasRegistry | None = None,
+        cancelled: Callable[[], bool] | None = None,
+    ) -> list[BaseTool]:
         workspace = self
         read_ids: set[str] = set()
         read_lock = threading.Lock()
@@ -246,16 +316,27 @@ class EvidenceWorkspace:
         @tool(args_schema=SearchInput)
         def search_knowledge(query: str, top_k: int | None = None) -> str:
             """Search the local knowledge base and return ranked evidence previews."""
-
-            return json.dumps(
-                workspace.search(query, top_k), ensure_ascii=False
-            )
+            if cancelled is not None and cancelled():
+                raise RuntimeError("Research run was cancelled")
+            results = workspace.search(query, top_k)
+            if aliases is not None:
+                results = [
+                    {**item, "evidence_id": aliases.alias(item["evidence_id"])}
+                    for item in results
+                ]
+            return json.dumps(results, ensure_ascii=False)
 
         @tool(args_schema=ReadEvidenceInput)
         def read_evidence(evidence_ids: list[str]) -> str:
             """Read full source excerpts for selected evidence IDs."""
-
-            requested = set(evidence_ids)
+            if cancelled is not None and cancelled():
+                raise RuntimeError("Research run was cancelled")
+            stable_ids = (
+                [aliases.resolve(item) for item in evidence_ids]
+                if aliases is not None
+                else evidence_ids
+            )
+            requested = set(stable_ids)
             with read_lock:
                 new_ids = requested - read_ids
                 if len(read_ids) + len(new_ids) > workspace.max_evidence_reads:
@@ -266,13 +347,25 @@ class EvidenceWorkspace:
                                 f"Evidence read limit reached ({workspace.max_evidence_reads}). "
                                 "Use the evidence already read to write and submit this chapter."
                             ),
-                            "available_evidence_ids": sorted(read_ids),
-                            "requested_in_budget": sorted(requested & read_ids),
+                            "available_evidence_ids": [
+                                aliases.alias(item) if aliases is not None else item
+                                for item in sorted(read_ids)
+                            ],
+                            "requested_in_budget": [
+                                aliases.alias(item) if aliases is not None else item
+                                for item in sorted(requested & read_ids)
+                            ],
                         },
                         ensure_ascii=False,
                     )
                 read_ids.update(new_ids)
-            return json.dumps(workspace.read(evidence_ids), ensure_ascii=False)
+            results = workspace.read(stable_ids)
+            if aliases is not None:
+                results = [
+                    {**item, "evidence_id": aliases.alias(item["evidence_id"])}
+                    for item in results
+                ]
+            return json.dumps(results, ensure_ascii=False)
 
         return [search_knowledge, read_evidence]
 

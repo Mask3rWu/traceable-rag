@@ -14,7 +14,7 @@ from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from src.api.manager import RunManager
-from src.api.models import RunCreate, RunDetail, RunList, RunSummary
+from src.api.models import RunCreate, RunDetail, RunList, RunResume, RunSummary
 from src.paths import PROCESSED_ROOT, PROJECT_ROOT
 
 
@@ -115,6 +115,18 @@ def create_app(manager: RunManager | None = None) -> FastAPI:
             return resolved_manager.cancel(run_id)
         except FileNotFoundError as exc:
             raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    @app.post("/api/runs/{run_id}/resume", response_model=RunSummary, status_code=202)
+    def resume_run(run_id: str, payload: RunResume | None = None) -> RunSummary:
+        try:
+            return resolved_manager.resume(
+                run_id,
+                start_chapter=payload.start_chapter if payload else None,
+            )
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
 
     @app.get("/api/runs/{run_id}/events")
     async def run_events(

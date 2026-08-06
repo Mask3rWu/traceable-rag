@@ -1,6 +1,6 @@
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
-  Activity, AlertTriangle, BookOpen, Bot, CheckCircle2, ChevronRight, CircleStop,
+  Activity, AlertTriangle, BookOpen, Bot, Check, CheckCircle2, ChevronRight, CircleStop, Copy,
   FileSearch, History, Lightbulb, Link2, ListTree, PanelRight, Plus, RefreshCw,
   Search, Send, Sparkles, Users, X,
 } from 'lucide-react'
@@ -34,6 +34,16 @@ function pageLabel(evidence: Evidence): string {
 
 function StatusBadge({ status }: { status: RunStatus }) {
   return <span className={`status status-${status}`}><span className="status-dot" />{statusLabels[status]}</span>
+}
+
+function IdChip({ id, label, copied, onCopy, hint }: { id: string; label: string; copied: boolean; onCopy: (id: string) => void; hint: string }) {
+  return (
+    <button className={`run-id-chip${copied ? ' copied' : ''}`} onClick={() => onCopy(id)} title={`点击复制 · ${hint}`}>
+      <span className="run-id-label">{label}</span>
+      <code>{id}</code>
+      {copied ? <Check size={12} /> : <Copy size={12} />}
+    </button>
+  )
 }
 
 function EmptyWorkspace() {
@@ -141,9 +151,17 @@ function App() {
   const [selectedChapterId, setSelectedChapterId] = useState<string | null>(null)
   const [inspectorMode, setInspectorMode] = useState<'chapter' | 'evidence'>('chapter')
   const [mobilePanel, setMobilePanel] = useState<'history' | 'result' | 'sources'>('result')
+  const [copiedId, setCopiedId] = useState<string | null>(null)
   const subscription = useRef<(() => void) | null>(null)
 
   const refreshRuns = useCallback(async () => setRuns((await listRuns()).items), [])
+
+  const copyId = useCallback((id: string) => {
+    navigator.clipboard?.writeText(id).then(() => {
+      setCopiedId(id)
+      window.setTimeout(() => setCopiedId((cur) => (cur === id ? null : cur)), 1200)
+    }).catch(() => {})
+  }, [])
 
   useEffect(() => {
     const timer = window.setTimeout(() => refreshRuns().catch((reason: Error) => setError(reason.message)), 0)
@@ -207,7 +225,7 @@ function App() {
 
   return (
     <div className="app-shell">
-      <header className="topbar"><div className="brand"><div className="brand-mark"><Search size={18} /></div><span>证据研究工作台</span></div><div className="topbar-meta"><span className="system-state"><span />系统就绪</span>{selectedRun?.trace_id ? <span className="trace-label">Trace {selectedRun.trace_id.slice(0, 8)}</span> : null}</div></header>
+      <header className="topbar"><div className="brand"><div className="brand-mark"><Search size={18} /></div><span>证据研究工作台</span></div><div className="topbar-meta"><span className="system-state"><span />系统就绪</span></div></header>
       <nav className="mobile-tabs" aria-label="工作区导航">
         <button className={mobilePanel === 'history' ? 'active' : ''} onClick={() => setMobilePanel('history')}><History size={17} />历史</button>
         <button className={mobilePanel === 'result' ? 'active' : ''} onClick={() => setMobilePanel('result')}><Bot size={17} />结果</button>
@@ -226,7 +244,7 @@ function App() {
           {error ? <div className="error-banner"><AlertTriangle size={17} />{error}<button onClick={() => setError(null)}><X size={15} /></button></div> : null}
           {!selectedRun ? <EmptyWorkspace /> : (
             <div className="run-view">
-              <div className="run-titlebar"><div><div className="route-line"><StatusBadge status={selectedRun.status} />{selectedRun.route ? <span className="route-badge">{selectedRun.route === 'fast' ? <Sparkles size={14} /> : <Users size={14} />}{selectedRun.route === 'fast' ? '快速检索' : '章节化多 Agent'}</span> : null}</div><h1>{selectedRun.request}</h1>{selectedRun.route_reason ? <p>{selectedRun.route_reason}</p> : null}</div>{activeStatuses.has(selectedRun.status) ? <button className="stop-button" onClick={stop}><CircleStop size={16} />停止</button> : null}</div>
+              <div className="run-titlebar"><div><div className="route-line"><StatusBadge status={selectedRun.status} />{selectedRun.route ? <span className="route-badge">{selectedRun.route === 'fast' ? <Sparkles size={14} /> : <Users size={14} />}{selectedRun.route === 'fast' ? '快速检索' : '章节化多 Agent'}</span> : null}</div><h1>{selectedRun.request}</h1><div className="run-ids"><IdChip id={selectedRun.run_id} label="Run" copied={copiedId === selectedRun.run_id} onCopy={copyId} hint="运行 ID（对应 processed/research/agent-runs 目录）" />{selectedRun.trace_id ? <IdChip id={selectedRun.trace_id} label="Trace" copied={copiedId === selectedRun.trace_id} onCopy={copyId} hint="Langfuse 链路追踪 ID" /> : null}</div>{selectedRun.route_reason ? <p>{selectedRun.route_reason}</p> : null}</div>{activeStatuses.has(selectedRun.status) ? <button className="stop-button" onClick={stop}><CircleStop size={16} />停止</button> : null}</div>
               {activeStatuses.has(selectedRun.status) ? <section className="activity-section"><div className="section-heading"><Activity size={17} /><h2>运行活动</h2></div><ActivityTimeline events={events} /></section> : null}
               {selectedRun.error ? <div className="failure"><AlertTriangle size={18} /><div><strong>运行失败</strong><p>{selectedRun.error}</p></div></div> : null}
               {selectedRun.result ? (

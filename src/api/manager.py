@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import threading
+import inspect
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -36,6 +37,9 @@ class ManagedRun:
     events: list[RunEvent] = field(default_factory=list)
     future: Future | None = None
     condition: threading.Condition = field(default_factory=threading.Condition)
+    cancel_event: threading.Event = field(default_factory=threading.Event)
+    checkpoint_run_id: str | None = None
+    start_chapter: str | None = None
 
 
 class RunManager:
@@ -67,6 +71,28 @@ class RunManager:
         managed.future = self.executor.submit(self._execute, managed)
         return self._summary(managed)
 
+    def resume(self, run_id: str, *, start_chapter: str | None = None) -> RunSummary:
+        checkpoint = self.store.load_checkpoint(run_id)
+        managed = ManagedRun(
+            run_id=uuid4().hex,
+            request=checkpoint.request,
+            checkpoint_run_id=run_id,
+            start_chapter=start_chapter,
+        )
+        with self._lock:
+            self._runs[managed.run_id] = managed
+        self._emit(
+            managed,
+            "queued",
+            {
+                "request": managed.request[:240],
+                "parent_run_id": run_id,
+                "start_chapter": start_chapter,
+            },
+        )
+        managed.future = self.executor.submit(self._execute, managed)
+        return self._summary(managed)
+
     def _execute(self, managed: ManagedRun) -> None:
         with managed.condition:
             if managed.status == "cancelled":
@@ -81,20 +107,36 @@ class RunManager:
             callback = AgentEventCallback(
                 lambda event_type, data: self._emit(managed, event_type, data)
             )
-            result, _ = agent.run(
-                managed.request,
-                run_id=managed.run_id,
-                trace_id=managed.trace_id,
-                callbacks=[callback],
-            )
+            kwargs = {
+                "run_id": managed.run_id,
+                "trace_id": managed.trace_id,
+                "callbacks": [callback],
+            }
+            if "cancel_check" in inspect.signature(agent.run).parameters:
+                kwargs["cancel_check"] = managed.cancel_event.is_set
+            if managed.checkpoint_run_id:
+                checkpoint = self.store.load_checkpoint(managed.checkpoint_run_id)
+                if not hasattr(agent, "resume"):
+                    raise RuntimeError("Configured research agent does not support resume")
+                resume_kwargs = {
+                    **kwargs,
+                    "start_chapter": managed.start_chapter,
+                }
+                if "cancel_check" not in inspect.signature(agent.resume).parameters:
+                    resume_kwargs.pop("cancel_check", None)
+                result, _ = agent.resume(checkpoint, **resume_kwargs)
+            else:
+                result, _ = agent.run(managed.request, **kwargs)
             with managed.condition:
                 managed.result = result
                 managed.trace_id = result.trace_id
-                managed.status = result.outcome
+                managed.status = (
+                    "cancelled" if managed.cancel_event.is_set() else result.outcome
+                )
                 managed.updated_at = utc_now()
             self._emit(
                 managed,
-                result.outcome,
+                managed.status,
                 {
                     "route": result.route.mode,
                     "evidence_count": len(result.evidence),
@@ -104,10 +146,18 @@ class RunManager:
             )
         except Exception as exc:
             with managed.condition:
-                managed.status = "failed"
-                managed.error = f"{type(exc).__name__}: {exc}"
+                if managed.cancel_event.is_set():
+                    managed.status = "cancelled"
+                    managed.error = None
+                else:
+                    managed.status = "failed"
+                    managed.error = f"{type(exc).__name__}: {exc}"
                 managed.updated_at = utc_now()
-            self._emit(managed, "failed", {"error": managed.error})
+            self._emit(
+                managed,
+                managed.status,
+                ({"error": managed.error} if managed.error else {}),
+            )
 
     def _emit(self, managed: ManagedRun, event_type: str, data: dict) -> None:
         with managed.condition:
@@ -123,6 +173,7 @@ class RunManager:
         with managed.condition:
             if managed.status in TERMINAL_STATUSES:
                 return self._summary(managed)
+            managed.cancel_event.set()
             if managed.future is not None and managed.future.cancel():
                 managed.status = "cancelled"
                 event_type = "cancelled"

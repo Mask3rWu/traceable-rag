@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Callable
 from typing import Any
 
 from langchain_openai import ChatOpenAI
@@ -32,6 +33,7 @@ class RoutedResearchAgent:
         run_id: str | None = None,
         trace_id: str | None = None,
         callbacks: list[BaseCallbackHandler] | None = None,
+        cancel_check: Callable[[], bool] | None = None,
     ) -> tuple[AgentRun, Any]:
         resolved_callbacks = list(callbacks or [])
         if self.langfuse is not None:
@@ -53,11 +55,42 @@ class RoutedResearchAgent:
         }
         try:
             return self.runtime.run(
-                request, config=runnable_config, run_id=run_id, trace_id=trace_id
+                request,
+                config=runnable_config,
+                run_id=run_id,
+                trace_id=trace_id,
+                cancel_check=cancel_check,
             )
         finally:
             if self.langfuse is not None:
                 self.langfuse.flush()
+
+    def resume(
+        self,
+        checkpoint,
+        *,
+        run_id: str | None = None,
+        trace_id: str | None = None,
+        callbacks: list[BaseCallbackHandler] | None = None,
+        start_chapter: str | None = None,
+        cancel_check: Callable[[], bool] | None = None,
+    ) -> tuple[AgentRun, Any]:
+        resolved_callbacks = list(callbacks or [])
+        runnable_config = {
+            "callbacks": resolved_callbacks,
+            "run_name": "research-router-resume",
+            "tags": ["research-agent", "resume"],
+            "metadata": {"entrypoint": "routed-research-agent"},
+            "recursion_limit": self.config.max_steps * 4 + 8,
+        }
+        return self.runtime.resume(
+            checkpoint,
+            config=runnable_config,
+            run_id=run_id,
+            trace_id=trace_id,
+            start_chapter=start_chapter,
+            cancel_check=cancel_check,
+        )
 
 
 def build_research_agent(

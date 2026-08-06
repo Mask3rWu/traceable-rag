@@ -63,7 +63,11 @@ class AgentEventCallback(BaseCallbackHandler):
     def on_chain_error(self, error: BaseException, **kwargs: Any) -> None:
         run_id = kwargs.get("run_id")
         with self._lock:
-            self._chains.pop(run_id, None)
+            name = self._chains.pop(run_id, "chain")
+        self.emit(
+            "stage_failed",
+            {"stage": name, "error": _preview(error)},
+        )
 
     def on_tool_start(
         self,
