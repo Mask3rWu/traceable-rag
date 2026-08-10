@@ -6,15 +6,15 @@
 
 ## 1. 总览（flowchart）
 
-![领域研究 Agent 系统架构总览（SVG，可在新标签页打开放大）](diagrams/research-agent-flowchart.svg)
+![领域研究 Agent 系统架构总览（SVG，可在新标签页打开放大）](research-agent-flowchart.svg)
 
-> 图源：`diagrams/research-agent-flowchart.mmd`。改图后重渲染命令见第 7 节。
+> 图源：`research-agent-flowchart.mmd`。改图后重渲染命令见第 7 节。
 
 ## 2. 一次 supervisor 请求的时序（sequenceDiagram）
 
-![一次 supervisor 请求时序（SVG，可在新标签页打开放大）](diagrams/research-agent-sequence.svg)
+![一次 supervisor 请求时序（SVG，可在新标签页打开放大）](research-agent-sequence.svg)
 
-> 图源：`diagrams/research-agent-sequence.mmd`。改图后重渲染命令见第 7 节。
+> 图源：`research-agent-sequence.mmd`。改图后重渲染命令见第 7 节。
 
 ## 3. 阶段字段契约（入参 → 出参）
 
