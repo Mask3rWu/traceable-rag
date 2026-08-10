@@ -1,0 +1,40 @@
+sequenceDiagram
+    autonumber
+    participant C as 调用方/API
+    participant R as Router
+    participant P as ChapterPlanner
+    participant S as ChapterScheduler
+    participant W as ChapterWorker
+    participant T as Tools<br/>(证据/自检)
+    participant E as Evidence 注册表
+    participant RV as ConsistencyReviewer
+    participant AS as DocumentAssembler
+
+    C->>R: request
+    Note over R: RouteDecision{mode, reason}
+    alt mode=fast
+        R-->>C: AgentAnswer（聚焦问答，submit_answer 结束）
+    else mode=supervisor
+        R->>P: RouteDecision{mode=supervisor, reason}
+        P->>S: DocumentPlan<br/>{title, deliverable_mode, chapters[]}
+        loop 按依赖分波次（并发）
+            S->>W: chapter + upstream<br/>{summary, decisions, claims}<br/>+ glossary + previous_attempt?
+            loop ReAct 取证
+                W->>T: search_knowledge(query, top_k≤20)
+                T->>E: Dense + BM25 → RRF → resolve → merge
+                E-->>T: Evidence[]（hash 防错配）
+                T-->>W: previews [{E#, snippet≤600, section_path}]
+                W->>T: read_evidence([E#...])
+                T-->>W: quote(全文≤4000)<br/>或 budget_reached
+            end
+            W->>T: check_terminology(draft, glossary)
+            T-->>W: {suspect_terms, count, advisory}
+            W->>T: submit_chapter(ChapterSubmission)
+            T-->>W: submitted / 校验失败→nudge
+            W-->>S: ResearchPacket
+        end
+        S->>RV: packets[]
+        RV-->>S: issues[]（error → 章节重修一次）
+        S->>AS: packets(+revised) + issues
+        AS-->>C: AgentAnswer<br/>{content=标准正文, evidence_ids, limitations}
+    end

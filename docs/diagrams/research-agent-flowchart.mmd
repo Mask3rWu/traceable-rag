@@ -1,0 +1,46 @@
+flowchart TD
+    classDef route fill:#dbeafe,stroke:#2563eb,color:#1e3a8a,stroke-width:1px
+    classDef core fill:#f8fafc,stroke:#64748b,color:#0f172a,stroke-width:1px
+    classDef fast fill:#fae8ff,stroke:#a21caf,color:#701a75,stroke-width:1px
+    classDef tool fill:#fffbeb,stroke:#f59e0b,color:#78350f,stroke-width:1px
+    classDef out fill:#eef2ff,stroke:#6366f1,color:#312e81,stroke-width:1px
+
+    START(("RAG 请求"))
+
+    ROUTER["Router<br/>fast / supervisor"]
+    FAST["FastAgent<br/>ReAct 聚焦问答"]
+    PLANNER["ChapterPlanner<br/>章节计划 + 依赖 DAG"]
+    SCHED["ChapterScheduler<br/>按依赖分波次并发<br/>+ 首轮失败回退"]
+    WORKERS["ChapterWorker ×N<br/>ReAct 章节研究"]
+    REV["ConsistencyReviewer<br/>结构检查 + LLM 审查 + 修订"]
+    ASM["Assembler<br/>确定性组装成文（纯代码）"]
+    STORE["AgentRunStore<br/>run.json"]
+
+    subgraph TOOLBOX["ChapterWorker 工具集"]
+        T_SEARCH["search_knowledge"]
+        T_READ["read_evidence"]
+        T_TERM["check_terminology"]
+        T_SUBMIT["submit_chapter"]
+        RET["检索基线<br/>Dense + BM25 → RRF → Evidence"]
+    end
+
+    START -->|"request"| ROUTER
+    ROUTER -->|"mode=fast"| FAST
+    ROUTER -->|"mode=supervisor"| PLANNER
+    PLANNER -->|"DocumentPlan{chapters[]}"| SCHED
+    SCHED -->|"chapter + upstream + glossary"| WORKERS
+    WORKERS -.->|"ResearchPacket"| SCHED
+    SCHED -->|"packets[]"| REV
+    REV -->|"packets + issues[]"| ASM
+    ASM -->|"AgentAnswer"| STORE
+    FAST -->|"AgentAnswer"| STORE
+
+    WORKERS -->|"search / read / terminology"| TOOLBOX
+    TOOLBOX -->|"E# 预览 / 全文 / suspect_terms"| WORKERS
+    T_SEARCH -.->|"resolve(SearchResult)"| RET
+
+    class ROUTER,PLANNER route
+    class SCHED,WORKERS,REV,ASM core
+    class FAST fast
+    class T_SEARCH,T_READ,T_TERM,T_SUBMIT,RET tool
+    class STORE out
