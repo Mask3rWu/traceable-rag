@@ -141,7 +141,7 @@ function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: 
 }) {
   const ref = useRef<HTMLElement | null>(null)
   useEffect(() => {
-    if (selected) ref.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    if (selected) ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }, [selected])
   return (
     <article ref={ref} className={`evidence-card${selected ? ' selected' : ''}`} onClick={() => onSelect(selected ? null : evidence.evidence_id)}>
