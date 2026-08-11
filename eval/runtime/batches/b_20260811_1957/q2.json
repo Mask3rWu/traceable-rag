@@ -1,0 +1,74 @@
+{
+  "question": {
+    "id": "q2",
+    "sequence": 2,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "7e6efb5f5961493ab1f51fc0b4609c16",
+  "outcome": "completed",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question answerable with a few searches."
+  },
+  "retrieval": {
+    "search_count": 13,
+    "search_latency_ms": [
+      873.9,
+      876.8,
+      165.2,
+      202.1,
+      155.0,
+      417.0,
+      1549.3,
+      438.8,
+      481.8,
+      169.5,
+      230.3,
+      649.2,
+      652.4
+    ],
+    "evidence_total": 104,
+    "evidence_unique": 39,
+    "evidence_cited": 15,
+    "dedup_ratio": 0.375,
+    "citation_coverage": 0.3846
+  },
+  "model_calls": {
+    "count": 9,
+    "total_cost_usd": 0.025342,
+    "avg_latency_ms": 3816.5,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 15,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 13,
+        "success": 13,
+        "failed": 0,
+        "total_latency_ms": 6861.248500000215
+      },
+      "read_evidence": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.44889999992392404
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.4748000000063257
+      }
+    },
+    "failures": []
+  },
+  "elapsed_s": 66.41
+}

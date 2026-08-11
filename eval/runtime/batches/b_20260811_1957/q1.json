@@ -1,0 +1,59 @@
+{
+  "question": {
+    "id": "q1",
+    "sequence": 1,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "ae82b9f756b447419a970a4ee97d85f4",
+  "outcome": "completed",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question asking for standard methods listed in a specific standard; answerable with a few targeted searches."
+  },
+  "retrieval": {
+    "search_count": 4,
+    "search_latency_ms": [
+      272.6,
+      503.6,
+      160.7,
+      160.7
+    ],
+    "evidence_total": 32,
+    "evidence_unique": 18,
+    "evidence_cited": 7,
+    "dedup_ratio": 0.5625,
+    "citation_coverage": 0.3889
+  },
+  "model_calls": {
+    "count": 4,
+    "total_cost_usd": 0.005443,
+    "avg_latency_ms": 2984.5,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 5,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 4,
+        "success": 4,
+        "failed": 0,
+        "total_latency_ms": 1097.6172999999108
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.6151999999701729
+      }
+    },
+    "failures": []
+  },
+  "elapsed_s": 66.25
+}

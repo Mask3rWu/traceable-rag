@@ -1,0 +1,70 @@
+{
+  "question": {
+    "id": "q5",
+    "sequence": 5,
+    "category": "unrelated",
+    "expected_route": "fast"
+  },
+  "run_id": "12cbec9f988145f4996f94d36614188d",
+  "outcome": "completed",
+  "route": {
+    "mode": "fast",
+    "reason": "请求是简短的算法问题，只需直接回答，无需多步研究。"
+  },
+  "retrieval": {
+    "search_count": 10,
+    "search_latency_ms": [
+      496.2,
+      496.4,
+      160.5,
+      206.6,
+      161.8,
+      162.2,
+      157.9,
+      164.6,
+      242.1,
+      261.9
+    ],
+    "evidence_total": 80,
+    "evidence_unique": 58,
+    "evidence_cited": 1,
+    "dedup_ratio": 0.725,
+    "citation_coverage": 0.0172
+  },
+  "model_calls": {
+    "count": 8,
+    "total_cost_usd": 0.030794,
+    "avg_latency_ms": 3184.2,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 12,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 10,
+        "success": 10,
+        "failed": 0,
+        "total_latency_ms": 2510.208199999852
+      },
+      "submit_answer": {
+        "count": 2,
+        "success": 1,
+        "failed": 1,
+        "total_latency_ms": 0.8292999999639505
+      }
+    },
+    "failures": [
+      {
+        "tool": "submit_answer",
+        "reason": "ValueError: A grounded answer requires at least one evidence ID"
+      }
+    ]
+  },
+  "elapsed_s": 66.22
+}

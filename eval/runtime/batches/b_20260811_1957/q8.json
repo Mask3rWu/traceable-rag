@@ -1,0 +1,256 @@
+{
+  "question": {
+    "id": "q8",
+    "sequence": 8,
+    "category": "borrow",
+    "expected_route": "supervisor"
+  },
+  "run_id": "ad3051970a8944b38030bc7fc15f5c9c",
+  "outcome": "completed",
+  "route": {
+    "mode": "supervisor",
+    "reason": "请求生成毁伤等级划分方案，属于规则/标准制定，需要结构化交付物。"
+  },
+  "retrieval": {
+    "search_count": 140,
+    "search_latency_ms": [
+      257.8,
+      279.6,
+      152.7,
+      153.8,
+      226.9,
+      164.8,
+      185.9,
+      262.4,
+      232.4,
+      650.2,
+      673.8,
+      252.9,
+      277.8,
+      341.5,
+      340.3,
+      367.3,
+      210.4,
+      212.7,
+      250.8,
+      545.0,
+      907.2,
+      955.8,
+      1272.7,
+      560.5,
+      559.1,
+      561.3,
+      4049.7,
+      1209.0,
+      1209.1,
+      977.1,
+      982.6,
+      1022.6,
+      192.4,
+      232.8,
+      248.5,
+      540.2,
+      547.3,
+      257.4,
+      372.4,
+      402.5,
+      1668.9,
+      1701.7,
+      1707.0,
+      2715.5,
+      2740.8,
+      2750.2,
+      2334.4,
+      2339.6,
+      2421.2,
+      278.2,
+      282.0,
+      311.7,
+      821.3,
+      845.9,
+      1741.9,
+      1730.8,
+      1768.9,
+      1799.3,
+      522.3,
+      525.1,
+      527.4,
+      154.1,
+      347.6,
+      1781.1,
+      1930.0,
+      1205.1,
+      1229.4,
+      338.4,
+      338.6,
+      259.3,
+      292.9,
+      154.8,
+      544.7,
+      750.6,
+      593.2,
+      981.9,
+      310.0,
+      311.0,
+      1261.1,
+      1558.5,
+      1277.4,
+      1304.6,
+      1378.0,
+      857.4,
+      860.3,
+      172.9,
+      175.3,
+      178.7,
+      186.1,
+      186.9,
+      326.0,
+      4488.4,
+      1069.8,
+      1295.4,
+      1962.0,
+      1944.6,
+      2974.6,
+      154.5,
+      267.2,
+      535.9,
+      805.6,
+      207.9,
+      208.1,
+      155.4,
+      155.4,
+      264.7,
+      266.3,
+      445.1,
+      505.3,
+      523.3,
+      559.3,
+      153.7,
+      154.5,
+      157.7,
+      169.5,
+      323.3,
+      323.5,
+      322.4,
+      448.3,
+      311.1,
+      320.2,
+      404.7,
+      408.1,
+      379.3,
+      379.5,
+      621.3,
+      632.7,
+      636.7,
+      640.1,
+      176.2,
+      178.5,
+      182.1,
+      184.7,
+      806.2,
+      811.3,
+      810.2,
+      161.9,
+      161.5,
+      279.0,
+      423.6
+    ],
+    "evidence_total": 1294,
+    "evidence_unique": 483,
+    "evidence_cited": 125,
+    "dedup_ratio": 0.3733,
+    "citation_coverage": 0.2588
+  },
+  "model_calls": {
+    "count": 109,
+    "total_cost_usd": 1.500513,
+    "avg_latency_ms": 20576.8,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 204,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 140,
+        "success": 140,
+        "failed": 0,
+        "total_latency_ms": 105629.84160000316
+      },
+      "read_evidence": {
+        "count": 30,
+        "success": 30,
+        "failed": 0,
+        "total_latency_ms": 18.64090000037777
+      },
+      "check_terminology": {
+        "count": 11,
+        "success": 11,
+        "failed": 0,
+        "total_latency_ms": 12.841299999877265
+      },
+      "submit_chapter": {
+        "count": 23,
+        "success": 11,
+        "failed": 12,
+        "total_latency_ms": 31.49279999843202
+      }
+    },
+    "failures": [
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter did not produce required decisions: ['terminology_scope']"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; evidence without a Claim or Decision reason: ['ev-5f197baf5f7c', 'ev-f5977b22f6f8', 'ev-f71f5ff82c1e']"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Public chapter prose must not contain internal evidence, Claim, or Decision IDs; keep them in structured metadata"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter prose exceeds the character budget (1142 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; reasoned evidence missing from block: ['ev-0190d1d96513']"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter did not produce required decisions: ['grading_rules']"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter prose exceeds the character budget (1569 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: The single ContentBlock must reference every Claim exactly once"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter prose exceeds the character budget (1031 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: The single ContentBlock must reference every Claim exactly once"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter did not produce required decisions: ['system_criteria']"
+      },
+      {
+        "tool": "submit_chapter",
+        "reason": "ValueError: Chapter did not produce required decisions: ['grading_rules']"
+      }
+    ]
+  },
+  "elapsed_s": 2189.15
+}

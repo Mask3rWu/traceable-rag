@@ -1,0 +1,232 @@
+{
+  "batch_id": "b_20260811_1957",
+  "schema_version": "runtime-eval-v1",
+  "git_commit": "ccb9e0cb5a5fd62656e28ac3723895d3014ea0d8",
+  "created_at": "2026-08-11T12:35:27Z",
+  "question_set": {
+    "file": "D:\\Project\\cc\\eval\\runtime\\questions.yaml",
+    "hash": "2a4b5a185b2d3340",
+    "count": 10,
+    "categories": {
+      "direct": 4,
+      "borrow": 4,
+      "unrelated": 2
+    }
+  },
+  "total": 10,
+  "completed": 9,
+  "failed": 1,
+  "aggregate": {
+    "model_calls": {
+      "count": 443,
+      "total_cost_usd": 5.837595,
+      "schema_validation": {
+        "attempts": 0,
+        "passed": 0,
+        "failed": 0,
+        "failures": []
+      },
+      "failures": []
+    },
+    "tool_calls": {
+      "count": 863,
+      "success_rate": 0.9548,
+      "by_tool": {
+        "search_knowledge": {
+          "count": 603,
+          "success": 603,
+          "failed": 0,
+          "total_latency_ms": 529873.2558999996
+        },
+        "read_evidence": {
+          "count": 129,
+          "success": 128,
+          "failed": 1,
+          "total_latency_ms": 80.3740999999718
+        },
+        "submit_answer": {
+          "count": 4,
+          "success": 3,
+          "failed": 1,
+          "total_latency_ms": 1.9192999999404492
+        },
+        "check_terminology": {
+          "count": 46,
+          "success": 46,
+          "failed": 0,
+          "total_latency_ms": 57.927699999481774
+        },
+        "submit_chapter": {
+          "count": 81,
+          "success": 44,
+          "failed": 37,
+          "total_latency_ms": 118.16079999925932
+        }
+      },
+      "failures": [
+        {
+          "tool": "submit_answer",
+          "reason": "ValueError: A grounded answer requires at least one evidence ID"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['strategy_classification', 'terminology']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['data_standard']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (840 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['evaluation_metrics', 'performance_targets']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (837 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['decision_scope', 'decision_terminology']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (759 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (947 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (831 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (763 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (751 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock must reference every Claim exactly once"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; evidence without a Claim or Decision reason: ['ev-881db9b272cc']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (850 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (780 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (759 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock must reference every Decision exactly once"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['term_standard']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['damage_factor_list']"
+        },
+        {
+          "tool": "read_evidence",
+          "reason": "ValidationError: 1 validation error for ReadEvidenceInput\nevidence_ids\n  List should have at most 4 items after validation, not 5 [type=too_long, input_value=['E1', 'E3', 'E24', 'E38', 'E33'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (1117 > 857); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; reasoned evidence missing from block: ['ev-1778d7873b08']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['term_standard']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['damage_level_defs']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['damage_location_taxonomy']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['damage_factor_list']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['terminology_scope']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; evidence without a Claim or Decision reason: ['ev-5f197baf5f7c', 'ev-f5977b22f6f8', 'ev-f71f5ff82c1e']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Public chapter prose must not contain internal evidence, Claim, or Decision IDs; keep them in structured metadata"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (1142 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock evidence must exactly match evidence explained by Claims or Decisions; reasoned evidence missing from block: ['ev-0190d1d96513']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['grading_rules']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (1569 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock must reference every Claim exactly once"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (1031 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: The single ContentBlock must reference every Claim exactly once"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['system_criteria']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['grading_rules']"
+        }
+      ]
+    },
+    "retrieval": {
+      "search_count": 603,
+      "evidence_total": 5622,
+      "evidence_unique": 2250,
+      "evidence_cited": 463
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "question": {
+    "id": "q9",
+    "sequence": 9,
+    "category": "borrow",
+    "expected_route": "supervisor"
+  },
+  "run_id": "d7820f03b7d24e2c86874629bdf3ca55",
+  "outcome": "failed",
+  "route": {
+    "mode": null,
+    "reason": null
+  },
+  "retrieval": {
+    "search_count": 0,
+    "search_latency_ms": [],
+    "evidence_total": 0,
+    "evidence_unique": 0,
+    "evidence_cited": 0,
+    "dedup_ratio": null,
+    "citation_coverage": null
+  },
+  "model_calls": {
+    "count": 0,
+    "total_cost_usd": null,
+    "avg_latency_ms": null,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 0,
+    "by_tool": {},
+    "failures": []
+  },
+  "elapsed_s": 539.68
+}

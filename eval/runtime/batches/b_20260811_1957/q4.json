@@ -1,0 +1,41 @@
+{
+  "question": {
+    "id": "q4",
+    "sequence": 4,
+    "category": "borrow",
+    "expected_route": "fast"
+  },
+  "run_id": "3546fdfbbc864b698470c2c4f6c40bd5",
+  "outcome": "routed_away",
+  "route": {
+    "mode": "supervisor",
+    "reason": "Requires synthesizing multiple environmental and structural factors into a structured damage-level assessment summary."
+  },
+  "retrieval": {
+    "search_count": 0,
+    "search_latency_ms": [],
+    "evidence_total": 0,
+    "evidence_unique": 0,
+    "evidence_cited": 0,
+    "dedup_ratio": null,
+    "citation_coverage": null
+  },
+  "model_calls": {
+    "count": 0,
+    "total_cost_usd": null,
+    "avg_latency_ms": null,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 0,
+    "by_tool": {},
+    "failures": []
+  },
+  "elapsed_s": 66.19
+}
