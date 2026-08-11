@@ -19,7 +19,7 @@ from src.paths import PROCESSED_ROOT, PROJECT_ROOT
 
 
 def _max_concurrent_runs() -> int:
-    raw = os.getenv("API_MAX_CONCURRENT_RUNS", "2").strip()
+    raw = os.getenv("API_MAX_CONCURRENT_RUNS", "10").strip()
     try:
         value = int(raw)
     except ValueError as exc:
@@ -96,7 +96,9 @@ def create_app(manager: RunManager | None = None) -> FastAPI:
 
     @app.post("/api/runs", response_model=RunSummary, status_code=202)
     def create_run(payload: RunCreate) -> RunSummary:
-        return resolved_manager.create(payload.request)
+        return resolved_manager.create(
+            payload.request, expected_route=payload.expected_route
+        )
 
     @app.get("/api/runs", response_model=RunList)
     def list_runs(limit: int = Query(default=50, ge=1, le=200)) -> RunList:

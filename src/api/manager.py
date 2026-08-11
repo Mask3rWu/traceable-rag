@@ -13,6 +13,8 @@ from src.api.events import AgentEventCallback
 from src.api.models import RunDetail, RunEvent, RunStatus, RunSummary, utc_now
 from src.research.agent_models import AgentRun
 from src.research.agent_store import AgentRunStore
+from src.research.eval_metrics import EvalCallbackHandler, RuntimeMetrics
+from src.research.graph import RoutePolicyError
 from src.research.service import RoutedResearchAgent, build_research_agent
 
 
@@ -21,6 +23,7 @@ TERMINAL_STATUSES: set[RunStatus] = {
     "completed",
     "incomplete",
     "failed",
+    "routed_away",
 }
 
 
@@ -40,6 +43,10 @@ class ManagedRun:
     cancel_event: threading.Event = field(default_factory=threading.Event)
     checkpoint_run_id: str | None = None
     start_chapter: str | None = None
+    expected_route: str | None = None
+    route_mode: str | None = None
+    route_reason: str | None = None
+    metrics: dict | None = None
 
 
 class RunManager:
@@ -60,11 +67,15 @@ class RunManager:
         self._runs: dict[str, ManagedRun] = {}
         self._lock = threading.RLock()
 
-    def create(self, request: str) -> RunSummary:
+    def create(
+        self, request: str, *, expected_route: str | None = None
+    ) -> RunSummary:
         normalized = request.strip()
         if not normalized:
             raise ValueError("request must not be blank")
-        managed = ManagedRun(run_id=uuid4().hex, request=normalized)
+        managed = ManagedRun(
+            run_id=uuid4().hex, request=normalized, expected_route=expected_route
+        )
         with self._lock:
             self._runs[managed.run_id] = managed
         self._emit(managed, "queued", {"request": normalized[:240]})
@@ -100,6 +111,10 @@ class RunManager:
             managed.status = "running"
             managed.updated_at = utc_now()
         self._emit(managed, "running", {})
+        metrics = RuntimeMetrics()
+        route_guard: Callable[[str], bool] | None = None
+        if managed.expected_route == "fast":
+            route_guard = lambda mode: mode == "fast"
         try:
             agent = self.agent_factory()
             if agent.langfuse is not None:
@@ -110,8 +125,10 @@ class RunManager:
             kwargs = {
                 "run_id": managed.run_id,
                 "trace_id": managed.trace_id,
-                "callbacks": [callback],
+                "callbacks": [callback, EvalCallbackHandler(metrics)],
             }
+            if "route_guard" in inspect.signature(agent.run).parameters:
+                kwargs["route_guard"] = route_guard
             if "cancel_check" in inspect.signature(agent.run).parameters:
                 kwargs["cancel_check"] = managed.cancel_event.is_set
             if managed.checkpoint_run_id:
@@ -124,6 +141,7 @@ class RunManager:
                 }
                 if "cancel_check" not in inspect.signature(agent.resume).parameters:
                     resume_kwargs.pop("cancel_check", None)
+                resume_kwargs.pop("route_guard", None)
                 result, _ = agent.resume(checkpoint, **resume_kwargs)
             else:
                 result, _ = agent.run(managed.request, **kwargs)
@@ -134,6 +152,7 @@ class RunManager:
                     "cancelled" if managed.cancel_event.is_set() else result.outcome
                 )
                 managed.updated_at = utc_now()
+            managed.metrics = self._persist_metrics(managed.run_id, metrics)
             self._emit(
                 managed,
                 managed.status,
@@ -143,6 +162,18 @@ class RunManager:
                     "worker_count": len(result.worker_packets),
                     "trace_id": result.trace_id,
                 },
+            )
+        except RoutePolicyError as exc:
+            with managed.condition:
+                managed.status = "routed_away"
+                managed.error = str(exc)
+                managed.route_mode = exc.mode
+                managed.route_reason = exc.reason
+                managed.updated_at = utc_now()
+            self._emit(
+                managed,
+                "routed_away",
+                {"error": str(exc), "mode": exc.mode, "reason": exc.reason},
             )
         except Exception as exc:
             with managed.condition:
@@ -158,6 +189,15 @@ class RunManager:
                 managed.status,
                 ({"error": managed.error} if managed.error else {}),
             )
+
+    def _persist_metrics(self, run_id: str, metrics: RuntimeMetrics) -> dict:
+        snapshot = metrics.snapshot()
+        try:
+            self.store.save_metrics(run_id, snapshot)
+        except OSError:
+            # Metrics are best-effort; the run result is the source of truth.
+            pass
+        return snapshot
 
     def _emit(self, managed: ManagedRun, event_type: str, data: dict) -> None:
         with managed.condition:
@@ -213,9 +253,13 @@ class RunManager:
             managed = self._runs.get(run_id)
         if managed is not None:
             summary = self._summary(managed)
-            return RunDetail(**summary.model_dump(), result=managed.result)
+            return RunDetail(
+                **summary.model_dump(), result=managed.result, metrics=managed.metrics
+            )
         persisted = self.store.load(run_id)
-        return self._persisted_detail(persisted)
+        detail = self._persisted_detail(persisted)
+        detail.metrics = self.store.load_metrics(run_id)
+        return detail
 
     def list(self, *, limit: int = 50) -> list[RunSummary]:
         with self._lock:
@@ -243,8 +287,8 @@ class RunManager:
             run_id=managed.run_id,
             request=managed.request,
             status=managed.status,
-            route=result.route.mode if result else None,
-            route_reason=result.route.reason if result else None,
+            route=result.route.mode if result else managed.route_mode,
+            route_reason=result.route.reason if result else managed.route_reason,
             trace_id=managed.trace_id,
             evidence_count=len(result.evidence) if result else 0,
             worker_count=len(result.worker_packets) if result else 0,

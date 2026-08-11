@@ -6,6 +6,7 @@ export type RunStatus =
   | 'completed'
   | 'incomplete'
   | 'failed'
+  | 'routed_away'
 
 export interface RouteDecision {
   mode: 'fast' | 'supervisor'

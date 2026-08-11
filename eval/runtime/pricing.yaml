@@ -1,0 +1,15 @@
+# 模型单价表（成本 = prompt_tokens×input + completion_tokens×output，单位 USD / 百万 token）
+# 按 RESEARCH_MODEL 的模型名匹配。未列出的模型成本记为 null（不编造 0）。
+#
+# 说明：deepseek-chat 为 deepseek 官方公开价；deepseek-v4-flash 为当前开发用模型，
+# 价格按近似值占位，请按实际计费调整。
+#
+# input / output 指的是"有效 token"单价；若用到缓存命中可分 cache_miss/cache_hit 两档，
+# 当前埋点只取 usage 的 prompt/completion tokens，未细分缓存，故此处只填单一档位。
+deepseek-chat:
+  input: 0.27
+  output: 1.10
+
+deepseek-v4-flash:
+  input: 0.27
+  output: 1.10

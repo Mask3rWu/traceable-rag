@@ -17,6 +17,7 @@ RunStatus = Literal[
     "completed",
     "incomplete",
     "failed",
+    "routed_away",
 ]
 
 
@@ -26,6 +27,14 @@ def utc_now() -> datetime:
 
 class RunCreate(BaseModel):
     request: str = Field(min_length=1, max_length=20_000)
+    expected_route: Literal["fast", "supervisor"] | None = Field(
+        default=None,
+        description=(
+            "Route policy for the run. If 'fast', the run is interrupted "
+            "(status=routed_away) should the router decide to run it as a "
+            "multi-agent (supervisor) task."
+        ),
+    )
 
 
 class RunResume(BaseModel):
@@ -55,6 +64,10 @@ class RunSummary(BaseModel):
 
 class RunDetail(RunSummary):
     result: AgentRun | None = None
+    metrics: dict | None = Field(
+        default=None,
+        description="Raw RuntimeMetrics snapshot for the run, if the API collected it.",
+    )
 
 
 class RunList(BaseModel):

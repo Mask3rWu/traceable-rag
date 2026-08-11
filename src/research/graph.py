@@ -36,6 +36,7 @@ from src.research.agent_models import (
     RunCheckpoint,
 )
 from src.research.agent_store import AgentRunStore
+from src.research.eval_metrics import RuntimeMetrics
 from src.research.tools import EvidenceAliasRegistry, EvidenceWorkspace
 
 
@@ -124,6 +125,27 @@ missing cross-chapter alignment. Do not add facts or evidence. Report only actio
 using known chapter IDs. Return a JSON object matching the supplied schema."""
 
 
+class RoutePolicyError(RuntimeError):
+    """Raised when a run's routing decision violates the caller's route policy.
+
+    Used by the eval harness to interrupt a "fast" task that the router decided
+    should run as a multi-agent (supervisor) task, so the expensive supervisor
+    subgraph never executes. The runner maps this to a dedicated outcome.
+
+    Carries the router's actual decision (``mode`` + ``reason``) so the caller
+    can report *why* the fast task was misrouted rather than only that it was.
+    """
+
+    def __init__(self, mode: str, reason: str | None = None) -> None:
+        self.mode = mode
+        self.reason = reason
+        super().__init__(
+            f"routed to {mode!r} but route policy requires fast; "
+            "interrupting before supervisor subgraph"
+            + (f" (router: {reason})" if reason else "")
+        )
+
+
 class ReactState(TypedDict, total=False):
     messages: Annotated[list[BaseMessage], add_messages]
     steps: int
@@ -159,6 +181,7 @@ class AgentRuntime:
         chapter_max_chars: int = 1600,
         chapter_max_claims: int = 10,
         chapter_max_decisions: int = 4,
+        metrics: RuntimeMetrics | None = None,
     ) -> None:
         if min(
             max_steps,
@@ -184,9 +207,11 @@ class AgentRuntime:
         self.chapter_max_chars = chapter_max_chars
         self.chapter_max_claims = chapter_max_claims
         self.chapter_max_decisions = chapter_max_decisions
+        self._metrics = metrics
         self._packets: list[ResearchPacket] = []
         self._evidence_aliases: dict[str, EvidenceAliasRegistry] = {}
         self._cancel_check: Callable[[], bool] = lambda: False
+        self._route_guard: Callable[[str], bool] | None = None
         self._current_run_id: str | None = None
         self._current_parent_run_id: str | None = None
         self._current_attempt = 1
@@ -202,8 +227,8 @@ class AgentRuntime:
         with self._lock:
             return list(self._packets)
 
-    @staticmethod
     def _submit_answer_tool(
+        self,
         validator: Callable[[AgentAnswer], None] | None = None,
         transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     ) -> BaseTool:
@@ -218,9 +243,24 @@ class AgentRuntime:
                 "evidence_ids": evidence_ids,
                 "limitations": limitations,
             }
-            answer = AgentAnswer.model_validate(transform(payload) if transform else payload)
-            if validator is not None:
-                validator(answer)
+            try:
+                answer = AgentAnswer.model_validate(
+                    transform(payload) if transform else payload
+                )
+                if validator is not None:
+                    validator(answer)
+            except Exception as exc:
+                if self._metrics is not None:
+                    self._metrics.record_schema_validation(
+                        stage="submit_answer",
+                        ok=False,
+                        reason=f"{type(exc).__name__}: {exc}",
+                    )
+                raise
+            if self._metrics is not None:
+                self._metrics.record_schema_validation(
+                    stage="submit_answer", ok=True
+                )
             return "submitted"
 
         return submit_answer
@@ -242,10 +282,23 @@ class AgentRuntime:
             include those fields.
             """
 
-            packet = ResearchPacket.model_validate(
-                self._canonicalize_packet_payload(kwargs, chapter, aliases)
-            )
-            self._validate_packet(packet, chapter, chapter_char_limit)
+            try:
+                packet = ResearchPacket.model_validate(
+                    self._canonicalize_packet_payload(kwargs, chapter, aliases)
+                )
+                self._validate_packet(packet, chapter, chapter_char_limit)
+            except Exception as exc:
+                if self._metrics is not None:
+                    self._metrics.record_schema_validation(
+                        stage="submit_chapter",
+                        ok=False,
+                        reason=f"{type(exc).__name__}: {exc}",
+                    )
+                raise
+            if self._metrics is not None:
+                self._metrics.record_schema_validation(
+                    stage="submit_chapter", ok=True
+                )
             return "submitted"
 
         return submit_chapter
@@ -1192,7 +1245,14 @@ class AgentRuntime:
             return {"route": decision.model_dump(mode="json")}
 
         def route_mode(state: RootState) -> str:
-            return state["route"]["mode"]
+            mode = state["route"]["mode"]
+            guard = self._route_guard
+            if guard is not None and not guard(mode):
+                raise RoutePolicyError(
+                    mode=mode,
+                    reason=state["route"].get("reason"),
+                )
+            return mode
 
         def fast(state: RootState, config: RunnableConfig) -> dict:
             result = self._fast_graph.invoke(
@@ -1221,8 +1281,18 @@ class AgentRuntime:
                 try:
                     plan = planner.invoke(messages, config=config)
                     self._validate_plan(plan)
+                    if self._metrics is not None:
+                        self._metrics.record_schema_validation(
+                            stage="plan", ok=True
+                        )
                     return {"plan": plan.model_dump(mode="json")}
                 except Exception as exc:
+                    if self._metrics is not None:
+                        self._metrics.record_schema_validation(
+                            stage="plan",
+                            ok=False,
+                            reason=f"{type(exc).__name__}: {exc}",
+                        )
                     last_error = exc
                     messages.append(
                         HumanMessage(
@@ -1316,6 +1386,7 @@ class AgentRuntime:
         parent_run_id: str | None = None,
         attempt: int = 1,
         cancel_check: Callable[[], bool] | None = None,
+        route_guard: Callable[[str], bool] | None = None,
     ) -> tuple[AgentRun, Any]:
         if not request.strip():
             raise ValueError("request must not be blank")
@@ -1325,62 +1396,66 @@ class AgentRuntime:
             self._current_attempt = attempt
             self._current_request = request.strip()
             self._cancel_check = cancel_check or (lambda: False)
+            self._route_guard = route_guard
             self.workspace.reset()
             with self._lock:
                 self._packets.clear()
-            state = self.graph.invoke(
-                {"request": request.strip()},
-                config or {"recursion_limit": self.max_steps * 4 + 8},
-            )
-            route = RouteDecision.model_validate(state["route"])
-            answer = AgentAnswer.model_validate(state["answer"])
-            self.workspace.validate_evidence_ids(answer.evidence_ids)
-            plan = (
-                DocumentPlan.model_validate(state["plan"])
-                if route.mode == "supervisor"
-                else None
-            )
-            issues = [
-                ConsistencyIssue.model_validate(item)
-                for item in state.get("issues", [])
-            ]
-            review_revised = bool(state.get("review_revised", False))
-            outcome = (
-                "completed"
-                if (
-                    route.mode == "fast"
-                    and bool(answer.evidence_ids)
-                    or route.mode == "supervisor"
-                    and all(item.status == "sufficient" for item in self.packets)
+            try:
+                state = self.graph.invoke(
+                    {"request": request.strip()},
+                    config or {"recursion_limit": self.max_steps * 4 + 8},
                 )
-                else "incomplete"
-            )
-            run = AgentRun(
-                **({"run_id": run_id} if run_id is not None else {}),
-                request=request.strip(),
-                route=route,
-                outcome=outcome,
-                answer=answer,
-                document_plan=plan,
-                consistency_issues=issues,
-                evidence=self.workspace.evidence,
-                worker_packets=self.packets,
-                evidence_aliases={
-                    key: registry.export()
-                    for key, registry in self._evidence_aliases.items()
-                },
-                parent_run_id=parent_run_id,
-                attempt=attempt,
-                review_revised=review_revised,
-                review_verified=not review_revised,
-                requires_human_review=any(
-                    item.severity == "error" for item in issues
-                ),
-                trace_id=trace_id,
-            )
-            path = self.store.save(run)
-            self._cancel_check = lambda: False
-            return run, path
+                route = RouteDecision.model_validate(state["route"])
+                answer = AgentAnswer.model_validate(state["answer"])
+                self.workspace.validate_evidence_ids(answer.evidence_ids)
+                plan = (
+                    DocumentPlan.model_validate(state["plan"])
+                    if route.mode == "supervisor"
+                    else None
+                )
+                issues = [
+                    ConsistencyIssue.model_validate(item)
+                    for item in state.get("issues", [])
+                ]
+                review_revised = bool(state.get("review_revised", False))
+                outcome = (
+                    "completed"
+                    if (
+                        route.mode == "fast"
+                        and bool(answer.evidence_ids)
+                        or route.mode == "supervisor"
+                        and all(item.status == "sufficient" for item in self.packets)
+                    )
+                    else "incomplete"
+                )
+                run = AgentRun(
+                    **({"run_id": run_id} if run_id is not None else {}),
+                    request=request.strip(),
+                    route=route,
+                    outcome=outcome,
+                    answer=answer,
+                    document_plan=plan,
+                    consistency_issues=issues,
+                    evidence=self.workspace.evidence,
+                    worker_packets=self.packets,
+                    evidence_aliases={
+                        key: registry.export()
+                        for key, registry in self._evidence_aliases.items()
+                    },
+                    parent_run_id=parent_run_id,
+                    attempt=attempt,
+                    review_revised=review_revised,
+                    review_verified=not review_revised,
+                    requires_human_review=any(
+                        item.severity == "error" for item in issues
+                    ),
+                    trace_id=trace_id,
+                )
+                path = self.store.save(run)
+                return run, path
+            finally:
+                self._cancel_check = lambda: False
+                self._route_guard = None
 
     def resume(
         self,

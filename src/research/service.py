@@ -14,6 +14,7 @@ from src.config import ResearchModelConfig
 from src.research.agent_models import AgentRun
 from src.research.agent_store import AgentRunStore
 from src.research.evidence import EvidenceResolver
+from src.research.eval_metrics import RuntimeMetrics
 from src.research.graph import AgentRuntime
 from src.research.tools import EvidenceWorkspace
 from src.retrieval.catalog import ChunkCatalog
@@ -34,6 +35,7 @@ class RoutedResearchAgent:
         trace_id: str | None = None,
         callbacks: list[BaseCallbackHandler] | None = None,
         cancel_check: Callable[[], bool] | None = None,
+        route_guard: Callable[[str], bool] | None = None,
     ) -> tuple[AgentRun, Any]:
         resolved_callbacks = list(callbacks or [])
         if self.langfuse is not None:
@@ -60,6 +62,7 @@ class RoutedResearchAgent:
                 run_id=run_id,
                 trace_id=trace_id,
                 cancel_check=cancel_check,
+                route_guard=route_guard,
             )
         finally:
             if self.langfuse is not None:
@@ -97,6 +100,7 @@ def build_research_agent(
     config: ResearchModelConfig | None = None,
     *,
     store: AgentRunStore | None = None,
+    metrics: RuntimeMetrics | None = None,
 ) -> RoutedResearchAgent:
     resolved = config or ResearchModelConfig.from_env()
     model = ChatOpenAI(
@@ -126,6 +130,7 @@ def build_research_agent(
         chapter_max_chars=resolved.chapter_max_chars,
         chapter_max_claims=resolved.chapter_max_claims,
         chapter_max_decisions=resolved.chapter_max_decisions,
+        metrics=metrics,
     )
     langfuse = None
     if resolved.langfuse_enabled:

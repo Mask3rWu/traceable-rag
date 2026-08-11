@@ -1,6 +1,7 @@
 """Atomic persistence for routed agent results."""
 from __future__ import annotations
 
+import json
 import os
 from collections.abc import Iterator
 from pathlib import Path
@@ -18,6 +19,21 @@ class AgentRunStore:
 
     def checkpoint_path_for(self, run_id: str) -> Path:
         return self.root / run_id / "checkpoint.json"
+
+    def metrics_path_for(self, run_id: str) -> Path:
+        return self.root / run_id / "metrics.json"
+
+    def save_metrics(self, run_id: str, metrics: dict) -> Path:
+        return self._atomic_write(
+            self.metrics_path_for(run_id),
+            json.dumps(metrics, ensure_ascii=False, indent=2) + "\n",
+        )
+
+    def load_metrics(self, run_id: str) -> dict | None:
+        path = self.metrics_path_for(run_id)
+        if not path.is_file():
+            return None
+        return json.loads(path.read_text(encoding="utf-8"))
 
     @staticmethod
     def _atomic_write(path: Path, content: str) -> Path:

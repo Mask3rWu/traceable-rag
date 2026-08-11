@@ -1,0 +1,95 @@
+# 运行效果评估请求集
+#
+# 共 10 题，分两段：
+#   fast 段（q1–q5）    —— 单问题 fast 路由，先跑，用于验证 fast 路径与路由守卫。
+#   supervisor 段（q6–q10）—— 多 agent 研究任务（supervisor 路由，含章节规划 + 工人 agent），后跑。
+# 两段均保持 直接/借鉴/无关 的难度采样：2 direct / 2 borrow / 1 unrelated。
+#
+# 改这个文件即可增删改题目；concurrency 控制并行 worker 数（评测层）——
+# 注意 supervisor 任务内部已按 max_workers 并行多个 worker agent，所以评测层
+# 并发会被内部并行放大，实际并发需求请结合 embedding/DB 承受力设定。
+#
+# id 为序列号（q1…q10），与文件顺序一致；sequence 由运行器按此题在列表中的
+# 位置自动编号，用于汇总排序（与 id 相同，保留以兼容旧输出）。
+#
+# category 语义：
+#   direct     —— 资料里直接有对应标准/规范，答案应高证据支撑、低冲突、可回查原文。
+#   borrow     —— 资料无直接对应标准，需综合/借鉴多份文献推断，允许 hypothesis，证据跨文档。
+#   unrelated  —— 与当前资料领域完全无关，应诚实声明无资料支撑、低证据、不虚构引用。
+#
+# expected_route 语义（路由策略守卫）：
+#   fast       —— 期望走单问题 fast 路径。若路由器误判为 supervisor（多 agent），
+#                 运行器会在进入昂贵的多 agent 子图前立即中断（outcome=routed_away）。
+#   supervisor —— 期望走多 agent supervisor 路径。
+# 多 agent 任务应写成「交付物式」请求（输出一份…/建立…方案/设计…指标体系），
+# 以命中 supervisor 路由；fast 任务写成聚焦的单问题。
+#
+# 运行器支持 --phase fast|supervisor|all 分批执行（先跑 fast 验证，再跑多 agent）。
+
+concurrency: 5
+
+questions:
+  # ===== fast 研究任务（fast 路由，q1–q5） =====
+  # fast 题写成聚焦的单问题以命中 fast 路由；若路由器误判为 supervisor，
+  # 运行器会按 expected_route=fast 守卫立即中断（outcome=routed_away）。
+  - id: q1
+    category: direct
+    expected_route: fast
+    question: "GJB-Z 1391-2006《故障模式、影响及危害性分析指南》中，危害性分析（CA）常用的分析方法有哪些？"
+    expected: "应直接引用该标准原文，明确列出 CA 的常规方法（如风险优先数法、危害度矩阵法等），高证据支撑、低冲突。"
+
+  - id: q2
+    category: direct
+    expected_route: fast
+    question: "无人机在环境适应性方面有哪些主要要求？"
+    expected: "应自行定位并直接引用《无人机通用规范》中环境适应性相关条目，给出明确要求，可回查原文。"
+
+  - id: q3
+    category: borrow
+    expected_route: fast
+    question: "主战坦克遭受整体侵爆类战斗部打击后，通常会出现哪几类典型毁伤模式？"
+    expected: "资料无直接成文清单，应综合装甲结构、侵爆毁伤效应与毁伤建模多份文献推断典型毁伤模式，允许 hypothesis，证据跨文档。"
+
+  - id: q4
+    category: borrow
+    expected_route: fast
+    question: "基于资料中核爆环境对舰艇影响与舰船结构易损性的相关论述，归纳判定舰艇核爆毁伤等级时需重点考虑的环境与结构因素有哪些？"
+    expected: "资料中对核爆毁伤等级标准与结构易损性的论述分散，应跨文档综合归纳，允许 hypothesis，说明推断依据。"
+
+  - id: q5
+    category: unrelated
+    expected_route: fast
+    question: "简要说明快速排序算法在平均情况下的时间复杂度，并列举一个适合使用它的典型应用场景。"
+    expected: "与当前毁伤评估资料完全无关，应诚实声明无资料支撑，基于通用算法知识作答，不得虚构资料引用。"
+
+  # ===== 多 agent 研究任务（supervisor，q6–q10） =====
+  # 写成「交付物式」请求以命中 supervisor 路由。
+  - id: q6
+    category: direct
+    expected_route: supervisor
+    question: "生成一份坦克毁伤评估标准，包括毁伤等级划分、主要毁伤部位、需考虑的毁伤因素与评估依据。"
+    expected: "应自行定位并直接引用坦克/装甲车辆毁伤评估相关标准（如装甲车辆毁伤、毁伤效应等资料），多章节输出，高证据支撑、低冲突。"
+
+  - id: q7
+    category: direct
+    expected_route: supervisor
+    question: "输出一份舰艇在核爆环境中毁伤等级划分的评估要点报告，说明各毁伤等级的定义、判定依据与适用场景。"
+    expected: "直接基于 核爆环境中舰艇毁伤等级的划分 等标准，多章节输出，明确等级边界与判定依据，可回查原文。"
+
+  - id: q8
+    category: borrow
+    expected_route: supervisor
+    question: "生成一份反舰导弹打击补给船的毁伤等级划分方案。"
+    expected: "当前资料无直接对应的补给船毁伤等级标准，应综合多份文献（易损性、毁伤评估、舰船结构）推断划分，允许 hypothesis，证据跨文档引用。"
+
+  - id: q9
+    category: borrow
+    expected_route: supervisor
+    question: "基于当前资料，设计一套激光武器反无人机的效能评估指标体系，并给出各指标的综合评估方法。"
+    expected: "资料中只有激光毁伤机理与效能研究的碎片，应借鉴相关文献综合构建设计，允许 hypothesis，证据跨文档。"
+
+  - id: q10
+    category: unrelated
+    expected_route: supervisor
+    question: "输出一份城市公交线路调度优化方案，以降低高峰期的乘客等待时间，包含调度策略与评估指标。"
+    expected: "与当前毁伤评估资料完全无关，应诚实声明无资料支撑、给出低证据或无证据的通用方案，且不得虚构/伪造资料引用。"

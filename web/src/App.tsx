@@ -11,13 +11,14 @@ import type { ChapterPlan, Claim, DecisionRecord, Evidence, ResearchPacket, RunD
 
 const activeStatuses = new Set<RunStatus>(['queued', 'running', 'cancel_requested'])
 const statusLabels: Record<RunStatus, string> = {
-  queued: '排队中', running: '研究中', cancel_requested: '停止中', cancelled: '已取消', completed: '已完成', incomplete: '未完整生成', failed: '失败',
+  queued: '排队中', running: '研究中', cancel_requested: '停止中', cancelled: '已取消', completed: '已完成', incomplete: '未完整生成', failed: '失败', routed_away: '路由守卫中断',
 }
 const eventLabels: Record<string, string> = {
   queued: '任务已进入队列', running: '研究运行已启动', stage_started: '进入执行阶段',
   route_selected: '路由决策完成', tool_started: '调用研究工具', tool_completed: '工具返回结果',
   tool_failed: '工具调用失败', cancel_requested: '已请求停止', cancelled: '任务已取消',
   completed: '研究完成', incomplete: '研究未完整生成', failed: '研究失败',
+  routed_away: '路由守卫中断（fast 被误判为多 agent）',
 }
 const confidenceLabels = { high: '高', medium: '中', low: '低' }
 const conclusionLabels: Record<string, string> = { direct: '直接', synthesized: '综合', normative: '规范', hypothesis: '假设' }
