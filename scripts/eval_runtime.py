@@ -464,7 +464,7 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
         "",
         "## 逐题结果",
         "",
-        "| 题 | 类 | 路由匹配 | outcome | 耗时(s) | 模型次数 | 成本($) | 工具次数 | 检索次数 | 去重引用 |",
+        "| 题 | 类 | 路由匹配 | outcome | 耗时(s) | 模型次数 | 成本(¥) | 工具次数 | 检索次数 | 去重引用 |",
         "|---|---|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for result in sorted(results, key=lambda item: item["question"]["sequence"]):
@@ -503,7 +503,7 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
         ),
         f"- 模型调用: {agg['model_calls']['count']} 次，成本 "
         + (
-            f"${agg['model_calls']['total_cost_usd']:.4f}"
+            f"¥{agg['model_calls']['total_cost_usd']:.4f}"
             if agg["model_calls"]["total_cost_usd"] is not None
             else "—"
         )
@@ -554,7 +554,7 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
     if phases:
         lines += ["", "## 阶段成本归因（全批次汇总）", ""]
         lines.append(
-            "| 阶段 | 参与题数 | 模型调用 | prompt(tok) | completion(tok) | 成本($) | 总耗时(s) | 失败 |"
+            "| 阶段 | 参与题数 | 模型调用 | prompt(tok) | completion(tok) | 成本(¥) | 总耗时(s) | 失败 |"
         )
         lines.append(
             "|---|---|---:|---:|---:|---:|---:|---:|"

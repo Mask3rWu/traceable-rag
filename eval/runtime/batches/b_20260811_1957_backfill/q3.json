@@ -1,0 +1,108 @@
+{
+  "question": {
+    "id": "q3",
+    "sequence": 3,
+    "category": "borrow",
+    "expected_route": "fast"
+  },
+  "run_id": "2b83a93a145248d583248555216936c7",
+  "outcome": "incomplete",
+  "error": null,
+  "ended_at": "2026-08-11T11:58:33.461Z",
+  "route": {
+    "mode": "fast",
+    "reason": "该请求是询问主战坦克受打击后的典型毁伤模式，属于聚焦性知识问答，可直接回答，无需多步研究或复杂交付物。"
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 15,
+    "search_latency_ms": [
+      357.8,
+      372.5,
+      156.1,
+      157.4,
+      534.1,
+      535.7,
+      338.2,
+      340.2,
+      344.0,
+      346.2,
+      157.3,
+      157.4,
+      616.2,
+      643.6,
+      1624.8
+    ],
+    "evidence_total": 120,
+    "evidence_unique": 57,
+    "evidence_cited": 0,
+    "dedup_ratio": 0.475,
+    "citation_coverage": 0.0
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 15,
+    "answer_evidence": 0
+  },
+  "model_calls": {
+    "count": 9,
+    "total_cost_usd": 0.366453,
+    "avg_latency_ms": 3754.5,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 16,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 15,
+        "success": 15,
+        "failed": 0,
+        "total_latency_ms": 6681.628200000205
+      },
+      "read_evidence": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.5552000000079715
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 9,
+    "tool_calls": 16,
+    "submit_retries": 0,
+    "plan_retries": null
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 208,
+      "completion_tokens": 220,
+      "cost_usd": 0.001944,
+      "total_latency_ms": 2859.7,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 8,
+      "prompt_tokens": 115683,
+      "completion_tokens": 2910,
+      "cost_usd": 0.364509,
+      "total_latency_ms": 30930.9,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 66.21
+}

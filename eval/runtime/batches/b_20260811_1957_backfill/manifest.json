@@ -1,0 +1,29 @@
+{
+  "batch_id": "b_20260811_1957_backfill",
+  "schema_version": "runtime-eval-v2",
+  "system_version": "routed-research-agent@89b1d6d3e79547a8d691fd70525352342d6a9549",
+  "git_commit": "89b1d6d3e79547a8d691fd70525352342d6a9549",
+  "created_at": "2026-08-11T13:59:52Z",
+  "source_batch": {
+    "batch_id": "b_20260811_1957",
+    "schema_version": "runtime-eval-v1",
+    "created_at": "2026-08-11T11:57:52Z",
+    "git_commit": "ccb9e0cb5a5fd62656e28ac3723895d3014ea0d8"
+  },
+  "backfill": {
+    "method": "one-off offline rebuild",
+    "note": "保留 v1 已落盘的 model_calls/tool_calls/retrieval；q4/q9 因当时 metrics 未落盘，计数由 Langfuse trace 重建。delivery/route_matched/steps_retries/phase_cost/error/ended_at 为本批新增。",
+    "phase_cost_scope": "fast 题阶段归因取本地 metrics.json（完整记录）：首个模型调用=router，其余=fast；supervisor 段无 phase tag 且历史 trace 的 worker generation 为通用 agent 节点，无法归因，phase_cost 记 null。（不取 Langfuse trace 归因：实测 trace 对部分 fast 行只捕获运行前半段的 generation。）",
+    "plan_retries": "历史批次未记录 schema 校验，plan_retries 不可恢复，记 null。"
+  },
+  "question_set": {
+    "file": "D:\\Project\\cc\\eval\\runtime\\questions.yaml",
+    "hash": "2a4b5a185b2d3340",
+    "count": 10,
+    "categories": {
+      "direct": 4,
+      "borrow": 4,
+      "unrelated": 2
+    }
+  }
+}

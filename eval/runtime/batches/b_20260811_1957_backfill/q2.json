@@ -1,0 +1,112 @@
+{
+  "question": {
+    "id": "q2",
+    "sequence": 2,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "7e6efb5f5961493ab1f51fc0b4609c16",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-11T11:58:33.980Z",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question answerable with a few searches."
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 13,
+    "search_latency_ms": [
+      873.9,
+      876.8,
+      165.2,
+      202.1,
+      155.0,
+      417.0,
+      1549.3,
+      438.8,
+      481.8,
+      169.5,
+      230.3,
+      649.2,
+      652.4
+    ],
+    "evidence_total": 104,
+    "evidence_unique": 39,
+    "evidence_cited": 15,
+    "dedup_ratio": 0.375,
+    "citation_coverage": 0.3846
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 733,
+    "answer_evidence": 15
+  },
+  "model_calls": {
+    "count": 9,
+    "total_cost_usd": 0.256998,
+    "avg_latency_ms": 3816.5,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 15,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 13,
+        "success": 13,
+        "failed": 0,
+        "total_latency_ms": 6861.248500000215
+      },
+      "read_evidence": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.44889999992392404
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.4748000000063257
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 9,
+    "tool_calls": 15,
+    "submit_retries": 0,
+    "plan_retries": null
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 194,
+      "completion_tokens": 123,
+      "cost_usd": 0.00132,
+      "total_latency_ms": 1516.2,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 8,
+      "prompt_tokens": 77572,
+      "completion_tokens": 3827,
+      "cost_usd": 0.255678,
+      "total_latency_ms": 32832.6,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 66.41
+}

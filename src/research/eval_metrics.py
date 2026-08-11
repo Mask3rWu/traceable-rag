@@ -15,8 +15,11 @@ Two feeders write into a :class:`RuntimeMetrics`:
   validates model-emitted artifacts.
 
 Cost is computed from reported token usage against a pricing table keyed by
-model name (``eval/runtime/pricing.yaml``). If a model has no entry, cost is
-reported as ``None`` rather than a fabricated zero.
+model name (``eval/runtime/pricing.yaml``), in CNY per million tokens. If a
+model has no entry, cost is reported as ``None`` rather than a fabricated zero.
+When the provider returns ``prompt_cache_hit_tokens``/``prompt_cache_miss_tokens``
+and the pricing entry has ``input_cache_hit``, the two prompt lanes are billed
+separately; otherwise the single ``input`` price applies to all prompt tokens.
 """
 from __future__ import annotations
 
@@ -37,9 +40,39 @@ def _as_usage(raw: Any) -> dict[str, int]:
     return {
         key: int(value)
         for key, value in raw.items()
-        if key in {"prompt_tokens", "completion_tokens", "total_tokens"}
+        if key in {
+            "prompt_tokens",
+            "completion_tokens",
+            "total_tokens",
+            "prompt_cache_hit_tokens",
+            "prompt_cache_miss_tokens",
+        }
         and isinstance(value, (int, float))
     }
+
+
+def _call_cost(call: dict, price: dict) -> float | None:
+    """Cost of one model call in CNY.
+
+    Uses the cache-hit/miss token split when the call recorded both lanes (i.e.
+    the provider returned ``prompt_cache_hit_tokens``/``prompt_cache_miss_tokens``)
+    and the pricing entry defines ``input_cache_hit``; otherwise the single
+    ``input`` price (cache miss) applies to all prompt tokens. Returns ``None``
+    when no price entry exists.
+    """
+    completion = call["completion_tokens"] * price["output"]
+    hit = call.get("prompt_cache_hit_tokens")
+    miss = call.get("prompt_cache_miss_tokens")
+    if (
+        isinstance(hit, int)
+        and isinstance(miss, int)
+        and (hit or miss)
+        and "input_cache_hit" in price
+    ):
+        prompt = hit * price["input_cache_hit"] + miss * price["input"]
+    else:
+        prompt = call["prompt_tokens"] * price["input"]
+    return (prompt + completion) / 1_000_000
 
 
 class RuntimeMetrics:
@@ -63,6 +96,8 @@ class RuntimeMetrics:
         ok: bool,
         phase: str | None = None,
         error_hint: str | None = None,
+        prompt_cache_hit_tokens: int = 0,
+        prompt_cache_miss_tokens: int = 0,
     ) -> None:
         with self._lock:
             self._model_calls.append(
@@ -74,6 +109,8 @@ class RuntimeMetrics:
                     "ok": ok,
                     "phase": phase,
                     "error_hint": error_hint,
+                    "prompt_cache_hit_tokens": prompt_cache_hit_tokens,
+                    "prompt_cache_miss_tokens": prompt_cache_miss_tokens,
                 }
             )
 
@@ -124,11 +161,7 @@ class RuntimeMetrics:
             if price is None:
                 has_cost = False
                 continue
-            cost = (
-                call["prompt_tokens"] * price["input"]
-                + call["completion_tokens"] * price["output"]
-            ) / 1_000_000
-            total_cost += cost
+            total_cost += _call_cost(call, price) or 0.0
         return {
             "count": len(calls),
             "total_cost_usd": round(total_cost, 6) if has_cost else None,
@@ -183,10 +216,7 @@ class RuntimeMetrics:
             if price is None:
                 bucket["has_cost"] = False
             else:
-                bucket["cost_usd"] += (
-                    call["prompt_tokens"] * price["input"]
-                    + call["completion_tokens"] * price["output"]
-                ) / 1_000_000
+                bucket["cost_usd"] += _call_cost(call, price) or 0.0
         return {
             phase: {
                 "model_calls": bucket["model_calls"],
@@ -353,6 +383,8 @@ class EvalCallbackHandler(BaseCallbackHandler):
             latency_ms=latency_ms,
             ok=True,
             phase=phase,
+            prompt_cache_hit_tokens=usage.get("prompt_cache_hit_tokens", 0),
+            prompt_cache_miss_tokens=usage.get("prompt_cache_miss_tokens", 0),
         )
 
     def on_llm_error(self, error, *, run_id, **kwargs) -> None:

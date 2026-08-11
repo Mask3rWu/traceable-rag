@@ -1,0 +1,74 @@
+{
+  "question": {
+    "id": "q9",
+    "sequence": 9,
+    "category": "borrow",
+    "expected_route": "supervisor"
+  },
+  "run_id": "d7820f03b7d24e2c86874629bdf3ca55",
+  "outcome": "failed",
+  "error": "Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}",
+  "ended_at": "2026-08-11T12:07:43.030Z",
+  "route": {
+    "mode": null,
+    "reason": null
+  },
+  "route_matched": null,
+  "retrieval": {
+    "search_count": 0,
+    "search_latency_ms": [],
+    "evidence_total": 271,
+    "evidence_unique": 165,
+    "evidence_cited": 43,
+    "dedup_ratio": 0.6089,
+    "citation_coverage": 0.2606
+  },
+  "delivery": {
+    "planned_chapters": 7,
+    "executed_packets": 2,
+    "packet_sufficient": 2,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": false,
+    "answer_chars": 0,
+    "answer_evidence": 0
+  },
+  "model_calls": {
+    "count": 6,
+    "total_cost_usd": 0.809691,
+    "avg_latency_ms": 39692.7,
+    "failures": [
+      {
+        "model": "deepseek-v4-flash",
+        "reason": "Error code: 400 - {'error': {'message': \"An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)\", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}}"
+      }
+    ],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 3,
+    "by_tool": {
+      "check_terminology": {
+        "count": 3,
+        "success": 3,
+        "failed": 0,
+        "total_latency_ms": 16.0
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 6,
+    "tool_calls": 3,
+    "submit_retries": 0,
+    "plan_retries": null
+  },
+  "phase_cost": null,
+  "elapsed_s": 539.68
+}

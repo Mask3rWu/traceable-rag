@@ -1,0 +1,108 @@
+{
+  "question": {
+    "id": "q5",
+    "sequence": 5,
+    "category": "unrelated",
+    "expected_route": "fast"
+  },
+  "run_id": "12cbec9f988145f4996f94d36614188d",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-11T11:58:10.759Z",
+  "route": {
+    "mode": "fast",
+    "reason": "请求是简短的算法问题，只需直接回答，无需多步研究。"
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 10,
+    "search_latency_ms": [
+      496.2,
+      496.4,
+      160.5,
+      206.6,
+      161.8,
+      162.2,
+      157.9,
+      164.6,
+      242.1,
+      261.9
+    ],
+    "evidence_total": 80,
+    "evidence_unique": 58,
+    "evidence_cited": 1,
+    "dedup_ratio": 0.725,
+    "citation_coverage": 0.0172
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 213,
+    "answer_evidence": 1
+  },
+  "model_calls": {
+    "count": 8,
+    "total_cost_usd": 0.329862,
+    "avg_latency_ms": 3184.2,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 12,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 10,
+        "success": 10,
+        "failed": 0,
+        "total_latency_ms": 2510.208199999852
+      },
+      "submit_answer": {
+        "count": 2,
+        "success": 1,
+        "failed": 1,
+        "total_latency_ms": 0.8292999999639505
+      }
+    },
+    "failures": [
+      {
+        "tool": "submit_answer",
+        "reason": "ValueError: A grounded answer requires at least one evidence ID"
+      }
+    ]
+  },
+  "steps_retries": {
+    "model_calls": 8,
+    "tool_calls": 12,
+    "submit_retries": 1,
+    "plan_retries": null
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 206,
+      "completion_tokens": 88,
+      "cost_usd": 0.001146,
+      "total_latency_ms": 1508.7,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 7,
+      "prompt_tokens": 105798,
+      "completion_tokens": 1887,
+      "cost_usd": 0.328716,
+      "total_latency_ms": 23965.0,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 66.22
+}

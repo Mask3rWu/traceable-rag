@@ -33,6 +33,29 @@ class RuntimeMetricsTest(unittest.TestCase):
         self.assertIsNone(summary["total_cost_usd"])
         self.assertEqual(summary["count"], 1)
 
+    def test_model_call_cost_splits_cache_hit_and_miss(self):
+        metrics = RuntimeMetrics()
+        metrics.record_model_call(
+            model="m", prompt_tokens=2_000_000, completion_tokens=500_000,
+            prompt_cache_hit_tokens=1_500_000, prompt_cache_miss_tokens=500_000,
+            latency_ms=100.0, ok=True,
+        )
+        pricing = {"m": {"input": 1.0, "input_cache_hit": 0.1, "output": 2.0}}
+        summary = metrics.model_calls_summary(pricing=pricing)
+        # 1.5M hit * 0.1 + 0.5M miss * 1.0 + 0.5M out * 2.0 = 0.15 + 0.5 + 1.0
+        self.assertAlmostEqual(summary["total_cost_usd"], 1.65)
+
+    def test_model_call_cost_falls_back_to_input_without_cache_tier(self):
+        metrics = RuntimeMetrics()
+        metrics.record_model_call(
+            model="m", prompt_tokens=1_000_000, completion_tokens=0,
+            prompt_cache_hit_tokens=500_000, prompt_cache_miss_tokens=500_000,
+            latency_ms=1.0, ok=True,
+        )
+        pricing = {"m": {"input": 1.0, "output": 2.0}}
+        summary = metrics.model_calls_summary(pricing=pricing)
+        self.assertEqual(summary["total_cost_usd"], 1.0)
+
     def test_model_failures_are_collected(self):
         metrics = RuntimeMetrics()
         metrics.record_model_call(
@@ -130,6 +153,27 @@ class EvalCallbackHandlerTest(unittest.TestCase):
         self.assertEqual(summary["count"], 1)
         self.assertIsNotNone(summary["avg_latency_ms"])
         self.assertIsNotNone(summary["total_cost_usd"])
+
+    def test_llm_end_records_cache_token_split(self):
+        metrics = RuntimeMetrics()
+        handler = EvalCallbackHandler(metrics)
+
+        class _Response:
+            llm_output = {
+                "token_usage": {
+                    "prompt_tokens": 1000,
+                    "completion_tokens": 200,
+                    "prompt_cache_hit_tokens": 400,
+                    "prompt_cache_miss_tokens": 600,
+                }
+            }
+
+        handler.on_llm_start({}, [], run_id="r", invocation_params={"model": "m"})
+        handler.on_llm_end(_Response(), run_id="r")
+        pricing = {"m": {"input": 1.0, "input_cache_hit": 0.1, "output": 2.0}}
+        summary = metrics.model_calls_summary(pricing=pricing)
+        # (400*0.1 + 600*1.0 + 200*2.0) / 1M = 1040 / 1M
+        self.assertAlmostEqual(summary["total_cost_usd"], 0.00104)
 
     def test_llm_error_records_failure(self):
         metrics = RuntimeMetrics()

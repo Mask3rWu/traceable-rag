@@ -1,0 +1,931 @@
+{
+  "run_id": "ae82b9f756b447419a970a4ee97d85f4",
+  "request": "GJB-Z 1391-2006《故障模式、影响及危害性分析指南》中，危害性分析（CA）常用的分析方法有哪些？",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question asking for standard methods listed in a specific standard; answerable with a few targeted searches."
+  },
+  "outcome": "completed",
+  "answer": {
+    "content": "根据GJB-Z 1391-2006《故障模式、影响及危害性分析指南》，危害性分析（CA）常用的分析方法主要有两类：\n\n一、风险优先数（RPN）方法\n对产品每个故障模式的RPN值进行优先排序，并采取相应措施使RPN值达到可接受的最低水平。某故障模式的RPN等于其严酷度等级（ESR）与故障模式发生概率等级（OPR）的乘积，即RPN = ESR × OPR，RPN值越大，危害性越大。\n\n二、危害性矩阵分析方法\n目的是比较每个产品及其故障模式的危害性程度，为确定改进措施的先后顺序提供依据，具体又分为：\n1. 定性的危害性矩阵分析方法：将故障模式发生可能性分成离散级别，按出现概率大小分为A、B、C、D、E五个等级，评定后应用危害性矩阵图进行分析。当不能获得产品故障数据时选用。\n2. 定量的危害性矩阵分析方法：按公式分别计算故障模式危害度Cmj和产品危害度Cr，并排序或应用危害性矩阵图进行分析。当能获得较为准确的产品故障数据时选用。\n此外还包括绘制危害性矩阵图及应用，即以故障模式（或产品）分布点向对角线所作垂线的交点距原点的距离度量危害性，距离越长危害性越大，越应尽快采取改进措施。\n\n方法选择原则：不能获得产品故障数据时选择定性危害性矩阵分析法；能获得较为准确的产品故障数据时选择定量危害性矩阵分析法。",
+    "evidence_ids": [
+      "ev-780e72a5e4cb",
+      "ev-5212678cb39c",
+      "ev-f25fabadd086",
+      "ev-968a22e8b4f2",
+      "ev-b544c1c05bd4",
+      "ev-83ad6d94cf2f",
+      "ev-603ab275bd72"
+    ],
+    "limitations": []
+  },
+  "document_plan": null,
+  "consistency_issues": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-780e72a5e4cb",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00081",
+      "content_hash": "248f564fc49962515a1fb1feb306cb29d56e079a6f870d30be525b15ff5280f0",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.1 危害性矩阵分析目的和分类"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B12",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B13"
+      ],
+      "quote": "危害性矩阵分析的的是：比较每个产品及其故障模式的危害性程度，为确定产品改进措施的先后顺序提供依据。它分为定性的危害性矩阵分析法、定量的危害性矩阵分析方法。当不能获得产品故障数据时，应选择定性的危害性矩阵分析方法；当可以获得较为准确的产品故障数据时，则选择定量的危害性矩阵分析方法。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 1,
+          "dense_rank": 5,
+          "dense_score": 0.7645361510994573,
+          "bm25_rank": 1,
+          "bm25_score": 21.51742935180664,
+          "fusion_score": 0.03177805800756621
+        },
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 5,
+          "dense_rank": 9,
+          "dense_score": 0.637064080325842,
+          "bm25_rank": 5,
+          "bm25_score": 17.592998504638672,
+          "fusion_score": 0.029877369007803793
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.7104758659430626,
+          "bm25_rank": 7,
+          "bm25_score": 11.284852981567383,
+          "fusion_score": 0.031054405392392875
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-1077a9d9b5a1",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00085",
+      "content_hash": "4593418e70b48c0d971fc0fc170a3d338af7d0276c488459c51ed779314f1c01",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.2 定性危害性矩阵分析方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_O61"
+      ],
+      "quote": "表14，结合工程实际，其等级及概率可以进行修正。故障模式概率等级的评定之后，应用危害性矩阵",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 2,
+          "dense_rank": 3,
+          "dense_score": 0.7792526816430905,
+          "bm25_rank": 5,
+          "bm25_score": 21.32947540283203,
+          "fusion_score": 0.03125763125763126
+        },
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 1,
+          "dense_rank": 5,
+          "dense_score": 0.6579484343528794,
+          "bm25_rank": 3,
+          "bm25_score": 18.338218688964844,
+          "fusion_score": 0.03125763125763126
+        },
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 8,
+          "dense_rank": 9,
+          "dense_score": 0.6688465874699716,
+          "bm25_rank": 12,
+          "bm25_score": 12.955291748046875,
+          "fusion_score": 0.028381642512077296
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 2,
+          "dense_rank": 1,
+          "dense_score": 0.7221831944207184,
+          "bm25_rank": 6,
+          "bm25_score": 11.67713451385498,
+          "fusion_score": 0.031544957774465976
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-5212678cb39c",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00082",
+      "content_hash": "ba707a67e6f9659d70057797f6d6ac036883db784997314f2bfa854edd6cca33",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.2 定性危害性矩阵分析方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B14",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B15"
+      ],
+      "quote": "定性危害性矩阵分析方法是将每个故障模式发的可能性分成离散的级别，按所定义的等级对每个故障模式进行评定。根据每个故障模式出现概率大小分为A、B、C、D、E五个不同的等级，其定义见表14，结合工程实际，其等级及概率可以进行修正。故障模式概率等级的评定之后，应用危害性矩阵图对每个故障模式进行危害性分析。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B02",
+          "block_type": "table",
+          "page": 19,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p019_b02_table.png",
+          "description": "图片展示了一个四列五行的表格，表头分别为“等级”、“定义”、“故障模式发生概率的特征”和“故障模式发生概率（在产品使用时间内）”。表格内容将故障模式发生概率划分为A至E五个等级，详细列出了各等级对应的发生频率描述及相对于产品总故障概率的具体百分比范围。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 3,
+          "dense_rank": 4,
+          "dense_score": 0.7696247834190978,
+          "bm25_rank": 4,
+          "bm25_score": 21.339580535888672,
+          "fusion_score": 0.03125
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 6,
+          "dense_rank": 4,
+          "dense_score": 0.7040936527196489,
+          "bm25_rank": 8,
+          "bm25_score": 11.022795677185059,
+          "fusion_score": 0.030330882352941176
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-05f6921d04c3",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00089",
+      "content_hash": "9cefba289c96e27570f906ca0c08b6ce49567102b860588b7151bbbaf48dfec5",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.3 定量危害性矩阵分析方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B02"
+      ],
+      "quote": "式中，j=1，2，…，N，N为产品的故障模式总数。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 4,
+          "dense_rank": 7,
+          "dense_score": 0.750968381820226,
+          "bm25_rank": 2,
+          "bm25_score": 21.41777992248535,
+          "fusion_score": 0.031054405392392875
+        },
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 6,
+          "dense_rank": 15,
+          "dense_score": 0.6280507070988006,
+          "bm25_rank": 2,
+          "bm25_score": 18.6381893157959,
+          "fusion_score": 0.02946236559139785
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 5,
+          "dense_rank": 6,
+          "dense_score": 0.6769487665265075,
+          "bm25_rank": 4,
+          "bm25_score": 11.781378746032715,
+          "fusion_score": 0.030776515151515152
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-ce4363a971c0",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00077",
+      "content_hash": "38b2381771ea13ef1994a7cedcbf34fdb98008d77351df242aa25a49d424259c",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.1 危害性分析的目的"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P017_B14",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P017_B15"
+      ],
+      "quote": "危害性分析(CA)的目的是：对产品每一个故障模式的严重程度及其发生的概率所产生的综合影响进分类，以全面评价产品中所有可能出现的故障模式的影响。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 5,
+          "dense_rank": 2,
+          "dense_score": 0.7863841780195255,
+          "bm25_rank": 12,
+          "bm25_score": 18.112071990966797,
+          "fusion_score": 0.030017921146953404
+        },
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 2,
+          "dense_rank": 1,
+          "dense_score": 0.7059634853666762,
+          "bm25_rank": 9,
+          "bm25_score": 15.65495491027832,
+          "fusion_score": 0.030886196246139225
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-011f663bf2a0",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00013",
+      "content_hash": "9626a1238b18132c6797f5163b3dca8c7f377b75c8756258aa85b066bac2f88e",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 5,
+      "page_end": 6,
+      "section_path": [
+        "3 术语和缩略语",
+        "3.1 术语",
+        "3.1.8 危害性分析criticalityanalysis"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P005_B29",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P005_B30",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P006_B01"
+      ],
+      "quote": "对产品中的每个故障模式发的概率及其危害程度所产的综合影响进分析，以全评价产品各\n\n种可能出现的故障模式的影响。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 6,
+          "dense_rank": 1,
+          "dense_score": 0.8066533929097709,
+          "bm25_rank": 15,
+          "bm25_score": 17.586997985839844,
+          "fusion_score": 0.029726775956284153
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f25fabadd086",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00086",
+      "content_hash": "fcf5fd661dda9cd6ee6a98905f152a62d24a024ef3eec7aa540e9ec7f58b41ed",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 19,
+      "page_end": 19,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.3 定量危害性矩阵分析方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B03",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B04",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B05",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B06",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B08",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B09",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B10",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B11",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B12",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B13",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B14",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B15",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B18",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B19"
+      ],
+      "quote": "定量危害性矩阵分析方法主要是按公式(2)、公式(4)分别计算每个故障模式危害度Cmj和产品危害度Cr，并对求得的不同的Cmi和Cr值分别进行排序，或应用危害性矩阵图对每个故障模式的Cmj、产品的C进行危害性分析。\n\na）故障模式的危害度Cmj\n\nCmj是产品危害度的部分。产品在工作时间t内，以第j个故障模式发生的某严酷度等级下的危害度Cmj，见公式(2)\n\n式中：\n\nj=1，2，…，N，N为产品的故障模式总数。\n\n(故障模式频数比)-产品第j种故障模式发次数与产品所有可能的故障模式数的率。\n\nαj一般可通过统计、试验、预测等法获得。当产品的故障模式数为N，则a(j=1，2，…，N)之和为1，见公式(3)\n\n$$∑α;=1j=1\n$$\n\nj(故障模式影响概率)-产品在第j种故障模式发的条件下，其最终影响导致“初始约定层次”出现某严酷度等级的条件概率。β值的确定是代表分析员对产品故障模式、原因和影响等掌握的程度。通常β值的确定是按经验进行定量估计。表15所列的三种β值可供选择；\n\nλp 被分析产品在其任务阶段内的故障率，单位为1/小时(1/h)；\n\nt -产品任务阶段的工作时间，单位为小时(h)。\n\nb）产品危害度Cr\n\n产品的危害度Cr是该产品在给定的严酷度类别和任务阶段下的各种故障模式危害度Cmj之和，见公式(4)。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P019_B17",
+          "block_type": "table",
+          "page": 19,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p019_b17_table.png",
+          "description": "图片展示了一个包含三列数据的表格，表头分别为“本标准推荐采用”、“国内某歼击飞机设计采用”和“GB 7826”。左侧纵向标题为“β规定值”，对应行包括实际丧失、很可能丧失、有可能丧失及无影响等状态。各列详细列出了不同故障严重度等级对应的β数值或范围，如0.1~1、0.5~0.99等。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 7,
+          "dense_rank": 8,
+          "dense_score": 0.7506960182967295,
+          "bm25_rank": 9,
+          "bm25_score": 19.214994430541992,
+          "fusion_score": 0.02919863597612958
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-1fb03f2d8e35",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00092",
+      "content_hash": "49c804a6e9c8c6d36e40828be851bbe18241aa23f91053d6069f95a80a701127",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.3 定量危害性矩阵分析方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B01"
+      ],
+      "quote": "$$1N \nj=1j=1\n$$",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "故障模式影响及危害性分析 危害性分析 分析方法",
+          "final_rank": 8,
+          "dense_rank": 18,
+          "dense_score": 0.7089180003306866,
+          "bm25_rank": 3,
+          "bm25_score": 21.35698890686035,
+          "fusion_score": 0.028693528693528692
+        },
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 3,
+          "dense_rank": 11,
+          "dense_score": 0.6292645931243941,
+          "bm25_rank": 1,
+          "bm25_score": 19.016183853149414,
+          "fusion_score": 0.03047794966520434
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 3,
+          "dense_rank": 5,
+          "dense_score": 0.6835158686060748,
+          "bm25_rank": 2,
+          "bm25_score": 11.933533668518066,
+          "fusion_score": 0.0315136476426799
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-4603f29eb2a6",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00091",
+      "content_hash": "d2d0d5c4ecbf5efda3bfd78782676ecabfba31a3cf6ccaf6a0c0d131d21aaea1",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.3 危害性分析的实施"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B10",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B11",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B14"
+      ],
+      "quote": "CA的实施与FMEA的实施一样，均采用填写表格的方式进行。常用的危害性分析表见表16。\n\n在表16中，第(1)～(7)栏的内容与FMEA表(表11)中的内容相同，第(8)栏记录被分析产品的“故障模式概率等级或故障数据源”的来源，当采定性分析法时此栏只记录故障模式概率等级，并取消(9)～(14)栏。第(9)～(14)栏分别记录危害度计算的相关数据及计算结果。第(15)栏记录对其他栏的注释和补充。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B13",
+          "block_type": "table",
+          "page": 20,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p020_b13_table.png",
+          "description": "图片展示了一张标题为“表16危害性分析（CA）表”的表格，包含代码、产品或功能标志、故障模式等15个栏目，顶部设有初始约定层次产品、任务分析人员及审核批准区域。",
+          "status": "ok"
+        },
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P017_B18",
+          "block_type": "table",
+          "page": 17,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p017_b18_table.png",
+          "description": "该图为功能及硬件故障模式及影响分析（FMEA）表，包含“初始约定层次”、“任务”、“审核”等顶部信息栏。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.6970620100983376,
+          "bm25_rank": 12,
+          "bm25_score": 15.352900505065918,
+          "fusion_score": 0.030017921146953404
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-e231d13691f0",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00094",
+      "content_hash": "e9c69f41b7f45f6c48ecd0d27955bbcd99841a74ace8513a7e87f63be742d286",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.3 危害性分析的实施"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B12",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B13"
+      ],
+      "quote": "表16危害性分析（CA）表\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tbody><tr><td colspan=\"4\">初始约定层次产品 约定层次产品</td><td></td><td colspan=\"4\">任务 分析人员</td><td colspan=\"4\">审核 批准</td><td colspan=\"3\">第页·共页 填表日期</td></tr><tr><td>代码</td><td>产品或 功能 标志</td><td>功能</td><td>故障 模式</td><td>故障 原因</td><td>任务阶 段与工 作方式</td><td>严酷度 类别</td><td>故障模式 概率等级 或故障数 据源</td><td>故障率 p (1/h)</td><td>故障 模式 频数比 ai</td><td>故障影 响概率 βj</td><td>工作 时间 t (h)</td><td>故障 模式 危害度 Cmi</td><td>产品 危害度 Cr</td><td>备注</td></tr><tr><td>(1)</td><td>(2)</td><td></td><td>(3)(4)</td><td>(5)</td><td>(6)</td><td>(7)</td><td>(8)</td><td>(9)</td><td>(10)</td><td>(11)</td><td>(12)</td><td>(13)</td><td></td><td>(14)(15)</td></tr></tbody></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B13",
+          "block_type": "table",
+          "page": 20,
+          "relation": "contained",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p020_b13_table.png",
+          "description": "图片展示了一张标题为“表16危害性分析（CA）表”的表格，包含代码、产品或功能标志、故障模式等15个栏目，顶部设有初始约定层次产品、任务分析人员及审核批准区域。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 7,
+          "dense_rank": 3,
+          "dense_score": 0.6804605507301628,
+          "bm25_rank": 18,
+          "bm25_score": 14.147912979125977,
+          "fusion_score": 0.028693528693528692
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-3718d07c540c",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00093",
+      "content_hash": "549158e88e87406112c3f0774f961006af505bbfde9e65f495bc1ec515e166c7",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.4 绘制危害性矩阵图及应用"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B08",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B09"
+      ],
+      "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_box_822_1617_1784_2335.jpg\" alt=\"Image\" width=\"37%\" /></div>\n\n图8 危害性矩阵图",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B08",
+          "block_type": "figure",
+          "page": 20,
+          "relation": "contained",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p020_b08_figure.png",
+          "description": "图8为危害性矩阵图，横坐标表示严酷度类别（I至IV），纵坐标表示产品或故障模式危害度等级（A至E）。图中包含一条从原点O延伸至P的对角虚线OP，并标注了两个故障模式点M1和M2。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "GJB-Z 1391-2006 危害性分析 CA 常用分析方法",
+          "final_rank": 8,
+          "dense_rank": 17,
+          "dense_score": 0.6249759010977799,
+          "bm25_rank": 4,
+          "bm25_score": 18.320598602294922,
+          "fusion_score": 0.028612012987012988
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 1,
+          "dense_rank": 3,
+          "dense_score": 0.70978969721106,
+          "bm25_rank": 3,
+          "bm25_score": 11.899508476257324,
+          "fusion_score": 0.031746031746031744
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-968a22e8b4f2",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00078",
+      "content_hash": "4318ecc977d99fa4635a6e7297a042c38e90b290ed2a1c6a49ed2509716a847a",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 17,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.1 风险优先数（RPN）方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P017_B19",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P017_B20",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B01"
+      ],
+      "quote": "风险优先数法是对产品每个故障模式的RPN值进优先排序，并采取相应的措施，使RPN值达\n\n到可接受的最低水平。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.8070425391197205,
+          "bm25_rank": 1,
+          "bm25_score": 23.623489379882812,
+          "fusion_score": 0.03278688524590164
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 7,
+          "dense_rank": 14,
+          "dense_score": 0.6387449883666639,
+          "bm25_rank": 1,
+          "bm25_score": 12.497767448425293,
+          "fusion_score": 0.029906956136464335
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-b544c1c05bd4",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00080",
+      "content_hash": "6322e6a296c0c0756a118d1de6bbbaba391ef3f2f1fb1b0a6ecf81dcd5842ecd",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.1 风险优先数（RPN）方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B02",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B04",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B05",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B08"
+      ],
+      "quote": "产品某个故障模式的RPN等于该故障模式的严酷度等级(ESR)和故障模式的发概率等级(OPR)的乘积，见公式(1)。\n\n式中：RPN数越，则其危害性越大，其中ESR和OPR的评分准则如下：\n\na）故障模式影响的严酷度等级(ESR)评分准则：ESR是评定某个故障模式的最终影响的程度。表12给出了ESR的评分准则。在分析中，该评分准则应综合所分析产品的实际情况尽可能的详细规定。\n\nb)故障模式发概率等级(OPR)评分准则：OPR是评定某个故障模式实际发的可能性。表13给出了OPR的评分准则，表中“故障模式发生概率Pm参考范围”是对应各评分等级给出的预计该故障模式在产品的寿命周期内发生的概率，该值在具体应用中可以视情定义。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B07",
+          "block_type": "table",
+          "page": 18,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p018_b07_table.png",
+          "description": "图片展示了一个包含三列的表格，表头分别为“ESR评分等级”、“严酷度等级”和“故障影响的严重程度”。表格按行详细列出了从1到10的评分范围及其对应的轻度、中等、致命和灾难四种影响后果。",
+          "status": "ok"
+        },
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B10",
+          "block_type": "table",
+          "page": 18,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p018_b10_table.png",
+          "description": "图片展示了一个包含三列的表格，表头分别为“OPR 评分等级”、“故障模式发生的可能性”和“故障模式发生概率 Pm参考范围”。表格按行列举了从1到10的评分等级，对应描述了从“极低”到“非常高”的可能性等级及相应的Pm数值区间。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 2,
+          "dense_rank": 2,
+          "dense_score": 0.7272464036941528,
+          "bm25_rank": 4,
+          "bm25_score": 16.87706184387207,
+          "fusion_score": 0.031754032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-3e5cf616b1ce",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00084",
+      "content_hash": "b7a4fe1c43dd88e414b2c0e064607b0cc2fd84a289bbaeb9cee5edb90b5383a7",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.1 风险优先数（RPN）方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B09",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B10"
+      ],
+      "quote": "表13故障模式发生概率等级（OPR）的评分准则\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>OPR评分等级</td><td>故障模式发生的可能性</td><td>故障模式发生概率Pm参考范围</td></tr><tr><td>1</td><td>极低</td><td>Pm≤10-6</td></tr><tr><td>2、3</td><td>较低</td><td>1×10-<Pm≤1×10-4</td></tr><tr><td>4、5、6</td><td>中等</td><td>1×10-4<Pm≤1×10-2</td></tr><tr><td>7、8</td><td>高</td><td>1×10-2<Pm≤1×10-1</td></tr><tr><td>9、10</td><td>非常高</td><td>Pm>10-1</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B10",
+          "block_type": "table",
+          "page": 18,
+          "relation": "contained",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p018_b10_table.png",
+          "description": "图片展示了一个包含三列的表格，表头分别为“OPR 评分等级”、“故障模式发生的可能性”和“故障模式发生概率 Pm参考范围”。表格按行列举了从1到10的评分等级，对应描述了从“极低”到“非常高”的可能性等级及相应的Pm数值区间。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 3,
+          "dense_rank": 5,
+          "dense_score": 0.7022431492805481,
+          "bm25_rank": 2,
+          "bm25_score": 19.294950485229492,
+          "fusion_score": 0.0315136476426799
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-83ad6d94cf2f",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00083",
+      "content_hash": "edaf713de5c46f9c9225ea847e9a5633902a67306850c4dd03c9bd92dbc36059",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.1 风险优先数（RPN）方法"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B03",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B06",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B07"
+      ],
+      "quote": "$$RPN=ESR×OPR$$\n\n表12影响的严酷度等级（ESR）的评分准则\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>ESR 评分等级</td><td>严酷度 等级</td><td>故障影响的严重程度</td></tr><tr><td>1，2，3</td><td>轻度的</td><td>不足以导致人员伤害、产品轻度的损坏、轻度的财产损失及轻度环境损坏，但它会导致非计 划性维护或修理</td></tr><tr><td>4,5，6</td><td>中等的</td><td>导致人员中等程度伤害、产品中等程度损坏、任务延误或降级、中等程度财产损坏及中等程 度环境损害</td></tr><tr><td>7,8</td><td>致命的</td><td>导致人员严重伤害、产品严重损坏、任务失败、严重财产损坏及严重环境损害</td></tr><tr><td>9,10</td><td>灾难的</td><td>导致人员死亡、产品(如飞机、坦克、导弹及船舶等)毁坏，重大财产损失和重大环境损害</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P018_B07",
+          "block_type": "table",
+          "page": 18,
+          "relation": "contained",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p018_b07_table.png",
+          "description": "图片展示了一个包含三列的表格，表头分别为“ESR评分等级”、“严酷度等级”和“故障影响的严重程度”。表格按行详细列出了从1到10的评分范围及其对应的轻度、中等、致命和灾难四种影响后果。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 4,
+          "dense_rank": 6,
+          "dense_score": 0.6959285502519001,
+          "bm25_rank": 3,
+          "bm25_score": 17.105398178100586,
+          "fusion_score": 0.031024531024531024
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-757379ebd324",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00140",
+      "content_hash": "7bb3bca77ccf96d61cec6e79c1cca024ed13ef722da9002f4a100e19e5d4897b",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 31,
+      "page_end": 32,
+      "section_path": [
+        "8 过程FMECA",
+        "8.3 工艺FMECA步骤的主要内容",
+        "8.3.5 风险优先数（RPN)分析"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B09",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B10",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B11",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B12",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B15",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P032_B01"
+      ],
+      "quote": "风险优先数(RPN)是艺故障模式的严酷度等级(S)、艺故障模式的发概率等级(O)和艺故障模式的被检测难度等级(D)的乘积，即\n\nRPN是对艺潜在故障模式风险等级的评价，它反映了对艺故障模式发的可能性及其后果严重性的综合度量。RPN值越大，即该工艺故障模式的危害性越大。\n\na）工艺故障模式严酷度艺(S)：是指产品加、装配过程中的某个艺故障模式影响的严重程度。其等级的评分准则见表31；\n\nb)工艺故障模式的发生概率等级(O)：是指某个艺故障模式发的可能性。发生概率等级(O)的级别数在艺FMECA范围中是一个相对比较的等级，不代表艺故障模式真实的发概\n\n率。其评分准则见表32;",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P031_B14",
+          "block_type": "table",
+          "page": 31,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p031_b14_table.png",
+          "description": "图片展示了一个四列五行的表格，标题为“表31工艺故障模式的严酷度等级（S）的评分准则”。表格第一列为影响程度分级（灾难的、严重的、中等的、轻度的），第二和第三列分别描述对最终使用者及下道作业的影响，第四列对应列出1至10的评分等级。",
+          "status": "ok"
+        },
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P032_B03",
+          "block_type": "table",
+          "page": 32,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p032_b03_table.png",
+          "description": "图片展示了一个三列表格，标题分别为“工艺故障模式发生的可能性”、“可能的工艺故障模式发生的概率(Po)”和“发生概率等级(O)的评分等级”。表格按可能性从高到低分为很高、高、中等、低、极低五个类别，对应列出了具体的概率数值范围及1至10的评分等级。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 5,
+          "dense_rank": 3,
+          "dense_score": 0.7090417742729187,
+          "bm25_rank": 7,
+          "bm25_score": 14.454445838928223,
+          "fusion_score": 0.030798389007344232
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-6451ae257121",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00111",
+      "content_hash": "66022a5b1e3bddd0912f76e3c106bfc825c5773493af7e6a0f2e038106482b11",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 24,
+      "page_end": 24,
+      "section_path": [
+        "6 软件FMECA(SFMECA)",
+        "6.3 嵌入式软件FMECA的步骤与实施",
+        "6.3.2 嵌入式软件危害性分析"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B09",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B10",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B11",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B12",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B13",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B14",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B15",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B16"
+      ],
+      "quote": "在工程中，推荐采用风险优先数(RPN)法进软件的危害性分析(SCA)。软件风险优先数SRPN 按公式(5）进行计算：\n\n$$SRPN=SESRXSOPRXSDDR $$\n\n式中：\n\nSESR 软件故障模式的严酷度等级\n\nSOPR 软件故障模式的发生概率等级\n\nSDDR-软件故障模式的被检测难度等级\n\n其评分准则分别见表19～表21。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P024_B18",
+          "block_type": "table",
+          "page": 24,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p024_b18_table.png",
+          "description": "图片展示了一个包含三列的表格，表头分别为“软件故障模式影响发生的可能性”、“软件故障模式影响的严重程度”和“评分等级”。表格内容按行对应列出了从10到1的评分等级，详细描述了不同可能性与严重程度组合下的具体定义。",
+          "status": "ok"
+        },
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P025_B04",
+          "block_type": "table",
+          "page": 25,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p025_b04_table.png",
+          "description": "图片展示了一个三列表格，标题分别为“软件故障模式被检测的可能性”、“软件故障被检测的难度概率 $P_D$ 参考范围(每单元)”和“评分等级”。表格列出了从“完全不能确定”到“完全确定”的十个等级，对应不同的 $P_D$ 数值区间及1至10的评分。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 6,
+          "dense_rank": 4,
+          "dense_score": 0.7032508077174919,
+          "bm25_rank": 6,
+          "bm25_score": 15.423771858215332,
+          "fusion_score": 0.030776515151515152
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-603ab275bd72",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00090",
+      "content_hash": "3c752e76cbf6ff438f5d8cfa01cd885454338f322d6ea1c60bc2fa23e7deaf6a",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "5 功能及硬件FMECA",
+        "5.5 功能及硬件危害性分析",
+        "5.5.2 危害性分析常用的方法",
+        "5.5.2.2 危害性矩阵分析方法",
+        "5.5.2.2.4 绘制危害性矩阵图及应用"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B03",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B04",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B05",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B06",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B07"
+      ],
+      "quote": "绘制危害性矩阵图的目的、方法和应用：\n\na）绘制危害性矩阵图的的：比较每个故障模式影响的危害程度，为确定改进措施的先后顺序提供依据。危害性矩阵是在某个特定严酷度级别下，对每个故障模式危害程度或产品危害度的结果进较。危害性矩阵与风险优先数(RPN)样具有风险优先顺序的作。\n\nb)绘制危害性矩阵图的方法：横坐标般按等距离表示严酷度等级；纵坐标为产品危害度Cr或故障模式危害度Cmj或故障模式发生概率等级，详见图8。其做法是：先按Cr或Cmj的值或故障模式发概率等级在纵坐标上查到对应的点，再在横坐标上选取代表其严酷度类别的直线，并在直线上标注产品或故障模式的位置(利用产品或故障模式代码标注)，从而构成产品或故障模式的危害性矩阵图，即在图8上得到各产品或故障模式危害性的分布情况。\n\nc)危害性矩阵图的应：从图8中所标记的故障模式分布点向对线(图中虚线OP)作垂线，以该垂线与对线的交点到原点的距离作为度量故障模式(或产品)危害性的依据，距离越长，其危害性越大，越应尽快采取改进措施。在图8中，因01距离比02距离长，则故障模式M1比故障模式M2的危害性大。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P020_B08",
+          "block_type": "figure",
+          "page": 20,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p020_b08_figure.png",
+          "description": "图8为危害性矩阵图，横坐标表示严酷度类别（I至IV），纵坐标表示产品或故障模式危害度等级（A至E）。图中包含一条从原点O延伸至P的对角虚线OP，并标注了两个故障模式点M1和M2。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "5.5.2 危害性分析常用的方法 风险优先数 RPN 方法",
+          "final_rank": 7,
+          "dense_rank": 10,
+          "dense_score": 0.6545629111192887,
+          "bm25_rank": 5,
+          "bm25_score": 15.839279174804688,
+          "fusion_score": 0.02967032967032967
+        },
+        {
+          "query": "危害性分析常用的方法 5.5.2.1",
+          "final_rank": 8,
+          "dense_rank": 8,
+          "dense_score": 0.6731084585189867,
+          "bm25_rank": 13,
+          "bm25_score": 9.478404998779297,
+          "fusion_score": 0.028404512489927477
+        }
+      ]
+    }
+  ],
+  "worker_packets": [],
+  "evidence_aliases": {},
+  "parent_run_id": null,
+  "attempt": 1,
+  "review_revised": false,
+  "review_verified": true,
+  "requires_human_review": false,
+  "trace_id": "f9ed516aca477576456a095b74713867",
+  "created_at": "2026-08-11T11:58:08.043927Z"
+}
