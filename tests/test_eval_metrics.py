@@ -70,6 +70,47 @@ class RuntimeMetricsTest(unittest.TestCase):
         self.assertEqual(metrics.search_count(), 1)
         self.assertEqual(metrics.search_latencies_ms(), [300.0])
 
+    def test_phase_summary_groups_by_phase_and_computes_cost(self):
+        metrics = RuntimeMetrics()
+        metrics.record_model_call(
+            model="m", prompt_tokens=1_000_000, completion_tokens=0,
+            latency_ms=100.0, ok=True, phase="router",
+        )
+        metrics.record_model_call(
+            model="m", prompt_tokens=0, completion_tokens=500_000,
+            latency_ms=200.0, ok=True, phase="worker",
+        )
+        metrics.record_model_call(
+            model="m", prompt_tokens=1_000, completion_tokens=0,
+            latency_ms=10.0, ok=True,
+        )
+        summary = metrics.phase_summary(pricing={"m": {"input": 1.0, "output": 2.0}})
+        self.assertEqual(summary["router"]["model_calls"], 1)
+        self.assertEqual(summary["router"]["cost_usd"], 1.0)
+        self.assertEqual(summary["worker"]["cost_usd"], 1.0)
+        self.assertEqual(summary["worker"]["total_latency_ms"], 200.0)
+        self.assertEqual(summary["unknown"]["model_calls"], 1)
+
+    def test_phase_summary_cost_none_for_unknown_model(self):
+        metrics = RuntimeMetrics()
+        metrics.record_model_call(
+            model="mystery", prompt_tokens=100, completion_tokens=0,
+            latency_ms=1.0, ok=True, phase="router",
+        )
+        summary = metrics.phase_summary(pricing={"m": {"input": 1, "output": 2}})
+        self.assertIsNone(summary["router"]["cost_usd"])
+        self.assertEqual(summary["router"]["failed"], 0)
+
+    def test_phase_summary_tracks_failures_and_empty(self):
+        metrics = RuntimeMetrics()
+        self.assertEqual(metrics.phase_summary(), {})
+        metrics.record_model_call(
+            model="m", prompt_tokens=0, completion_tokens=0,
+            latency_ms=None, ok=False, phase="worker", error_hint="boom",
+        )
+        summary = metrics.phase_summary(pricing={"m": {"input": 1, "output": 2}})
+        self.assertEqual(summary["worker"]["failed"], 1)
+
 
 class EvalCallbackHandlerTest(unittest.TestCase):
     def test_llm_end_records_usage_and_latency(self):
@@ -115,6 +156,22 @@ class EvalCallbackHandlerTest(unittest.TestCase):
         summary = metrics.tool_calls_summary()
         self.assertEqual(summary["by_tool"]["submit_chapter"]["failed"], 1)
         self.assertIn("RuntimeError: bad", summary["failures"][0]["reason"])
+
+    def test_llm_end_records_phase_from_config_tags(self):
+        metrics = RuntimeMetrics()
+        handler = EvalCallbackHandler(metrics)
+
+        class _Response:
+            llm_output = {}
+
+        handler.on_llm_start(
+            {}, [], run_id="r",
+            invocation_params={"model": "m"}, tags=["x", "phase:worker"],
+        )
+        handler.on_llm_end(_Response(), run_id="r")
+        phases = metrics.phase_summary(pricing={"m": {"input": 1.0, "output": 2.0}})
+        self.assertEqual(phases["worker"]["model_calls"], 1)
+        self.assertNotIn("unknown", phases)
 
 
 if __name__ == "__main__":

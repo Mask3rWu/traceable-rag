@@ -115,8 +115,12 @@ class RunManager:
         route_guard: Callable[[str], bool] | None = None
         if managed.expected_route == "fast":
             route_guard = lambda mode: mode == "fast"
+        elif managed.expected_route == "supervisor":
+            route_guard = lambda mode: mode == "supervisor"
         try:
             agent = self.agent_factory()
+            if hasattr(agent, "attach_metrics"):
+                agent.attach_metrics(metrics)
             if agent.langfuse is not None:
                 managed.trace_id = agent.langfuse.create_trace_id(seed=managed.run_id)
             callback = AgentEventCallback(

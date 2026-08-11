@@ -46,7 +46,7 @@ from src.research.eval_metrics import RuntimeMetrics  # noqa: E402
 EVAL_ROOT = PROJECT_ROOT / "eval" / "runtime"
 DEFAULT_QUESTIONS = EVAL_ROOT / "questions.yaml"
 DEFAULT_PRICING = EVAL_ROOT / "pricing.yaml"
-SCHEMA_VERSION = "runtime-eval-v1"
+SCHEMA_VERSION = "runtime-eval-v2"
 REQUIRED_FIELDS = ("id", "category", "expected_route", "question", "expected")
 VALID_CATEGORIES = ("direct", "borrow", "unrelated")
 TERMINAL_STATUSES = {"completed", "incomplete", "failed", "cancelled", "routed_away"}
@@ -204,6 +204,45 @@ def compute_retrieval(result: dict | None, metrics: RuntimeMetrics) -> dict:
     }
 
 
+def compute_delivery(result: dict | None) -> dict:
+    """Derive deliverable-coverage counters from the persisted AgentRun.
+
+    Purely structural: no content judgement and no reliance on model-authored
+    audit fields. Counts the plan/execution/assembly coverage so the numbers
+    survive claim/decision/evidence field refactors.
+    """
+    if result is None:
+        return {
+            "planned_chapters": None,
+            "executed_packets": 0,
+            "packet_sufficient": 0,
+            "packet_insufficient": 0,
+            "packet_failed": 0,
+            "packet_blocked": 0,
+            "assembled": False,
+            "answer_chars": 0,
+            "answer_evidence": 0,
+        }
+    chapters = (result.get("document_plan") or {}).get("chapters") or []
+    packets = result.get("worker_packets") or []
+    statuses: dict[str, int] = {}
+    for packet in packets:
+        status = packet.get("status") or "unknown"
+        statuses[status] = statuses.get(status, 0) + 1
+    answer = result.get("answer") or {}
+    return {
+        "planned_chapters": len(chapters) or None,
+        "executed_packets": len(packets),
+        "packet_sufficient": statuses.get("sufficient", 0),
+        "packet_insufficient": statuses.get("insufficient", 0),
+        "packet_failed": statuses.get("failed", 0),
+        "packet_blocked": statuses.get("blocked", 0),
+        "assembled": bool(answer.get("content")),
+        "answer_chars": len(answer.get("content") or ""),
+        "answer_evidence": len(answer.get("evidence_ids") or []),
+    }
+
+
 def run_one(
     base_url: str,
     question: dict,
@@ -227,6 +266,11 @@ def run_one(
         }
     else:
         route = {"mode": detail.get("route"), "reason": detail.get("route_reason")}
+    expected = question.get("expected_route")
+    route_matched = route["mode"] == expected if route["mode"] is not None else None
+    tool_calls = metrics.tool_calls_summary()
+    schema = model_calls["schema_validation"]
+    schema_failures = schema.get("failures") or []
     item = {
         "question": {
             "id": qid,
@@ -236,10 +280,25 @@ def run_one(
         },
         "run_id": run_id,
         "outcome": detail.get("status"),
+        "error": detail.get("error"),
+        "ended_at": detail.get("updated_at"),
         "route": route,
+        "route_matched": route_matched,
         "retrieval": retrieval,
+        "delivery": compute_delivery(result),
         "model_calls": model_calls,
-        "tool_calls": metrics.tool_calls_summary(),
+        "tool_calls": tool_calls,
+        "steps_retries": {
+            "model_calls": model_calls["count"],
+            "tool_calls": tool_calls["count"],
+            "submit_retries": sum(
+                1 for failure in schema_failures if failure["stage"].startswith("submit")
+            ),
+            "plan_retries": sum(
+                1 for failure in schema_failures if failure["stage"] == "plan"
+            ),
+        },
+        "phase_cost": metrics.phase_summary(pricing),
         "elapsed_s": round(elapsed, 2),
     }
     _write_json(batch_dir / f"{qid}.json", item)
@@ -292,6 +351,19 @@ def _gather_summary(results: list[dict]) -> dict:
         "evidence_cited": 0,
     }
     costs = []
+    phases: dict[str, dict] = {}
+    delivery: dict[str, int] = {
+        "questions": 0,
+        "planned_chapters": 0,
+        "executed_packets": 0,
+        "packet_sufficient": 0,
+        "packet_insufficient": 0,
+        "packet_failed": 0,
+        "packet_blocked": 0,
+        "assembled": 0,
+        "answer_chars": 0,
+        "answer_evidence": 0,
+    }
     for result in results:
         model_calls = result["model_calls"]
         model_count += model_calls["count"]
@@ -307,6 +379,53 @@ def _gather_summary(results: list[dict]) -> dict:
         retrieval["evidence_total"] += r["evidence_total"]
         retrieval["evidence_unique"] += r["evidence_unique"]
         retrieval["evidence_cited"] += r["evidence_cited"]
+        for phase, stats in (result.get("phase_cost") or {}).items():
+            bucket = phases.setdefault(
+                phase,
+                {
+                    "questions": 0,
+                    "model_calls": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "cost_usd": 0.0,
+                    "has_cost": True,
+                    "total_latency_ms": 0.0,
+                    "failed": 0,
+                },
+            )
+            bucket["questions"] += 1
+            bucket["model_calls"] += stats["model_calls"]
+            bucket["prompt_tokens"] += stats["prompt_tokens"]
+            bucket["completion_tokens"] += stats["completion_tokens"]
+            bucket["total_latency_ms"] += stats["total_latency_ms"]
+            bucket["failed"] += stats["failed"]
+            if stats["cost_usd"] is None:
+                bucket["has_cost"] = False
+            else:
+                bucket["cost_usd"] += stats["cost_usd"]
+        d = result["delivery"]
+        delivery["questions"] += 1
+        delivery["planned_chapters"] += d["planned_chapters"] or 0
+        delivery["executed_packets"] += d["executed_packets"]
+        delivery["packet_sufficient"] += d["packet_sufficient"]
+        delivery["packet_insufficient"] += d["packet_insufficient"]
+        delivery["packet_failed"] += d["packet_failed"]
+        delivery["packet_blocked"] += d["packet_blocked"]
+        delivery["assembled"] += 1 if d["assembled"] else 0
+        delivery["answer_chars"] += d["answer_chars"]
+        delivery["answer_evidence"] += d["answer_evidence"]
+    phase_cost = {
+        phase: {
+            "questions": bucket["questions"],
+            "model_calls": bucket["model_calls"],
+            "prompt_tokens": bucket["prompt_tokens"],
+            "completion_tokens": bucket["completion_tokens"],
+            "cost_usd": round(bucket["cost_usd"], 6) if bucket["has_cost"] else None,
+            "total_latency_ms": round(bucket["total_latency_ms"], 1),
+            "failed": bucket["failed"],
+        }
+        for phase, bucket in phases.items()
+    }
     return {
         "model_calls": {
             "count": model_count,
@@ -321,6 +440,8 @@ def _gather_summary(results: list[dict]) -> dict:
         },
         "tool_calls": _gather_tool_stats(results),
         "retrieval": retrieval,
+        "delivery": delivery,
+        "phase_cost": phase_cost,
     }
 
 
@@ -343,8 +464,8 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
         "",
         "## 逐题结果",
         "",
-        "| 题 | 类 | outcome | 耗时(s) | 模型次数 | 成本($) | 工具次数 | 检索次数 | 去重引用 |",
-        "|---|---|---|---|---:|---:|---:|---:|---:|",
+        "| 题 | 类 | 路由匹配 | outcome | 耗时(s) | 模型次数 | 成本($) | 工具次数 | 检索次数 | 去重引用 |",
+        "|---|---|---|---|---:|---:|---:|---:|---:|---:|",
     ]
     for result in sorted(results, key=lambda item: item["question"]["sequence"]):
         q = result["question"]
@@ -352,17 +473,34 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
         tc = result["tool_calls"]
         r = result["retrieval"]
         cost = f"{mc['total_cost_usd']:.4f}" if mc["total_cost_usd"] is not None else "—"
+        route = result.get("route") or {}
+        expected = q.get("expected_route") or "—"
+        actual = route.get("mode") or "—"
+        matched = (
+            "✓" if result.get("route_matched") else "✗" if result["route_matched"] is False else "—"
+        )
         lines.append(
-            f"| #{q['sequence']} {q['id']} | {q['category']} | {result['outcome']} "
+            f"| #{q['sequence']} {q['id']} | {q['category']} | "
+            f"{expected}/{actual} {matched} | {result['outcome']} "
             f"| {result['elapsed_s']} | {mc['count']} | {cost} | {tc['count']} "
             f"| {r['search_count']} | {r['evidence_cited']} |"
         )
     agg = summary["aggregate"]
+    by_outcome = summary.get("by_outcome") or {}
     lines += [
         "",
         "## 汇总",
         "",
-        f"- 完成: {summary['completed']} / {summary['total']}，失败: {summary['failed']}",
+        "- 状态分布: " + ", ".join(
+            f"{label} {by_outcome.get(status, 0)}"
+            for status, label in (
+                ("completed", "completed"),
+                ("incomplete", "incomplete"),
+                ("failed", "failed"),
+                ("routed_away", "routed_away"),
+                ("cancelled", "cancelled"),
+            )
+        ),
         f"- 模型调用: {agg['model_calls']['count']} 次，成本 "
         + (
             f"${agg['model_calls']['total_cost_usd']:.4f}"
@@ -382,17 +520,51 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
         f"去重前 {agg['retrieval']['evidence_total']}，去重后 {agg['retrieval']['evidence_unique']}，"
         f"实际引用 {agg['retrieval']['evidence_cited']}",
     ]
+    delivery = agg["delivery"]
+    if delivery["questions"]:
+        lines.append(
+            f"- 交付覆盖: 规划章节 {delivery['planned_chapters']}，执行 packet "
+            f"{delivery['executed_packets']}（sufficient {delivery['packet_sufficient']} / "
+            f"insufficient {delivery['packet_insufficient']} / failed "
+            f"{delivery['packet_failed']} / blocked {delivery['packet_blocked']}），"
+            f"已组装 {delivery['assembled']}/{delivery['questions']} 题"
+        )
     routed = [
         r for r in results if r["outcome"] == "routed_away"
     ]
     if routed:
-        lines += ["", "## 路由守卫中断（fast 被误判为多 agent）"]
+        lines += ["", "## 路由守卫中断（误判时立即中断）"]
         for result in routed:
-            route = result["route"] or {}
+            route = result.get("route") or {}
             lines.append(
                 f"- #{result['question']['sequence']} {result['question']['id']}: "
                 f"router 决策 mode={route.get('mode')!r}，reason="
                 f"{route.get('reason')!r}"
+            )
+    failed = [r for r in results if r["outcome"] == "failed"]
+    if failed:
+        lines += ["", "## 失败明细"]
+        for result in failed:
+            lines.append(
+                f"- #{result['question']['sequence']} {result['question']['id']}: "
+                f"{(result.get('error') or 'no error captured')} "
+                f"（{result['elapsed_s']}s）"
+            )
+    phases = agg["phase_cost"]
+    if phases:
+        lines += ["", "## 阶段成本归因（全批次汇总）", ""]
+        lines.append(
+            "| 阶段 | 参与题数 | 模型调用 | prompt(tok) | completion(tok) | 成本($) | 总耗时(s) | 失败 |"
+        )
+        lines.append(
+            "|---|---|---:|---:|---:|---:|---:|---:|"
+        )
+        for phase, stats in phases.items():
+            cost = f"{stats['cost_usd']:.4f}" if stats["cost_usd"] is not None else "—"
+            lines.append(
+                f"| {phase} | {stats['questions']} | {stats['model_calls']} "
+                f"| {stats['prompt_tokens']} | {stats['completion_tokens']} "
+                f"| {cost} | {stats['total_latency_ms']} | {stats['failed']} |"
             )
     (batch_dir / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -517,10 +689,10 @@ def main() -> int:
         "created_at": _utc_iso(),
         "question_set": manifest["question_set"],
         "total": len(results),
-        "completed": sum(
-            1 for item in results if item["outcome"] != "failed"
-        ),
-        "failed": sum(1 for item in results if item["outcome"] == "failed"),
+        "by_outcome": {
+            status: sum(1 for item in results if item["outcome"] == status)
+            for status in ("completed", "incomplete", "failed", "cancelled", "routed_away")
+        },
         "aggregate": _gather_summary(results),
     }
     _write_json(batch_dir / "summary.json", summary)

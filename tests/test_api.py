@@ -138,6 +138,90 @@ class ApiTest(unittest.TestCase):
                 self.assertEqual(events.status_code, 200)
                 self.assertIn("event: routed_away", events.text)
 
+    def test_supervisor_expected_route_routed_away_exposes_reason(self):
+        class _GuardAgent:
+            langfuse = None
+
+            def __init__(self, store):
+                self.store = store
+
+            def run(
+                self,
+                request,
+                *,
+                run_id=None,
+                trace_id=None,
+                callbacks=None,
+                cancel_check=None,
+                route_guard=None,
+            ):
+                raise RoutePolicyError(
+                    mode="fast", reason="focused single-question request"
+                )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = AgentRunStore(Path(tmp))
+            manager = RunManager(
+                store=store,
+                agent_factory=lambda: _GuardAgent(store),
+                max_concurrent_runs=1,
+            )
+            with TestClient(create_app(manager)) as client:
+                created = client.post(
+                    "/api/runs", json={"request": "多章节报告", "expected_route": "supervisor"}
+                )
+                self.assertEqual(created.status_code, 202)
+                run_id = created.json()["run_id"]
+
+                deadline = time.monotonic() + 3
+                detail = None
+                while time.monotonic() < deadline:
+                    detail = client.get(f"/api/runs/{run_id}").json()
+                    if detail["status"] in {"routed_away", "failed"}:
+                        break
+                    time.sleep(0.01)
+
+                self.assertIsNotNone(detail)
+                self.assertEqual(detail["status"], "routed_away")
+                self.assertEqual(detail["route"], "fast")
+                self.assertEqual(detail["route_reason"], "focused single-question request")
+                self.assertIn("router: focused single-question request", detail["error"])
+
+    def test_metrics_are_wired_into_agent_runtime_hooks(self):
+        captured = {}
+
+        class _MetricAgent(_FakeAgent):
+            def attach_metrics(self, metrics):
+                captured["metrics"] = metrics
+
+            def run(self, request, *, run_id=None, trace_id=None, callbacks=None):
+                captured["metrics"].record_schema_validation(stage="plan", ok=True)
+                return super().run(request, run_id=run_id, trace_id=trace_id, callbacks=callbacks)
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = AgentRunStore(Path(tmp))
+            manager = RunManager(
+                store=store,
+                agent_factory=lambda: _MetricAgent(store),
+                max_concurrent_runs=1,
+            )
+            with TestClient(create_app(manager)) as client:
+                created = client.post("/api/runs", json={"request": "测试问题"})
+                run_id = created.json()["run_id"]
+
+                deadline = time.monotonic() + 3
+                detail = None
+                while time.monotonic() < deadline:
+                    detail = client.get(f"/api/runs/{run_id}").json()
+                    if detail["status"] == "completed":
+                        break
+                    time.sleep(0.01)
+
+                self.assertEqual(detail["status"], "completed")
+                self.assertEqual(
+                    detail["metrics"]["schema"], [{"stage": "plan", "ok": True, "reason": None}]
+                )
+
     def test_success_persists_metrics_sidecar(self):
         with tempfile.TemporaryDirectory() as tmp:
             store = AgentRunStore(Path(tmp))

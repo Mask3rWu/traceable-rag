@@ -61,6 +61,7 @@ class RuntimeMetrics:
         completion_tokens: int,
         latency_ms: float | None,
         ok: bool,
+        phase: str | None = None,
         error_hint: str | None = None,
     ) -> None:
         with self._lock:
@@ -71,6 +72,7 @@ class RuntimeMetrics:
                     "completion_tokens": completion_tokens,
                     "latency_ms": latency_ms,
                     "ok": ok,
+                    "phase": phase,
                     "error_hint": error_hint,
                 }
             )
@@ -138,6 +140,63 @@ class RuntimeMetrics:
                 for c in calls
                 if not c["ok"] and c["error_hint"]
             ],
+        }
+
+    def phase_summary(self, pricing: dict[str, dict] | None = None) -> dict:
+        """Aggregate model-call metrics per processing phase.
+
+        ``phase`` is recorded from a ``phase:<name>`` tag on the invoking
+        LangChain config (see ``AgentRuntime._phase_config``), so attribution is
+        independent of Langfuse/span naming and survives agent framework
+        changes as long as config tags propagate. Unknown/unlabelled calls are
+        grouped under ``"unknown"`` with the same schema so summary cells stay
+        stable.
+        """
+        pricing = pricing or {}
+        with self._lock:
+            calls = list(self._model_calls)
+        if not calls:
+            return {}
+        buckets: dict[str, dict[str, Any]] = {}
+        for call in calls:
+            phase = call.get("phase") or "unknown"
+            bucket = buckets.setdefault(
+                phase,
+                {
+                    "model_calls": 0,
+                    "prompt_tokens": 0,
+                    "completion_tokens": 0,
+                    "cost_usd": 0.0,
+                    "has_cost": True,
+                    "total_latency_ms": 0.0,
+                    "failed": 0,
+                },
+            )
+            bucket["model_calls"] += 1
+            bucket["prompt_tokens"] += call["prompt_tokens"]
+            bucket["completion_tokens"] += call["completion_tokens"]
+            if call["latency_ms"] is not None:
+                bucket["total_latency_ms"] += call["latency_ms"]
+            if not call["ok"]:
+                bucket["failed"] += 1
+            price = pricing.get(call["model"] or "")
+            if price is None:
+                bucket["has_cost"] = False
+            else:
+                bucket["cost_usd"] += (
+                    call["prompt_tokens"] * price["input"]
+                    + call["completion_tokens"] * price["output"]
+                ) / 1_000_000
+        return {
+            phase: {
+                "model_calls": bucket["model_calls"],
+                "prompt_tokens": bucket["prompt_tokens"],
+                "completion_tokens": bucket["completion_tokens"],
+                "cost_usd": round(bucket["cost_usd"], 6) if bucket["has_cost"] else None,
+                "total_latency_ms": round(bucket["total_latency_ms"], 1),
+                "failed": bucket["failed"],
+            }
+            for phase, bucket in buckets.items()
         }
 
     def tool_calls_summary(self) -> dict:
@@ -238,8 +297,16 @@ class EvalCallbackHandler(BaseCallbackHandler):
     def __init__(self, metrics: RuntimeMetrics) -> None:
         super().__init__()
         self.metrics = metrics
-        self._llm_start: dict[str, tuple[str | None, float]] = {}
+        self._llm_start: dict[str, tuple[str | None, float, str | None]] = {}
         self._tool_start: dict[str, tuple[str | None, float]] = {}
+
+    @staticmethod
+    def _phase_from_kwargs(kwargs: dict) -> str | None:
+        for tag in kwargs.get("tags") or []:
+            text = str(tag)
+            if text.startswith("phase:"):
+                return text[len("phase:"):] or None
+        return None
 
     @staticmethod
     def _model_name(serialized: dict, kwargs: dict) -> str | None:
@@ -265,13 +332,16 @@ class EvalCallbackHandler(BaseCallbackHandler):
         self._llm_start[run_id] = (
             self._model_name(serialized, kwargs),
             time.perf_counter(),
+            self._phase_from_kwargs(kwargs),
         )
 
     def on_llm_end(self, response, *, run_id, **kwargs) -> None:
         start = self._llm_start.pop(run_id, None)
         latency_ms = None
+        phase = None
         if start is not None:
             latency_ms = (time.perf_counter() - start[1]) * 1000
+            phase = start[2]
         usage = {}
         llm_output = getattr(response, "llm_output", None) or {}
         if isinstance(llm_output, dict):
@@ -282,19 +352,23 @@ class EvalCallbackHandler(BaseCallbackHandler):
             completion_tokens=usage.get("completion_tokens", 0),
             latency_ms=latency_ms,
             ok=True,
+            phase=phase,
         )
 
     def on_llm_error(self, error, *, run_id, **kwargs) -> None:
         start = self._llm_start.pop(run_id, None)
         latency_ms = None
+        phase = None
         if start is not None:
             latency_ms = (time.perf_counter() - start[1]) * 1000
+            phase = start[2]
         self.metrics.record_model_call(
             model=start[0] if start else None,
             prompt_tokens=0,
             completion_tokens=0,
             latency_ms=latency_ms,
             ok=False,
+            phase=phase,
             error_hint=f"{type(error).__name__}: {error}",
         )
 

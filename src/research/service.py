@@ -27,6 +27,10 @@ class RoutedResearchAgent:
     config: ResearchModelConfig
     langfuse: Langfuse | None = None
 
+    def attach_metrics(self, metrics: RuntimeMetrics | None) -> None:
+        """Wire a per-run :class:`RuntimeMetrics` into the runtime's schema hooks."""
+        self.runtime.attach_metrics(metrics)
+
     def run(
         self,
         request: str,

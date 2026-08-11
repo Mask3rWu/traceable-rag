@@ -128,20 +128,21 @@ using known chapter IDs. Return a JSON object matching the supplied schema."""
 class RoutePolicyError(RuntimeError):
     """Raised when a run's routing decision violates the caller's route policy.
 
-    Used by the eval harness to interrupt a "fast" task that the router decided
-    should run as a multi-agent (supervisor) task, so the expensive supervisor
-    subgraph never executes. The runner maps this to a dedicated outcome.
+    Used by the eval harness to interrupt a task that the router decided should
+    run under a different mode than the caller required, so the expensive
+    subgraph is never executed. The eval runner maps this to a dedicated
+    outcome.
 
     Carries the router's actual decision (``mode`` + ``reason``) so the caller
-    can report *why* the fast task was misrouted rather than only that it was.
+    can report *why* the task was misrouted rather than only that it was.
     """
 
     def __init__(self, mode: str, reason: str | None = None) -> None:
         self.mode = mode
         self.reason = reason
         super().__init__(
-            f"routed to {mode!r} but route policy requires fast; "
-            "interrupting before supervisor subgraph"
+            f"routed to {mode!r} which violates the caller's route policy; "
+            "interrupting before the subgraph"
             + (f" (router: {reason})" if reason else "")
         )
 
@@ -221,6 +222,32 @@ class AgentRuntime:
         self._fast_aliases = EvidenceAliasRegistry()
         self._fast_graph = self._build_fast_graph(self._fast_aliases)
         self.graph = self._build_root_graph()
+
+    def attach_metrics(self, metrics: "RuntimeMetrics | None") -> None:
+        """Attach a metrics collector after construction.
+
+        The eval runner creates one :class:`RuntimeMetrics` per run and wires it
+        into the graph's schema-validation hooks after the graphs are built, so
+        the harness never needs to know the runtime's constructor signature.
+        """
+        self._metrics = metrics
+
+    @staticmethod
+    def _phase_config(config: RunnableConfig, phase: str) -> RunnableConfig:
+        """Return ``config`` carrying a single ``phase:<name>`` tag.
+
+        LangChain propagates config tags to nested LLM runs, so the
+        :class:`EvalCallbackHandler` can attribute every model call to the phase
+        that produced it. Any previous phase tag is replaced so a nested invoke
+        (e.g. worker follow-up runs triggered from the review node) is never
+        mislabelled.
+        """
+        config = dict(config or {})
+        tags = list(config.get("tags") or [])
+        tags = [tag for tag in tags if not str(tag).startswith("phase:")]
+        tags.append(f"phase:{phase}")
+        config["tags"] = tags
+        return config
 
     @property
     def packets(self) -> list[ResearchPacket]:
@@ -899,6 +926,7 @@ class AgentRuntime:
     ) -> list[ResearchPacket]:
         if self._cancel_check():
             raise RuntimeError("Research run was cancelled")
+        config = self._phase_config(config, "worker")
         remaining = {item.chapter_id: item for item in plan.chapters}
         completed: dict[str, ResearchPacket] = {
             item.chapter_id: item for item in (initial_packets or [])
@@ -1240,7 +1268,7 @@ class AgentRuntime:
                     SystemMessage(content=ROUTER_PROMPT),
                     HumanMessage(content=state["request"]),
                 ],
-                config=config,
+                config=self._phase_config(config, "router"),
             )
             return {"route": decision.model_dump(mode="json")}
 
@@ -1258,7 +1286,7 @@ class AgentRuntime:
             result = self._fast_graph.invoke(
                 {"messages": [HumanMessage(content=state["request"])], "steps": 0},
                 {
-                    **config,
+                    **self._phase_config(config, "fast"),
                     "run_name": "fast-react-agent",
                     "recursion_limit": self.fast_max_steps * 2 + 4,
                 },
@@ -1279,7 +1307,9 @@ class AgentRuntime:
             last_error: Exception | None = None
             for _ in range(2):
                 try:
-                    plan = planner.invoke(messages, config=config)
+                    plan = planner.invoke(
+                        messages, config=self._phase_config(config, "planner")
+                    )
                     self._validate_plan(plan)
                     if self._metrics is not None:
                         self._metrics.record_schema_validation(
@@ -1332,7 +1362,7 @@ class AgentRuntime:
                         )
                     ),
                 ],
-                config=config,
+                config=self._phase_config(config, "review"),
             )
             known_chapters = {item.chapter_id for item in plan.chapters}
             for issue in report.issues:
@@ -1526,7 +1556,7 @@ class AgentRuntime:
                             )
                         ),
                     ],
-                    config=runnable_config,
+                    config=self._phase_config(runnable_config, "review"),
                 )
                 known_chapters = {item.chapter_id for item in plan.chapters}
                 issues.extend(
