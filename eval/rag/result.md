@@ -7,7 +7,7 @@
 
 ### 实验条件
 
-- 数据：47 篇文档、3779 个 chunk、`eval/v1` 全部 2083 道问题；
+- 数据：47 篇文档、3779 个 chunk、`eval/rag/v1` 全部 2083 道问题；
 - Dense：`BAAI/bge-m3`，1024 维，pgvector cosine HNSW；
 - BM25：Jieba 搜索模式分词，索引文档名、标题路径和正文；
 - RRF：Dense/BM25 各召回 50 条，等权融合，`rank_constant=60`；
@@ -48,7 +48,7 @@
 
 ### 实验条件
 
-- 数据：47 篇文档、3779 个 chunk、`eval/v2` 全部 2083 道问题；
+- 数据：47 篇文档、3779 个 chunk、`eval/rag/v2` 全部 2083 道问题；
 - 检索配置与 v1 基线一致：`BAAI/bge-m3` Dense、中文 BM25、Dense/BM25
   各召回 50 条后进行等权 RRF，`rank_constant=60`；
 - v2 包含 1941 道单证据题和 142 道多证据题，其中 136 道标为
@@ -114,5 +114,5 @@ BM25 的证据召回与完整召回更高。
    `hard_negative` 仍全部标为可回答且带有 gold evidence，因此本次只能评价其正例
    召回，不能评价无答案识别或拒答能力。
 
-完整机器可读结果保存在 `eval/v2-evaluation.json`，包含端到端、仅可覆盖题以及分题型
+完整机器可读结果保存在 `eval/rag/v2-evaluation.json`，包含端到端、仅可覆盖题以及分题型
 三组指标。

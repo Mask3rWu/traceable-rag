@@ -17,7 +17,7 @@ from src.retrieval.dense import DenseRetriever
 from src.retrieval.fusion import reciprocal_rank_fusion
 
 
-DEFAULT_EVAL_ROOT = PROJECT_ROOT / "eval" / "v1"
+DEFAULT_EVAL_ROOT = PROJECT_ROOT / "eval" / "rag" / "v1"
 
 
 @dataclass(frozen=True)

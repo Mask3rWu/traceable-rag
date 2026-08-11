@@ -47,7 +47,7 @@ conda run -n dba-py311 python scripts/evaluate_retrieval.py `
 
 ### 当前基线
 
-在 3779 个 chunk、`eval/v1` 全部 2083 题上，候选数为 50、RRF 等权且
+在 3779 个 chunk、`eval/rag/v1` 全部 2083 题上，候选数为 50、RRF 等权且
 `rank_constant=60` 时：
 
 | 方法 | Evidence Recall@10 | Evidence Recall@50 | MRR@10 |
