@@ -1,0 +1,557 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q7",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3739,
+    "answer_truncated": true,
+    "evidence_tokens": 3339,
+    "evidence_included": 36,
+    "evidence_omitted": 43
+  },
+  "question": {
+    "id": "q7",
+    "category": "direct",
+    "expected_route": "supervisor",
+    "question": "输出一份舰艇在核爆环境中毁伤等级划分的评估要点报告，说明各毁伤等级的定义、判定依据与适用场景。",
+    "expected": "直接基于 核爆环境中舰艇毁伤等级的划分 等标准，多章节输出，明确等级边界与判定依据，可回查原文。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 1972.75,
+    "model_calls_count": 100,
+    "consistency_issues": [
+      {
+        "issue_id": "open-conflict:conflict_overpressure_anchor",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch4_physical_criteria"
+        ],
+        "description": "50kPa轻微破坏超压锚点来自地面武器系统核破坏标准，直接外推至水面舰艇船体判据存在量级不确定性；本表将其标为待标定设计值，并以查表法作并行判据。",
+        "recommendation": "在定稿前审查未解决的来源冲突。"
+      },
+      {
+        "issue_id": "issue-001",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch2_scenarios"
+        ],
+        "description": "ch1 C5 lists X射线 as one of the nuclear weapon threat mechanisms, but the normative controlled vocabulary in ch1 decision_terminology defines the environment effects as exactly six items, and ch2 C1 likewise defines the nuclear environment as six effects (核爆冲击波、热辐射、光辐射、核电磁脉冲、早期核辐射、放射性污染). X射线 is therefore simultaneously included in one foundational claim and omitted from the normative effect taxonomy and scenario effect lists.",
+        "recommendation": "Align ch1 C5 with the controlled vocabulary and ch2 scenario effect descriptions: either add X射线 to the normative environment-effects taxonomy and to the relevant scenario effect combinations, or explicitly state that X射线 is not a dominant/assessed effect for sea-level air and surface bursts and exclude it consistently."
+      },
+      {
+        "issue_id": "issue-002",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch5_operational_criteria"
+        ],
+        "description": "ch5 decision_operational_criteria establishes exactly five capability dimensions: 机动、打击、探测、指挥、生存. However, ch5 decision_ship_type_weights introduces a row for 辅助舰型 and uses a dimension named 任务保障 in that row. 任务保障 is not one of the five defined dimensions, so the weight table is not syntactically aligned with the normative dimension taxonomy; ch1's platform taxonomy also only distinguishes large/medium surface ships without defining 辅助舰型 as a category.",
+        "recommendation": "Map the 辅助舰型 weight row back to the five defined dimensions, e.g., replace 任务保障 with a defined dimension or add an explicit mapping/transformation rule; if 辅助舰型 is intended as a category, add it to the controlled vocabulary with a clear definition."
+      },
+      {
+        "issue_id": "issue-003",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch3_damage_levels",
+          "ch5_operational_criteria",
+          "ch6_integrated_procedure"
+        ],
+        "description": "ch5 decision_operational_criteria presents a '整舰等级对应规则' based solely on capability-dimension loss levels, e.g., minor damage if all dimensions are no higher than Ⅱ, without explicitly conditionally on the physical bottom-line thresholds from ch3/ch4 (e.g., 船体失去水密性 and 挠度比>10% indicate severe damage). ch6 conflict rules later resolve physical-vs-capability conflicts by taking the higher grade, but ch5's rule is stated as a complete grade mapping, creating an apparent rule conflict across chapters.",
+        "recommendation": "Revise ch5's grade-mapping rule to state that it applies after the ch4 physical-criteria bottom-line screen and that any ch4 severe/terminal condition takes precedence; explicitly cross-reference the ch6 conflict-resolution rule so the two rule sets are read as complementary rather than contradictory."
+      },
+      {
+        "issue_id": "issue-004",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch3_damage_levels",
+          "ch6_integrated_procedure"
+        ],
+        "description": "ch3 defines auxiliary quantitative anchors Y (25/50/75) and P (0.3/0.7) as optional quantitative criteria, and ch6 mentions Y in the context of review-stage quantitative scoring. However, ch6's six-step standard procedure and its decision tables do not specify where Y/P are entered, how they interact with the physical bottom-line and capability-dimension rules, or how they should be reported when they disagree with the qualitative/physical determination.",
+        "recommendation": "Add Y/P auxiliary quantitative checks to the appropriate ch6 decision tables or conflict-resolution rules, specifying when they are used as validation, tie-breakers, or alternative inputs and how their 口径 must be annotated."
+      },
+      {
+        "issue_id": "issue-005",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch4_physical_criteria",
+          "ch6_integrated_procedure"
+        ],
+        "description": "ch4 C10 explicitly states that multi-indicator/multi-effect combination is not handled in ch4 and defers multi-effect superposition to the integrated assessment procedure chapter. ch6 provides only '物理底线＋能力修正' and physical-vs-capability conflict rules; it does not define an aggregation rule for simultaneous physical effects (e.g., shock wave, thermal radiation, early nuclear radiation, EMP) or for combining multiple subsystem physical grades into the physical bottom-line grade.",
+        "recommendation": "Add an explicit aggregation rule in ch6 for simultaneous physical effects and subsystem physical grades, for example: the physical bottom-line is the highest severity among concurrently satisfied physical thresholds, or a defined weighted/damage-tree method; otherwise state this omission as a limitation to be resolved in calibration."
+      },
+      {
+        "issue_id": "issue-006",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch3_damage_levels",
+          "ch5_operational_criteria"
+        ],
+        "description": "ch5 decision_operational_criteria triggers severe damage only when 机动或生存 reaches Ⅳ or three or more dimensions reach Ⅲ. A complete loss (Ⅳ) in a non-mobility/survival capability such as 打击, 探测, or 指挥 does not by itself trigger severe damage under the stated rule, despite the Ⅳ label meaning complete function loss and ch3 treating weapon systems as a key element in whole-ship grading. This creates an unresolved classification gap for single-dimension total loss.",
+        "recommendation": "Clarify whether Ⅳ in any single capability dimension should be sufficient for severe damage, or add an explicit mapping table/rule for high-loss dimensions that are not mobility/survival, and align the rule with ch3's whole-ship grading principles."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 舰艇在核爆环境中的毁伤等级划分评估要点标准\n\n## 基础与术语：范围界定及受控词表\n\n范围：本标准适用于大型、中型水面舰艇在核空爆和水面爆环境中的毁伤等级划分与评估，为抗核加固设计建造、作战使用和核打击后组织抢修提供依据；不适用于潜艇、小型水面舰艇、核水下爆炸毁伤及常规武器毁伤评估。\n\n术语定义：\n- 毁伤等级：核爆炸时在一定范围内对舰艇的毁伤程度。\n- 毁伤等级标准：达到预期毁伤等级时舰艇效能损失应达到的要求。\n- 核环境：核爆炸产生的核爆冲击波、热辐射、光辐射、核电磁脉冲、早期核辐射和放射性污染，在特定时间空间范围内对人员、舰艇结构及设备产生杀伤破坏作用的特殊环境。\n\n受控词表（后续章节一律引用）：\n- 毁伤等级轴：严重毁伤、中等毁伤、轻微毁伤。\n- 爆源类型轴：核空爆、水面爆。\n- 环境效应轴：核爆冲击波、热辐射、光辐射、核电磁脉冲、早期核辐射、放射性污染，共六项；X射线不属于海平面空爆和水面爆场景单独评估的效应，不单列。\n- 平台类别轴：大型水面舰艇、中型水面舰艇。\n- 评估对象层级轴：整舰、分系统（船体结构、动力装置、武器装备、舰用设备）。\n\n分级原则：以船体结构毁伤为基础，动力装置为第一要素、武器装备为第二要素、舰用设备为第三要素；按分系统毁伤等级等效分析；从整舰毁伤特征综合评定生命力与作战使用影响。\n\n等级操作性锚点：严重毁伤——整舰进厂大修；中等毁伤——返回基地修理；轻微毁伤——检测后局部修理。\n\n## 核爆环境与威胁场景分类\n\n核爆威胁场景按爆源类型划分为核空爆、水面爆两类，作为后续各章毁伤判据的环境前缀；场景由爆炸当量、比例爆高与舰艇相对爆心的距离和方位共同确定。\n\n| 场景 | 判定条件 | 毁伤机理组合 | 主要作用区域 | 典型作战情景 |\n| 核空爆 | 火球不接触海面 | 核爆冲击波、热辐射、光辐射、早期核辐射、核电磁脉冲 | 上层建筑、主甲板、桅杆、暴露武器与设备 | 弹头在舰艇上空爆炸 |\n| 水面爆 | 火球接触海面 | 六项环境效应齐备，放射性污染加重、海水夹带 | 全舰，含舷侧与水线以下舱室 | 弹头贴近海面爆炸 |\n\n场景参数：爆炸当量Q、比例爆高h1（爆高除以当量立方根）、距爆心投影点距离Rw、舰艇相对方位；比例爆高有效范围0～200 m/kt^(1/3)。核空爆载荷主要经空气冲击波作用于高位结构与迎爆面；水面爆在空气载荷外叠加水介质压力传递与污染加重。两类场景的分界数值需以实爆或高保真仿真标定。\n\n## 毁伤等级定义与分级框架\n\n毁伤等级：核爆炸时在一定范围内对舰艇的毁伤程度；毁伤等级标准：达到预期毁伤等级时舰艇效能损失应达到的要求。等级以剩余作战能力为内在尺度，功能毁伤为主判定轴、物理毁伤为证据。\n\n分级框架采用五档序数尺度（代码0～4）：毁伤等级命名为轻微毁伤、中等毁伤、严重毁伤三级；完好状态为轻微下限之下的基准档，沉没或失去修复价值为严重毁伤的最高子级，用于闭合评估空间。\n\n| 代码 | 档位 | 语义与边界 |\n|---|---|---|\n| 0 | 完好状态 | 无等级判据所列毁伤特征，无需修理 |\n| 1 | 轻微毁伤 | 部分性能降低或功能丧失，经检测或局部修理后可继续使用；壁板最大永久挠度与短边之比＜5% |\n| 2 | 中等毁伤 | 关键功能明显丧失（如动力进排气量减少50%以上），须返回基地修理；挠度比5%～10% |\n| 3 | 严重毁伤 | 主要功能绝大部分丧失，须进厂大修（主甲板歪斜、上层建筑坍塌、船体失去水密性）；挠度比＞10% |\n| 4 | 沉没或失去修复价值 | 沉没、弃船或恢复成本超过修复价值；归入严重毁伤统计口径 |\n\n等级判定原则：以舰体结构毁伤程度为基础，动力装置为第一要素、武器装备为第二要素、舰用设备为第三要素；先按系统判定等级，经等效分析并结合生命力与作战使用影响综合定级。辅助定量判据：毁伤程度表征量Y（轻微25≤Y＜50、中等50≤Y＜75、严重75≤Y≤100）或全船毁伤概率P（≤0.3、0.3～0.7、＞0.7），与定性特征并用时注明口径。\n\n本框架适用于核空爆与水面爆全部场景，等级语义与边界不随场景改变；场景经效应组合与载荷路径决定达到各等级所需的物理阈值，次生破坏（进水、火灾）纳入判定，水面爆及近距离核空爆以沉没风险触发4档。\n\n## 物理毁伤判据：冲击波、热、辐射效应阈值\n\n物理判据独立按毁伤等级给出阈值区间；多指标联合合成由综合评估程序章规定。适用于大型、中型水面舰艇在核空爆与水面爆环境下的整舰、系统与设备评估；待标定数值经实爆或高保真仿真标定后方可作强制判据。\n\n| 指标 | 轻微毁伤 | 中等毁伤 | 严重毁伤 |\n|---|---|---|---|\n| 核爆冲击波超压（kPa） | ＜50 | 50～100 | ≥100（待标定） |\n| 核爆冲击波动压/比冲量 | 查等超压曲线或核破坏半径表定级 | 同左 | 同左 |\n| 壁板挠度比 | ＜5% | 5%～10% | ＞10%（推断值） |\n| 结构破口/进水 | 壁板破损进水可修 | 局部进水返基地修 | 失去水密性→沉没档 |\n| 动力装置进排气量 | 烟气道内凹 | 减少50%以上 | 进气道大部分堵塞 |\n| 设备（应变/冲击环境） | 个别设备局部变形 | 精密设备失效 | 关键设备大部失效 |\n| 热辐射热通量/热\n… [省略 1477 字符] …\nw）→查表预测→逐系统物理判定→能力维度合成→冲突裁决（取较高等级，沉没或失去修复价值优先）→记录上报。预测参数范围Q=10～10000kt、H1=0～200m/kt^1/3；示例数值为演示设计值，标定后须复算。\n\n判据按对照表选取；核空爆侧重核爆冲击波、热辐射、核电磁脉冲，水面爆污染加重。\n\n| 场景 | 平台类别 | 主判据 | 次生判据 |\n| 核空爆 | 大型水面舰艇 | 挠度比、雷达天线、武器变形 | 火灾、弹药殉爆 |\n| 核空爆 | 中型水面舰艇 | 挠度比、动力进排气量、电子设备 | 冲击振动 |\n| 水面爆 | 大型、中型水面舰艇 | 水密性、舷侧外板、进排气道 | 进水、污染清除 |\n\n大型水面舰艇重点检查上层建筑坍塌、弹药殉爆与机舱进水；中型水面舰艇以动力进排气量与电子设备判据优先。潜艇、小型水面舰艇范围外，另行建判据。\n\n| 示例 | 场景 | 平台类别 | 输入参数 | 结果 | 理由 |\n| 1 | 核空爆 | 中型水面舰艇 | Q=50kt、H1≈120、Rw=1.5km | 轻微毁伤 | R轻1.85＞Rw＞R中1.20；挠度比<5% |\n| 2 | 水面爆 | 大型水面舰艇 | Q=20kt、H1=0、Rw=0.9km | 中等毁伤 | R中0.80＜Rw＜R轻1.25；进水、进排气量减半 |\n| 3 | 核空爆 | 大型水面舰艇 | Q=50kt、H1≈120、Rw=0.7km | 严重毁伤 | Rw＜R严0.95；坍塌、失去水密性 |\n\n历史案例解释：弹药殉爆、火灾、进水连锁致丧失稳性或恢复成本超限，按沉没或失去修复价值优先判定并注明数据口径。示例可复现，记录按报告表填写，待标定数值须标注。\n\n## 验证、限制与质量保证\n\n**验证与置信度。** 验证采用试验、计算与历史案例三源互证：试验数据优先，子样不足时以仿真补充，计算与试验误差不超过20%方可采信，计算结果须经专家确认或审查。以第7章示例回代六步程序。置信度：挠度比与修复锚点为高；六步程序、冲突裁决与等级合成为中；超压分界、热/辐射剂量、舰型权重、时间窗、成本比例为低（待标定），标定前仅参考。\n\n| 验证项 | 验证途径 | 置信度 |\n|---|---|---|\n| 挠度比、修复层级锚点 | 试验与实船检验数据 | 高 |\n| 程序、冲突裁决、等级合成 | 示例回代与演习统计 | 中 |\n| 超压分界、热/辐射剂量、权重、时间窗、成本比例 | 仿真与参考值 | 低（待标定） |\n\n**限制与风险。** 限于大型、中型水面舰艇在核空爆、水面爆环境；小型水面舰艇、潜艇与核水下爆炸不适用。近场效应、多次爆炸与累积损伤、数据缺失或检测条件受限、非标准结构与材料等情形不得直接套用判据，须专家判断并保守升档。半经验公式外推能力有限，引用历史经验注明口径；次生破坏链（殉爆、火灾、进水）触发沉没或失去修复价值时终止档优先。\n\n**质量保证。** 评估人员须经培训考核合格，熟悉评估程序、判据与受控词表；评估机构设训练基地与专项课程，实行岗位责任制。评估结果须内部审查：初始判定由使用单位完成，复核由上级打分；计算类结果须专家确认。建立共享毁伤案例库，登记参数、判据取值、数据口径并回代校验。版本控制标明发布与实施日期与修订记录，引用他源注明版本。\n\n**维护与更新。** 出现下列情形之一应启动修订：新实爆或实船数据与判据偏差超限；待标定数值完成标定；适用范围或平台类别变化；方法误差超限或回代发现系统性偏差。修订经评审审批后发布，更新判据重新验证并回填案例库。",
+      "content_truncated": true,
+      "limitations": [
+        "知识库未检索到“剩余战斗力”作为独立军标术语的定义，权威来源以效能损失、剩余能力、剩余极限承载能力表述等级内涵，本章采用等效表述并列入假设",
+        "大型/中型水面舰艇的分类界限未见数值化定义（如排水量阈值），需装备主管部门确认",
+        "研究文献全船毁伤概率界限（0.3/0.7）原文存在OCR缺字，按上下文复原，需以原文核验后回填精确值",
+        "核空爆/水面爆无独立军标术语条目，仅见适用范围性表述，本章以受控词表固化用法",
+        "核空爆/水面爆的比例爆高数值界限在现有来源中缺失，需以实爆或高保真仿真标定",
+        "水面爆专属效应（放射性污染加重、海水夹带）缺乏来源定量判据，属设计假设",
+        "场景分类表未给出当量-距离-超压数值区间，由第4章物理判据补充",
+        "沉没或失去修复价值的恢复成本量化判据（修复费用相对新建费用比值）未标定",
+        "挠度比＞10%作为严重毁伤边界为外推设计值，缺实爆数据验证",
+        "Y值与P两类定量判据的口径统一换算规则未建立",
+        "完好状态与轻微毁伤下限的定量边界特征判据待细化",
+        "缺乏舰艇专属的核爆超压、热冲量、γ剂量数值标定数据（实爆或高保真仿真），表内数值为设计值并标注待标定",
+        "权威军标未给出水面爆专属数值判据，须按场景标定",
+        "多指标联合作用的合成数值规则属第6章集成程序，本章未给出合成判据",
+        "舰艇核爆后修复时间窗口绝对数值无权威来源，仅作序数约束，待标定",
+        "恢复成本相对新建费用的比例阈值未标定，标定前不作硬性触发",
+        "舰型权重为设计暂定值，须经主管部门按任务剖面标定",
+        "潜艇类型因第1章范围排除，未设权重",
+        "舰艇核爆场景的复核判定加权公式与Y值区间未在舰艇领域标定，沿用同级标准方法学，须按第8章标定",
+        "沉没或失去修复价值的恢复成本比例未标定，裁决规则中以终止档优先方式处理",
+        "舰艇专属核破坏半径数值表缺失，示例查表值须按第8章标定后更新",
+        "水面爆专属物理判据数值（超压、放射性污染强度）未标定，示例2仅用进水、进排气量等定性特征论证",
+        "无实爆或高保真仿真的完整舰艇核爆毁伤数据集可用于示例结果复核",
+        "知识库中缺乏舰艇核爆实爆试验数据集，待标定数值（超压分界、热辐射与早期核辐射剂量、舰型权重、时间窗口、成本比例）的验证依赖未来实爆试验与高保真仿真。",
+        "置信度分级与修订触发阈值未经经验标定，属设计规则，须按验证与维护流程标定。",
+        "ch1 C5 lists X射线 as one of the nuclear weapon threat mechanisms, but the normative controlled vocabulary in ch1 decision_terminology defines the environment effects as exactly six items, and ch2 C1 likewise defines the nuclear environment as six effects (核爆冲击波、热辐射、光辐射、核电磁脉冲、早期核辐射、放射性污染). X射线 is therefore simultaneously included in one foundational claim and omitted from the normative effect taxonomy and scenario effect lists."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-881db9b272cc",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 整舰的毀伤等級",
+          "3.1 等级划分原则"
+        ],
+        "quote": "3.1.1以舰体结构毁伤程度为基础，将动力装置视为第一要素.武器装备视为第二要素，舰用设备视为第三要素。\n\n3.1.2在整舰条\n… [省略 4 字符] …\n分析。\n\n3.1.3从整舰毁伤特征出发，对舰艇生命力和作战使用影响程度进行综合评定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c819d7914557",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 反舰导弹内爆载荷作用下各关键部件的毁伤模式",
+          "3.1 船体结构在内爆作用下的毁伤模式及判据"
+        ],
+        "quote": "须有能力抵抗各种武器的攻击。因此对其剩余极限承载能力的评估要比完整状态下的更为重要。剩余极限承载能力反映了船体结构受损后承\n… [省略 235 字符] …\n，当舱段剩余极限占初始极限的百分比在该阈值以下时，认为补给船失去承载力，补给船沉没。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1b5b542c87f4",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "2 补给船构效关系分析"
+        ],
+        "quote": "本文基于某型补给油船和调研得到的补给船的主要特点，选定补给船的航行功能作为功能毁伤研究对象。结合国军标及船舶设计规范，梳理\n… [省略 501 字符] …\n\n\n结合组成各个系统的关键部件，可以建立对应毁伤等级下的毁伤树，列出对应的毁伤事件。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a2c165730e91",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": "5-6",
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_\n… [省略 575 字符] …\n巡洋舰侧舷导致发生的毁伤程度为中度毁伤，与基于情报及毁伤逻辑分析的分析结果基本一致。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f77335edf9e3",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 3,
+        "section_path": [
+          "1 般规定",
+          "1.3 毀伤等级的划分"
+        ],
+        "quote": "核爆环境中舰艇毁伤等级一般分为三级：严重毁伤、中等毁伤和轻微毁伤。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-68360cc921b6",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": "1-3",
+        "section_path": [],
+        "quote": "内部\n\n中华人民共和国国家军用标准\n\nGJB 352-87\n\n1987-05-23发布\n\n1988—0101实施\n\n国防科学\n… [省略 16 字符] …\n境中的抗核加固设计建造，作战使用以及遭受核打击后组织抢修提供技术依据，特制定本标准。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a7b2db4e32d6",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 15,
+        "section_path": [
+          "6 说明事项",
+          "6.1 术语和定义",
+          "6.1.18 核武器 nuclear weapon"
+        ],
+        "quote": "利用重原子核的链式裂变和(或)轻原子核的自持聚变反应，瞬时释放出巨大能量而产生爆炸，对目标实施大规模杀伤破坏作用的武器。其\n… [省略 347 字符] …\ncontamination 核爆炸的裂变产物、剩余核装料和放射性物质等对环境的污染。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c348ca09172e",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 17,
+        "section_path": [
+          "6 说明事项",
+          "6.1 术语和定义",
+          "6.1.45 核破坏等级 nuclearkill level"
+        ],
+        "quote": "核爆炸时，飞机结构的损伤等级，包括飞机安全、任务完成、任务杀伤以及灾难性毁坏等。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-bab3a038bbca",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 23,
+        "section_path": [
+          "5 详细要求",
+          "5.2 核破坏等级的预测"
+        ],
+        "quote": "核破坏等级的预测，是对武器系统遭受核袭击破坏等级的预先估计。\n\n5.2.1预测方法\n\n按给出的核爆炸参数查表判定。\n\n5.2\n… [省略 95 字符] …\n心投影点的距离Rw进行比较，根据Rw落入R的区间确定该武器系统可能遭受的核破坏等级。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5f197baf5f7c",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 10,
+        "section_path": [
+          "6 通用修复方法",
+          "6.1 应急处理措施",
+          "6.1.2 降额使用"
+        ],
+        "quote": "船艇装备受到损伤后，其性能虽有所降低，但仍有部分能力，且对当前的安全无大的影响，可以暂不修理，允许继续使用，发挥其剩余能力。如船艇两台柴油机中的-一台损坏后，可采用单机推进，虽然航速有所降低，但仍具有一定的航行能力来完成输送任务。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-7692e6c9d7c5",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 43,
+        "section_path": [
+          "附录F 附录F"
+        ],
+        "quote": "（补充件）\n\n武器系统抗核破坏表征超压的计算，随爆炸当量（Q）和比高(h，）变化的修正系数(B)，列入表F1。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-cf8b2a12a4e5",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 9,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.2 核生存力",
+          "3.2.2.4 损伤模式和威胁影响",
+          "3.2.2.4.2 威胁类型"
+        ],
+        "quote": "部件可能暴露于威胁之中的损伤机理，可按如下的一种或多种联合形式进行分类：\n\na）冲击波：超压、激励响应；\n\nb)光辐射：快速\n… [省略 16 字符] …\n中子剂量率，y辐射剂量率、总的离子化剂量率；\n\ne）粉屑与碎片：穿透、冲击能、侵蚀。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-bd808404a4b7",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 24,
+        "section_path": [
+          "5 详细要求",
+          "5.3 抗核爆炸强度指标的确定"
+        ],
+        "quote": "武器系统的抗核爆炸强度，以抗核爆炸冲击波超压为表征参数。其指标的确定，就是对抗核爆炸冲击波超压值的确定。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-0c9b83c8d4fc",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "5 爆炸冲击波检验与评估方法",
+          "5.1 地面静爆试验",
+          "5.1.2 测量内容"
+        ],
+        "quote": "5.1.2.1测量距爆心不同距离处爆炸冲击波超压一一时间曲线，得到该测量点的冲击参数：\n\na）冲击波超压峰值；\n\nb）冲击波正压区作用时间。\n\n5.1.2.2通过对冲击波超压一一时间曲线积分，得到距爆心不同距离处冲击波比冲量。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-133a105022eb",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 目标舰船易损部位分析",
+          "2） 2 ）功能易损分析"
+        ],
+        "quote": "由表3可知，由于该舰的武器装备类型多、装配紧凑，相对密集，存在相互干扰和影响实际作战能力发挥的风险，在反舰导弹击穿外板受损\n… [省略 444 字符] …\n主要上层建筑的外壳有损坏痕迹，船体侧倾，船中部升起的烟柱更大更厚，毁伤情况十分严重。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f3f3018f90c8",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 术语和定义",
+          "3.2 爆炸冲击波 shock wave"
+        ],
+        "quote": "通称“空气冲击波”。自爆炸点以超音速在空气中向四周扩展的强烈压缩区的传播。衡量爆炸冲击波的参量有冲击波超压、冲击波比冲量与冲击波正压区作用时间。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-d1b974205d9e",
+        "source_file": "地地战略导弹武器系统作战使用要求.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "6 论证方法、步骤",
+          "6.2 论证方法",
+          "6.2.1 毁伤半径的计算"
+        ],
+        "quote": "根据核导弹的威力、比高和目标的抗压强度计算毁伤半径。\n\n6.2.1.1将爆高换算成比高\n\n式中：H₁——比高，m/kt/3；\n… [省略 45 字符] …\n附录B（补充件）公式（B2）计算比毁伤半径\n\nR1o\n\n$$H₁ = H/\\Q $$",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-807bb84217cd",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 8,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.2 核生存力",
+          "3.2.2.1 核环境"
+        ],
+        "quote": "飞机可能会以各种姿态处于核环境范围内的所有点、方位和位置上。对暴露在核爆炸场所产生的核环境的飞机应满足如下要求：\n\na）确\n… [省略 122 字符] …\n飞机结构的动态响应；\n\ne）最大响应应与有关构件的使用要求和响应限制的验证一起给出。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-3c0aec46b4ce",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 34,
+        "section_path": [
+          "附录E 附录E"
+        ],
+        "quote": "表E1A类武器系统轻微破坏半径（R）数值表\n\n<div style=\"text-align: center;\"><html\n… [省略 2333 字符] …\n.15</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-68d48a07f7a2",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 一般要求",
+          "4.2 核破坏等级的划分原则"
+        ],
+        "quote": "4.2.1轻微破坏\n\n基本性能部分降低或部分功能丧失，但在阵地可以修复。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-292a26bf8bf7",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 目标毁伤级别划分"
+        ],
+        "quote": "目标在毁伤元作用下将部分或者全部丧失完成使命能力或执行任务能力，造成不同程度的毁伤，通常用毁伤级别来表示。在划分目标毁伤级\n… [省略 524 字符] …\n、飞机、导弹、雷达、建筑物、机场跑道和电力系统等）毁伤级别的划分可参考文献[12]。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1f4af5654d30",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 一般要求",
+          "4.4 核破坏程度表征量Y值的区间范围"
+        ],
+        "quote": "轻微破坏25Y<50；\n\n中等破坏50≤Y<75;\n\n严重破坏75≤Y≤100.",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-57ba08d86ea3",
+        "source_file": "徐永会和袁诗桐 - 2025 - 一种基于图像变化检测的目标毁伤评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 实验结果与分析",
+          "3.1 目标毁伤等级划分"
+        ],
+        "quote": "目标毁伤等级是根据对目标的毁伤程度对毁伤效果划分的级别。以《XXX教程》规定的毁伤效果判定标准为例，目标毁伤等级划分为“轻度\n… [省略 12 字符] …\n度毁伤为a%～b%；中度毁伤为b%～c%；重度毁伤为c%～d%：歼灭或摧毁大于d%。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-6c9dd4eea6de",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 6,
+        "section_path": [
+          "3 术语和定义",
+          "3.5 陆军船艇战场抢修battlefield damage assessment and repair of army ship"
+        ],
+        "quote": "包括战场损伤评估和战场损伤修复，指在战时运用应急诊断和修理措施，将损伤的船艇装备迅速恢复到能执行当前任务的工作状态或能够自救的一系列活动。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-b927bd84ed6c",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 9,
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "表A2维修保障方案\n\n<div style=\"text-align: center;\"><html><body><tabl\n… [省略 557 字符] …\n 大修厂</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-592e0d34b009",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 47,
+        "section_path": [
+          "附录G 附录G"
+        ],
+        "quote": "G3.2.4型号论证中提出抗核爆炸表征超压，应大于50kPa（即当核爆炸冲击波超压值等于50kPa时出现轻微破坏是合乎要求的\n… [省略 66 字符] …\n王和平、么勇、李扬振、刘卫平、林清明、刘敬宜、汪惠宝、\n\n计划项目代号：3KJ05。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2c3d6dbd0477",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 爆炸冲击波检验与评估方法",
+          "5.1 地面静爆试验",
+          "5.1.6 数据处理与评估",
+          "5.1.6.3 冲击波比冲量计算"
+        ],
+        "quote": "根据测量数据得到的冲击波超压，进行下列计算：\n\na）某测点上冲击波比冲量I按照公式（4)计算：\n\n$$1p={∆P(t)dt\n… [省略 17 字符] …\n\n$$$p=i \n产\n$$\n\n式中：\n\nn一一同一距离布设的不同冲击波超压测点个数。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-738afc6594f2",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 毁伤元特性分析",
+          "3.1 毁伤参量"
+        ],
+        "quote": "毁伤元的毁伤参量是指描述毁伤元特性的物理量。描述不同类型毁伤元的物理量是不同的，即不同\n\n类型毁伤元的毁伤参量是不同的。破\n… [省略 243 字符] …\n态延伸率α等：热辐射毁伤元和核辐射毁伤元的毁伤参量有辐射强度、辐射时间、辐射剂量等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f41db275eac5",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 反舰导弹内爆载荷作用下各关键部件的毁伤模式",
+          "3.2 设备在内爆作用下的毁伤模式及判据",
+          "3.2.1 直接破坏模式的判据"
+        ],
+        "quote": "关键设备直接破坏模式下的毁伤准则采取局部变形，即应变。在毁伤判据也就是破坏阈值方面，如发动机、齿轮箱等精密设备发生微小变形即可损坏设备：而配电板、舵叶等非精密设备阈值可以放宽。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-31012c2a1e85",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 10,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.2 核生存力",
+          "3.2.2.7 带战伤结构的修理性和可用性"
+        ],
+        "quote": "飞机结构带有战伤后，修理性和可用性除了满足3.2.1.5.a)～e)的要求外，还应包括：\n\na）对防光辐射的表面漆，应给出\n… [省略 193 字符] …\n切防护措施均应考虑检测、维修方便易行。\n\nf)应把核环境维护与非核环境维修结合起来。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1189f7b81b1c",
+        "source_file": "梁巍巍 等 - 2024 - 战术激光武器对无人机毁伤效果仿真分析研究.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 战术激光武器对无人机毁伤模型建立",
+          "3.3 无人机材料毁伤阈值"
+        ],
+        "quote": "表1无人机常用材料激光毁伤國值\n\nTable 1 Laser destruction threshold of UAV c\n… [省略 587 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-e270bb2edd6e",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "69-70",
+        "section_path": [
+          "4",
+          "4.3 功能性损伤特性"
+        ],
+        "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_chart_\n… [省略 304 字符] …\n如图4-11所示，取能量密度阈值中位数为277.08J/cm2，相对误差为士17%。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2dd8b1ed6e81",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 23,
+        "section_path": [
+          "7",
+          "7.5 上层建筑损伤",
+          "7.5.3 上层建筑壁板损伤修复方法",
+          "7.5.3.1 说明"
+        ],
+        "quote": "上层建筑壁板破损在风浪中会引起进水，影响航行。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-241d7c67489e",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 7,
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.7 G类武器系统",
+          "5.1.1.7.2 中等破坏特征"
+        ],
+        "quote": "发射筒局部变形；测角仪内部油脂熔化.污染光学镜片，外露光学镜片炸裂；发射架轻微变形；随车检测仪操作、显示部位破坏；载车水箱油路、电路受损，车厢严重变形；其内筒装导弹局部变形。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-e15faf8ec80e",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.4 D类武器系统",
+          "5.1.1.4.1 轻微破坏特征"
+        ],
+        "quote": "目标指示雷达：天线和天线车表层严重烧蚀；天线喇叭口蒙布烤焦或引燃：天线反射体局部损伤；外露电缆损坏等\n\n导弹及发射架：导弹表层严重打麻、划伤，锦纶丝布、天线护罩、有机玻璃等烧蚀。发射架轻微变形。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-15fdd8b9694e",
+        "source_file": "杨帅 等 - 2025 - 爆炸冲击波破片耦合毁伤效能研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 数值计算结果",
+          "3.1 模型有效性验证",
+          "3.1.2 爆炸冲击波超压"
+        ],
+        "quote": "此外，为了进一步验证当前数值模拟方法的计算精度，基于前文材料模型参数并采用当前的数值模拟方法开展了一系列模拟仿真研究，获取\n… [省略 162 字符] …\n据值之间误差较小，说明当前数值计算模型可以实现对爆炸作用场中毁伤威力参数的有效模拟。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 79,
+      "included": 36,
+      "omitted": 43,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 32403,
+      "quote_chars_after": 3560
+    }
+  }
+}

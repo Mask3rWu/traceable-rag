@@ -1,0 +1,486 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q8",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3849,
+    "answer_truncated": true,
+    "evidence_tokens": 3310,
+    "evidence_included": 30,
+    "evidence_omitted": 42
+  },
+  "question": {
+    "id": "q8",
+    "category": "borrow",
+    "expected_route": "supervisor",
+    "question": "生成一份反舰导弹打击补给船的毁伤等级划分方案。",
+    "expected": "当前资料无直接对应的补给船毁伤等级标准，应综合多份文献（易损性、毁伤评估、舰船结构）推断划分，允许 hypothesis，证据跨文档引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 2189.15,
+    "model_calls_count": 109,
+    "consistency_issues": [
+      {
+        "issue_id": "open-conflict:ch2-conf-1",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch2_characteristics_damage_modes"
+        ],
+        "description": "子母弹/破片类反舰战斗部的舰船毁伤模式缺乏直接文献，需以地面目标破片场机理外推，属假设级结论。",
+        "recommendation": "在定稿前审查未解决的来源冲突。"
+      },
+      {
+        "issue_id": "open-conflict:ch4-conf1",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch4_system_criteria"
+        ],
+        "description": "船体沉没的剩余极限承载能力阈值缺乏公开数值：来源仅给出阈值判定概念与算例（受损舱段剩余极限占初始83.4%未判沉没），本方案设计默认值60%无实证校准，与按船型另行校核的方案并存。",
+        "recommendation": "在定稿前审查未解决的来源冲突。"
+      },
+      {
+        "issue_id": "open-conflict:ch8-conf1",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch8_verification_training"
+        ],
+        "description": "20%综合验证误差界引自地面建筑物/轻装甲目标毁伤效应检验标准，直接移植到补给船特征量对比缺少舰船专用实证；实弹/实战舰船毁伤数据稀缺（公开仅莫斯科号等个例）。",
+        "recommendation": "在定稿前审查未解决的来源冲突。"
+      },
+      {
+        "issue_id": "consistency-issue-1",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch3_damage_levels",
+          "ch5_grading_rules"
+        ],
+        "description": "Ch3 d1 defines a five-level sequence where L3 is 重度毁伤 and L4 is 沉没/丧失修复价值, and d3 merges L3+L4 into 重度毁伤 for reporting. However, ch3 c3 and ch5 c4 define '航行功能重度毁伤' as including 沉没, and ch5 c2/c8 refer to 沉没/丧失修复价值 as '重度毁伤的顶事件' or '最高等级'. This conflates the internal five-level L4 with the three-level report grade 重度毁伤, creating ambiguous use of the term '重度毁伤'.",
+        "recommendation": "When referring to five-level internal states, use 'L4/沉没终态'; reserve '重度毁伤' for the three-level report grade or explicitly state '重度毁伤（报告口径，含L4）'."
+      },
+      {
+        "issue_id": "consistency-issue-2",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch5_grading_rules",
+          "ch4_system_criteria",
+          "ch3_damage_levels"
+        ],
+        "description": "Ch4 c5/c6 and ch3 c3 classify two rudder units / turning system destroyed and three damage-control stations destroyed as 重度毁伤, and ch5 c4 includes '转向系统毁伤' and '三个损管站毁伤' in the severe definition. Yet ch5 veto_conditions lists only 全船失电、两套推进装置毁伤、操纵台毁伤、损管中心毁伤 as veto conditions, omitting these two cases. This makes the '先否决' step under-inclusive relative to the stated '任一否决条件触发时不再进行组合合成' rule.",
+        "recommendation": "Add '转向系统/两套舵装置毁伤' and '三个损管站毁伤' to the veto condition list, or explicitly state that the veto list is non-exhaustive and refer to the ch4 system criteria."
+      },
+      {
+        "issue_id": "consistency-issue-3",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_grading_rules",
+          "ch4_system_criteria",
+          "ch2_characteristics_damage_modes"
+        ],
+        "description": "Ch4 c2 classifies '失去水密性' as a 重度毁伤 (L3) condition, while ch2 d4 treats it as causing '沉没风险' and ch5 veto_conditions defines '沉没' to include '失去水密性' and assigns 重度毁伤终态 (L4). The same observable criterion is thus mapped to L3 in ch4 and to the L4 terminal/sinking state in ch5, creating a classification contradiction.",
+        "recommendation": "Align the two chapters by removing '失去水密性' from the ch5 '沉没' definition or qualifying it (e.g., '不可控失去水密性导致续发进水且剩余极限承载能力降至阈值以下'), and reference ch4's L3 criterion for isolated loss of watertightness."
+      },
+      {
+        "issue_id": "consistency-issue-4",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch7_reporting_examples",
+          "ch3_damage_levels"
+        ],
+        "description": "Ch7 c9 states that examples cover '轻度毁伤、重度毁伤与沉没终态各报告等级', presenting '沉没终态' as a report grade. Ch7 d2 and ch3 d3 mandate that report grades use only 轻度毁伤、中度毁伤、重度毁伤, with L4 (沉没/丧失修复价值) merged into 重度毁伤. This can lead to non-compliant reporting labels.",
+        "recommendation": "Rephrase ch7 c9 to '报告等级覆盖轻度毁伤、重度毁伤（含沉没/丧失修复价值终态）' and do not list '沉没终态' as a separate report grade."
+      },
+      {
+        "issue_id": "consistency-issue-5",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch2_characteristics_damage_modes",
+          "ch5_grading_rules"
+        ],
+        "description": "Ch2 d4 defines 丧失核心补给能力 as any of: 补给作业系统重度毁伤, 电力系统全失电, 推进系统失去航行能力, 舰船运动控制系统失去阵位保持能力, or 船体失去水密性导致沉没风险. Ch5 veto_conditions attaches 判重度毁伤 to '核心补给能力丧失' but lists only 补给作业系统重度毁伤 and 油舱爆炸引发不可控火灾; the other conditions appear as separate veto items or are omitted. The denotation of '核心补给能力丧失' thus differs between chapters, creating ambiguity about what triggers the veto.",
+        "recommendation": "In ch5, either incorporate the full ch2 d4 definition of 核心补给能力丧失 or state explicitly that the veto list is the disaggregated implementation of ch2 d4 and cross-reference it."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 反舰导弹打击补给船毁伤等级划分方案\n\n## 范围与术语定义\n\n适用范围：本方案适用于以海上补给为主要使命的大、中型军用补给船，船型包括综合补给舰、补给油船、干货补给船及快速战斗支援舰，满载排水量约1万吨及以上。威胁范围限于反舰导弹（整体侵爆类、整体爆破类战斗部）直接命中与近失爆炸；民用船舶、非补给使命舰船，以及核爆炸、鱼雷、水雷、航空炸弹、炮射弹药等威胁均不适用。\n\n| 船型 | 主要补给对象 |\n|---|---|\n| 综合补给舰 | 油料与干货综合补给 |\n| 补给油船 | 油料补给 |\n| 干货补给船 | 弹药与干货补给 |\n| 快速战斗支援舰 | 高速综合补给 |\n\n受控术语（全章统一使用）：\n毁伤等级——反舰导弹打击下补给船完成补给任务与航行任务能力的丧失或降低程度的分级，分为轻度毁伤、中度毁伤、重度毁伤三级；\n关键系统——对补给任务或安全航行起决定作用、毁伤后导致相应能力丧失或大幅降低的系统，包括船体结构、推进系统、电力系统、舰船运动控制系统、损管控制系统、补给作业系统；\n丧失功能——任务能力部分或全部丧失或明显降低，不能按原定指标执行任务；\n功能毁伤、物理毁伤——前者指功能丧失或降低，后者指结构材料的宏观破坏或微观损伤；\n剩余能力——毁伤后仍可执行任务的能力，为定级基本依据；\n直接破坏、次生破坏——破片超压火球直接作用与冲击振动进水火灾间接作用；\n要害部位——决定系统功能且易损或难以修复的部位。\n\n术语一致性：全方案统一使用上述受控词汇；来源标准中“严重/中等/轻微”“歼灭或摧毁”等命名不得与三级制混用，必要时按定义换算并注明。\n\n## 补给船目标特性与毁伤机理\n\n补给船为以海上补给为主要使命的大型舰船，典型构型为双层壳舷侧、双层底。推进、电力、运动控制、损管系统保障航行与生存；补给作业系统直接承担干货与液货转运；指挥控制与自防御系统保障协同与防护，毁伤后不直接丧失补给能力。\n\n表 补给船系统分类\n| 系统 | 组成 | 冗余 | 失效后果 |\n| 船体结构 | 双层壳、双层底、甲板、上层建筑 | 无 | 进水折断沉没 |\n| 推进系统 | 2套推进装置 | 双 | 失去航行能力 |\n| 电力系统 | 前后电站 | 双 | 补给作业、损管、航行控制瘫痪 |\n| 舰船运动控制系统 | 操纵台、2套舵 | 舵冗余 | 失去航向与并靠 |\n| 损管控制系统 | 损管中心、3损管站 | 站冗余 | 次生破坏扩大 |\n| 补给作业系统 | 干货/液货转运站、输油管路、吊运装置 | 依布置 | 直接丧失补给能力 |\n| 指挥控制系统 | 通信、导航、指挥终端 | 部分 | 协同能力下降 |\n| 自防御系统 | 近防武器、电子对抗 | 有限 | 防护能力下降 |\n\n表 战斗部毁伤模式\n| 类型 | 方式 | 主要毁伤模式 |\n| 整体侵爆类 | 穿舱内爆 | 破孔、进水、失稳；破片超压火球直接破坏，冲击振动、进水、火灾次生破坏；油舱爆炸、管路破裂、货物引燃 |\n| 整体爆破类 | 外部爆炸 | 冲击波与破片致外板破孔、上层建筑变形、电子设备损坏 |\n| 近失爆炸 | 水中冲击波 | 水线以下破口进水、冲击振动损坏设备；阈值待标定 |\n\n决定核心补给能力的关键系统按影响程度排序：船体结构（水线以下与油货舱段为要害）、补给作业系统、推进系统、电力系统、损管控制系统、舰船运动控制系统；指挥控制与自防御次之。子母弹类破片战斗部不在威胁范围内，不建立判据。\n\n## 毁伤等级定义框架\n\n补给船毁伤等级以剩余能力为基本定级依据，围绕航行能力、补给能力与生存力三个轴定性描述：补给能力为首要任务能力，航行能力为执行补给的支撑能力，生存力反映沉没与丧失修复价值风险。本方案将反舰导弹打击下的毁伤状态划分为 L0～L4 五级，各级定义如下表。\n\n| 代码 | 名称 | 航行能力 | 补给能力 | 生存力 | 作战处置 |\n|---|---|---|---|---|---|\n| L0 | 无毁伤 | 不受影响 | 不受影响 | 无威胁 | 继续执行任务 |\n| L1 | 轻度毁伤 | 基本保持 | 基本保持，可完成补给任务 | 无显著威胁 | 带伤使用或应急修复后继续执行 |\n| L2 | 中度毁伤 | 受限，可航行自救 | 明显降低，仅可完成部分补给 | 风险可控 | 撤出战场，返港修理 |\n| L3 | 重度毁伤 | 丧失或严重受限 | 丧失核心补给能力 | 威胁严重 | 无法执行任务，护航撤离或弃船，进厂大修 |\n| L4 | 沉没或丧失修复价值 | 丧失 | 丧失 | 沉没 | 目标消灭，评估终结 |\n\n等级边界判定：L1 与 L2 以关键系统冗余单元受损数量是否突破单套冗余为界；L2 与 L3 以是否丧失核心补给能力或安全航行能力为界；L3 与 L4 以船体是否沉没或是否丧失修复价值为界。三级制报告口径下，L3、L4 合并报告为重度毁伤；L0 不入毁伤等级报告。\n\n## 分系统损伤判据\n\n判据按物理毁伤特征量映射功能毁伤：量化优先，无量化锚点用半定量描述；等级为轻度毁伤、中度毁伤、重度毁伤三级，沉没或丧失修复价值为终态。孤立丧失水密性按重度毁伤判据处理；沉没须以剩余极限承载能力降至阈值以下判定。\n\n| 系统 | 轻度毁伤 | 中度毁伤 | 重度毁伤 |\n|---|---|---|---|\n| 船体结构 |\n… [省略 1572 字符] …\n核，必要时加权复算，填写评估记录。\n\n简化工具（操作人员无需专业弹道知识）：命中部位—系统影响映射卡（机舱段→推进系统、电力系统；上层建筑→舰船运动控制系统、指挥控制系统；油舱段→补给作业系统）；判据速查卡（系统→三级判据）；问答式评估表（逐项“是/否”快速筛选）；装药量—效应计算模板（代入装药量与距离得超压、破片、冲击速度估算值）。\n\n缺失数据保守性原则：装药量未知取该型导弹标称装药量上限；命中部位未知按要害部位（上层建筑、机舱、油舱段）假设；系统状态无法观测按最不利等级；多源数据冲突取高并记录；信息严重缺失时按历史经验作预测性评估并注明置信度，待数据补充后复核。\n\n## 报告格式与典型应用示例\n\n模板字段组：报告头（编号/性质/时间/单位）；目标信息（船型/舰号/排水量/航速/装载/损管）；威胁参数（导弹类型/战斗部类型/装药当量/命中方式/命中部位）；分系统毁伤记录（8类系统物理特征与功能状态）；综合定级（否决核对/组合定级/加权校验/最终等级）；置信度与依据（高/中/低；实测/估算/经验预测）；处置建议（继续任务/应急修复/撤出返港/护航撤离或弃船）；责任人（初始判定人/复核组/上报时间）。\n\n填写说明：等级命名统一用轻度毁伤/中度毁伤/重度毁伤；初始判定即时上报，复核由上级作战与技术部门联合组织；缺失数据按保守原则（装药量取上限、命中部位按要害部位）处理并注明。\n\n示例1（轻度毁伤）：整体侵爆类命中机舱段。进水2舱、约1.5%排水量（≤2%）、1台发电机毁伤、剩余功率约55%（≥50%）均判轻度毁伤；否决未触发、加权校验P≈0.14（≤0.3）一致；置信度高；处置降速续航。\n\n示例2（重度毁伤）：整体侵爆类命中上层建筑。操纵台毁伤（独立部件）触发否决；舵机谱速度超设计值、通信中断超4小时、上层建筑坍塌均判重度毁伤；P≈0.23与否决不一致取高；置信度中；处置撤出返港或护航撤离。\n\n示例3（重度毁伤—沉没终态）：整体爆破类命中油舱段。ΔP=0.082W⅓/R+0.265W⅔/R²+0.686W/R³，W=200kg、距爆点18m处ΔP≈0.08MPa；油舱爆炸火灾、弹药殉爆、动力舱进水，剩余极限承载约55%（<60%）触发沉没否决；P≈0.47取高；置信度低；处置弃船。\n\n示例覆盖轻度/重度/沉没终态与整体侵爆类/整体爆破类，输入→估算→判据→定级→校验全过程可重复演算。\n\n## 验证、培训与维护\n\n本章规定方案发布后的验证、培训与维护要求，适用于本方案全部判据与定级规则。\n\n验证。方案发布及重大修订时执行：采用经充分验证的通用或专用软件建模，先行完成材料模型与计算技术验证；开展不少于10个仿真案例，覆盖典型补给船型、反舰导弹战斗部类型与命中部位组合；计算结果与已知实弹或实战数据对比，特征量误差不超过20%或毁伤等级判定一致；结果经专家确认后归档，作为版本校核依据。\n\n培训。培训对象为使用人员、维修人员和装备管理人员；课程包括标准条文、判据速查卡、评估程序、简化工具与报告填写，并以评估演练（含对抗评估）检验掌握程度。使用与维修人员须熟悉全部内容，管理人员须熟悉评估特点、程序与方法。考核采用标准题库，评估一致性达到90%以上为合格，未达标者复训。\n\n修订与维护。修订按申请、评审、批准发布流程执行，重大修订须重新验证并更新版本号，勘误以修改单发布，引用默认采用最新版本。建立毁伤数据反馈库，汇集仿真、试验、训练与实战案例，定期复核判据阈值、权重与等级边界；出现新型反舰导弹或新补给船型时启动适用性评审，必要时扩展判据并纳入版本管理。",
+      "content_truncated": true,
+      "limitations": [
+        "综合补给舰、干货补给船、快速战斗支援舰等具体船型的公开结构参数（排水量、舱室布局）证据不足，船型分类与1万吨排水量边界为规范设计值，需现役典型数据校核。",
+        "GJB451等通用可靠性术语标准在知识库中仅有间接引用（E47），本方案未核验其全部术语条目，后续章节引用基础标准术语时需补充核对。",
+        "补给作业装置（干货/液货转运站、输油管路、吊运装置）的具体构成与毁伤数据在知识库中缺失，其系统组成与毁伤模式为设计归纳，需实船资料校核",
+        "近失爆炸对水线以下结构（外板破口、双层底进水）的量化毁伤阈值缺乏来源依据，按水中冲击波机理推定",
+        "子母弹类反舰战斗部直接资料缺失，且不在威胁范围内，未建立判据",
+        "知识库未检索到美军/北约公开统一的毁伤等级命名原文，国外部分仅有体系性描述（E52、E53），后续需补充原始标准文本进行等级换算。",
+        "L0～L4 边界的定量阈值（冗余单元数量、沉没判据阈值等）依赖第4章分系统判据与实船数据校准，本章仅给出定性框架。",
+        "进水吨数与分舱进水定量判据缺乏公开来源，采用占排水量百分比设计值（2%/5%），需实船与仿真校核",
+        "通信中断时长阈值（30min）无来源支撑，采用设计值",
+        "补给作业系统与自防御系统缺乏公开量化判据，采用按功能归纳的半定量设计",
+        "沉没阈值（剩余极限承载60%初始值）为设计默认值，无实证校准",
+        "功率/供电百分比阈值为设计值，未以典型补给船实船数据标定",
+        "指挥控制、自防御等支撑系统重度毁伤对整船等级的升级仅作定性规定（不低于中度毁伤），无量化权重系数",
+        "加权毁伤概率的权重系数与剩余极限承载阈值（60%）为设计默认值，未经实船与仿真校准",
+        "10类典型组合推演为规范验证结果，未覆盖指挥控制与自防御同时重度等全部组合，尚无实船毁伤案例独立复核",
+        "命中部位—系统影响映射卡与装药量—效应计算模板的阈值缺乏公开实船校准数据，需以现役补给船与典型反舰导弹工况仿真回归",
+        "缺失数据默认假设的保守程度（取高上界）无定量校核标准，需以演练统计验证",
+        "示例中加权校验权重与分系统概率取值（0.3/0.5/0.9）为设计值，无公开实证校准，需仿真与实船数据校核",
+        "置信度高/中/低分级与依据类型的对应关系需在培训中校准",
+        "模板字段未逐项对照现役报告表实物核验",
+        "补给船无公开实弹毁伤试验数据，20%误差界的舰船适用性需以历史案例与仿真回归校核",
+        "评估一致性90%考核阈值为规范设计值，无直接来源阈值，需试运行统计校核",
+        "10个仿真案例数的覆盖充分性需按船型×战斗部×命中部位组合矩阵复核",
+        "新型反舰导弹（如子母弹类）与新型补给船型的判据扩展缺乏现成标准条款，需通过适用性评审逐步建立",
+        "Ch4 c2 classifies '失去水密性' as a 重度毁伤 (L3) condition, while ch2 d4 treats it as causing '沉没风险' and ch5 veto_conditions defines '沉没' to include '失去水密性' and assigns 重度毁伤终态 (L4). The same observable criterion is thus mapped to L3 in ch4 and to the L4 terminal/sinking state in ch5, creating a classification contradiction."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-1b5b542c87f4",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "2 补给船构效关系分析"
+        ],
+        "quote": "本文基于某型补给油船和调研得到的补给船的主要特点，选定补给船的航行功能作为功能毁伤研究对象。结合国军标及船舶设计规范，梳理\n… [省略 501 字符] …\n\n\n结合组成各个系统的关键部件，可以建立对应毁伤等级下的毁伤树，列出对应的毁伤事件。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5adbbe619a74",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.1 补给船数值计算模型"
+        ],
+        "quote": "结合之前的补给船目标构效关系，首先建立全船的等比例有限元模型，即取船体结构的所有主要构件以及各系统关键部件的简化结构建立三\n… [省略 376 字符] …\n，得到补给船航行功能的毁伤结果。接下来以船尾爆炸为例，计算补给船航行功能的毁伤程度。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1df683effff0",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 2,
+        "section_path": [
+          "0 0引言"
+        ],
+        "quote": "2）对反舰导弹内爆载荷作用下各关键部件\n\n从国内外易损性的研究现状来看，我国在舰船类目标易损性方面还有许多问题亟待解决。舰\n… [省略 234 字符] …\n舰导弹为典型攻击武器，对补给船目标在反舰导弹内爆载荷作用下的易损性分析方法进行研究。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-62061abc1423",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 3,
+        "section_path": [
+          "1 般规定",
+          "1.2 定义"
+        ],
+        "quote": "毁伤等级：核爆炸时在一定范围内对舰艇的毁伤程度。\n\n毁伤等级标准：指达到预期毁伤等级时，舰艇效能损失应达到的要求。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-57ba08d86ea3",
+        "source_file": "徐永会和袁诗桐 - 2025 - 一种基于图像变化检测的目标毁伤评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 实验结果与分析",
+          "3.1 目标毁伤等级划分"
+        ],
+        "quote": "目标毁伤等级是根据对目标的毁伤程度对毁伤效果划分的级别。以《XXX教程》规定的毁伤效果判定标准为例，目标毁伤等级划分为“轻度\n… [省略 12 字符] …\n度毁伤为a%～b%；中度毁伤为b%～c%；重度毁伤为c%～d%：歼灭或摧毁大于d%。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-881db9b272cc",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 整舰的毀伤等級",
+          "3.1 等级划分原则"
+        ],
+        "quote": "3.1.1以舰体结构毁伤程度为基础，将动力装置视为第一要素.武器装备视为第二要素，舰用设备视为第三要素。\n\n3.1.2在整舰条\n… [省略 4 字符] …\n分析。\n\n3.1.3从整舰毁伤特征出发，对舰艇生命力和作战使用影响程度进行综合评定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1dc0b5ac4019",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": "4-5",
+        "section_path": [
+          "3 反舰导弹内爆载荷作用下各关键部件的毁伤模式",
+          "3.2 设备在内爆作用下的毁伤模式及判据"
+        ],
+        "quote": "反舰导弹打击舰船的破坏形式主要是穿舱后爆炸。此时舰载设备的破坏模式主要分为破片、超压、爆炸火球引起的直接破坏，以及冲击振动、\n… [省略 69 字符] …\n载设备是否损坏时，不仅要考虑爆心近场的直\n\n接破坏，还应考虑中远场的次生破坏[\"\"。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4c7d201566f6",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 2,
+        "section_path": [
+          "2 目标舰船和弹药威力分析",
+          "2.2 弹药威力分析"
+        ],
+        "quote": "“海王星”是乌克兰“路奇”设计局研制的反舰巡航导弹，其设计是基于俄罗斯的Kh-35“天王星”反舰导弹，乌克兰在“天王星”的基\n… [省略 46 字符] …\n水面战舰和运输船，该导弹由导弹发射车发射，其主要性能参数如表2所示[12-13]。O",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f5977b22f6f8",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 定义",
+          "3.1 术语"
+        ],
+        "quote": "3.1.11H类武器系统H一sort of weapon systems 由单兵或班、组携带并遂行战斗的武器系统类别。\n\n3.\n… [省略 3 字符] …\nment \n\n在作战使用中起决定作用，遭到核破坏后将导致武器系统失去战斗能力的设备。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-292a26bf8bf7",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 目标毁伤级别划分"
+        ],
+        "quote": "目标在毁伤元作用下将部分或者全部丧失完成使命能力或执行任务能力，造成不同程度的毁伤，通常用毁伤级别来表示。在划分目标毁伤级\n… [省略 524 字符] …\n、飞机、导弹、雷达、建筑物、机场跑道和电力系统等）毁伤级别的划分可参考文献[12]。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f4a846731c74",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 7,
+        "section_path": [
+          "5 结语"
+        ],
+        "quote": "本文立足于我国目前在舰船目标易损性分析方面的迫切需求，以某典型补给船目标为研究对象，选择反舰导弹作为攻击武器，分析目标的构效\n… [省略 25 字符] …\n舰导弹打击下的易损性分析方法，该方法适用于舰船目标的易损性研究，并通过4种典型工况对",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f71f5ff82c1e",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 基于开源情报的目标舰船结构与功能逻辑关系快速分析",
+          "2） 2 ）舰船功能组成分析"
+        ],
+        "quote": "根据舰船设计规范和相关标准，可将该型舰船的功能划分为结构完好性、作战能力、机动能力和保障能力，如图3所示。\n\n①结构完好性\n… [省略 267 字符] …\n管保障方面进行分析，包括发电机、配电装置、电力网、电力监控装置及消防管线、损管站等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5f197baf5f7c",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 10,
+        "section_path": [
+          "6 通用修复方法",
+          "6.1 应急处理措施",
+          "6.1.2 降额使用"
+        ],
+        "quote": "船艇装备受到损伤后，其性能虽有所降低，但仍有部分能力，且对当前的安全无大的影响，可以暂不修理，允许继续使用，发挥其剩余能力。如船艇两台柴油机中的-一台损坏后，可采用单机推进，虽然航速有所降低，但仍具有一定的航行能力来完成输送任务。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-a2c165730e91",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": "5-6",
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_\n… [省略 575 字符] …\n巡洋舰侧舷导致发生的毁伤程度为中度毁伤，与基于情报及毁伤逻辑分析的分析结果基本一致。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-86689f34e925",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": 3,
+        "section_path": [
+          "1 火力资源分配问题建模",
+          "1.1 场景构建"
+        ],
+        "quote": "不同毁伤方案所造成的毁伤等级不同，划分为轻度毁伤、中度毁伤和重度毁伤3个毁伤等级，分别量化为1、2、3三个等级。所有子目标\n… [省略 540 字符] …\n 表示作战区 i 到子目标j之间的距离，根据作战区与子目标中心点之间的距离计算得到。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-07edc5c5ccdc",
+        "source_file": "李扑 - 2023 - 无人机空战决策与毁伤评估的智能化方法研究.pdf",
+        "pages": "68-69",
+        "section_path": [
+          "5",
+          "5.3 基于贝叶斯网络的目标毁伤评估算法",
+          "5.3.2 目标毁伤等级"
+        ],
+        "quote": "目标毁伤评估需要确定被打击目标的毁伤程度，对应到贝叶斯网络中的评估等级划分即确定被打击目标的毁伤等级，根据相关研究的经验目\n… [省略 328 字符] …\n我方无人机进行再次打击，无人机完成打击任务重新分配新的作战任务并调整作战资源的分配。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-481f45a9cde1",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 术语和定义",
+          "3.1 整体爆破类战斗部 blast warhead"
+        ],
+        "quote": "以炸药装药爆炸时产生的生成物、爆炸形成的冲击波或应力波为主要毁伤元素在目标外部爆炸的整体式战斗部。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-be8943fdb601",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "4 检验与评估的项目和原则",
+          "4.1 检验与评估项目"
+        ],
+        "quote": "4.1.1爆炸冲击波\n\n整体侵爆类战斗部自由场爆炸冲击波超压、冲量。\n\n4.1.2战斗部自然破片\n\n整体侵爆类战斗部自然破片\n… [省略 34 字符] …\n打击的多层建筑物、地下/半地下坚固防护工事等典型目标，评估战斗部在目标内的毁伤效应。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-66504930d7ca",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "该型舰船受到打击后直接产生了较为严重的损伤，但是由于损管和修复的不及时性，命中后随即引起航侧导弹武器火灾、水线附件舱室及动力舱进水等级联事故出现，包括弹药殉爆、易燃物火灾、舱室进水等多种后效应发生才最终导致沉没事件的发生。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-133a105022eb",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 目标舰船易损部位分析",
+          "2） 2 ）功能易损分析"
+        ],
+        "quote": "由表3可知，由于该舰的武器装备类型多、装配紧凑，相对密集，存在相互干扰和影响实际作战能力发挥的风险，在反舰导弹击穿外板受损\n… [省略 444 字符] …\n主要上层建筑的外壳有损坏痕迹，船体侧倾，船中部升起的烟柱更大更厚，毁伤情况十分严重。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c1d859b1affe",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 6,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.5 补给船易损性辅助计算程序"
+        ],
+        "quote": "本文开发了补给船易损性辅助计算程序，具有较好的用户交互界面和基于毁伤树的毁伤结果分析及可视化功能，包括船体模型结构树、毁伤\n… [省略 340 字符] …\n行功能有重大贡献的部件都位于船尾和上层建筑处，例如舵机、柴油发动机和操纵台等，在作战",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-aab5120a9b96",
+        "source_file": "建（构）筑物地震破坏等级划分.pdf",
+        "pages": 7,
+        "section_path": [
+          "3 基本规定",
+          "3.2 建（构）筑物破坏等级划分原则"
+        ],
+        "quote": "以承重构件的破坏程度为主，兼顾非承重构件的破坏程度，并考虑修复的难易和功能丧失程度的高低为划分原则。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-45c76bebe333",
+        "source_file": "张重阳 等 - 2017 - 目标毁伤效果评估技术现状与发展.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 国外目标毁伤效果评估系统"
+        ],
+        "quote": "从美、英等发达国家的战损评估成果来看，发现他们十分重视毁伤数据搜集和毁伤数据管理。美陆军有国家训练中心、联合战备训练中心和\n… [省略 276 字符] …\n景毁伤概率评估的高精度软件包，对诸如海上舰船、陆地装甲车和空中飞机等目标都较为适用。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-56d89399d556",
+        "source_file": "陈曦和翟红波 - 2024 - 基于图像的目标毁伤评估研究进展.pdf",
+        "pages": 8,
+        "section_path": [
+          "6 结束语"
+        ],
+        "quote": "7张成，石全，赵湘.美军目标毁伤效果评估发展状况探析[].国防科技，2011.32(6)：63–68.\n\nZHANG Ch\n… [省略 588 字符] …\niversity of Science and Technology , 2015.",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-283510c14108",
+        "source_file": "孔祥锡1 等 - 基于深度学习及模糊层次分析的毁伤评估算法.pdf",
+        "pages": 10,
+        "section_path": [
+          "1 毁伤评估系统构建",
+          "1.2 基于三角模糊层次分析法的毁伤等级评估方法",
+          "1.2.2 基于三角模糊数的毁伤评估体系"
+        ],
+        "quote": "表2毁伤等级评定[10]\n\nTable 2 Damage severity assessment[10]\n\n<div st\n… [省略 310 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8f343afa7cd4",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 4,
+        "section_path": [
+          "2 各系统的毁伤等级",
+          "2.4 雷达设备"
+        ],
+        "quote": "在雷达设备中，主要以不同型式的雷达天线所遭受的毁伤程度，作为雷达设备毁伤等级的划分依据。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-0190d1d96513",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 28,
+        "section_path": [
+          "8 船艇动力系统战场损伤修复",
+          "8.2 柴油机及其附件损伤",
+          "8.2.4 燃油系统损伤修复",
+          "8.2.4.1 说明"
+        ],
+        "quote": "燃油系统包括输油泵、喷油泵、高压油管、喷油器等。常见损伤有输油泵不工作、喷油泵齿条卡死、高压油管漏油、喷油器雾化不良等。燃油\n… [省略 46 字符] …\n考8.2.1的基本程序进行。本条只列出应用管箍法制止输油管路漏油这一一应急修复方法。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8bf7e8a7fd44",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 60,
+        "section_path": [
+          "10 管路系统战场损伤修复",
+          "10.1 概述"
+        ],
+        "quote": "管路系统是船艇输送水、油、空气、排烟等管路及阀门的统称，是船艇动力装置赖以正常工作的基础，其基本功能项目故障或损伤，将直接\n… [省略 210 字符] …\n及污水系统\n\ni)暖气系统\n\nj)排煙管、消音器\n\n管路系统项目损伤修复方法见表8。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5a625d9d31f4",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "8-9",
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "b.第5.1.1.1～5.1.1.8条各类武器装备具体破坏部位、器件不同破坏等级范围内，微观上的轻、重程度；\n\nc.第4.\n… [省略 549 字符] …\n系统的综合核破坏程度表征量值。然后依照第4.4条的规定，确定该武器系统的核破坏等级。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-3a0c98cca291",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 5,
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定"
+        ],
+        "quote": "由武器系统使用（火力单元编制）单位各级指挥员和战斗操作、维修专业技术人员，接照第3.1.4～3.1.11条的分类，依据第4.\n… [省略 24 字符] …\n按照单件装备→分系统→武器系统的层次，进行综合权衡，分析判定，并将判定结果迅速上报。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 72,
+      "included": 30,
+      "omitted": 42,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 24268,
+      "quote_chars_after": 3306
+    }
+  }
+}

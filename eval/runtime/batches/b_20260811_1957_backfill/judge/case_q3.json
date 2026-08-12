@@ -1,0 +1,48 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q3",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 18,
+    "answer_truncated": false,
+    "evidence_tokens": 0,
+    "evidence_included": 0,
+    "evidence_omitted": 0
+  },
+  "question": {
+    "id": "q3",
+    "category": "borrow",
+    "expected_route": "fast",
+    "question": "主战坦克遭受整体侵爆类战斗部打击后，通常会出现哪几类典型毁伤模式？",
+    "expected": "资料无直接成文清单，应综合装甲结构、侵爆毁伤效应与毁伤建模多份文献推断典型毁伤模式，允许 hypothesis，证据跨文档。"
+  },
+  "run": {
+    "outcome": "incomplete",
+    "error": null,
+    "route_matched": true,
+    "route": "fast",
+    "elapsed_s": 66.21,
+    "model_calls_count": 9,
+    "consistency_issues": [],
+    "packet_statuses": {},
+    "answer": {
+      "content": "未能在执行预算内形成可靠答案。",
+      "content_truncated": false,
+      "limitations": [
+        "Agent step budget exhausted"
+      ]
+    },
+    "evidence": [],
+    "_evidence_meta": {
+      "total_cited": 0,
+      "included": 0,
+      "omitted": 0,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 0,
+      "quote_chars_after": 0
+    }
+  }
+}

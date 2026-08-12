@@ -1,0 +1,60 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q5",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 246,
+    "answer_truncated": false,
+    "evidence_tokens": 119,
+    "evidence_included": 1,
+    "evidence_omitted": 0
+  },
+  "question": {
+    "id": "q5",
+    "category": "unrelated",
+    "expected_route": "fast",
+    "question": "简要说明快速排序算法在平均情况下的时间复杂度，并列举一个适合使用它的典型应用场景。",
+    "expected": "与当前毁伤评估资料完全无关，应诚实声明无资料支撑，基于通用算法知识作答，不得虚构资料引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "fast",
+    "elapsed_s": 66.22,
+    "model_calls_count": 8,
+    "consistency_issues": [],
+    "packet_statuses": {},
+    "answer": {
+      "content": "经检索，知识库中未找到专门介绍快速排序算法及其平均情况时间复杂度、典型应用场景的文档。知识库内容主要集中于军事领域（毁伤评估、火力资源分配、武器系统效能评估等），其中与排序复杂度最接近的表述出现在火力资源分配算法中：对特征提取中的适应度得分进行排序时，排序复杂度为 O(MlgN)（E1），但这并非对快速排序算法本身的阐述。因此，依据现有知识库证据，无法就快速排序算法的平均情况时间复杂度及其典型应用场景给出有证据支撑的回答。",
+      "content_truncated": false,
+      "limitations": [
+        "知识库中不存在直接介绍快速排序算法的资料，E1仅为知识库中唯一涉及排序复杂度表述的证据，但并未描述快速排序本身"
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-e969de0eeedf",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": 11,
+        "section_path": [
+          "2 火力资源分配优化算法",
+          "2.5 算法复杂度分析"
+        ],
+        "quote": "本文算法只需要对选定的N个作战区和M个目标进行计算，而不是对目标区域和作战区区域的所有网格进行搜索。\n\n进行特征抽取后，需\n… [省略 549 字符] …\n项的时间复杂度为O(Nm*x×(K×M×N））。各项计算的复杂度分析统计如表1所示。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 1,
+      "included": 1,
+      "omitted": 0,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 669,
+      "quote_chars_after": 120
+    }
+  }
+}

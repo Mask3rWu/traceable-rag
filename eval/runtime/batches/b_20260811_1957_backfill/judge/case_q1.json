@@ -1,0 +1,102 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q1",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 588,
+    "answer_truncated": false,
+    "evidence_tokens": 428,
+    "evidence_included": 4,
+    "evidence_omitted": 0
+  },
+  "question": {
+    "id": "q1",
+    "category": "direct",
+    "expected_route": "fast",
+    "question": "GJB-Z 1391-2006《故障模式、影响及危害性分析指南》中，危害性分析（CA）常用的分析方法有哪些？",
+    "expected": "应直接引用该标准原文，明确列出 CA 的常规方法（如风险优先数法、危害度矩阵法等），高证据支撑、低冲突。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "fast",
+    "elapsed_s": 66.25,
+    "model_calls_count": 4,
+    "consistency_issues": [],
+    "packet_statuses": {},
+    "answer": {
+      "content": "根据GJB-Z 1391-2006《故障模式、影响及危害性分析指南》，危害性分析（CA）常用的分析方法主要有两类：\n\n一、风险优先数（RPN）方法\n对产品每个故障模式的RPN值进行优先排序，并采取相应措施使RPN值达到可接受的最低水平。某故障模式的RPN等于其严酷度等级（ESR）与故障模式发生概率等级（OPR）的乘积，即RPN = ESR × OPR，RPN值越大，危害性越大。\n\n二、危害性矩阵分析方法\n目的是比较每个产品及其故障模式的危害性程度，为确定改进措施的先后顺序提供依据，具体又分为：\n1. 定性的危害性矩阵分析方法：将故障模式发生可能性分成离散级别，按出现概率大小分为A、B、C、D、E五个等级，评定后应用危害性矩阵图进行分析。当不能获得产品故障数据时选用。\n2. 定量的危害性矩阵分析方法：按公式分别计算故障模式危害度Cmj和产品危害度Cr，并排序或应用危害性矩阵图进行分析。当能获得较为准确的产品故障数据时选用。\n此外还包括绘制危害性矩阵图及应用，即以故障模式（或产品）分布点向对角线所作垂线的交点距原点的距离度量危害性，距离越长危害性越大，越应尽快采取改进措施。\n\n方法选择原则：不能获得产品故障数据时选择定性危害性矩阵分析法；能获得较为准确的产品故障数据时选择定量危害性矩阵分析法。",
+      "content_truncated": false,
+      "limitations": []
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-780e72a5e4cb",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 18,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.2 危害性矩阵分析方法",
+          "5.5.2.2.1 危害性矩阵分析目的和分类"
+        ],
+        "quote": "危害性矩阵分析的的是：比较每个产品及其故障模式的危害性程度，为确定产品改进措施的先后顺序提供依据。它分为定性的危害性矩阵分析\n… [省略 20 字符] …\n性矩阵分析方法；当可以获得较为准确的产品故障数据时，则选择定量的危害性矩阵分析方法。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f25fabadd086",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 19,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.2 危害性矩阵分析方法",
+          "5.5.2.2.3 定量危害性矩阵分析方法"
+        ],
+        "quote": "定量危害性矩阵分析方法主要是按公式(2)、公式(4)分别计算每个故障模式危害度Cmj和产品危害度Cr，并对求得的不同的Cm\n… [省略 447 字符] …\n是该产品在给定的严酷度类别和任务阶段下的各种故障模式危害度Cmj之和，见公式(4)。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-968a22e8b4f2",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": "17-18",
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.1 风险优先数（RPN）方法"
+        ],
+        "quote": "风险优先数法是对产品每个故障模式的RPN值进优先排序，并采取相应的措施，使RPN值达\n\n到可接受的最低水平。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-603ab275bd72",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 20,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.2 危害性矩阵分析方法",
+          "5.5.2.2.4 绘制危害性矩阵图及应用"
+        ],
+        "quote": "绘制危害性矩阵图的目的、方法和应用：\n\na）绘制危害性矩阵图的的：比较每个故障模式影响的危害程度，为确定改进措施的先后顺序\n… [省略 358 字符] …\n改进措施。在图8中，因01距离比02距离长，则故障模式M1比故障模式M2的危害性大。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 4,
+      "included": 4,
+      "omitted": 0,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 1239,
+      "quote_chars_after": 414
+    }
+  }
+}

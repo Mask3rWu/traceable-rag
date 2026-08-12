@@ -1,0 +1,579 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260811_1957_backfill",
+  "question_id": "q10",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3759,
+    "answer_truncated": true,
+    "evidence_tokens": 3364,
+    "evidence_included": 37,
+    "evidence_omitted": 25
+  },
+  "question": {
+    "id": "q10",
+    "category": "unrelated",
+    "expected_route": "supervisor",
+    "question": "输出一份城市公交线路调度优化方案，以降低高峰期的乘客等待时间，包含调度策略与评估指标。",
+    "expected": "与当前毁伤评估资料完全无关，应诚实声明无资料支撑、给出低证据或无证据的通用方案，且不得虚构/伪造资料引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 1952.12,
+    "model_calls_count": 88,
+    "consistency_issues": [
+      {
+        "issue_id": "open-conflict:CONF-CH2-1",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_data_architecture"
+        ],
+        "description": "知识库无公交调度领域来源，无法将最小数据集字段、等待时间公式与质量阈值与行业标准直接比对；设计规则与来源惯例之间仅存在结构映射关系，不构成事实冲突。",
+        "recommendation": "在定稿前审查未解决的来源冲突。"
+      },
+      {
+        "issue_id": "ISS-01",
+        "severity": "error",
+        "chapter_ids": [
+          "ch_tactical_strategies",
+          "ch_demand_analysis",
+          "ch_example"
+        ],
+        "description": "ch_tactical_strategies D3 states that an original 5-minute headway leads to a load factor of 0.95 exceeding the 0.9 threshold. However, applying the ch_demand_analysis D3 rule with the same inputs used in ch_example D2 (maximum section passenger flow 1200, rated capacity 80, 5-minute headway giving frequency 12) yields a load factor of 1200/(80×12)=1.25, not 0.95. The example is therefore numerically inconsistent with the calculation rules.",
+        "recommendation": "Recalculate the example so that the stated load factor matches the supplied inputs and the shared formula. Either change the original headway to approximately 3.8 minutes to obtain 0.95, or correct the load factor to 1.25 and ensure ch_tactical_strategies and ch_example use identical values."
+      },
+      {
+        "issue_id": "ISS-02",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_terminology",
+          "ch_operational_control"
+        ],
+        "description": "ch_terminology D2 defines the dynamic operational strategy category as '实时放行、越站、区间折返、插入车辆'. ch_operational_control, however, implements '驻站/越站/区间车/信号优先' and does not implement '实时放行' or '插入车辆', while adding '信号优先' which is not listed in the taxonomy. This creates a classification mismatch and leaves the controlled vocabulary incomplete.",
+        "recommendation": "Align the controlled vocabulary: add '信号优先' to the dynamic operational category in ch_terminology, and either add the missing actions to ch_operational_control or explicitly state why '实时放行' and '插入车辆' are not used as real-time actions in this standard."
+      },
+      {
+        "issue_id": "ISS-03",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_terminology",
+          "ch_tactical_strategies",
+          "ch_operational_control"
+        ],
+        "description": "The same strategy names appear at both tactical and operational levels without an explicit dual-use rule. ch_tactical_strategies defines '区间车' and '插车' as tactical schedule templates, while ch_terminology classifies '区间折返' and '插入车辆' as dynamic operational actions, and ch_operational_control also uses '区间车' as a real-time control action. This overlap is not reconciled in the classification framework.",
+        "recommendation": "In ch_terminology, explicitly state that the same operational form may appear both as a preplanned static/dynamic tactical template and as a real-time dynamic operational action. In ch_tactical_strategies and ch_operational_control, label each occurrence by its decision level and reference the other chapter for the corresponding use."
+      },
+      {
+        "issue_id": "ISS-04",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_tactical_strategies",
+          "ch_operational_control",
+          "ch_evaluation_metrics"
+        ],
+        "description": "ch_tactical_strategies D1 rationale mentions design values of '45/25秒' and '±2分钟' for planned dwell time and the control-point deviation window, but the normative decision statement does not state these values. ch_operational_control and ch_evaluation_metrics rely on '控制点偏差窗口' as a rule for punctuality, yet no chapter normatively fixes the window width. This leaves a key threshold undefined across chapters.",
+        "recommendation": "Move the control-point deviation window (and any associated dwell-time values, if normative) into a normative decision in ch_tactical_strategies, and ensure ch_operational_control and ch_evaluation_metrics reference the same value rather than leaving it implicit."
+      },
+      {
+        "issue_id": "ISS-05",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_data_architecture",
+          "ch_tactical_strategies"
+        ],
+        "description": "ch_data_architecture defines planned waiting time as planned headway / 2, which assumes a single or uniform planned headway. ch_tactical_strategies, however, permits on-demand (variable-headway) scheduling for fluctuating demand, so the planned-wait-time formula is not directly applicable to schedules with non-uniform planned headways.",
+        "recommendation": "Specify that '计划间隔' in the planned-waiting-time formula refers to the average planned headway over the evaluation period, or provide a separate planned-waiting-time calculation for variable-headway schedules."
+      },
+      {
+        "issue_id": "ISS-06",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_demand_analysis",
+          "ch_tactical_strategies",
+          "ch_example"
+        ],
+        "description": "ch_demand_analysis D3 gives the planned headway as 60/frequency without specifying a rounding rule. ch_tactical_strategies D1 and ch_example D2 require rounding to the nearest minute. For the example, 1200/(80×0.8)=18.75 and 60/18.75=3.2, while 60/19=3.16; both round to 3, but the rule is not stated consistently in ch_demand_analysis.",
+        "recommendation": "Add a shared rounding rule in ch_demand_analysis (e.g., 'round planned headway to the nearest minute') or reference ch_tactical_strategies' algorithm directly so all chapters follow the same calculation rule."
+      },
+      {
+        "issue_id": "ISS-07",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch_tactical_strategies",
+          "ch_operational_control"
+        ],
+        "description": "ch_tactical_strategies D2 conditions the '区间车' strategy on a corridor maximum section at least 1.3 times the remaining section and a continuous corridor length of at least one quarter of the route. ch_operational_control uses '区间车' as a real-time action triggered only by headway-delay thresholds, without referencing these corridor-eligibility conditions. This can lead to conflicting application rules for the same strategy at the tactical and operational levels.",
+        "recommendation": "In ch_operational_control, either explicitly reference ch_tactical_strategies' corridor-eligibility conditions for short-turn actions, or state that real-time short-turn decisions may override the tactical precondition and specify the override criteria."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 城市公交线路调度优化方案：降低高峰期乘客等待时间的运营标准\n\n## 术语、范围与策略分类框架\n\n受控词汇如下。等待时间构成：计划等待时间为按时刻表旅客到达车站至登乘车辆应经历的时间；实际等待时间为旅客自到达车站至登乘车辆实际经历的时间；额外等待时间为实际等待时间与计划等待时间之差。发车间隔类型：计划间隔为时刻表规定的相邻两班次计划发车时刻之差；实际间隔为相邻两班次实际发车时刻之差，旅客等待感受取决于实际间隔分布。服务时段：高峰为需求压力大、等待时间控制重点集中的时段；平峰为其余时段。控制策略类型：战术性为运营前确定服务计划；操作性为运行中实时处置偏差。\n\n适用范围：本标准适用于城市建成区内固定线路常规公交在早晚高峰时段的运营调度；不适用于轨道交通、需求响应式公交及通勤班车等专线服务。\n\n调度策略按决策层级（战术性、操作性）与计划性质（静态、动态）两维分类：静态战术性为时刻表编制、计划间隔确定与调度形式选择；动态战术性为短期重编计划；静态操作性为定点等候规则；动态操作性为实时放行、越站、区间折返与插入车辆。后续章节按此分类选取与表述策略。\n\n## 现状数据架构与基线测量\n\n最小数据集（按车辆到站/离站事件记录，必填字段）：线路与方向、车辆标识、站点标识与顺序号、事件类型（到站/离站）、事件时刻、计划时刻；可选字段：上下车人数、滞留时间、车辆位置。字段格式：线路、车辆、站点为编码字符串，事件时刻为本地时间戳、精确到秒并统一时钟，位置精度不大于30m。采集频率：高峰时段事件全量采集，位置数据每10~30s一条。\n\n基线指标：实际间隔为同一站点相邻班次到站时刻差；实际间隔偏差=实际间隔−计划间隔；计划等待时间为计划间隔的一半；实际等待时间均值=平均实际间隔×(1+(标准差/平均实际间隔)²)/2；额外等待时间=实际等待时间均值−计划等待时间；间隔偏差水平以平均绝对偏差度量。\n\n示例：计划间隔5min，实际间隔[4,6,5,7,5]min，得平均实际间隔5.4min、标准差1.02min、实际等待时间均值约2.80min、额外等待时间约0.30min。\n\n数据质量检查表：\n- 完整性：必填字段无缺失，高峰事件缺失率≤5%；\n- 精确性：时刻误差≤±5s，位置误差≤30m，计数误差≤5%；\n- 时效性：实时数据延迟≤1min，基线数据于统计周期结束后3日内归档校验；\n- 代表性：基线测量覆盖≥20个工作日，估计标准误差≤指标门限的10%。\n\n## 高峰需求与服务时段划分\n\n服务时段划分：以15分钟为基本分析单元，统计各单元断面客流强度（断面客流量÷线路平均断面客流量）。强度≥1.5且连续≥1小时的单元划为高峰，其余为平峰；高峰内强度≥2.0的时段按高密度标准管理。两个高峰段之间不超过30分钟时合并为同一高峰段。方向比=单向断面客流÷反向断面客流，≥1.3时按方向不对称处理，双向分别编制计划间隔。\n\n瓶颈识别：站点优先级指数=站点高峰小时上下车强度×断面满载率；指数≥50为一类瓶颈，25~49为二类瓶颈，<25为关注站点。一类瓶颈站重点监控、优先配车，≥3个相邻一类站构成瓶颈走廊。\n\n运力计算（最大载客断面法）：频率f=断面高峰客流量P÷(额定载客量C×目标满载率λ)；计划间隔h=60/f分钟；配车数N=f×周转时间T÷60向上取整。λ目标值0.8、门限值0.9；P外推修正系数取1.0~1.2。\n\n典型高峰模式分类表：单峰型（单向集中，方向比≥1.3）、双峰型（早晚对称）、方向不对称型（双向差异≥30%）、走廊集聚型（≥3个相邻站点同时达峰）、持续均衡型（高峰持续≥3小时）。单峰型与方向不对称型按方向分别配车，双峰型双向均衡配车，走廊集聚型优先保障走廊运力，持续均衡型采用高频率稳定计划间隔。\n\n算例：P=1200人/时、C=80人，计划间隔5分钟（f=12）时满载率=1200÷(80×12)=1.25>门限0.9，不满足；须加密至f≥18.75（h≈3.2分钟）以满足目标满载率0.8。\n\n## 战术性调度策略与时刻表设计\n\n**频率选择决策表**\n需求分段 | 编制方式 | 频率与配车\n普通高峰（强度1.5～<2.0、方向比<1.3） | 等间隔 | f=P÷(C×λ)，h=60÷f，λ目标0.8、门限0.9\n方向不对称（方向比≥1.3） | 双向分别等间隔 | 按各方向P分别计算\n高密度（强度≥2.0）或瓶颈走廊 | 加密等间隔＋按需插车 | f≥P÷(C×0.8)向上取整\n\n**时刻表算法**\n①以周转时间T为周期循环排班，配车数N=⌈f×T÷60⌉；始发站按计划间隔发车。②控制点设于上下车强度大、行程时间波动大的站点：早到超±2分钟时定点等候，晚点靠压缩停站时间恢复。③高峰首末班前后延伸15分钟；结果按实际间隔偏差指标复核。\n\n**策略模板使用条件**\n区间车用于瓶颈走廊或单向集聚段，仅服务高需求区间；大站快车用于一类瓶颈站间距≥3站且越站不损害低需求站；插车用于高密度段运力缺口，调用备用或顺路回场车；链式运营用于持续均衡型高峰，多车组交替执行。\n\n**调整示例**：P=1200人/时、C=80人时，5分钟计划间隔（f=12）对应满载率1.25，超过门限0.9，须加密至f≥18.75、h≈3.2分钟；T=90分钟时N=29辆。\n\n**效果比较（待试点验证的假设）**：等间隔较按需编制降低额外等待时\n… [省略 1319 字符] …\n时，实际等待时间均值≈1.7分钟，额外等待时间≈0.2分钟；高峰50班次中45班在窗口内到站，准点率90%，判为可接受。\n\n核对表：高峰事件缺失率≤5%；时刻误差≤±5秒；样本覆盖全部高峰且估计标准误差≤门限的10%；月报于统计周期结束后3日内归档，判定结果与持续监控复核衔接。\n\n## 实施流程与持续监控\n\n实施顺序：准备→试点→评估转段→推广→持续监控。战术性调整先于操作性实时控制实施——实时控制以计划间隔与控制点窗口为基准，须待时刻表稳定并通过校验后启用；数据与基线按数据标准通过后进入试点。\n\n阶段路线（里程碑/检查点）：\n\n| 阶段 | 主要工作 | 检查点 |\n|---|---|---|\n| 准备 | 数据系统、培训、基线测量 | 数据质量检查通过 |\n| 试点 | 1~2条线路实施战术性调整与操作性控制 | 试点报告完成 |\n| 评估转段 | 按评估指标与绩效等级判定 | 转段评审通过 |\n| 推广 | 分批扩线实施 | 每批上线复核 |\n| 持续监控 | 周期评估与改进 | 周期评审通过 |\n\n角色分工：\n\n| 部门 | 职责 |\n|---|---|\n| 运营调度部门 | 战术性调整与时刻表编制 |\n| 实时控制中心 | 操作性控制执行 |\n| 数据管理部门 | 数据质量、报表与归档 |\n| 质量监督部门 | 独立绩效判定与升级 |\n| 企业领导层 | 审批与资源保障 |\n\n监控机制：每日高峰后生成日报（实际间隔、额外等待时间、间隔偏差水平、准点率）；周例会评审并形成纪要（议题、结论、责任部门、期限、复查日期）；月报于统计周期结束后3日内归档并判定；季度或转段节点阶段评审。\n\n升级规则：单周期需改进由责任部门下周期内提出纠正措施；连续两周期需改进或单周期严重超限升级至企业领导层，7日内制定措施；安全或大面积中断即时上报，24小时内处置。\n\n纠正措施：判定→原因分析→制定措施（责任部门+期限）→实施→跟踪验证→达标关闭，未达标重复循环至可接受水平；计划调整（阈值、时刻表、参数）须审批并重新验证。\n\n## 实例应用与验证\n\n案例线路L1为早高峰不对称双向走廊：方向比1.4，断面客流P=1200人/时，额定载客C=80人，周转T=90分钟，走廊内连续3个一类瓶颈站。原计划间隔5分钟（f=12）对应满载率1.25，超门限0.9，判需改进。\n\n策略组合：先战术性、后操作性。战术性按f≥P÷(C×0.8)=18.75取19班/时，计划间隔约3.2分钟，配车N=29辆，满载率约0.79达目标0.8；控制点设于瓶颈站，早到超±2分钟定点等候。操作性按间隔偏差分级处置：滞后侧信号优先、越站（≤2站、禁瓶颈站）、区间车逐级升级，超前侧驻站30/60/90秒，偏差连续两周期确认后触发，达退出带终止。\n\n指标计算（改善前→改善后）：计划等待时间2.5→1.5分钟；实际等待时间均值4.1→1.7分钟；额外等待时间1.6→0.2分钟，目标0.15H=0.45、门限0.30H=0.90（H=3分钟）；间隔偏差水平3.1→0.5分钟；准点率78%→96%。改善前额外等待超门限、准点率低于85%，判需改进；改善后全部达目标，判优秀。\n\n验证：按20个工作日实测复算，统计值≤门限加允许偏差（门限10%）判达到；计算与实测偏差大于20%时复查假设与参数。\n\n复制要点：数据与基线、需求分析、战术性方案、操作性控制、指标验证五步顺序不可颠倒，数值按本线路P、C、T代入；改善幅度（实际等待时间降幅约59%、额外等待时间降幅约88%）为设计预测，须经试点标定后转正。",
+      "content_truncated": true,
+      "limitations": [
+        "知识库缺乏公共交通调度领域的直接标准来源，术语与分类未经领域标准比对，需在实施评审中与行业规范核对",
+        "高峰/平峰的量化界定阈值属第3章范围，本章未设数值",
+        "额外等待时间与客流到达分布假设（如随机到达）的关联未量化，需在第6章指标章节校准",
+        "知识库无公交调度领域来源，最小数据集字段、基线公式与质量阈值均为设计规则，未经行业标准逐条比对",
+        "数据质量阈值（缺失率5%、±5s、30m、1min、3日归档）与样本量参数（20个工作日、标准误差10%）无实证标定",
+        "旅客到达随机性假设与等待时间公式在高峰拥挤场景的有效性需试点验证",
+        "知识库无公交调度领域来源，需求分析方法未与行业公交标准逐条比对，仅以来源的通用撰写惯例为设计输入",
+        "高峰强度倍数、持续时长、合并时限、方向比、满载率目标/门限、修正系数与瓶颈分级界限均为设计值，无领域实证标定，需试点线路校准",
+        "知识库无公交调度领域实证来源，等间隔与按需编制的比较、插车与链式运营的效果幅度无法实证标定，均以假设形式列出试点验证要求",
+        "控制点定点等候阈值（±2分钟）、高峰首末班延伸（15分钟）等参数无领域来源，为设计值，需试点校准",
+        "四类策略模板的适用条件缺少数值化判别边界，待试点数据积累后细化",
+        "知识库无公交调度领域实证来源，车头时距控制的效果幅度与阈值无法直接引用，须试点验证",
+        "信号优先的路口协同接口细节无来源支撑，需在实施中按地方信号控制规范补充",
+        "驻站、越站、区间车、信号优先四动作的组合参数效果未经验证",
+        "知识库无公交调度领域来源，分级阈值与允许偏差比例（门限10%）无领域实证标定，须试点标定",
+        "准点率窗口数值由第4章控制点偏差窗口给出，本章仅定义占比口径",
+        "95分位等待时间的样本量要求未单独标定，沿用均值指标的标准误差要求",
+        "监控周期长度、升级时限（下一周期/7日/24小时）与报告归档期限（3日）无领域实证标定，属设计值，须经试点运营按第6章指标标定后修订",
+        "转段判定条件以第6章绩效等级为门槛，等级界限本身待试点标定，转段条件随之复核",
+        "改善幅度（实际等待时间降幅约59%、额外等待时间降幅约88%）为设计预测值，无领域实证来源，须按第7章持续监控与试点实测验证后转正",
+        "案例演示数值（线路参数、基线间隔分布）为演示值，未与任何运营企业实测数据标定",
+        "知识库无公交调度领域来源，本示例未与行业现行公交服务标准逐条比对",
+        "ch_tactical_strategies D3 states that an original 5-minute headway leads to a load factor of 0.95 exceeding the 0.9 threshold. However, applying the ch_demand_analysis D3 rule with the same inputs used in ch_example D2 (maximum section passenger flow 1200, rated capacity 80, 5-minute headway giving frequency 12) yields a load factor of 1200/(80×12)=1.25, not 0.95. The example is therefore numerically inconsistent with the calculation rules."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-da9444d4bd62",
+        "source_file": "2-电子系统.pdf",
+        "pages": "2-3",
+        "section_path": [
+          "3 定义",
+          "3.1 3.1术语"
+        ],
+        "quote": "本标准除采用GJB451和GJB1909.1定义的术语外，还采用下列定义的术语。\n\n3.1.1冗余单元切换时间redunda\n… [省略 89 字符] …\n数和（或）日历持续时间。注：1）电子系统习惯用使用寿命、在某些武器装备中亦称总寿命。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8ea94197cf46",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 定义",
+          "3.1 术语"
+        ],
+        "quote": "除下列术语的定义外，其他术语的定义见GJB451和GJB1909.1。\n\n3.1.1出动架次率sortie generat\n… [省略 126 字符] …\n充燃油、滑油、特种液体及气体；安装和（或）拆卸再次出动需要增减的附加设备；装挂弹等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-458a8121450d",
+        "source_file": "6-舰船.pdf",
+        "pages": 2,
+        "section_path": [
+          "3 定义"
+        ],
+        "quote": "除下列术语外，其它术语见GJB451。\n\n3.1在航率rate of sorties\n\n在规定条件下，舰船可出航的时间与整\n… [省略 111 字符] …\nife\n\n在规定的贮存条件下，为使产品保持规定的可靠度所进行的中继级检修的时间间隔。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-fdf3acc2c71c",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 2,
+        "section_path": [
+          "1 范围",
+          "1.1 主題內容"
+        ],
+        "quote": "本标准规定了装甲车辆和军用汽车可靠性、维修性参数选择和指标确定的要求。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-520195fa135d",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": "1-5",
+        "section_path": [],
+        "quote": "中华人民共和国国家军用标准\n\nFL1550\n\nGJB/Z 146-2006\n\n2006-05-17发布\n\n2006-10-\n… [省略 521 字符] …\n修复方法只能在战时根据指挥员的决断使用。战斗结束后，应立即使用标准修理方法予以修复0",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-ccdced1728ad",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 4,
+        "section_path": [
+          "5 详细要求",
+          "5.1 可靠性、维修性参数选择"
+        ],
+        "quote": "5.1.1按表1选择装甲车辆的整车及各组成部分的可靠性、维修性参数。\n\n5.1.2按表2选择军用汽车的整车、发动机和作业装\n… [省略 227 字符] …\n关性。如：固有可用性、平均故障间隔时间和平均修复时间，它们之间只能同时选取2个参数。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4165e9d334e1",
+        "source_file": "2-电子系统.pdf",
+        "pages": 4,
+        "section_path": [
+          "5 详细要求",
+          "5.1 可靠性、维修性参数选择",
+          "5.1.1 电子系统可靠性、维修性参数见表1。"
+        ],
+        "quote": "表1可靠性、维修性参数选择表\n\n<div style=\"text-align: center;\"><html><body>\n… [省略 1116 字符] …\ntd></td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-3672030be39c",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "19-20",
+        "section_path": [
+          "附录C 附录C"
+        ],
+        "quote": "现役同类机种的平均故障间隔飞行小时一般在2飞行小时左右。某机的平均故障间隔飞\n\n行小时为3.7飞行小时。为提高新研制歼击机\n… [省略 527 字符] …\n为合同参数的规定值与最低可接受值。对需要阶段验证的指标提出研制结束时的最低可接受值。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-befad732f7a3",
+        "source_file": "杨伟涛 等 - 2025 - 基于人工智能的弹药毁伤效能评估优化框架研究.pdf",
+        "pages": 6,
+        "section_path": [
+          "3 基于人工智能的弹药毁伤效能评估优化框架",
+          "3.2 功能分类与任务路径实现"
+        ],
+        "quote": "表 2AI 驱动的评估平台具体功能分类及关键路径\n\n<div style=\"text-align: center;\"><h\n… [省略 392 字符] …\npaths of the AI-driven evaluation platform",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4daf7e13214d",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 12,
+        "section_path": [
+          "5 详细要求",
+          "5.3 参数及其量值的转换",
+          "5.3.2 保证参数量值转换正确性的基本要素",
+          "5.3.2.1 建立健全可靠性、维修性信息系统"
+        ],
+        "quote": "建立有效的可靠性、维修性信息系统，以获取参数量值转换所需基础数据。在寿命周期内各阶段，应对可靠性、维修性数据进行跟踪、收集、分\n… [省略 5 字符] …\n立健全的可靠性、维修性信息系统，以保证信息的及时性、真实性、准确性、完整性和连续性。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4e977f24fd4f",
+        "source_file": "杨伟涛 等 - 2025 - 基于人工智能的弹药毁伤效能评估优化框架研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 基于人工智能的弹药毁伤效能评估优化框架",
+          "3.1 系统架构与模块设计",
+          "3.1.2 数据预处理模块"
+        ],
+        "quote": "1）核心功能。对数据采集模块传送过来的原始数据进行清洗、标准化、归一化、异常值剔除等处理。这一阶段的目标是确保数据质量，去\n… [省略 144 字符] …\n用数据标准化与归一化技术将数据转换到统一的范围，防止某些特征因量纲问题影响模型表现。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2a4120a3a2af",
+        "source_file": "2-电子系统.pdf",
+        "pages": 5,
+        "section_path": [
+          "5 详细要求",
+          "5.1 可靠性、维修性参数选择",
+          "5.1.1 电子系统可靠性、维修性参数见表1。"
+        ],
+        "quote": "<div style=\"text-align: center;\"><html><body><table border=\"1\n… [省略 1461 字符] …\n</tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-92114cc7e9cc",
+        "source_file": "2-电子系统.pdf",
+        "pages": "12-13",
+        "section_path": [
+          "附录B 附录B"
+        ],
+        "quote": "$$MMaxcr(0.95)=1.5h;$$\n\n$$rm=90%;$$\n\nrn80%;\n\nTro=10年或40000h。\n\n… [省略 452 字符] …\n、王宏飞、杨秉喜、姜书田、刘宝瑛、陈炳生、李旭进、减锡良。计划项目代号：4DZ24。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5558179c6d1d",
+        "source_file": "陈曦和翟红波 - 2024 - 基于图像的目标毁伤评估研究进展.pdf",
+        "pages": "5-6",
+        "section_path": [
+          "4 战场图像采集",
+          "4.2 卫星采集图像",
+          "4.2.1 机器学习方法",
+          "1） 1 ）基于贝叶斯方法的毁伤评估"
+        ],
+        "quote": "贝叶斯方法的毁伤评估流程如图8所示。\n\n图8贝叶斯方法的毁伤评估流程\n\nFig. 8 Damage assessment \n… [省略 269 字符] …\n如其他方法：③该方法需要专业的技能和知识，因此在应用时需要具备相应的人才和设备支持。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-6f8b72e67316",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 6,
+        "section_path": [
+          "6 战斗部自然破片",
+          "6.4 测量流程"
+        ],
+        "quote": "试验按下列步骤进行：\n\na）清理靶场并划定试验区域，确定爆心点以及各测试点；\n\nb)仪器展开，布置高速摄像、测速靶、破片分布\n… [省略 10 字符] …\n现场摄像、照相，测试数据存贮及拷贝；\n\ne)数据及信息汇总；\n\nf)王现场试验总结。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-82813a39c289",
+        "source_file": "7-军用越野汽车维修性指标.pdf",
+        "pages": "2-3",
+        "section_path": [
+          "4",
+          "4.2 指标验证"
+        ],
+        "quote": "4.2.1基层级（含驾驶员）平均修复时间的验证，采用GJB2072维修性试验与评定中试验方法9进行。\n\n4.2.2基层级（\n… [省略 187 字符] …\n似汽车（或分系统）的先前经验加以确定。由于不规定风险率，则应提出适当的允许最大偏差。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-bf48593af4e8",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "5 爆炸冲击波",
+          "5.4 测量流程"
+        ],
+        "quote": "试验按下列步骤进行：\n\n试验前完成冲击波超压预估，确定传感器量程；\n\nb)完成冲击波传感器布设位置设计，自由场传感器布设位置\n… [省略 33 字符] …\n试验测量检验：\n\nd)试验后从测量仪中读出原始记录数据并保存：\n\ne)现场试验总结。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-055f9074b1d1",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 8,
+        "section_path": [
+          "7 打击典型目标的毁伤效应",
+          "7.2 试验检验",
+          "7.2.3 测量装备",
+          "7.2.3.4 米尺、激光测距仪等"
+        ],
+        "quote": "测量误差不大于0.1m。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-8c54af2a2294",
+        "source_file": "无人机通用规范.pdf",
+        "pages": 21,
+        "section_path": [
+          "3 要求",
+          "3.5 电子设备",
+          "3.5.13 飞行指挥和航迹控制",
+          "3.5.13.2 要求"
+        ],
+        "quote": "a．飞行指挥与管理系统应能完成起飞前系统自检和功能仿真、起飞、爬升、航行、下降过程的控制管理、各种设备协调管理、统一发出系\n… [省略 229 字符] …\n回放系统必要时应记录各种飞行状态数据和控制信息，可以事后回放，便于飞行后查询和研究。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f8aa5a0a9dab",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 9,
+        "section_path": [
+          "4 一般要求",
+          "4.2 FMECA计划及有关工作",
+          "4.2.6 描述产品的任务"
+        ],
+        "quote": "在FMECA作中应对产品完成任务的要求及其环境条件进描述，这种描述般任务剖面来表。任务剖面是指产品在完成规定任务时间内所经历\n… [省略 57 字符] …\n且每个任务阶段，又可能有不同的作式，则对此情况均需进说明或描述（图3中M为马赫数)。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-091a8f3d5ffe",
+        "source_file": "6-舰船.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.2 寿命剖面和任务剖面的确定",
+          "5.2.2.2 任务剖面"
+        ],
+        "quote": "舰船的任务剖面可选择具有代表性的典型剖面，并说明舰船任务期内各任务阶段上的工作方式（连续、间隔或一次使用）持续时间、工作事件序列及所经历的环境等。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-f4f9fd541daf",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 10,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.2 寿命剖面和任务剖面的确定",
+          "5.2.2.2 任务剖面"
+        ],
+        "quote": "应详细说明军用飞机在执行典型任务过程中所经历的所有事件和环境，一般包括起飞、爬升、巡航、完成规定任务、返航、下降、着陆等各阶段所经历的高度、速度、持续时间等；并说明完成任务的定义。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-3b91b220e6af",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 5,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.3 任务剖面的确定"
+        ],
+        "quote": "表1装甲车辆可靠性维修性参数选择表\n\n<div style=\"text-align: center;\"><html><bo\n… [省略 3880 字符] …\n><td></td><td></td><td></td><td></td><td>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-bac850bba6fa",
+        "source_file": "王捷飞 - 2021 - 基于视觉的激光反无人机系统设计与开发.pdf",
+        "pages": 62,
+        "section_path": [
+          "4 基于DCF的无人机跟踪算法研究与设计",
+          "4.4 固定翼与飞鸟分辨算法"
+        ],
+        "quote": "计算图4.18中一系列响应峰值的方差与极差，结果如表4.2所示。\n\n由表4.2可得，固定翼的响应峰值曲线的方差与极差更小，通过设置阈值并将这两个参数与阈值进行比较便可区分固定翼和飞鸟。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-b544c1c05bd4",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 18,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.1 风险优先数（RPN）方法"
+        ],
+        "quote": "产品某个故障模式的RPN等于该故障模式的严酷度等级(ESR)和故障模式的发概率等级(OPR)的乘积，见公式(1)。\n\n式中\n… [省略 191 字符] …\n等级给出的预计该故障模式在产品的寿命周期内发生的概率，该值在具体应用中可以视情定义。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-968a22e8b4f2",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": "17-18",
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.5 功能及硬件危害性分析",
+          "5.5.2 危害性分析常用的方法",
+          "5.5.2.1 风险优先数（RPN）方法"
+        ],
+        "quote": "风险优先数法是对产品每个故障模式的RPN值进优先排序，并采取相应的措施，使RPN值达\n\n到可接受的最低水平。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-88267b8892cf",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 55,
+        "section_path": [
+          "F",
+          "F.1 F.1概述"
+        ],
+        "quote": "表F.3 风险水平分类\n\n<div style=\"text-align: center;\"><html><body><ta\n… [省略 226 字符] …\n>可接受</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-48c5be18f261",
+        "source_file": "1-总则.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 定义",
+          "3.4 门限值threshold"
+        ],
+        "quote": "装备必须达到的使用指标.它能满足装备的使用需求，是确定最低可接受值的依据。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-c3935756fdba",
+        "source_file": "1-总则.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 定义",
+          "3.3 目标值goal"
+        ],
+        "quote": "期望装备达到的使用指标，它既能满足装备的使用需求，又可使装备达到最佳的效费比，是确定规定值的依据。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-fcab7c6012a5",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "20-21",
+        "section_path": [
+          "附录C 附录C"
+        ],
+        "quote": "根据新研制歼击机可靠性维修性成熟期目标值，结合技术方案的实际情况，确定成熟期门限值。假设需转换的Ao、TmFHBF门限值取目\n… [省略 96 字符] …\nAo转换为固有可用度A\n\n根据附录A公式（A1）：\n\n假设：K₁=0.45K=1.1",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-cd23b2f58504",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "15-16",
+        "section_path": [
+          "附录B 附录B"
+        ],
+        "quote": "（参考件）\n\n本附录提供了可靠性、维修性各类量值之间的大小和时序关系。\n\n一般应根据目标值来确定门限值。目标值要求应优于门\n… [省略 490 字符] …\n\" width=\"84%\" /></div>\n\n图B1可靠性和维修性各量值的时序关系",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8a85411e6ac5",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.3 任务剖面的确定"
+        ],
+        "quote": "表2军用汽车可靠性维修性参数选择表\n\n<div style=\"text-align: center;\"><html><bo\n… [省略 771 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-15506a68ab29",
+        "source_file": "1-总则.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 一般要求",
+          "4.2 指标确定的依据和要求",
+          "4.2.2 指标确定的要求"
+        ],
+        "quote": "4.2.2.1可靠性、维修性指标应根据装备的类型在论证时提出目标值和门限值；在制订合同和研制任务书时提出规定值和最低可接受\n… [省略 236 字符] …\n调。\n\n4.2.2.5合同指标根据使用指标转换确定，其转换模型参见附录A（参考件）。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4847d0349ea1",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": "5-6",
+        "section_path": [
+          "1 火力资源分配问题建模",
+          "1.3 火力资源分配目标函数模型"
+        ],
+        "quote": "通过设定约束条件，火力资源分配问题还可以达到改善特定火力资源分配效能指标的效果，例如通过设定C4和C5中的发射能力上限bt\n… [省略 300 字符] …\n解耦.并大幅度降低计算复杂度有助于得到整体效能更高的解，保证优化结果的质量和可行性。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-054ed36da82f",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": "17-18",
+        "section_path": [
+          "5 结论"
+        ],
+        "quote": "Table 8 Algorithm performance comparison\n\n1）本文针对复杂多约束的火力资源分配问\n… [省略 511 字符] …\nerence. Reno,NV, US:IEEE, 1986: 1054–1058.",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2eea5fb2be15",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": 10,
+        "section_path": [
+          "2 火力资源分配优化算法",
+          "2.4 火力分配高效优化算法"
+        ],
+        "quote": "邻域交换作战区算子以当前解中两个作战区之间的资源交互为目标，定义邻域范围。邻域范围通常限定为资源差异较大的作战区组合，优先\n… [省略 497 字符] …\n道交叉的情况，在进行作战区更换之后，不仅解决了弹道交叉的问题，而且资源分配更加均衡。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-72a8f2994249",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 33,
+        "section_path": [
+          "8 过程FMECA",
+          "8.3 工艺FMECA步骤的主要内容",
+          "8.3.7 RPN值的预测或跟踪"
+        ],
+        "quote": "制定改进措施后，应进预测或跟踪改进措施执后的落实结果，对艺故障模式严酷度等级(S)、艺故障模式的发概率等级(O)和艺故障模式\n… [省略 19 字符] …\n。当不满要求时，需进步改进，并按上述步骤反复进，直到RPN值满足最低可接受水平为止。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 62,
+      "included": 37,
+      "omitted": 25,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 23448,
+      "quote_chars_after": 3922
+    }
+  }
+}
