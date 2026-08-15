@@ -122,7 +122,7 @@ class RuleRecord(BaseModel):
 
     basis: Literal["source", "designed", "synthesized"]
     evidence_ids: list[str] = Field(min_length=1)
-    rationale: str | None = None
+    rationale: str = Field(min_length=1)
     contract_id: str | None = None
 
 

@@ -49,7 +49,7 @@ ChapterWorker 输出
     {
       "basis":            "source | designed | synthesized",
       "evidence_ids":     ["E1", "E2"],        // 只给 alias，系统回填全文
-      "rationale":        "<一句话>",          // 可选，默认省略
+      "rationale":        "<一句话>",          // 必填
       "contract_id":      "ch03_threshold"     // 可选：引用某个跨章契约
     }
   ],
@@ -75,7 +75,7 @@ ChapterWorker 输出
 | `rules[]` | 建议有 | 有序规则清单，表示本章需要“可追溯/可复用/可校验”的规则。**不是每条句子都写**，只写契约级/判据级规则。 |
 | `rules[].basis` | 是 | 规则依据类型：`source`（直接转述来源）、`designed`（设计值/新规则）、`synthesized`（跨来源综合）。 |
 | `rules[].evidence_ids` | 是 | 引用已注册证据（E1/E2 alias），系统回填全文。 |
-| `rules[].rationale` | 否 | 该证据支持该规则的一句话理由。 |
+| `rules[].rationale` | 是 | 该证据支持该规则的一句话理由。 |
 | `rules[].contract_id` | 否 | 引用本交付物中的某个跨章契约。 |
 | `contracts[]` | 否 | 本章“颁布”的跨章契约/术语轴。 |
 | `contracts[].contract_id` | 是 | 全局唯一的契约 ID。 |

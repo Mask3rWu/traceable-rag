@@ -125,7 +125,7 @@ List your auditable rules in rules[] in the order they appear in prose. rules[] 
 per-sentence annotation: write only contract-level or judgment-level rules that need to be
 traceable, reusable, or machine-checkable. Each rule carries basis (source = directly restates a
 source, designed = a new design value or rule, synthesized = derived across sources),
-evidence_ids (aliases), an optional one-line rationale, and an optional contract_id linking to a
+evidence_ids (aliases), a required one-line rationale, and an optional contract_id linking to a
 contract this chapter consumes. Promulgate cross-chapter terms/classification/threshold
 definitions in contracts[]; downstream chapters reference them via rules[].contract_id and
 required_contracts.

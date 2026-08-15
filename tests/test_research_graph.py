@@ -260,6 +260,7 @@ class ResearchGraphTest(unittest.TestCase):
                     {
                         "basis": "synthesized",
                         "evidence_ids": ["ev-test"],
+                        "rationale": "测试",
                         "contract_id": "D-LEVELS" if contract else None,
                     }
                 ],
@@ -322,7 +323,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "采用统一分级",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                 "contracts": [
                     {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": []}
                 ],
@@ -355,6 +358,7 @@ class ResearchGraphTest(unittest.TestCase):
                     {
                         "basis": "source",
                         "evidence_ids": ["ev-test"],
+                        "rationale": "测试",
                         "contract_id": "D-UNKNOWN",
                     }
                 ],
@@ -381,7 +385,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "采用统一分级",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                 "contracts": [
                     {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["A"]},
                     {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["B"]},
@@ -433,7 +439,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "# 5.1 数据需求类型\n要求",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
             }
         )
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
@@ -457,7 +465,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "结论 C1",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
             }
         )
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
@@ -481,7 +491,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "第一段结论。\n\n第二段结论。",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
             }
         )
 
@@ -507,7 +519,9 @@ class ResearchGraphTest(unittest.TestCase):
                 "status": "sufficient",
                 "summary": "研究完成",
                 "prose": "超长正文内容非常多过多",
-                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
             }
         )
         runtime = AgentRuntime(
@@ -543,7 +557,9 @@ class ResearchGraphTest(unittest.TestCase):
         payload = {
             "status": "sufficient",
             "prose": "适用范围",
-            "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+            "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
         }
 
         result = AgentRuntime._canonicalize_packet_payload(
@@ -587,7 +603,9 @@ class ResearchGraphTest(unittest.TestCase):
                     "status": "sufficient",
                     "summary": "完成",
                     "prose": "采用K级判定",
-                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                    "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                     "contracts": [
                         {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["K级", "M级"]}
                     ],
@@ -601,7 +619,9 @@ class ResearchGraphTest(unittest.TestCase):
                     "status": "sufficient",
                     "summary": "完成",
                     "prose": "该目标判定为Q级。",
-                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                    "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                 }
             ),
         ]
@@ -645,7 +665,9 @@ class ResearchGraphTest(unittest.TestCase):
                     "status": "sufficient",
                     "summary": "完成",
                     "prose": "正文",
-                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                    "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                 }
             ),
             ResearchPacket.model_validate(
@@ -656,7 +678,9 @@ class ResearchGraphTest(unittest.TestCase):
                     "status": "sufficient",
                     "summary": "完成",
                     "prose": "正文",
-                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                    "rules": [
+                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                ],
                 }
             ),
         ]
