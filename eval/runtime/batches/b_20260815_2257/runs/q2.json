@@ -1,0 +1,1410 @@
+{
+  "run_id": "87c91a787efe4d849f80de3d9a7ac44d",
+  "request": "无人机在环境适应性方面有哪些主要要求？",
+  "route": {
+    "mode": "fast",
+    "reason": "The query is a direct factual question about UAV environmental adaptability requirements, answerable with a brief search."
+  },
+  "outcome": "completed",
+  "answer": {
+    "content": "无人机在环境适应性方面的主要要求可归纳为以下几个方面：\n\n1. 总体环境要求：无人机所有部件应能承受贮存、运输和飞行条件下所规定的各种环境条件，主要包括气候、力学、生物、电磁环境等类别。\n\n2. 性能保持要求：无人机在地面运转和飞行中遇到规定环境条件时，应能满足规定的性能要求；在规定的贮存和运输条件下，受规定环境影响时应能安全贮存和运输，且性能不受损害。\n\n3. 力学环境要求：无人机及其部件应能承受正常操作、发射、回收和飞行中所遇到的加速度、冲击和振动；装箱状态下还应能承受运输和贮存中遇到的加速度、冲击和振动。结构方面，飞行中应能承受操纵系统和突风扰动引起的载荷，颤振边界应留有安全裕度。\n\n4. 电磁环境要求：无人机的电磁兼容性应符合相关军用标准（GJB151、GJB152、GJB1389）要求；机上各类舵机须进行电磁兼容性设计，引爆装置应对电磁敏感度留有安全余量，点火系统等应能承受电磁辐射的危害。\n\n5. 气候环境要求：动力装置的冷却系统应符合温度限制要求；电子设备应按要求进行冷却或加温（环控）；点火系统应能抗振动、抗高压、避免过潮和过热；金属部件（如滑油箱）应由耐腐蚀材料制造。\n\n6. 环境试验要求：电子设备等应按GJB150等标准进行环境试验。\n\n7. 指标层面要求：环境适应性本身即被列为无人机战术技术指标之一，并单独提出抗风要求（含地面及空中抗风要求）；自动驾驶仪等机载系统也须满足详细规范规定的飞行和环境条件。",
+    "evidence_ids": [
+      "ev-a1b4468c55da",
+      "ev-0c3b1e6ec03b",
+      "ev-a104131c40c2",
+      "ev-e10d6b1eecf8",
+      "ev-9e5d95f7715f",
+      "ev-a4e5e8bc5e46",
+      "ev-27afefe2d53f",
+      "ev-94a7801242af",
+      "ev-353c53fadd49",
+      "ev-bc8b960d111b",
+      "ev-e0bd228ef9af",
+      "ev-9d449fdfd35c",
+      "ev-955ea0c093bb"
+    ],
+    "limitations": []
+  },
+  "document_plan": null,
+  "consistency_issues": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-a1b4468c55da",
+      "chunk_id": "无人机通用规范_C00008",
+      "content_hash": "57df5cc625d0f7b54537da3ef049a9e3b4f80a684228a30e38533ca42e1ab2cb",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 5,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.1 环境"
+      ],
+      "block_ids": [
+        "无人机通用规范_P005_B14",
+        "无人机通用规范_P005_B15"
+      ],
+      "quote": "无人机所有部件应能承受贮存、运输和飞行条件下所规定的各种环境条件，包括：气候、力学、生物、电磁环境等。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.8286769390106201,
+          "bm25_rank": 1,
+          "bm25_score": 10.114681243896484,
+          "fusion_score": 0.03278688524590164
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.788414716720581,
+          "bm25_rank": 3,
+          "bm25_score": 6.482812881469727,
+          "fusion_score": 0.032266458495966696
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.8604846000671387,
+          "bm25_rank": 1,
+          "bm25_score": 22.428298950195312,
+          "fusion_score": 0.03278688524590164
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 2,
+          "dense_rank": 1,
+          "dense_score": 0.7815686464309692,
+          "bm25_rank": 16,
+          "bm25_score": 5.239161491394043,
+          "fusion_score": 0.029551337359792925
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 2,
+          "dense_rank": 1,
+          "dense_score": 0.8172364234924316,
+          "bm25_rank": 6,
+          "bm25_score": 6.482812881469727,
+          "fusion_score": 0.031544957774465976
+        },
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.7559581995010376,
+          "bm25_rank": 29,
+          "bm25_score": 6.482812881469727,
+          "fusion_score": 0.02736498731424429
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.782185818888453,
+          "bm25_rank": 2,
+          "bm25_score": 11.20386028289795,
+          "fusion_score": 0.03252247488101534
+        },
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 1,
+          "dense_rank": 2,
+          "dense_score": 0.8108059055093485,
+          "bm25_rank": 1,
+          "bm25_score": 14.79317569732666,
+          "fusion_score": 0.03252247488101534
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a4e5e8bc5e46",
+      "chunk_id": "无人机通用规范_C00007",
+      "content_hash": "1dd148551941236a955c48195c67167033bf956c890e7d6edc5e5cb3bdb14553",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 4,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.2 无人机的战术技术指标",
+        "3.1.2.1 飞行性能"
+      ],
+      "block_ids": [
+        "无人机通用规范_P004_B07",
+        "无人机通用规范_P004_B08",
+        "无人机通用规范_P004_B09",
+        "无人机通用规范_P005_B01",
+        "无人机通用规范_P005_B02",
+        "无人机通用规范_P005_B03",
+        "无人机通用规范_P005_B04",
+        "无人机通用规范_P005_B05",
+        "无人机通用规范_P005_B06",
+        "无人机通用规范_P005_B07",
+        "无人机通用规范_P005_B08",
+        "无人机通用规范_P005_B09",
+        "无人机通用规范_P005_B10",
+        "无人机通用规范_P005_B11",
+        "无人机通用规范_P005_B12",
+        "无人机通用规范_P005_B13"
+      ],
+      "quote": "a.速度指标：最大速度、巡航速度、最小速度；\n\nb．高度指标：实用升限、最大使用高度、最低飞行高度；\n\n核）。\n\n3.1.2.3几何尺寸：全机长、展长、机高。\n\n3.1.2.4飞行姿态的平稳度\n\n3.1.2.5航迹控制精度\n\n3.1.2.6地面控制半径和定位精度\n\n3.1.2.7环境适应性\n\n3.1.2.8抗风要求（含地面及空中抗风要求）\n\n3.1.2.9发射与回收方式\n\n3.1.2.10安全性\n\n3.1.2.11可靠性与维修性\n\n3.1.2.12耐久性与寿命特性\n\n3.1.2.13隐身性\n\n3.1.2.14其它",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 2,
+          "dense_rank": 3,
+          "dense_score": 0.7513259277142864,
+          "bm25_rank": 2,
+          "bm25_score": 8.473145484924316,
+          "fusion_score": 0.03200204813108039
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 2,
+          "dense_rank": 4,
+          "dense_score": 0.7154685472091603,
+          "bm25_rank": 1,
+          "bm25_score": 8.473145484924316,
+          "fusion_score": 0.032018442622950824
+        },
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 2,
+          "dense_rank": 9,
+          "dense_score": 0.694054883364134,
+          "bm25_rank": 2,
+          "bm25_score": 8.494593620300293,
+          "fusion_score": 0.030621785881252923
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 8,
+          "dense_rank": 3,
+          "dense_score": 0.7400639277715665,
+          "bm25_rank": 30,
+          "bm25_score": 6.151726722717285,
+          "fusion_score": 0.026984126984126985
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 1,
+          "dense_rank": 3,
+          "dense_score": 0.7125134084377712,
+          "bm25_rank": 3,
+          "bm25_score": 7.204740524291992,
+          "fusion_score": 0.031746031746031744
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 1,
+          "dense_rank": 3,
+          "dense_score": 0.7396086674812042,
+          "bm25_rank": 1,
+          "bm25_score": 8.473145484924316,
+          "fusion_score": 0.032266458495966696
+        },
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.8010666609128319,
+          "bm25_rank": 1,
+          "bm25_score": 23.08898162841797,
+          "fusion_score": 0.03278688524590164
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 8,
+          "dense_rank": 22,
+          "dense_score": 0.6869872194242059,
+          "bm25_rank": 13,
+          "bm25_score": 7.204740524291992,
+          "fusion_score": 0.025893752088205813
+        },
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 3,
+          "dense_rank": 3,
+          "dense_score": 0.7788930635654688,
+          "bm25_rank": 7,
+          "bm25_score": 13.013092041015625,
+          "fusion_score": 0.030798389007344232
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-353c53fadd49",
+      "chunk_id": "无人机通用规范_C00078",
+      "content_hash": "c223870ea04113cc88d99363b680e4f636f61c24da40b81c50cb838d421afa8e",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 14,
+      "page_end": 14,
+      "section_path": [
+        "3 要求",
+        "3.3 动力装置",
+        "3.3.7 冷却系统",
+        "3.3.7.2 涡轮发动机冷却系统"
+      ],
+      "block_ids": [
+        "无人机通用规范_P014_B16",
+        "无人机通用规范_P014_B17"
+      ],
+      "quote": "按发动机和附件技术规范提出的各种温度限制提供冷却。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 3,
+          "dense_rank": 4,
+          "dense_score": 0.7432061586853185,
+          "bm25_rank": 14,
+          "bm25_score": 6.07437801361084,
+          "fusion_score": 0.029138513513513514
+        },
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 4,
+          "dense_rank": 10,
+          "dense_score": 0.6892186793917838,
+          "bm25_rank": 9,
+          "bm25_score": 6.07437801361084,
+          "fusion_score": 0.02877846790890269
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 4,
+          "dense_rank": 24,
+          "dense_score": 0.6738991931736962,
+          "bm25_rank": 21,
+          "bm25_score": 5.093372344970703,
+          "fusion_score": 0.024250440917107582
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 5,
+          "dense_rank": 5,
+          "dense_score": 0.7365568437244402,
+          "bm25_rank": 13,
+          "bm25_score": 6.07437801361084,
+          "fusion_score": 0.029083245521601686
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-0c3b1e6ec03b",
+      "chunk_id": "无人机通用规范_C00010",
+      "content_hash": "2303c1ac5d845391aebee02b2c80acea9e0a7cff65c939881926e2b310de6a42",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 5,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.2 贮存和运输",
+        "3.1.3.2.1 运转"
+      ],
+      "block_ids": [
+        "无人机通用规范_P005_B18",
+        "无人机通用规范_P005_B19"
+      ],
+      "quote": "无人机在地面运转和飞行中遇到规定环境条件，应能满足规定的性能要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.7885277271270752,
+          "bm25_rank": 17,
+          "bm25_score": 6.001753330230713,
+          "fusion_score": 0.029116045245077504
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 3,
+          "dense_rank": 2,
+          "dense_score": 0.747871994972229,
+          "bm25_rank": 8,
+          "bm25_score": 6.001753330230713,
+          "fusion_score": 0.030834914611005692
+        },
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 7,
+          "dense_rank": 3,
+          "dense_score": 0.7235557056533014,
+          "bm25_rank": 38,
+          "bm25_score": 4.444022178649902,
+          "fusion_score": 0.02607709750566893
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 2,
+          "dense_rank": 2,
+          "dense_score": 0.7850340604782104,
+          "bm25_rank": 4,
+          "bm25_score": 8.911080360412598,
+          "fusion_score": 0.031754032258064516
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 3,
+          "dense_rank": 2,
+          "dense_score": 0.7499556541442871,
+          "bm25_rank": 43,
+          "bm25_score": 4.630499839782715,
+          "fusion_score": 0.025837770122142185
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.7841118574142456,
+          "bm25_rank": 17,
+          "bm25_score": 6.001753330230713,
+          "fusion_score": 0.029116045245077504
+        },
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 2,
+          "dense_rank": 3,
+          "dense_score": 0.7558457851409912,
+          "bm25_rank": 11,
+          "bm25_score": 7.705158710479736,
+          "fusion_score": 0.029957522915269395
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 3,
+          "dense_rank": 3,
+          "dense_score": 0.7304836832900476,
+          "bm25_rank": 7,
+          "bm25_score": 7.632142066955566,
+          "fusion_score": 0.030798389007344232
+        },
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 2,
+          "dense_rank": 1,
+          "dense_score": 0.8114369399211981,
+          "bm25_rank": 2,
+          "bm25_score": 14.330429077148438,
+          "fusion_score": 0.03252247488101534
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a104131c40c2",
+      "chunk_id": "无人机通用规范_C00009",
+      "content_hash": "a4e7e91421f07de87ca6b2494d3ef95ea5e25f5274830fa3d3755a5c71d32775",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 5,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.2 贮存和运输"
+      ],
+      "block_ids": [
+        "无人机通用规范_P005_B16",
+        "无人机通用规范_P005_B17"
+      ],
+      "quote": "无人机在规定的贮存和运输条件下，在规定环境影响下应能安全贮存和运输，其性能不受损害。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 5,
+          "dense_rank": 7,
+          "dense_score": 0.7308256190523149,
+          "bm25_rank": 19,
+          "bm25_score": 5.810359954833984,
+          "fusion_score": 0.027583600982429624
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 6,
+          "dense_rank": 29,
+          "dense_score": 0.6673892338639966,
+          "bm25_rank": 9,
+          "bm25_score": 5.810359954833984,
+          "fusion_score": 0.025728708679368183
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 4,
+          "dense_rank": 11,
+          "dense_score": 0.7157228162453892,
+          "bm25_rank": 5,
+          "bm25_score": 8.668132781982422,
+          "fusion_score": 0.02946912242686891
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 5,
+          "dense_rank": 9,
+          "dense_score": 0.6945114913873988,
+          "bm25_rank": 48,
+          "bm25_score": 4.57728385925293,
+          "fusion_score": 0.023752012882447666
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 6,
+          "dense_rank": 7,
+          "dense_score": 0.7220011519192976,
+          "bm25_rank": 23,
+          "bm25_score": 5.810359954833984,
+          "fusion_score": 0.026973565905412694
+        },
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 4,
+          "dense_rank": 10,
+          "dense_score": 0.7323559522628836,
+          "bm25_rank": 5,
+          "bm25_score": 13.833013534545898,
+          "fusion_score": 0.02967032967032967
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-bc8b960d111b",
+      "chunk_id": "无人机通用规范_C00077",
+      "content_hash": "4fde7073d1a4928516c8b29bf2d7ea9d6b2b4edf4c7c3c2356f6c74c14e85259",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 14,
+      "page_end": 14,
+      "section_path": [
+        "3 要求",
+        "3.3 动力装置",
+        "3.3.7 冷却系统",
+        "3.3.7.1 活塞式发动机冷却系统"
+      ],
+      "block_ids": [
+        "无人机通用规范_P014_B14",
+        "无人机通用规范_P014_B15"
+      ],
+      "quote": "冷却系统应符合规范的温度要求。使从排气管或集合器上传导或辐射热量，远离发动机和附件。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 6,
+          "dense_rank": 27,
+          "dense_score": 0.7049200114655501,
+          "bm25_rank": 15,
+          "bm25_score": 6.048101902008057,
+          "fusion_score": 0.024827586206896554
+        },
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 5,
+          "dense_rank": 16,
+          "dense_score": 0.6810579096955711,
+          "bm25_rank": 10,
+          "bm25_score": 6.048101902008057,
+          "fusion_score": 0.027443609022556388
+        },
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 6,
+          "dense_rank": 48,
+          "dense_score": 0.650935491863759,
+          "bm25_rank": 37,
+          "bm25_score": 4.849013328552246,
+          "fusion_score": 0.01956853760977472
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 8,
+          "dense_rank": 31,
+          "dense_score": 0.6955377640999708,
+          "bm25_rank": 14,
+          "bm25_score": 6.048101902008057,
+          "fusion_score": 0.024502524502524506
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-27afefe2d53f",
+      "chunk_id": "无人机通用规范_C00117",
+      "content_hash": "699653d4be17636713d1bb27fcd61820d7c0b749ce487bbc2de66d216b17f974",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "3 要求",
+        "3.5 电子设备",
+        "3.5.3 性能"
+      ],
+      "block_ids": [
+        "无人机通用规范_P018_B03",
+        "无人机通用规范_P018_B04",
+        "无人机通用规范_P018_B05",
+        "无人机通用规范_P018_B06",
+        "无人机通用规范_P018_B07",
+        "无人机通用规范_P018_B08",
+        "无人机通用规范_P018_B09",
+        "无人机通用规范_P018_B10",
+        "无人机通用规范_P018_B11",
+        "无人机通用规范_P018_B12",
+        "无人机通用规范_P018_B13",
+        "无人机通用规范_P018_B14"
+      ],
+      "quote": "所有电子设备的性能都应满足GJB457的有关要求并与无人机总体性能要求相匹配。也可以根据订购方要求或“制造与验收技术条件”规定。这些性能要求必须能通过必要的测试设备和手段进行验收。\n\n3.5.3.1设备的环控按照设备要求对其冷却或加温。\n\n3.5.3.2设备和系统的电磁兼容性应分别符合GJB151、GJB152和GJB1389、GJB/Z17有关要求。\n\n3.5.3.3低仰角远距离视距传输是无人机应解决的技术关键，它可以通过频率分集、时间分集和中继转发来实现。\n\n3.5.3.4设备的环境试验，应按照GJB150有关要求进行。\n\n3.5.3.5布线\n\n所有电子设备的布线应符合GJB1014的有关要求。\n\n3.5.3.6接口\n\n接口应根据系统设计要求进行。\n\n3.5.4.1说明\n\n无线电遥控设备为无人机无线电数据链的上行信道。包括地面（舰面、机载）无线电遥控操纵器（台）、遥控发射机、发射天线与馈线、机载无线电遥控接收天线、遥控接收机和基带信号解调器，完成各指令对飞机的操作控制。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 7,
+          "dense_rank": 12,
+          "dense_score": 0.7254842847008417,
+          "bm25_rank": 43,
+          "bm25_score": 4.933382034301758,
+          "fusion_score": 0.023597626752966557
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 5,
+          "dense_rank": 6,
+          "dense_score": 0.7112719164762648,
+          "bm25_rank": 31,
+          "bm25_score": 4.933382034301758,
+          "fusion_score": 0.026140526140526144
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 6,
+          "dense_rank": 12,
+          "dense_score": 0.7148766857532688,
+          "bm25_rank": 8,
+          "bm25_score": 7.89581298828125,
+          "fusion_score": 0.028594771241830064
+        },
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 7,
+          "dense_rank": 22,
+          "dense_score": 0.705572282603712,
+          "bm25_rank": 22,
+          "bm25_score": 6.7218828201293945,
+          "fusion_score": 0.024390243902439025
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-94a7801242af",
+      "chunk_id": "无人机通用规范_C00133",
+      "content_hash": "2d6cb8d8ebdcc00740a5e6d34235293bac4ed07b79aa5467dcb5a480eaf483d2",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "3 要求",
+        "3.5 电子设备",
+        "3.5.12 控制与管理系统",
+        "3.5.12.2 要求"
+      ],
+      "block_ids": [
+        "无人机通用规范_P020_B22",
+        "无人机通用规范_P020_B23",
+        "无人机通用规范_P020_B24",
+        "无人机通用规范_P020_B25",
+        "无人机通用规范_P020_B26",
+        "无人机通用规范_P020_B27",
+        "无人机通用规范_P020_B28"
+      ],
+      "quote": "a.自动驾驶仪可以采用模拟式、数字式或数模混合式结构；\n\nb，自动驾驶仪应符合详细规范所要求的无人机空速、高度、操纵性、飞行和环境条件。应根据无人机的用途满足飞行品质相应等级；\n\nc.机上各类舵机必须进行电磁兼容性设计；\n\nd.机上各类引爆装置必须对电磁敏感度留有安全余量；\n\ne.机上管理系统与机载电子设备应协调工作；\n\nf．机载的飞行控制计算机应进行静态可靠性和动态可靠性设计。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性要求 气候 温度 湿度",
+          "final_rank": 8,
+          "dense_rank": 24,
+          "dense_score": 0.7085576057434082,
+          "bm25_rank": 32,
+          "bm25_score": 5.103894233703613,
+          "fusion_score": 0.022774327122153208
+        },
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 4,
+          "dense_rank": 9,
+          "dense_score": 0.7046137452125549,
+          "bm25_rank": 24,
+          "bm25_score": 5.103894233703613,
+          "fusion_score": 0.026397515527950312
+        },
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 5,
+          "dense_rank": 14,
+          "dense_score": 0.7095268964767456,
+          "bm25_rank": 3,
+          "bm25_score": 9.721738815307617,
+          "fusion_score": 0.029386529386529386
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 7,
+          "dense_rank": 28,
+          "dense_score": 0.7011998295783997,
+          "bm25_rank": 11,
+          "bm25_score": 6.2624640464782715,
+          "fusion_score": 0.025448143405889884
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-b46268f36abd",
+      "chunk_id": "无人机通用规范_C00175",
+      "content_hash": "70fd8a64d8f95a8dd2f66a8cf748ca31c9a67e25216cdad0b3169a9f17aab59f",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 24,
+      "page_end": 24,
+      "section_path": [
+        "3 要求",
+        "3.7 任务设备",
+        "3.7.5 电子对抗设备",
+        "3.7.5.2 要求"
+      ],
+      "block_ids": [
+        "无人机通用规范_P024_B17",
+        "无人机通用规范_P024_B18",
+        "无人机通用规范_P024_B19",
+        "无人机通用规范_P024_B20",
+        "无人机通用规范_P024_B21"
+      ],
+      "quote": "a.对抗设备的机载天线应与测控设备天线兼容，尤其在低频段。天线特性须经实测确定；\n\nb．电子对抗设备必须保证部件与系统的电磁兼容性，测试应符合GJB151、GJB152、GJB1389等有关要求。设备不仅应确保机载设备之间的兼容，还应确保自身的兼容、机载与地面设备的兼容。所有设备应保证在作战使用的电磁环境下正常工作；\n\nC．车载电子对抗设备的装配应符合GJB1150有关要求；\n\nd．雷达对抗设备的安全性应符合GJB1151有关要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 7,
+          "dense_rank": 17,
+          "dense_score": 0.6794165372848511,
+          "bm25_rank": 37,
+          "bm25_score": 4.697206974029541,
+          "fusion_score": 0.023296291337528453
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-bcccabcffc36",
+      "chunk_id": "无人机通用规范_C00118",
+      "content_hash": "b3284b2983244f5dbebd8c3d5db161b83e4550e63ed3ea0e62c522fe4c5294f7",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "3 要求",
+        "3.5 电子设备",
+        "3.5.4",
+        "3.5.4.2 要求"
+      ],
+      "block_ids": [
+        "无人机通用规范_P018_B15",
+        "无人机通用规范_P018_B16",
+        "无人机通用规范_P018_B17",
+        "无人机通用规范_P018_B18",
+        "无人机通用规范_P018_B19",
+        "无人机通用规范_P018_B20",
+        "无人机通用规范_P018_B21"
+      ],
+      "quote": "无线电遥控设备的性能应满足设计要求。并与飞机的飞行性能、作战使命和飞行控制相匹配。其主要性能指标为：\n\na.遥控作用距离（包括飞行条件）；\n\nb．遥控指令条数、形式和采样速率、响应时间；\n\nc.抗干扰性能（扩频技术、频点选择、指令加密等）。\n\n无线电遥控设备若需要控制机群，则可以采用频分多址或码分多址控制方式。\n\n若在同一空域内要求几套系统同时工作，应考虑其相互影响。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 主要要求",
+          "final_rank": 8,
+          "dense_rank": 16,
+          "dense_score": 0.6843788623809814,
+          "bm25_rank": 42,
+          "bm25_score": 4.589515686035156,
+          "fusion_score": 0.022961816305469555
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-e10d6b1eecf8",
+      "chunk_id": "无人机通用规范_C00011",
+      "content_hash": "a311c664119fd5983d75b2b5cd8f7dd68515a848960f633ef3f5a0efb9f2ebc6",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 5,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.2 贮存和运输",
+        "3.1.3.2.2 加速度、冲击和振动"
+      ],
+      "block_ids": [
+        "无人机通用规范_P005_B20",
+        "无人机通用规范_P005_B21"
+      ],
+      "quote": "无人机及其部件应能承受正常操作、发射、回收、飞行中所遇到的加速度、冲击和振动。无人机在装箱状态下，应能承受运输和贮存中所遇到的加速度、冲击和振动。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 1,
+          "dense_rank": 4,
+          "dense_score": 0.7120591614264004,
+          "bm25_rank": 1,
+          "bm25_score": 10.172571182250977,
+          "fusion_score": 0.032018442622950824
+        },
+        {
+          "query": "无人机 环境适应性 详细要求 温度冲击 湿热 砂尘 淋雨 低气压",
+          "final_rank": 3,
+          "dense_rank": 4,
+          "dense_score": 0.7395312786102295,
+          "bm25_rank": 5,
+          "bm25_score": 6.640297889709473,
+          "fusion_score": 0.031009615384615385
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 2,
+          "dense_rank": 2,
+          "dense_score": 0.7500353753524625,
+          "bm25_rank": 1,
+          "bm25_score": 12.490643501281738,
+          "fusion_score": 0.03252247488101534
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-e0bd228ef9af",
+      "chunk_id": "无人机通用规范_C00111",
+      "content_hash": "1d99dd4868294d15cb8e25a42ec1bc0da4d14703ba40bfb2d002d95d9cdd4622",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "3 要求",
+        "3.3 动力装置",
+        "3.3.12 点火系统"
+      ],
+      "block_ids": [
+        "无人机通用规范_P017_B07",
+        "无人机通用规范_P017_B08",
+        "无人机通用规范_P017_B09",
+        "无人机通用规范_P017_B10",
+        "无人机通用规范_P017_B11"
+      ],
+      "quote": "应按型号规范要求，提供点火系统。\n\na．能抗振动、抗高压、避免过潮、过热；\n\nb．高压部件应采取干扰抑制措施，以满足总体电磁兼容要求；\n\nC.点火系统应能承受电磁辐射的危害",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 3,
+          "dense_rank": 8,
+          "dense_score": 0.6961817948872389,
+          "bm25_rank": 4,
+          "bm25_score": 6.509368896484375,
+          "fusion_score": 0.030330882352941176
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 4,
+          "dense_rank": 10,
+          "dense_score": 0.704313134632934,
+          "bm25_rank": 4,
+          "bm25_score": 8.811513900756836,
+          "fusion_score": 0.029910714285714284
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9d449fdfd35c",
+      "chunk_id": "无人机通用规范_C00145",
+      "content_hash": "e0940d118052b5f6525267b2e7078e656713ee84f37f22c457baddfe939aaeda",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 22,
+      "page_end": 22,
+      "section_path": [
+        "3 要求",
+        "3.6 电气设备",
+        "3.6.2 要求",
+        "3.6.2.6 点火和起动系统"
+      ],
+      "block_ids": [
+        "无人机通用规范_P022_B06",
+        "无人机通用规范_P022_B07",
+        "无人机通用规范_P022_B08"
+      ],
+      "quote": "点火系统的零件尽可能屏蔽，点火器和点火电路应能承受剧烈振动并防止摩擦导致短路或接地，点火系统应能承受电磁辐射的危害。\n\n起动系统应符合详细规范要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 6,
+          "dense_rank": 23,
+          "dense_score": 0.6719151134566936,
+          "bm25_rank": 6,
+          "bm25_score": 6.388339996337891,
+          "fusion_score": 0.02719970792259949
+        },
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 6,
+          "dense_rank": 29,
+          "dense_score": 0.6747148812496945,
+          "bm25_rank": 3,
+          "bm25_score": 9.978500366210938,
+          "fusion_score": 0.027108970929195647
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-15752421b185",
+      "chunk_id": "无人机通用规范_C00090",
+      "content_hash": "1e0a8d3aead1a76a53d19f407145215d672fcbf5074d9704ec71c31da96870af",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 15,
+      "page_end": 15,
+      "section_path": [
+        "3 要求",
+        "3.3 动力装置",
+        "3.3.8 润滑系统",
+        "3.3.8.2 滑油箱",
+        "3.3.8.2.9 滑油散热器"
+      ],
+      "block_ids": [
+        "无人机通用规范_P015_B22",
+        "无人机通用规范_P015_B23"
+      ],
+      "quote": "型号规范应说明滑油散热器的类型及数量，滑油散热器应带有安全活门。散热器必须满足发动机工作包线内所遇到的振动、外力和工作流体压力及温度的要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风 要求 温度 湿度 盐雾 霉菌 振动 冲击",
+          "final_rank": 8,
+          "dense_rank": 50,
+          "dense_score": 0.6488782554196272,
+          "bm25_rank": 3,
+          "bm25_score": 8.256257057189941,
+          "fusion_score": 0.024963924963924963
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9e5d95f7715f",
+      "chunk_id": "无人机通用规范_C00023",
+      "content_hash": "c1f22c8f6fa790d8ea28cfda671d913c90f6756df42ef04a320d6c800e98e107",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.9 电磁兼容性"
+      ],
+      "block_ids": [
+        "无人机通用规范_P006_B25",
+        "无人机通用规范_P006_B26"
+      ],
+      "quote": "无人机的电磁兼容性应符合GJB151、GJB152、GJB1389的有关要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 3,
+          "dense_rank": 4,
+          "dense_score": 0.7368113994598389,
+          "bm25_rank": 9,
+          "bm25_score": 7.753163814544678,
+          "fusion_score": 0.030117753623188408
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9c01b0e6ee96",
+      "chunk_id": "无人机通用规范_C00024",
+      "content_hash": "0d2b7c35105034b1b633b85126f35a61023574509236877a3680c682054df3d4",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 6,
+      "page_end": 7,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.10 隐身性与目标特性"
+      ],
+      "block_ids": [
+        "无人机通用规范_P006_B27",
+        "无人机通用规范_P007_B01",
+        "无人机通用规范_P007_B02"
+      ],
+      "quote": "无人机的视觉特征、雷达电磁波的反射特性、红外幅射强度、目标特性应满足型号规范要求。\n\n对于靶机应给出目标增强特性。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境条件 气候 力学 生物 电磁环境 要求",
+          "final_rank": 7,
+          "dense_rank": 7,
+          "dense_score": 0.7249697282892317,
+          "bm25_rank": 20,
+          "bm25_score": 6.788290023803711,
+          "fusion_score": 0.027425373134328357
+        },
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 6,
+          "dense_rank": 5,
+          "dense_score": 0.7632568792410945,
+          "bm25_rank": 13,
+          "bm25_score": 12.538914680480957,
+          "fusion_score": 0.029083245521601686
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-5be2a831023b",
+      "chunk_id": "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_C00015",
+      "content_hash": "8e6bbc8050461f86d4d7a1aafbabfed037bfad1d86dbcd094443eea283a0b6d6",
+      "document_id": "周德元_等_-_2025_-_反无人激光武器毁伤效能研究",
+      "source_file": "周德元 等 - 2025 - 反无人激光武器毁伤效能研究.pdf",
+      "page_start": 3,
+      "page_end": 4,
+      "section_path": [
+        "3 反无人激光武器毁伤无人机仿真研究",
+        "3.1 反无人激光武器数学模型建立"
+      ],
+      "block_ids": [
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B21",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B22",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B23",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B25",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B27",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B30",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B32",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B05",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B07"
+      ],
+      "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_712_396_1001_696.jpg\" alt=\"Image\" width=\"23%\" /></div>\n\n图4反无人激光武器毁伤无人机热烧蚀过程\n\nFig. 4 Thermal ablation process of unmanned laser weapons destroying drones\n\n$$q = (1 − R) qinc $$\n\n$$ρc ∂T ∂t : ∇· (k∇T) + (1 − R) aqincexp(1 − z) + Q $$\n\n$$∂T ∂2∂2T ρc ∂t = λ (x , r ,θ, T) ∂r2+r ∂r +(c ∂θ2+$$\n\n$$T(x , r , θ,0 ) = T0$$\n\n式中，E为激光束总能量（kJ）；P表示激光束总功率；7为激光束照射时间。当郊狼无人机在高能激光束辐照下，郊狼无人机表面温度与环境温度有较大的温差，考虑郊狼无人机表面会向周围环境辐射热量，此处定义边界条件：\n\n式中，σ是玻尔兹曼常数；ε表示郊狼无人机表面的辐射率，其值恒小于1，与材料种类及表面状态有关：F是郊狼无人机辐射面的形状系数；A为高能激光束照射郊狼无人机的面积；T，是无人机的表面温度；T是环境温度。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P003_B21",
+          "block_type": "figure",
+          "page": 3,
+          "relation": "contained",
+          "image_crop": "processed/parsed/周德元_等_-_2025_-_反无人激光武器毁伤效能研究/assets/crops/p003_b21_figure.png",
+          "description": "图4展示了郊狼无人机有限元计算模型及激光热烧蚀过程，其中垂直向下的灰色箭头标注为“激光束”，指向无人机圆柱形机身表面被圈出的区域，该区域下方通过引线标注为“热烧蚀”。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 7,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 1,
+          "bm25_score": 7.246410369873047,
+          "fusion_score": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-4c0fc3836d08",
+      "chunk_id": "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_C00018",
+      "content_hash": "4acaa957549fe4e24aeac1303042bed7f185cb6899b9e2372cd56d6080f36f05",
+      "document_id": "周德元_等_-_2025_-_反无人激光武器毁伤效能研究",
+      "source_file": "周德元 等 - 2025 - 反无人激光武器毁伤效能研究.pdf",
+      "page_start": 4,
+      "page_end": 4,
+      "section_path": [
+        "3 反无人激光武器毁伤无人机仿真研究",
+        "3.2 高能激光武器热毁伤郊狼无人机仿真过程",
+        "3.2.3 边界条件及分析设置"
+      ],
+      "block_ids": [
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B31",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B32",
+        "周德元_等_-_2025_-_反无人激光武器毁伤效能研究_P004_B33"
+      ],
+      "quote": "采用瞬态热烧蚀法对郊狼无人机的毁伤情况进行仿真分析，将激光武器的功率密度转化为输入热流，在激光辐照面上加载热流密度载荷；反无人试验中，由于激光武器的辐照，郊狼无人机激光辐照面的温度远高于环境温度，因此同时施加了热辐射边界条件。\n\n其中郊狼无人机表面的初温和环境温度均设置为22℃，激光功率为20kW，持续时间60s，光斑尺寸为10cm。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 温度 湿度 雨 雷电 砂尘 盐雾 霉菌",
+          "final_rank": 8,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 2,
+          "bm25_score": 7.243811130523682,
+          "fusion_score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-82486f6d008d",
+      "chunk_id": "无人机通用规范_C00128",
+      "content_hash": "3019139a1351de8329c71a1561720e254c996ad3958086c981b19633966fad42",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 20,
+      "page_end": 20,
+      "section_path": [
+        "3 要求",
+        "3.5 电子设备",
+        "3.5.9 中继转发设备",
+        "3.5.9.2 要求"
+      ],
+      "block_ids": [
+        "无人机通用规范_P020_B05",
+        "无人机通用规范_P020_B06",
+        "无人机通用规范_P020_B07"
+      ],
+      "quote": "a．用于地面中继转发设备应轻便，便于背负；\n\nb．战术使用性能应满足任务书或合同要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 3,
+          "dense_rank": 11,
+          "dense_score": 0.7174098919278331,
+          "bm25_rank": 15,
+          "bm25_score": 7.54119873046875,
+          "fusion_score": 0.027417840375586856
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-63142e918802",
+      "chunk_id": "无人机通用规范_C00014",
+      "content_hash": "962e38a423d5cd7572ded4b10fe10e5eb411b85cf20661f793b6e585cb2bce2b",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.4 维修性",
+        "3.1.3.4.1 无人机的维修性的主要技术指标有："
+      ],
+      "block_ids": [
+        "无人机通用规范_P006_B02",
+        "无人机通用规范_P006_B03",
+        "无人机通用规范_P006_B04"
+      ],
+      "quote": "a．平均维修时间：MTTR；\n\nb.平均维修时间/飞行小时，即在空中每飞行1h所需的（地面）维修时间。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 5,
+          "dense_rank": 31,
+          "dense_score": 0.6970119656913313,
+          "bm25_rank": 2,
+          "bm25_score": 14.042264938354492,
+          "fusion_score": 0.027118043247075507
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f24bdfc5fdeb",
+      "chunk_id": "无人机通用规范_C00176",
+      "content_hash": "00aeb6dfcf0b25404937d73e7e370e395db2440d5f1c8902f41d20a9bb04bf2e",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 24,
+      "page_end": 24,
+      "section_path": [
+        "3 要求",
+        "3.8 地面保障设备"
+      ],
+      "block_ids": [
+        "无人机通用规范_P024_B22",
+        "无人机通用规范_P024_B23",
+        "无人机通用规范_P024_B24"
+      ],
+      "quote": "地面保障设备是保证无人机迅速、安全、可靠地发射、回收和完成各种战术功能，快速准确地处理侦察成果，并及时对上级友邻部队联系；保证无人机队的机动性、独立性，能对飞机、发动机、电子设备、任务设备进行维修。\n\n地面保障设备按型号规范配置。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 6,
+          "dense_rank": 27,
+          "dense_score": 0.7002675533294678,
+          "bm25_rank": 13,
+          "bm25_score": 7.619766712188721,
+          "fusion_score": 0.02519288301054952
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-243758c6e86c",
+      "chunk_id": "无人机通用规范_C00012",
+      "content_hash": "a8f50822d8fabc2233070bdb3db865e3d5b176d15531d32ceefd3d83836fe38d",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 5,
+      "page_end": 5,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.3 可靠性"
+      ],
+      "block_ids": [
+        "无人机通用规范_P005_B22",
+        "无人机通用规范_P005_B23",
+        "无人机通用规范_P005_B24",
+        "无人机通用规范_P005_B25",
+        "无人机通用规范_P005_B26",
+        "无人机通用规范_P005_B27",
+        "无人机通用规范_P005_B28",
+        "无人机通用规范_P005_B29",
+        "无人机通用规范_P005_B30",
+        "无人机通用规范_P005_B31"
+      ],
+      "quote": "无人机研制与生产的可靠性应符合GJB450有关要求。\n\n无人机的可靠性指标包括下列四项：\n\na．平均无故障间隔时间MTBF，（根据设备的不同也可以是平均无故障工作次数，平均无故障公里数等）；\n\nb.无人机的可靠度R（t）分为：\n\n发射可靠度（或发射成功概率）\n\n回收可靠度（或回收成功概率）\n\nc.平均无故障飞行小时，MTFH；\n\nd．首翻期；\n\ne.地面展开时间、撤收时间。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 抗风要求 地面 空中 环境适应性 战术技术指标",
+          "final_rank": 8,
+          "dense_rank": 32,
+          "dense_score": 0.6966837644577026,
+          "bm25_rank": 24,
+          "bm25_score": 6.689939498901367,
+          "fusion_score": 0.022774327122153208
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-955ea0c093bb",
+      "chunk_id": "无人机通用规范_C00047",
+      "content_hash": "ecda9fce6c92ff7890ffb801379e574cb06e0a76710f70ccb92d950ccbe40cb7",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "section_path": [
+        "3 要求",
+        "3.2 飞机",
+        "3.2.5 结构设计准则",
+        "3.2.5.1 一般强度要求",
+        "3.2.5.1.1 飞行状态下的强度要求"
+      ],
+      "block_ids": [
+        "无人机通用规范_P011_B05",
+        "无人机通用规范_P011_B06",
+        "无人机通用规范_P011_B07"
+      ],
+      "quote": "在飞行条件下，无人机应能承受由操纵系统和突风扰动引起的载荷。平飞和机动飞行中的突风速度由统计分析方法确定。外载荷包括由操纵面最大偏转速率引起的载荷；配平过渡过程的超调；稳态过载飞行；操纵面在极限偏度下的反转；以及惯性耦合载荷等。限定速度应是俯冲中的最大速度。为保证不产生颤振，计算的或实验得出的颤振边界应保持15%的安全裕度。安全系数取1.25。\n\n对空中发射的无人机，当无人机任何部件功能失效时，其极限强度足以保证不损及母机。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 5,
+          "dense_rank": 9,
+          "dense_score": 0.7052475145016597,
+          "bm25_rank": 9,
+          "bm25_score": 7.281846046447754,
+          "fusion_score": 0.028985507246376812
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-ac574ca535ad",
+      "chunk_id": "无人机通用规范_C00081",
+      "content_hash": "c8e14c1e3ccb83e7edc45d670578e687d722f3e0c3bdc10ada81260027d6fa28",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 14,
+      "page_end": 14,
+      "section_path": [
+        "3 要求",
+        "3.3 动力装置",
+        "3.3.8 润滑系统",
+        "3.3.8.2 滑油箱"
+      ],
+      "block_ids": [
+        "无人机通用规范_P014_B22",
+        "无人机通用规范_P014_B23"
+      ],
+      "quote": "金属滑油箱，应由耐腐蚀性材料制造。应能承受油箱增压与发动机振动产生的应力，以及因油箱内、外压力变化产生周期性交变应力，而不发生永久变形。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机 环境适应性 应能承受 高温 低温 湿热 温度冲击",
+          "final_rank": 7,
+          "dense_rank": 34,
+          "dense_score": 0.6690114136317836,
+          "bm25_rank": 5,
+          "bm25_score": 8.169148445129395,
+          "fusion_score": 0.026022913256955812
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-d7d257aacf23",
+      "chunk_id": "无人机通用规范_C00017",
+      "content_hash": "7c80d230592ef7d8eaefa07d619238fc06d94151a69a91224e163f4a18afce17",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.6 检测与准备"
+      ],
+      "block_ids": [
+        "无人机通用规范_P006_B12",
+        "无人机通用规范_P006_B13"
+      ],
+      "quote": "无人机在发射前应以尽可能少的检测工作量完成发射前的准备。除非在详细规范中另有规定，对于准备工作应有以下要求：",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 5,
+          "dense_rank": 14,
+          "dense_score": 0.7266968921838352,
+          "bm25_rank": 3,
+          "bm25_score": 14.001026153564453,
+          "fusion_score": 0.029386529386529386
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-33de4d38b14c",
+      "chunk_id": "无人机通用规范_C00020",
+      "content_hash": "2dc0f5ba8cd46f705beeba82719eb012b12671a9c816815fa5a137991171c718",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.6 检测与准备",
+        "3.1.3.6.3 飞行前准备"
+      ],
+      "block_ids": [
+        "无人机通用规范_P006_B18",
+        "无人机通用规范_P006_B19",
+        "无人机通用规范_P006_B20"
+      ],
+      "quote": "经过起飞前维护，无人机接通电源在规定时间内，应能完成预热进入准备起飞状态。飞行前准备的程序应在详细规范中规定。\n\n3.1.3.6.4飞行前的展开时间、飞行后的撤收时间和两次飞行之间的最小间隔时间以及飞行前准备程序均应符合详细规范要求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 7,
+          "dense_rank": 19,
+          "dense_score": 0.7212131453283529,
+          "bm25_rank": 4,
+          "bm25_score": 13.959463119506836,
+          "fusion_score": 0.028283227848101264
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-d031c6981319",
+      "chunk_id": "无人机通用规范_C00027",
+      "content_hash": "d805dcce55c20ced42fe35fe73ad4756278cbc7e59354572d813b91b9105da6d",
+      "document_id": "无人机通用规范",
+      "source_file": "无人机通用规范.pdf",
+      "page_start": 7,
+      "page_end": 7,
+      "section_path": [
+        "3 要求",
+        "3.1 -般要求",
+        "3.1.3",
+        "3.1.3.13 飞机外部颜色与标记",
+        "3.1.3.13.1 飞机外部颜色"
+      ],
+      "block_ids": [
+        "无人机通用规范_P007_B10",
+        "无人机通用规范_P007_B11"
+      ],
+      "quote": "飞机外部颜色应符合（GJB901有关要求。订购方如有特殊要求，可按合同执行。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "无人机通用规范 3.1.3.1 环境 详细要求 内容",
+          "final_rank": 8,
+          "dense_rank": 8,
+          "dense_score": 0.7377442248602328,
+          "bm25_rank": 14,
+          "bm25_score": 12.509262084960938,
+          "fusion_score": 0.02821939586645469
+        }
+      ]
+    }
+  ],
+  "worker_packets": [],
+  "evidence_aliases": {},
+  "parent_run_id": null,
+  "attempt": 1,
+  "review_revised": false,
+  "review_verified": true,
+  "requires_human_review": false,
+  "trace_id": "0f82524765a1dba8424e06ee087d008a",
+  "created_at": "2026-08-15T14:57:40.188754Z"
+}

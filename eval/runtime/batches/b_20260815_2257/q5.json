@@ -1,0 +1,113 @@
+{
+  "question": {
+    "id": "q5",
+    "sequence": 5,
+    "category": "unrelated",
+    "expected_route": "fast"
+  },
+  "run_id": "e43f03a9f3c34c82b848130d98ed729b",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-15T14:57:59.070151Z",
+  "route": {
+    "mode": "fast",
+    "reason": "直接问题，只需简短知识回答。"
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 10,
+    "search_latency_ms": [
+      268.8,
+      269.3,
+      152.3,
+      161.5,
+      224.9,
+      228.9,
+      415.7,
+      423.9,
+      740.1,
+      848.0
+    ],
+    "evidence_total": 80,
+    "evidence_unique": 42,
+    "evidence_cited": 1,
+    "dedup_ratio": 0.525,
+    "citation_coverage": 0.0238
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 387,
+    "answer_evidence": 1
+  },
+  "model_calls": {
+    "count": 8,
+    "total_cost_usd": 0.096073,
+    "avg_latency_ms": 3526.6,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 2,
+      "passed": 1,
+      "failed": 1,
+      "failures": [
+        {
+          "stage": "submit_answer",
+          "reason": "ValueError: A grounded answer requires at least one evidence ID"
+        }
+      ]
+    }
+  },
+  "tool_calls": {
+    "count": 12,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 10,
+        "success": 10,
+        "failed": 0,
+        "total_latency_ms": 3733.3692999091
+      },
+      "submit_answer": {
+        "count": 2,
+        "success": 1,
+        "failed": 1,
+        "total_latency_ms": 0.9274000185541809
+      }
+    },
+    "failures": [
+      {
+        "tool": "submit_answer",
+        "reason": "ValueError: A grounded answer requires at least one evidence ID"
+      }
+    ]
+  },
+  "steps_retries": {
+    "model_calls": 8,
+    "tool_calls": 12,
+    "submit_retries": 1,
+    "plan_retries": 0
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 206,
+      "completion_tokens": 87,
+      "cost_usd": 0.000759,
+      "total_latency_ms": 1444.1,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 7,
+      "prompt_tokens": 110991,
+      "completion_tokens": 2532,
+      "cost_usd": 0.095314,
+      "total_latency_ms": 26768.7,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 48.19
+}
