@@ -51,13 +51,13 @@ test('chapter research exposes evidence contribution and inference', async ({ pa
   }
   const planChapter = (chapter_id: string, ordinal: number, title: string, depends_on: string[] = []) => ({
     chapter_id, ordinal, title, objective: `${title}研究`, research_questions: ['如何形成规则'], depends_on,
-    produces_decisions: chapter_id === 'principles' ? ['D-LEVELS'] : [], required_decisions: chapter_id === 'movement' ? ['D-LEVELS'] : [], acceptance_criteria: ['给出证据'],
+    produces_contracts: chapter_id === 'principles' ? ['D-LEVELS'] : [], required_contracts: chapter_id === 'movement' ? ['D-LEVELS'] : [], acceptance_criteria: ['给出证据'],
   })
   const packet = (chapter_id: string, title: string, text: string) => ({
     task: `${title}研究`, chapter_id, chapter_title: title, depends_on: chapter_id === 'movement' ? ['principles'] : [], status: 'sufficient', summary: `${title}研究完成`,
-    content_blocks: [{ block_id: `B-${chapter_id}`, heading: null, markdown: `${text} [ev-levels]`, claim_ids: [`C-${chapter_id}`], decision_ids: chapter_id === 'principles' ? ['D-LEVELS'] : [], evidence_ids: ['ev-levels'] }],
-    claims: [{ claim_id: `C-${chapter_id}`, text, conclusion_type: 'synthesized', citations: [{ evidence_id: 'ev-levels' }] }],
-    decisions: chapter_id === 'principles' ? [{ decision_id: 'D-LEVELS', statement: '采用四级毁伤等级', decision_type: 'synthesized', rationale: '来源中的四种功能状态可形成四级可操作体系。', claim_ids: [`C-${chapter_id}`], evidence_ids: ['ev-levels'], assumptions: ['以功能状态为核心'], alternatives: ['三级', '五级'], confidence: 'medium', applies_to_chapters: ['movement'] }] : [],
+    prose: text,
+    rules: [{ basis: 'synthesized', evidence_ids: ['ev-levels'], rationale: '来源中的四种功能状态可形成四级可操作体系。', contract_id: chapter_id === 'principles' ? 'D-LEVELS' : null }],
+    contracts: chapter_id === 'principles' ? [{ contract_id: 'D-LEVELS', type: 'terms', canonical_terms: ['完好', '受限', '丧失', '彻底毁坏'], applies_to_chapters: ['movement'] }] : [],
     conflicts: [], gaps: [], evidence_ids: ['ev-levels'],
   })
   const detail = {
@@ -78,6 +78,6 @@ test('chapter research exposes evidence contribution and inference', async ({ pa
   await page.locator('.block-sources button').click()
   await expect(page.locator('.evidence-card.selected')).toBeVisible()
   await expect(page.locator('.evidence-card-quote')).toContainText('装备功能状态可分为完好、受限、丧失和彻底毁坏')
-  await expect(page.getByText(/C-principles \[综合\]/)).toBeVisible()
+  await expect(page.getByText(/\[跨来源综合\]/)).toBeVisible()
   await page.screenshot({ path: '../_inspect/web/chapter-research.png', fullPage: true })
 })

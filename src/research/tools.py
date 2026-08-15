@@ -24,12 +24,10 @@ class ReadEvidenceInput(BaseModel):
 
 
 class CheckTerminologyInput(BaseModel):
-    content_blocks: list[dict] = Field(
-        min_length=1, description="The draft ContentBlocks to scan, each with a markdown field"
-    )
-    decisions: list[dict] = Field(
+    prose: str = Field(min_length=0, description="The draft chapter prose to scan")
+    contracts: list[dict] = Field(
         default_factory=list,
-        description="Upstream decisions carrying glossary axes; each may have a glossary list",
+        description="Terms contracts carrying canonical_terms to scan prose against",
     )
 
 
@@ -94,25 +92,26 @@ class EvidenceAliasRegistry:
             else:
                 translated[key] = self.translate_payload(item)
         return translated
-def extract_glossary(decisions: Sequence[dict]) -> list[dict]:
-    """Flatten every decision's ``glossary`` into a list of axis dicts.
+def extract_terms_contracts(contracts: Sequence[dict]) -> list[dict]:
+    """Flatten every ``type == "terms"`` contract into a list of axis dicts.
 
-    Each returned dict has ``axis``, ``canonical_terms`` (set), and ``scope``.
+    Each returned dict has ``axis`` (the contract_id), ``canonical_terms`` (set),
+    and ``terms`` (ordered list). Contracts of other types are ignored.
     """
     axes: list[dict] = []
-    for decision in decisions:
-        for entry in decision.get("glossary") or []:
-            terms = entry.get("canonical_terms") or []
-            if not terms:
-                continue
-            axes.append(
-                {
-                    "axis": entry.get("axis", ""),
-                    "canonical_terms": set(terms),
-                    "scope": entry.get("scope", ""),
-                    "terms": list(terms),
-                }
-            )
+    for contract in contracts:
+        if contract.get("type") != "terms":
+            continue
+        terms = contract.get("canonical_terms") or []
+        if not terms:
+            continue
+        axes.append(
+            {
+                "axis": contract.get("contract_id", ""),
+                "canonical_terms": set(terms),
+                "terms": list(terms),
+            }
+        )
     return axes
 
 
@@ -167,9 +166,9 @@ def _axis_patterns(axis: dict) -> list[str]:
     return patterns
 
 
-def scan_terminology(content_blocks: Sequence[dict], decisions: Sequence[dict]) -> list[dict]:
-    """Return suspect terms found in ``content_blocks`` prose that match an axis
-    pattern but are not in that axis's canonical set.
+def scan_terminology(prose: str, contracts: Sequence[dict]) -> list[dict]:
+    """Return suspect terms in ``prose`` that match a terms-contract axis pattern
+    but are not in that axis's canonical set.
 
     This is advisory only: it never raises and may under-report terms that do
     not match any derived pattern. The empty list means "no suspect terms".
@@ -177,32 +176,28 @@ def scan_terminology(content_blocks: Sequence[dict], decisions: Sequence[dict]) 
     Matches that occur as part of an axis name (e.g. "程度" inside "毁伤程度")
     are not flagged, since mentioning the axis itself is not a vocabulary drift.
     """
-    axes = extract_glossary(decisions)
-    if not axes:
+    axes = extract_terms_contracts(contracts)
+    if not axes or not prose:
         return []
 
     axis_names = [axis["axis"] for axis in axes if axis["axis"]]
 
     findings: list[dict] = []
-    for block in content_blocks:
-        markdown = block.get("markdown", "") if isinstance(block, dict) else ""
-        if not markdown:
-            continue
-        for axis in axes:
-            for pattern in _axis_patterns(axis):
-                for match in re.finditer(pattern, markdown):
-                    word = match.group(0)
-                    if word in axis["canonical_terms"]:
-                        continue
-                    if any(word in name or name in word for name in axis_names):
-                        continue
-                    findings.append(
-                        {
-                            "axis": axis["axis"],
-                            "term": word,
-                            "canonical_terms": axis["terms"],
-                        }
-                    )
+    for axis in axes:
+        for pattern in _axis_patterns(axis):
+            for match in re.finditer(pattern, prose):
+                word = match.group(0)
+                if word in axis["canonical_terms"]:
+                    continue
+                if any(word in name or name in word for name in axis_names):
+                    continue
+                findings.append(
+                    {
+                        "axis": axis["axis"],
+                        "term": word,
+                        "canonical_terms": axis["terms"],
+                    }
+                )
     # Deduplicate by (axis, term) preserving order.
     seen: set[tuple[str, str]] = set()
     unique: list[dict] = []
@@ -368,26 +363,24 @@ class EvidenceWorkspace:
     def make_terminology_tool() -> BaseTool:
         """Build the advisory terminology self-check tool for a chapter worker.
 
-        The tool is stateless: the worker passes its draft content_blocks and the
-        upstream glossary decisions, and receives suspect terms (if any). It never
-        raises and never blocks submission.
+        The tool is stateless: the worker passes its draft prose and the upstream
+        terms contracts, and receives suspect terms (if any). It never raises and
+        never blocks submission.
         """
 
         @tool(args_schema=CheckTerminologyInput)
-        def check_terminology(
-            content_blocks: list[dict], decisions: list[dict]
-        ) -> str:
-            """Compare draft prose against the upstream glossary.
+        def check_terminology(prose: str, contracts: list[dict]) -> str:
+            """Compare draft prose against the upstream terms contracts.
 
-            Pass your draft content_blocks and the glossary-bearing decisions from
-            upstream. Returns a JSON object with a ``suspect_terms`` list: terms that
-            look like they belong to a controlled-vocabulary axis but are not among
-            that axis's canonical terms. Revise your prose to use only canonical
-            terms when you agree a flagged term is a drift. This tool is advisory:
-            it never blocks submission and may miss terms that match no axis pattern.
+            Pass your draft prose and the terms contracts from upstream. Returns a
+            JSON object with a ``suspect_terms`` list: terms that look like they
+            belong to a controlled-vocabulary axis but are not among that axis's
+            canonical terms. Revise your prose to use only canonical terms when you
+            agree a flagged term is a drift. This tool is advisory: it never blocks
+            submission and may miss terms that match no axis pattern.
             """
 
-            suspects = scan_terminology(content_blocks, decisions)
+            suspects = scan_terminology(prose, contracts)
             return json.dumps(
                 {
                     "suspect_terms": suspects,

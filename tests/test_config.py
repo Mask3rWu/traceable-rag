@@ -125,6 +125,5 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.supervisor_max_steps, 12)
         self.assertEqual(config.document_max_chars, 6000)
         self.assertEqual(config.chapter_max_chars, 1600)
-        self.assertEqual(config.chapter_max_claims, 10)
-        self.assertEqual(config.chapter_max_decisions, 4)
+        self.assertEqual(config.chapter_max_rules, 20)
         self.assertNotIn("test-secret", repr(config))

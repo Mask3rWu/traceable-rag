@@ -7,7 +7,7 @@ import {
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { cancelRun, createRun, getRun, listRuns, subscribeRun, visualUrl } from './api'
-import type { ChapterPlan, Claim, DecisionRecord, Evidence, ResearchPacket, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
+import type { ChapterPlan, ContractRecord, Evidence, ResearchPacket, RuleRecord, RunDetail, RunEvent, RunStatus, RunSummary } from './types'
 
 const activeStatuses = new Set<RunStatus>(['queued', 'running', 'cancel_requested'])
 const statusLabels: Record<RunStatus, string> = {
@@ -20,8 +20,8 @@ const eventLabels: Record<string, string> = {
   completed: '研究完成', incomplete: '研究未完整生成', failed: '研究失败',
   routed_away: '路由守卫中断（fast 被误判为多 agent）',
 }
-const confidenceLabels = { high: '高', medium: '中', low: '低' }
-const conclusionLabels: Record<string, string> = { direct: '直接', synthesized: '综合', normative: '规范', hypothesis: '假设' }
+const basisLabels: Record<RuleRecord['basis'], string> = { source: '来源直接', designed: '设计值', synthesized: '跨来源综合' }
+const contractTypeLabels: Record<ContractRecord['type'], string> = { terms: '受控术语', threshold: '阈值', classification: '等级/分类' }
 const packetStatusLabels: Record<ResearchPacket['status'], string> = {
   sufficient: '研究完成', insufficient: '参考依据不足', failed: '执行失败', blocked: '依赖阻塞',
 }
@@ -132,11 +132,10 @@ function QuoteBlock({ quote }: { quote: string }) {
   return <blockquote className="evidence-card-quote">{plain}</blockquote>
 }
 
-function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: {
+function EvidenceCard({ run, evidence, rules, selected, onSelect }: {
   run: RunDetail
   evidence: Evidence
-  claims: Claim[]
-  decisions: DecisionRecord[]
+  rules: RuleRecord[]
   selected: boolean
   onSelect: (id: string | null) => void
 }) {
@@ -150,21 +149,21 @@ function EvidenceCard({ run, evidence, claims, decisions, selected, onSelect }: 
         <strong className="evidence-card-title">{evidence.source_file}</strong>
         <span className="evidence-card-meta"><code>{evidence.evidence_id}</code><ChevronRight size={15} /></span>
       </div>
-      {decisions.length > 0 ? (
+      {rules.length > 0 ? (
         <section className="ec-sec">
-          <span className="ec-title">形成决策</span>
-          <div className="ec-sec-body usage-decision">
-            {decisions.map((decision) => <p key={decision.decision_id}><em>{decision.decision_id} [{conclusionLabels[decision.decision_type]}]</em>{decision.statement}</p>)}
+          <span className="ec-title">支撑规则</span>
+          <div className="ec-sec-body usage-rule">
+            {rules.map((rule, index) => <p key={`${rule.evidence_ids.join('-')}-${index}`}><em>[{basisLabels[rule.basis]}]</em>{rule.rationale ?? rule.contract_id ?? '支撑本章规则'}</p>)}
           </div>
         </section>
       ) : null}
       {selected ? (
         <>
-          {claims.length > 0 ? (
+          {rules.length > 0 ? (
             <section className="ec-sec">
-              <span className="ec-title">关键片段</span>
-              <div className="ec-sec-body usage-claim">
-                {claims.map((claim) => <p key={claim.claim_id}><em>{claim.claim_id} [{conclusionLabels[claim.conclusion_type]}]</em>{claim.text}</p>)}
+              <span className="ec-title">规则依据</span>
+              <div className="ec-sec-body usage-rule">
+                {rules.map((rule, index) => <p key={`${rule.evidence_ids.join('-')}-${index}`}><em>[{basisLabels[rule.basis]}]</em>{rule.rationale ?? '—'}{rule.contract_id ? <span className="rule-contract">{rule.contract_id}</span> : null}</p>)}
               </div>
             </section>
           ) : null}
@@ -207,22 +206,18 @@ function ChapterResearch({ run, packet, chapter, evidenceById, cardIds, selected
         {cardIds.map((id) => {
           const evidence = evidenceById.get(id)
           if (!evidence) return null
-          const claims = packet?.claims.filter((c) => c.citations.some((citation) => citation.evidence_id === id)) ?? []
-          const decisions = packet?.decisions.filter((d) => d.evidence_ids.includes(id)) ?? []
-          return <EvidenceCard key={id} run={run} evidence={evidence} claims={claims} decisions={decisions} selected={selectedId === id} onSelect={onSelect} />
+          const rules = packet?.rules.filter((r) => r.evidence_ids.includes(id)) ?? []
+          return <EvidenceCard key={id} run={run} evidence={evidence} rules={rules} selected={selectedId === id} onSelect={onSelect} />
         })}
       </div>
-      {packet?.decisions.length ? (
-        <details className="decision-details">
-          <summary><Lightbulb size={14} />关键决策明细 <span>{packet.decisions.length}</span></summary>
-          {packet.decisions.map((decision) => (
-            <article className="decision-record" key={decision.decision_id}>
-              <div className="record-label"><code>{decision.decision_id}</code><span>{conclusionLabels[decision.decision_type]}</span><span>置信度 {confidenceLabels[decision.confidence]}</span></div>
-              <h3>{decision.statement}</h3>
-              <p>{decision.rationale}</p>
-              {decision.alternatives.length > 0 ? <div className="record-meta"><strong>考虑的替代方案</strong>{decision.alternatives.join('、')}</div> : null}
-              {decision.assumptions.length > 0 ? <div className="record-meta"><strong>适用假设</strong>{decision.assumptions.join('；')}</div> : null}
-              {decision.validation_requirements.length > 0 ? <div className="record-meta"><strong>验证要求</strong>{decision.validation_requirements.join('；')}</div> : null}
+      {packet?.contracts.length ? (
+        <details className="contract-details">
+          <summary><Lightbulb size={14} />跨章契约明细 <span>{packet.contracts.length}</span></summary>
+          {packet.contracts.map((contract) => (
+            <article className="contract-record" key={contract.contract_id}>
+              <div className="record-label"><code>{contract.contract_id}</code><span>{contractTypeLabels[contract.type]}</span></div>
+              <div className="record-meta"><strong>规范词</strong>{contract.canonical_terms.length ? contract.canonical_terms.join('、') : '—'}</div>
+              {contract.applies_to_chapters.length > 0 ? <div className="record-meta"><strong>适用章节</strong>{contract.applies_to_chapters.join('、')}</div> : null}
             </article>
           ))}
         </details>
@@ -355,7 +350,7 @@ function App() {
                       {planChapters.map((chapter) => { const packet = packetByChapterId.get(chapter.chapter_id); const evidenceCount = packet?.evidence_ids?.length ?? 0; return (
                         <section className="chapter-section" id={`chapter-${chapter.chapter_id}`} key={chapter.chapter_id}>
                           <div className="answer-header chapter-header"><span>第 {chapter.ordinal} 章 · {packet?.chapter_title ?? chapter.title}</span><div><button className="chapter-evidence-link" onClick={() => focusChapterEvidence(chapter.chapter_id)} disabled={evidenceCount === 0}>{evidenceCount} 条本章依据</button></div></div>
-                          {packet?.content_blocks?.length ? packet.content_blocks.map((block) => <section className="content-block" id={block.block_id} key={block.block_id}>{block.heading ? <h3>{block.heading}</h3> : null}<ReactMarkdown remarkPlugins={[remarkGfm]}>{block.markdown}</ReactMarkdown><div className="block-sources">{block.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}><Link2 size={12} />{id}</button>)}</div></section>) : <div className="chapter-empty"><AlertTriangle size={20} /><p>{packet?.summary ?? '该章节尚未产生研究正文。'}</p></div>}
+                          {packet?.prose ? <section className="content-block"><ReactMarkdown remarkPlugins={[remarkGfm]}>{packet.prose}</ReactMarkdown><div className="block-sources">{packet.evidence_ids.map((id) => <button key={id} onClick={() => showEvidence(id)}><Link2 size={12} />{id}</button>)}</div></section> : <div className="chapter-empty"><AlertTriangle size={20} /><p>{packet?.summary ?? '该章节尚未产生研究正文。'}</p></div>}
                         </section>
                       ) })}
                     </article>

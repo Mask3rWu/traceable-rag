@@ -5,9 +5,9 @@ from datetime import datetime, timezone
 from typing import Literal
 from uuid import uuid4
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from src.research.models import Claim, Conflict, Evidence
+from src.research.models import Conflict, Evidence
 
 
 def utc_now() -> datetime:
@@ -26,9 +26,8 @@ class ChapterPlan(BaseModel):
     objective: str = Field(min_length=1)
     research_questions: list[str] = Field(min_length=1)
     depends_on: list[str] = Field(default_factory=list)
-    produces_decisions: list[str] = Field(default_factory=list)
-    required_decisions: list[str] = Field(default_factory=list)
-    required_glossary: list[str] = Field(default_factory=list)
+    produces_contracts: list[str] = Field(default_factory=list)
+    required_contracts: list[str] = Field(default_factory=list)
     acceptance_criteria: list[str] = Field(min_length=1)
 
 
@@ -59,10 +58,10 @@ class DocumentPlan(BaseModel):
                 )
             if chapter.chapter_id in chapter.depends_on:
                 raise ValueError(f"Chapter {chapter.chapter_id} depends on itself")
-            for decision_id in chapter.produces_decisions:
-                if decision_id in producers:
-                    raise ValueError(f"Decision {decision_id} has multiple producers")
-                producers[decision_id] = chapter.chapter_id
+            for contract_id in chapter.produces_contracts:
+                if contract_id in producers:
+                    raise ValueError(f"Contract {contract_id} has multiple producers")
+                producers[contract_id] = chapter.chapter_id
 
         visiting: set[str] = set()
         visited: set[str] = set()
@@ -83,10 +82,10 @@ class DocumentPlan(BaseModel):
             visit(chapter_id)
 
         for chapter in self.chapters:
-            missing = set(chapter.required_decisions) - set(producers)
+            missing = set(chapter.required_contracts) - set(producers)
             if missing:
                 raise ValueError(
-                    f"Chapter {chapter.chapter_id} requires unproduced decisions: {sorted(missing)}"
+                    f"Chapter {chapter.chapter_id} requires unproduced contracts: {sorted(missing)}"
                 )
             ancestors: set[str] = set()
 
@@ -98,53 +97,50 @@ class DocumentPlan(BaseModel):
 
             collect_ancestors(chapter.chapter_id)
             inaccessible = {
-                decision_id
-                for decision_id in chapter.required_decisions
-                if producers[decision_id] not in ancestors
+                contract_id
+                for contract_id in chapter.required_contracts
+                if producers[contract_id] not in ancestors
             }
             if inaccessible:
                 raise ValueError(
-                    f"Chapter {chapter.chapter_id} cannot reach required decisions: "
+                    f"Chapter {chapter.chapter_id} cannot reach required contracts: "
                     f"{sorted(inaccessible)}"
                 )
         return self
 
 
-class ContentBlock(BaseModel):
-    block_id: str = Field(min_length=1)
-    heading: str | None = None
-    markdown: str = Field(min_length=1)
-    claim_ids: list[str] = Field(default_factory=list)
-    decision_ids: list[str] = Field(default_factory=list)
-    evidence_ids: list[str] = Field(default_factory=list)
+class RuleRecord(BaseModel):
+    """One auditable, reusable rule a chapter states.
 
-
-class GlossaryEntry(BaseModel):
-    """One axis of a controlled-vocabulary decision (e.g. "杀伤等级", "毁伤程度").
-
-    Only canonical terms are listed; forbidden aliases are intentionally omitted
-    so the glossary travels to downstream workers as an executable vocabulary,
-    not a free-text declaration.
+    The public rule text lives in ``prose``; this record carries only the
+    machine-checkable audit metadata. ``evidence_ids`` are worker-local aliases
+    (E1/E2) resolved to stable provenance IDs by the runtime. ``contract_id``
+    optionally links the rule to a cross-chapter contract this chapter consumes.
     """
 
-    axis: str = Field(min_length=1)
-    canonical_terms: list[str] = Field(min_length=1)
-    scope: str = ""
+    model_config = ConfigDict(frozen=True)
 
-
-class DecisionRecord(BaseModel):
-    decision_id: str = Field(min_length=1)
-    statement: str = Field(min_length=1)
-    decision_type: Literal["direct", "synthesized", "normative", "hypothesis"]
-    rationale: str = Field(min_length=1)
-    claim_ids: list[str] = Field(default_factory=list)
+    basis: Literal["source", "designed", "synthesized"]
     evidence_ids: list[str] = Field(min_length=1)
-    assumptions: list[str] = Field(default_factory=list)
-    alternatives: list[str] = Field(default_factory=list)
-    validation_requirements: list[str] = Field(default_factory=list)
-    confidence: Literal["high", "medium", "low"]
+    rationale: str | None = None
+    contract_id: str | None = None
+
+
+class ContractRecord(BaseModel):
+    """A cross-chapter contract a chapter "promulgates" (defines) via contracts[].
+
+    Downstream chapters consume it by declaring its ID in required_contracts and
+    reference it from rules[].contract_id. Only canonical terms are listed;
+    forbidden aliases are intentionally omitted so the contract travels as an
+    executable vocabulary, not a free-text declaration.
+    """
+
+    model_config = ConfigDict(frozen=True)
+
+    contract_id: str = Field(min_length=1)
+    type: Literal["terms", "threshold", "classification"]
+    canonical_terms: list[str] = Field(default_factory=list)
     applies_to_chapters: list[str] = Field(default_factory=list)
-    glossary: list[GlossaryEntry] = Field(default_factory=list)
 
 
 class ConsistencyIssue(BaseModel):
@@ -162,23 +158,21 @@ class ConsistencyReport(BaseModel):
 class ChapterSubmission(BaseModel):
     """The model-facing artifact a chapter worker emits via submit_chapter.
 
-    It carries only what the model must generate: the research content and its
-    audit metadata. Program-owned identity (task, chapter_id, chapter_title,
-    depends_on) is injected from the ChapterPlan by the runtime, and the
-    top-level evidence_ids is derived from Claim/Decision citations in
-    _validate_packet, so neither appears here. status is restricted to the two
-    outcomes a worker can reach on its own: failed/blocked packets are built by
-    the runtime (_failed_packet/_blocked_packet) and never emitted by the model.
+    It carries only what the model must generate: the public prose and its audit
+    metadata. Program-owned identity (task, chapter_id, chapter_title, depends_on)
+    is injected from the ChapterPlan by the runtime, and the top-level
+    evidence_ids is derived from rules[].evidence_ids in _validate_packet, so
+    neither appears here. status is restricted to the two outcomes a worker can
+    reach on its own: failed/blocked packets are built by the runtime
+    (_failed_packet/_blocked_packet) and never emitted by the model.
     """
 
     status: Literal["sufficient", "insufficient"]
-    summary: str = Field(min_length=1)
-    content_blocks: list[ContentBlock] = Field(default_factory=list)
-    claims: list[Claim] = Field(default_factory=list)
-    decisions: list[DecisionRecord] = Field(default_factory=list)
+    prose: str = Field(default_factory=str)
+    rules: list[RuleRecord] = Field(default_factory=list)
+    contracts: list[ContractRecord] = Field(default_factory=list)
     conflicts: list[Conflict] = Field(default_factory=list)
     gaps: list[str] = Field(default_factory=list)
-    diagnostics: list[str] = Field(default_factory=list)
 
 
 class ResearchPacket(BaseModel):
@@ -188,9 +182,9 @@ class ResearchPacket(BaseModel):
     depends_on: list[str] = Field(default_factory=list)
     status: Literal["sufficient", "insufficient", "failed", "blocked"]
     summary: str = Field(min_length=1)
-    content_blocks: list[ContentBlock] = Field(default_factory=list)
-    claims: list[Claim] = Field(default_factory=list)
-    decisions: list[DecisionRecord] = Field(default_factory=list)
+    prose: str = Field(default_factory=str)
+    rules: list[RuleRecord] = Field(default_factory=list)
+    contracts: list[ContractRecord] = Field(default_factory=list)
     conflicts: list[Conflict] = Field(default_factory=list)
     gaps: list[str] = Field(default_factory=list)
     diagnostics: list[str] = Field(default_factory=list)

@@ -11,12 +11,11 @@ from src.research.agent_models import (
     AgentAnswer,
     AgentRun,
     ChapterPlan,
-    ContentBlock,
-    DecisionRecord,
+    ContractRecord,
     DocumentPlan,
-    GlossaryEntry,
     ResearchPacket,
     RouteDecision,
+    RuleRecord,
 )
 from src.research.workflow import ResearchWorkflow
 
@@ -30,10 +29,9 @@ __all__ = [
     "AgentAnswer",
     "AgentRun",
     "ChapterPlan",
-    "ContentBlock",
-    "DecisionRecord",
+    "ContractRecord",
     "DocumentPlan",
-    "GlossaryEntry",
     "ResearchPacket",
     "RouteDecision",
+    "RuleRecord",
 ]

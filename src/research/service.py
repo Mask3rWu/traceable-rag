@@ -132,8 +132,7 @@ def build_research_agent(
         max_subtasks=resolved.max_subtasks,
         document_max_chars=resolved.document_max_chars,
         chapter_max_chars=resolved.chapter_max_chars,
-        chapter_max_claims=resolved.chapter_max_claims,
-        chapter_max_decisions=resolved.chapter_max_decisions,
+        chapter_max_rules=resolved.chapter_max_rules,
         metrics=metrics,
     )
     langfuse = None

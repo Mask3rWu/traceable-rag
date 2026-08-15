@@ -104,22 +104,26 @@ class _Workspace(EvidenceWorkspace):
         return {}
 
 
+def _chapter(*, chapter_id: str, ordinal: int, title: str, **extras) -> dict:
+    base = {
+        "chapter_id": chapter_id,
+        "ordinal": ordinal,
+        "title": title,
+        "objective": f"{title}研究",
+        "research_questions": [f"{title}是什么"],
+        "acceptance_criteria": [f"形成{title}"],
+    }
+    base.update(extras)
+    return base
+
+
 class ResearchGraphTest(unittest.TestCase):
     def test_failed_packet_keeps_last_tool_validation_error(self):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
                 "rationale": "测试",
-                "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "形成范围",
-                        "research_questions": ["范围是什么"],
-                        "acceptance_criteria": ["形成范围"],
-                    }
-                ],
+                "chapters": [_chapter(chapter_id="scope", ordinal=1, title="范围")],
             }
         ).chapters[0]
         packet = AgentRuntime._failed_packet(
@@ -129,7 +133,7 @@ class ResearchGraphTest(unittest.TestCase):
                 "messages": [
                     HumanMessage(content="研究"),
                     ToolMessage(
-                        content="normative decision must state validation requirements",
+                        content="gaps must not contain diagnostic self-assessment",
                         tool_call_id="submit-1",
                         name="submit_chapter",
                         status="error",
@@ -140,7 +144,7 @@ class ResearchGraphTest(unittest.TestCase):
         )
 
         self.assertEqual(packet.status, "failed")
-        self.assertIn("validation requirements", packet.diagnostics[0])
+        self.assertIn("diagnostic self-assessment", packet.diagnostics[0])
 
     def test_document_plan_rejects_dependency_cycle(self):
         with self.assertRaisesRegex(ValueError, "cycle"):
@@ -149,24 +153,8 @@ class ResearchGraphTest(unittest.TestCase):
                     "title": "循环计划",
                     "rationale": "测试",
                     "chapters": [
-                        {
-                            "chapter_id": "a",
-                            "ordinal": 1,
-                            "title": "A",
-                            "objective": "A",
-                            "research_questions": ["A"],
-                            "depends_on": ["b"],
-                            "acceptance_criteria": ["A"],
-                        },
-                        {
-                            "chapter_id": "b",
-                            "ordinal": 2,
-                            "title": "B",
-                            "objective": "B",
-                            "research_questions": ["B"],
-                            "depends_on": ["a"],
-                            "acceptance_criteria": ["B"],
-                        },
+                        _chapter(chapter_id="a", ordinal=1, title="A", depends_on=["b"]),
+                        _chapter(chapter_id="b", ordinal=2, title="B", depends_on=["a"]),
                     ],
                 }
             )
@@ -205,16 +193,7 @@ class ResearchGraphTest(unittest.TestCase):
             {
                 "title": "毁伤评估标准",
                 "rationale": "按章节研究",
-                "chapters": [
-                    {
-                        "chapter_id": "levels",
-                        "ordinal": 1,
-                        "title": "一、毁伤等级",
-                        "objective": "研究毁伤等级",
-                        "research_questions": ["等级如何划分"],
-                        "acceptance_criteria": ["识别等级体系"],
-                    }
-                ],
+                "chapters": [_chapter(chapter_id="levels", ordinal=1, title="毁伤等级")],
             }
         )
         model = _ScriptedModel(
@@ -223,24 +202,12 @@ class ResearchGraphTest(unittest.TestCase):
             worker=[
                 _tool_call(
                     "submit_chapter",
-                    {
-                        "status": "insufficient",
-                        "summary": "未找到足够证据",
-                        "claims": [],
-                        "conflicts": [],
-                        "gaps": ["缺少等级定义"],
-                    },
+                    {"status": "insufficient", "gaps": ["缺少等级定义"]},
                     "worker-submit",
                 ),
                 _tool_call(
                     "submit_chapter",
-                    {
-                        "status": "insufficient",
-                        "summary": "补充检索后仍无足够证据",
-                        "claims": [],
-                        "conflicts": [],
-                        "gaps": ["缺少等级定义"],
-                    },
+                    {"status": "insufficient", "gaps": ["缺少等级定义"]},
                     "worker-followup-submit",
                 ),
             ],
@@ -259,78 +226,52 @@ class ResearchGraphTest(unittest.TestCase):
         self.assertEqual(run.outcome, "incomplete")
         self.assertEqual(run.document_plan, plan)
         self.assertEqual(len(run.worker_packets), 1)
-        self.assertEqual(run.worker_packets[0].task, "研究毁伤等级")
+        self.assertEqual(run.worker_packets[0].task, "毁伤等级研究")
         self.assertEqual(run.worker_packets[0].status, "insufficient")
 
-    def test_chapter_dependency_passes_foundation_decision_to_later_worker(self):
+    def test_chapter_dependency_passes_foundation_contract_to_later_worker(self):
         plan = DocumentPlan.model_validate(
             {
                 "title": "毁伤评估标准",
                 "rationale": "先确定全局分级，再研究能力章节",
                 "chapters": [
-                    {
-                        "chapter_id": "levels",
-                        "ordinal": 1,
-                        "title": "一、总体原则",
-                        "objective": "确定统一分级",
-                        "research_questions": ["采用几级分类"],
-                        "produces_decisions": ["D-LEVELS"],
-                        "acceptance_criteria": ["形成有证据的分级决策"],
-                    },
-                    {
-                        "chapter_id": "movement",
-                        "ordinal": 2,
-                        "title": "二、运动能力",
-                        "objective": "形成运动能力标准",
-                        "research_questions": ["如何映射统一分级"],
-                        "depends_on": ["levels"],
-                        "required_decisions": ["D-LEVELS"],
-                        "acceptance_criteria": ["沿用统一分级"],
-                    },
+                    _chapter(
+                        chapter_id="levels",
+                        ordinal=1,
+                        title="总体原则",
+                        produces_contracts=["D-LEVELS"],
+                    ),
+                    _chapter(
+                        chapter_id="movement",
+                        ordinal=2,
+                        title="运动能力",
+                        depends_on=["levels"],
+                        required_contracts=["D-LEVELS"],
+                    ),
                 ],
             }
         )
 
-        def packet_args(chapter_id: str, title: str, decision: bool = False):
-            claim_id = f"C-{chapter_id}"
-            block_id = f"B-{chapter_id}"
-            decision_id = "D-LEVELS" if decision else None
+        def packet_args(chapter_id: str, title: str, contract: bool = False):
             return {
                 "status": "sufficient",
-                "summary": f"{title}研究完成",
-                "content_blocks": [
+                "prose": f"{title}正文",
+                "rules": [
                     {
-                        "block_id": block_id,
-                        "markdown": f"{title}正文",
-                        "claim_ids": [claim_id],
-                        "decision_ids": [decision_id] if decision_id else [],
+                        "basis": "synthesized",
                         "evidence_ids": ["ev-test"],
+                        "contract_id": "D-LEVELS" if contract else None,
                     }
                 ],
-                "claims": [
-                    {
-                        "claim_id": claim_id,
-                        "text": f"{title}结论",
-                        "conclusion_type": "synthesized",
-                        "citations": [
-                            {"evidence_id": "ev-test", "quote": "原文"}
-                        ],
-                    }
-                ],
-                "decisions": (
+                "contracts": (
                     [
                         {
-                            "decision_id": decision_id,
-                            "statement": "采用四级毁伤等级",
-                            "decision_type": "synthesized",
-                            "rationale": "来源中的状态可映射为四个可操作等级",
-                            "claim_ids": [claim_id],
-                            "evidence_ids": ["ev-test"],
-                            "confidence": "medium",
-                            "applies_to_chapters": ["movement"],
+                            "contract_id": "D-LEVELS",
+                            "type": "classification",
+                            "canonical_terms": ["轻度", "中度", "重度"],
                         }
                     ]
-                    if decision_id
+                    if contract
                     else []
                 ),
             }
@@ -341,12 +282,12 @@ class ResearchGraphTest(unittest.TestCase):
             worker=[
                 _tool_call(
                     "submit_chapter",
-                    packet_args("levels", "一、总体原则", decision=True),
+                    packet_args("levels", "总体原则", contract=True),
                     "levels-submit",
                 ),
                 _tool_call(
                     "submit_chapter",
-                    packet_args("movement", "二、运动能力"),
+                    packet_args("movement", "运动能力"),
                     "movement-submit",
                 ),
             ],
@@ -360,27 +301,17 @@ class ResearchGraphTest(unittest.TestCase):
             run, _ = runtime.run("生成毁伤评估标准")
 
         self.assertEqual([item.chapter_id for item in run.worker_packets], ["levels", "movement"])
-        self.assertEqual(run.worker_packets[0].decisions[0].decision_id, "D-LEVELS")
+        self.assertEqual(run.worker_packets[0].contracts[0].contract_id, "D-LEVELS")
+        self.assertEqual(run.worker_packets[0].contracts[0].canonical_terms, ["轻度", "中度", "重度"])
         self.assertNotIn("ev-test", run.answer.content)
         self.assertEqual(run.answer.evidence_ids, ["ev-test"])
 
-    def test_normative_decision_requires_auditable_design_metadata(self):
+    def test_terms_contract_requires_canonical_terms(self):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
-                "rationale": "基于参考资料生成新规则",
-                "deliverable_mode": "normative_synthesis",
-                "chapters": [
-                    {
-                        "chapter_id": "levels",
-                        "ordinal": 1,
-                        "title": "毁伤等级",
-                        "objective": "拟定等级",
-                        "research_questions": ["如何分级"],
-                        "produces_decisions": ["D-LEVELS"],
-                        "acceptance_criteria": ["形成可验证分级"],
-                    }
-                ],
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="levels", ordinal=1, title="等级")],
             }
         ).chapters[0]
         packet = ResearchPacket.model_validate(
@@ -389,56 +320,26 @@ class ResearchGraphTest(unittest.TestCase):
                 "chapter_id": chapter.chapter_id,
                 "chapter_title": chapter.title,
                 "status": "sufficient",
-                "summary": "形成规范性方案",
-                "content_blocks": [
-                    {
-                        "block_id": "B-levels",
-                        "markdown": "建议采用四级分类",
-                        "claim_ids": ["C-levels"],
-                        "decision_ids": ["D-LEVELS"],
-                        "evidence_ids": ["ev-test"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-levels",
-                        "text": "参考资料存在按功能状态分级的做法",
-                        "conclusion_type": "synthesized",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                    }
-                ],
-                "decisions": [
-                    {
-                        "decision_id": "D-LEVELS",
-                        "statement": "本标准建议采用四级分类",
-                        "decision_type": "normative",
-                        "rationale": "将参考资料中的功能状态迁移为统一等级",
-                        "claim_ids": ["C-levels"],
-                        "evidence_ids": ["ev-test"],
-                        "confidence": "low",
-                    }
+                "summary": "研究完成",
+                "prose": "采用统一分级",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "contracts": [
+                    {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": []}
                 ],
             }
         )
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
 
-        with self.assertRaisesRegex(ValueError, "assumptions"):
+        with self.assertRaisesRegex(ValueError, "canonical_terms"):
             runtime._validate_packet(packet, chapter)
 
-    def test_chapter_rejects_content_block_heading(self):
+    def test_rule_references_unknown_contract_rejected(self):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
-                "rationale": "按章节生成",
+                "rationale": "测试",
                 "chapters": [
-                    {
-                        "chapter_id": "data",
-                        "ordinal": 1,
-                        "title": "数据要求",
-                        "objective": "规定数据要求",
-                        "research_questions": ["需要哪些数据"],
-                        "acceptance_criteria": ["形成数据要求"],
-                    }
+                    _chapter(chapter_id="levels", ordinal=1, title="等级")
                 ],
             }
         ).chapters[0]
@@ -449,45 +350,103 @@ class ResearchGraphTest(unittest.TestCase):
                 "chapter_title": chapter.title,
                 "status": "sufficient",
                 "summary": "研究完成",
-                "content_blocks": [
+                "prose": "采用统一分级",
+                "rules": [
                     {
-                        "block_id": "B-data",
-                        "heading": "5.1 数据需求类型",
-                        "markdown": "数据要求",
-                        "claim_ids": ["C-data"],
+                        "basis": "source",
                         "evidence_ids": ["ev-test"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-data",
-                        "text": "资料规定了数据要求",
-                        "conclusion_type": "direct",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
+                        "contract_id": "D-UNKNOWN",
                     }
                 ],
             }
         )
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
 
-        with self.assertRaisesRegex(ValueError, "must not define a heading"):
+        with self.assertRaisesRegex(ValueError, "unknown contract"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_contract_ids_unique_within_chapter(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="levels", ordinal=1, title="等级")],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "prose": "采用统一分级",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                "contracts": [
+                    {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["A"]},
+                    {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["B"]},
+                ],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "unique within a chapter"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_sufficient_requires_prose_and_rules(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="scope", ordinal=1, title="范围")],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "prose": "",
+                "rules": [],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "requires prose"):
+            runtime._validate_packet(packet, chapter)
+
+    def test_chapter_rejects_markdown_heading_in_prose(self):
+        chapter = DocumentPlan.model_validate(
+            {
+                "title": "标准",
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="data", ordinal=1, title="数据要求")],
+            }
+        ).chapters[0]
+        packet = ResearchPacket.model_validate(
+            {
+                "task": chapter.objective,
+                "chapter_id": chapter.chapter_id,
+                "chapter_title": chapter.title,
+                "status": "sufficient",
+                "summary": "研究完成",
+                "prose": "# 5.1 数据需求类型\n要求",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+            }
+        )
+        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
+
+        with self.assertRaisesRegex(ValueError, "Markdown headings"):
             runtime._validate_packet(packet, chapter)
 
     def test_chapter_rejects_internal_ids_in_public_prose(self):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
-                "rationale": "按章节生成",
-                "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "规定范围",
-                        "research_questions": ["适用范围是什么"],
-                        "acceptance_criteria": ["形成范围"],
-                    }
-                ],
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="scope", ordinal=1, title="范围")],
             }
         ).chapters[0]
         packet = ResearchPacket.model_validate(
@@ -497,22 +456,8 @@ class ResearchGraphTest(unittest.TestCase):
                 "chapter_title": chapter.title,
                 "status": "sufficient",
                 "summary": "研究完成",
-                "content_blocks": [
-                    {
-                        "block_id": "B-scope",
-                        "markdown": "结论 C1",
-                        "claim_ids": ["C-scope"],
-                        "evidence_ids": ["ev-test"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-scope",
-                        "text": "适用范围已定义",
-                        "conclusion_type": "direct",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                    }
-                ],
+                "prose": "结论 C1",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
             }
         )
         runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
@@ -524,17 +469,8 @@ class ResearchGraphTest(unittest.TestCase):
         plan = DocumentPlan.model_validate(
             {
                 "title": "标准",
-                "rationale": "按章节生成",
-                "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "规定范围",
-                        "research_questions": ["适用范围是什么"],
-                        "acceptance_criteria": ["形成范围"],
-                    }
-                ],
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="scope", ordinal=1, title="范围")],
             }
         )
         packet = ResearchPacket.model_validate(
@@ -544,22 +480,8 @@ class ResearchGraphTest(unittest.TestCase):
                 "chapter_title": "范围",
                 "status": "sufficient",
                 "summary": "研究完成",
-                "content_blocks": [
-                    {
-                        "block_id": "B-scope",
-                        "markdown": "第一段结论。\n\n第二段结论。",
-                        "claim_ids": ["C-scope"],
-                        "evidence_ids": ["ev-test"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-scope",
-                        "text": "适用范围已定义",
-                        "conclusion_type": "direct",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                    }
-                ],
+                "prose": "第一段结论。\n\n第二段结论。",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
             }
         )
 
@@ -573,17 +495,8 @@ class ResearchGraphTest(unittest.TestCase):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
-                "rationale": "按章节生成",
-                "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "规定范围",
-                        "research_questions": ["适用范围是什么"],
-                        "acceptance_criteria": ["形成范围"],
-                    }
-                ],
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="scope", ordinal=1, title="范围")],
             }
         ).chapters[0]
         packet = ResearchPacket.model_validate(
@@ -593,22 +506,8 @@ class ResearchGraphTest(unittest.TestCase):
                 "chapter_title": chapter.title,
                 "status": "sufficient",
                 "summary": "研究完成",
-                "content_blocks": [
-                    {
-                        "block_id": "B-scope",
-                        "markdown": "超长正文内容非常多过多",
-                        "claim_ids": ["C-scope"],
-                        "evidence_ids": ["ev-test"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-scope",
-                        "text": "资料支持适用范围",
-                        "conclusion_type": "direct",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                    }
-                ],
+                "prose": "超长正文内容非常多过多",
+                "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
             }
         )
         runtime = AgentRuntime(
@@ -620,76 +519,19 @@ class ResearchGraphTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "character budget"):
             runtime._validate_packet(packet, chapter)
 
-    def test_chapter_rejects_evidence_without_claim_or_decision_reason(self):
-        chapter = DocumentPlan.model_validate(
-            {
-                "title": "标准",
-                "rationale": "按章节生成",
-                "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "规定范围",
-                        "research_questions": ["适用范围是什么"],
-                        "acceptance_criteria": ["形成范围"],
-                    }
-                ],
-            }
-        ).chapters[0]
-        packet = ResearchPacket.model_validate(
-            {
-                "task": chapter.objective,
-                "chapter_id": chapter.chapter_id,
-                "chapter_title": chapter.title,
-                "status": "sufficient",
-                "summary": "研究完成",
-                "content_blocks": [
-                    {
-                        "block_id": "B-scope",
-                        "markdown": "适用范围",
-                        "claim_ids": ["C-scope"],
-                        "evidence_ids": ["ev-test", "ev-unexplained"],
-                    }
-                ],
-                "claims": [
-                    {
-                        "claim_id": "C-scope",
-                        "text": "资料支持适用范围",
-                        "conclusion_type": "direct",
-                        "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                    }
-                ],
-            }
-        )
-        runtime = AgentRuntime(model=_ScriptedModel(route="fast"), workspace=_Workspace())
-
-        with self.assertRaisesRegex(ValueError, "without a Claim or Decision reason"):
-            runtime._validate_packet(packet, chapter)
-
     def test_canonicalize_injects_identity_and_omits_evidence_ids(self):
         chapter = DocumentPlan.model_validate(
             {
                 "title": "标准",
                 "rationale": "测试",
                 "chapters": [
-                    {
-                        "chapter_id": "scope",
-                        "ordinal": 1,
-                        "title": "范围",
-                        "objective": "规定范围",
-                        "research_questions": ["适用范围是什么"],
-                        "depends_on": ["foundation"],
-                        "acceptance_criteria": ["形成范围"],
-                    },
-                    {
-                        "chapter_id": "foundation",
-                        "ordinal": 2,
-                        "title": "基础",
-                        "objective": "基础",
-                        "research_questions": ["基础是什么"],
-                        "acceptance_criteria": ["基础"],
-                    },
+                    _chapter(
+                        chapter_id="scope",
+                        ordinal=1,
+                        title="范围",
+                        depends_on=["foundation"],
+                    ),
+                    _chapter(chapter_id="foundation", ordinal=2, title="基础"),
                 ],
             }
         ).chapters[0]
@@ -697,37 +539,133 @@ class ResearchGraphTest(unittest.TestCase):
         # A worker emits only the research artifact: no identity fields and no
         # top-level evidence_ids. _canonicalize_packet_payload must inject the
         # identity from the plan and leave evidence_ids to _validate_packet,
-        # which derives it from Claim/Decision citations.
+        # which derives it from rules[].evidence_ids.
         payload = {
             "status": "sufficient",
-            "summary": "研究完成",
-            "content_blocks": [
-                {
-                    "block_id": "B-scope",
-                    "markdown": "适用范围",
-                    "claim_ids": ["C-scope"],
-                    "evidence_ids": ["ev-test"],
-                }
-            ],
-            "claims": [
-                {
-                    "claim_id": "C-scope",
-                    "text": "资料支持适用范围",
-                    "conclusion_type": "direct",
-                    "citations": [{"evidence_id": "ev-test", "quote": "原文"}],
-                }
-            ],
+            "prose": "适用范围",
+            "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
         }
 
         result = AgentRuntime._canonicalize_packet_payload(
             payload, chapter, EvidenceAliasRegistry()
         )
 
-        self.assertEqual(result["task"], "规定范围")
+        self.assertEqual(result["task"], "范围研究")
         self.assertEqual(result["chapter_id"], "scope")
         self.assertEqual(result["chapter_title"], "范围")
         self.assertEqual(result["depends_on"], ["foundation"])
         self.assertNotIn("evidence_ids", result)
+
+    def test_structural_consistency_flags_terminology_drift(self):
+        plan = DocumentPlan.model_validate(
+            {
+                "title": "毁伤标准",
+                "rationale": "测试",
+                "chapters": [
+                    _chapter(
+                        chapter_id="levels",
+                        ordinal=1,
+                        title="等级",
+                        produces_contracts=["D-LEVELS"],
+                    ),
+                    _chapter(
+                        chapter_id="scope",
+                        ordinal=2,
+                        title="范围",
+                        depends_on=["levels"],
+                        required_contracts=["D-LEVELS"],
+                    ),
+                ],
+            }
+        )
+        packets = [
+            ResearchPacket.model_validate(
+                {
+                    "task": "等级",
+                    "chapter_id": "levels",
+                    "chapter_title": "等级",
+                    "status": "sufficient",
+                    "summary": "完成",
+                    "prose": "采用K级判定",
+                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                    "contracts": [
+                        {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["K级", "M级"]}
+                    ],
+                }
+            ),
+            ResearchPacket.model_validate(
+                {
+                    "task": "范围",
+                    "chapter_id": "scope",
+                    "chapter_title": "范围",
+                    "status": "sufficient",
+                    "summary": "完成",
+                    "prose": "该目标判定为Q级。",
+                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                }
+            ),
+        ]
+
+        issues = AgentRuntime._structural_consistency_issues(plan, packets)
+
+        drift = [item for item in issues if item.issue_id.startswith("terminology-drift")]
+        self.assertTrue(drift, f"expected a terminology-drift issue, got {issues}")
+        self.assertIn("Q级", drift[0].description)
+
+    def test_structural_consistency_flags_unmet_required_contract(self):
+        plan = DocumentPlan.model_validate(
+            {
+                "title": "毁伤标准",
+                "rationale": "测试",
+                "chapters": [
+                    _chapter(
+                        chapter_id="levels",
+                        ordinal=1,
+                        title="等级",
+                        produces_contracts=["D-LEVELS"],
+                    ),
+                    _chapter(
+                        chapter_id="scope",
+                        ordinal=2,
+                        title="范围",
+                        depends_on=["levels"],
+                        required_contracts=["D-LEVELS"],
+                    ),
+                ],
+            }
+        )
+        # The levels chapter is supposed to promulgate D-LEVELS but its packet
+        # does not carry it, so the consumer's required contract goes unmet.
+        packets = [
+            ResearchPacket.model_validate(
+                {
+                    "task": "等级",
+                    "chapter_id": "levels",
+                    "chapter_title": "等级",
+                    "status": "sufficient",
+                    "summary": "完成",
+                    "prose": "正文",
+                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                }
+            ),
+            ResearchPacket.model_validate(
+                {
+                    "task": "范围",
+                    "chapter_id": "scope",
+                    "chapter_title": "范围",
+                    "status": "sufficient",
+                    "summary": "完成",
+                    "prose": "正文",
+                    "rules": [{"basis": "source", "evidence_ids": ["ev-test"]}],
+                }
+            ),
+        ]
+
+        issues = AgentRuntime._structural_consistency_issues(plan, packets)
+
+        self.assertTrue(
+            any(item.issue_id.startswith("unmet-contract") for item in issues)
+        )
 
 
 if __name__ == "__main__":

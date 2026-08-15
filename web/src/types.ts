@@ -51,20 +51,26 @@ export interface Citation {
   evidence_id: string
 }
 
-export interface Claim {
-  claim_id: string
-  text: string
-  conclusion_type: 'direct' | 'synthesized' | 'normative' | 'hypothesis'
-  citations: Citation[]
-}
-
 export interface Conflict {
   conflict_id: string
   description: string
-  claim_ids: string[]
   evidence_ids: string[]
   status: 'open' | 'resolved'
   resolution: string | null
+}
+
+export interface RuleRecord {
+  basis: 'source' | 'designed' | 'synthesized'
+  evidence_ids: string[]
+  rationale: string | null
+  contract_id: string | null
+}
+
+export interface ContractRecord {
+  contract_id: string
+  type: 'terms' | 'threshold' | 'classification'
+  canonical_terms: string[]
+  applies_to_chapters: string[]
 }
 
 export interface ChapterPlan {
@@ -74,8 +80,8 @@ export interface ChapterPlan {
   objective: string
   research_questions: string[]
   depends_on: string[]
-  produces_decisions: string[]
-  required_decisions: string[]
+  produces_contracts: string[]
+  required_contracts: string[]
   acceptance_criteria: string[]
 }
 
@@ -84,29 +90,6 @@ export interface DocumentPlan {
   rationale: string
   deliverable_mode: 'evidence_summary' | 'normative_synthesis'
   chapters: ChapterPlan[]
-}
-
-export interface ContentBlock {
-  block_id: string
-  heading: string | null
-  markdown: string
-  claim_ids: string[]
-  decision_ids: string[]
-  evidence_ids: string[]
-}
-
-export interface DecisionRecord {
-  decision_id: string
-  statement: string
-  decision_type: 'direct' | 'synthesized' | 'normative' | 'hypothesis'
-  rationale: string
-  claim_ids: string[]
-  evidence_ids: string[]
-  assumptions: string[]
-  alternatives: string[]
-  validation_requirements: string[]
-  confidence: 'high' | 'medium' | 'low'
-  applies_to_chapters: string[]
 }
 
 export interface ConsistencyIssue {
@@ -124,9 +107,9 @@ export interface ResearchPacket {
   depends_on: string[]
   status: 'sufficient' | 'insufficient' | 'failed' | 'blocked'
   summary: string
-  content_blocks: ContentBlock[]
-  claims: Claim[]
-  decisions: DecisionRecord[]
+  prose: string
+  rules: RuleRecord[]
+  contracts: ContractRecord[]
   conflicts: Conflict[]
   gaps: string[]
   diagnostics: string[]

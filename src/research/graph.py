@@ -37,7 +37,26 @@ from src.research.agent_models import (
 )
 from src.research.agent_store import AgentRunStore
 from src.research.eval_metrics import RuntimeMetrics
-from src.research.tools import EvidenceAliasRegistry, EvidenceWorkspace
+from src.research.tools import (
+    EvidenceAliasRegistry,
+    EvidenceWorkspace,
+    scan_terminology,
+)
+
+
+def _derive_packet_summary(payload: dict[str, Any]) -> str:
+    """Synthesize the short ``summary`` for a canonicalized packet payload.
+
+    The worker emits only prose/rules/contracts (summary was the duplicate
+    expression removed by the output refactor), so the runtime derives it here:
+    the first prose paragraph for a sufficient chapter, or the disclosed gaps
+    for an insufficient one. Kept bounded so it never echoes the full prose.
+    """
+    if payload.get("status") != "sufficient":
+        gaps = payload.get("gaps") or []
+        return "研究依据不足：" + "；".join(gaps[:3]) if gaps else "研究依据不足。"
+    first_paragraph = (payload.get("prose") or "").strip().split("\n\n")[0]
+    return first_paragraph[:200] or "本章研究完成。"
 
 
 FAST_PROMPT = """You are a traceable knowledge-base question-answering agent.
@@ -51,9 +70,10 @@ PLANNER_PROMPT = """You are the planning component of a research supervisor. Cre
 chapter-level plan for the requested structured deliverable. Each chapter must have bounded
 research questions and acceptance criteria. Put shared terminology, scope, classification
 frameworks, and other global decisions in foundational chapters. Express execution order with
-depends_on. A chapter that creates a reusable decision declares its stable ID in
-produces_decisions; every consumer declares that ID in required_decisions and depends on its
-producer. Each plan entry is exactly one final top-level chapter. Give chapters disjoint scopes;
+depends_on. A chapter that creates a reusable contract (a controlled term list, threshold, or
+classification) declares its stable ID in produces_contracts; every consumer declares that ID in
+required_contracts and depends on its producer. Each plan entry is exactly one final top-level
+chapter. Give chapters disjoint scopes;
 never ask one chapter to recreate the complete document or material assigned to another chapter.
 Independent chapters may run in parallel. Do not copy a source document's table of contents or
 chapter numbering into the plan. Do not make factual claims or invent
@@ -66,51 +86,54 @@ stable ASCII identifiers and preserve the user's language.
 The final deliverable is an operational standard for its end users, not a literature review.
 Plan chapters around conclusions, definitions, criteria, tables, decision rules, procedures,
 templates, and examples. Do not create a chapter whose user-facing content is mainly a source
-comparison or an evidence summary; source comparison belongs in the structured claims,
-decisions, conflicts, and evidence metadata.
+comparison or an evidence summary; source comparison belongs in the structured rules,
+contracts, conflicts, and evidence metadata.
 
-The foundational chapter that owns the terminology decision must populate that decision's
-glossary with one GlossaryEntry per controlled-vocabulary axis: a short axis name, the list of
-canonical terms only (never forbidden aliases), and an optional scope note. Every downstream
-chapter whose prose must obey that vocabulary declares the terminology decision's ID in
-required_glossary (in addition to required_decisions). Glossaries make terminology an executable
-contract, not a free-text declaration.
+The foundational chapter that owns the terminology must declare a terms contract in its
+contracts[] with the list of canonical terms only (never forbidden aliases) and, when relevant,
+classification/threshold contracts for grade or level definitions. Every downstream chapter whose
+prose must obey that vocabulary declares the contract's ID in required_contracts. Contracts make
+terminology an executable vocabulary, not a free-text declaration.
 Return only a JSON object matching the supplied schema."""
 
 WORKER_PROMPT = """You are a chapter research worker handling one bounded chapter. Work
 through every research question using iterative search_knowledge and read_evidence calls. First
 summarize, compare, and verify relevant source conclusions internally; this evidence synthesis
-is required in both deliverable modes but must remain in the structured audit metadata, not in
-the public ContentBlock.
+is required in both deliverable modes but stays in the structured rules audit, not in the public
+prose.
 Use small focused queries, shortlist the most relevant evidence, inspect exact source excerpts,
 and stop broad searching once the questions have reasonable coverage. Respect all upstream
-decisions. Every factual claim needs one or more evidence IDs; the system fills exact source
-quotes. Submit exactly one ContentBlock for this chapter. Its heading must be null and its
-markdown must not contain Markdown headings or recreate nested chapters. Link every Claim,
-Decision, and used evidence ID to that single block. Keep the evidence synthesis compact; do not
-reproduce a source standard's structure, table of contents, or unrelated clauses. Distinguish
-direct, synthesized, normative, and
-hypothesis conclusions. In normative_synthesis mode, the requested standard is allowed to be
-new, but only after evidence synthesis: use the verified source comparison as design input and
-keep source conclusions separate from proposed rules. Create explicit normative rules instead of
-requiring a source that already contains the finished standard. Mark designed rules and
-thresholds as normative, explain the transfer rationale, list assumptions and alternatives,
-state validation requirements, and use lower confidence where empirical calibration is absent.
-Do not mark a chapter insufficient merely because the exact requested standard is absent.
-Never present a proposed rule as a source fact.
+contracts. Every auditable rule needs one or more evidence IDs (short aliases like E1/E2);
+the system fills exact source quotes. Submit exactly one prose block for this chapter in the
+prose field. Its markdown must not contain Markdown headings or recreate nested chapters. Keep
+the evidence synthesis compact; do not reproduce a source standard's structure, table of
+contents, or unrelated clauses.
+In normative_synthesis mode, the requested standard is allowed to be new, but only after
+evidence synthesis: use the verified source comparison as design input and keep source
+conclusions separate from proposed rules. Create explicit designed rules instead of requiring a
+source that already contains the finished standard. Do not mark a chapter insufficient merely
+because the exact requested standard is absent. Never present a proposed rule as a source fact.
 
-The ContentBlock is public, end-user standard text. It must contain conclusions and operational
+The prose field is public, end-user standard text. It must contain conclusions and operational
 rules only: definitions, requirements, thresholds, tables, decision steps, output formats, and
 examples. Do not put source names, author names, document titles, standard numbers, evidence IDs,
-Claim/Decision IDs, inline citations, literature comparisons, or phrases such as "according to"
-or "the source shows" in the ContentBlock. Keep all source reasoning in Claim.citations and
-DecisionRecord.rationale/evidence_ids, which are audit metadata shown separately by the system.
-Do not expose internal labels such as C1, D1, CH4-C1, or ev-... in public prose.
+contract IDs, inline citations, literature comparisons, or phrases such as "according to" or "the
+source shows" in prose. Keep source reasoning in the rules audit, which is shown separately by
+the system. Do not expose internal labels such as C1, D1, CH4-C1, or ev-... in public prose.
 
-One ContentBlock is a structured container, not one paragraph. Use multiple paragraphs separated
-by blank lines, bullet lists, tables, decision trees, and examples as appropriate. Do not collapse
-the whole chapter into a single dense paragraph. Finish by calling submit_chapter with a compact
-structured chapter artifact."""
+List your auditable rules in rules[] in the order they appear in prose. rules[] is NOT a
+per-sentence annotation: write only contract-level or judgment-level rules that need to be
+traceable, reusable, or machine-checkable. Each rule carries basis (source = directly restates a
+source, designed = a new design value or rule, synthesized = derived across sources),
+evidence_ids (aliases), an optional one-line rationale, and an optional contract_id linking to a
+contract this chapter consumes. Promulgate cross-chapter terms/classification/threshold
+definitions in contracts[]; downstream chapters reference them via rules[].contract_id and
+required_contracts.
+
+prose is not one paragraph. Use multiple paragraphs separated by blank lines, bullet lists,
+tables, decision trees, and examples as appropriate. Do not collapse the whole chapter into a
+single dense paragraph. Finish by calling submit_chapter with a compact structured chapter
+artifact."""
 
 ROUTER_PROMPT = """Classify the execution mode for a knowledge-base request. Choose fast
 for a focused question answerable with a few searches. Choose supervisor for requests requiring
@@ -180,8 +203,7 @@ class AgentRuntime:
         max_subtasks: int = 8,
         document_max_chars: int = 6000,
         chapter_max_chars: int = 1600,
-        chapter_max_claims: int = 10,
-        chapter_max_decisions: int = 4,
+        chapter_max_rules: int = 20,
         metrics: RuntimeMetrics | None = None,
     ) -> None:
         if min(
@@ -190,8 +212,7 @@ class AgentRuntime:
             max_subtasks,
             document_max_chars,
             chapter_max_chars,
-            chapter_max_claims,
-            chapter_max_decisions,
+            chapter_max_rules,
         ) <= 0:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
@@ -206,8 +227,7 @@ class AgentRuntime:
         self.max_subtasks = max_subtasks
         self.document_max_chars = document_max_chars
         self.chapter_max_chars = chapter_max_chars
-        self.chapter_max_claims = chapter_max_claims
-        self.chapter_max_decisions = chapter_max_decisions
+        self.chapter_max_rules = chapter_max_rules
         self._metrics = metrics
         self._packets: list[ResearchPacket] = []
         self._evidence_aliases: dict[str, EvidenceAliasRegistry] = {}
@@ -302,11 +322,10 @@ class AgentRuntime:
         def submit_chapter(**kwargs: Any) -> str:
             """Submit a grounded chapter artifact and stop this worker.
 
-            Emit only the research content (status, summary, content_blocks,
-            claims, decisions, conflicts, gaps, diagnostics). chapter_id,
-            chapter_title, depends_on, and task are injected from the plan, and
-            the top-level evidence_ids is derived from your citations, so do not
-            include those fields.
+            Emit only the research content (status, prose, rules, contracts,
+            conflicts, gaps). chapter_id, chapter_title, depends_on, and task are
+            injected from the plan, and the top-level evidence_ids is derived from
+            rules[].evidence_ids, so do not include those fields.
             """
 
             try:
@@ -471,18 +490,17 @@ class AgentRuntime:
         return self._build_react_graph(
             prompt=(
                 f"{WORKER_PROMPT}\nHard output contract for this chapter: exactly one "
-                f"ContentBlock, at most {prose_limit} characters of chapter prose, "
-                f"{self.chapter_max_claims} Claims, and "
-                f"{self.chapter_max_decisions} Decisions. Use short unnumbered local "
-                "labels inside prose when needed. The document assembler owns the block "
+                f"prose block, at most {prose_limit} characters of chapter prose, and "
+                f"at most {self.chapter_max_rules} rules. Use short unnumbered local "
+                "labels inside prose when needed. The document assembler owns the chapter "
                 "heading and all chapter numbering.\n"
-                "Terminology self-check: when upstream glossary decisions are provided in "
-                "the request, call check_terminology with your draft content_blocks and "
-                "those decisions before submit_chapter. If it returns suspect_terms, "
-                "revise the prose to use only the canonical terms from the relevant axis. "
+                "Terminology self-check: when upstream terms contracts are provided in the "
+                "request, call check_terminology with your draft prose and those contracts "
+                "before submit_chapter. If it returns suspect_terms, revise the prose to use "
+                "only the canonical terms from the relevant contract axis. "
                 "check_terminology is advisory and never blocks submission; if you judge a "
                 "flagged term is not a controlled-vocabulary drift, you may keep it. "
-                "Always use the canonical terms from the glossary when writing terminology."
+                "Always use the canonical terms from the contracts when writing terminology."
                 " Evidence references exposed by search are short aliases such as E1 and E2. "
                 "Use those aliases exactly in read_evidence and every structured evidence field; "
                 "the system resolves them to stable provenance IDs before persistence."
@@ -549,32 +567,23 @@ class AgentRuntime:
         aliases: EvidenceAliasRegistry,
     ) -> dict[str, Any]:
         normalized = ChapterSubmission.model_validate(payload).model_dump(mode="json")
+        # translate_payload resolves evidence aliases (E1/E2) inside every
+        # evidence_id / evidence_ids key, including rules[].evidence_ids.
         translated = aliases.translate_payload(normalized)
-        stable_decisions = set(chapter.produces_decisions)
-        prefix = f"{chapter.chapter_id}:"
-        decisions = translated.get("decisions") or []
-        decision_map: dict[str, str] = {}
-        for decision in decisions:
-            raw_id = str(decision.get("decision_id", ""))
-            if raw_id in stable_decisions or raw_id.startswith(prefix):
-                canonical = raw_id
-            else:
-                canonical = prefix + raw_id
-            decision_map[raw_id] = canonical
-            decision["decision_id"] = canonical
-        for block in translated.get("content_blocks") or []:
-            block["decision_ids"] = [
-                decision_map.get(item, item if item in stable_decisions else prefix + item)
-                for item in block.get("decision_ids", [])
-            ]
         # Inject program-owned identity fields. The model never emits these;
         # they are sourced from the plan so the worker cannot mislabel its own
         # chapter or invent a dependency graph. evidence_ids is left to
-        # _validate_packet, which derives it from Claim/Decision citations.
+        # _validate_packet, which derives it from rules[].evidence_ids.
         translated["task"] = chapter.objective
         translated["chapter_id"] = chapter.chapter_id
         translated["chapter_title"] = chapter.title
         translated["depends_on"] = list(chapter.depends_on)
+        # The worker no longer emits summary (it was duplicate expression in the
+        # old three-layer schema). ResearchPacket keeps it as a required field for
+        # non-sufficient display and upstream context, so the runtime derives a
+        # short one from the submitted artifact: the first prose paragraph for a
+        # sufficient chapter, or the disclosed gaps for an insufficient one.
+        translated["summary"] = _derive_packet_summary(translated)
         return translated
 
     def _can_submit_fast_answer(self, args: dict[str, Any]) -> bool:
@@ -601,137 +610,82 @@ class AgentRuntime:
         # _canonicalize_packet_payload, so they always match by construction;
         # validating them would only re-check program-owned state.
 
-        if packet.content_blocks and len(packet.content_blocks) != 1:
+        if len(packet.rules) > self.chapter_max_rules:
             raise ValueError(
-                "A chapter artifact must contain exactly one ContentBlock; merge all "
-                f"chapter prose into one block (got {len(packet.content_blocks)})"
+                "Chapter artifact exceeds the rule budget "
+                f"({len(packet.rules)} > {self.chapter_max_rules}); keep only "
+                "contract-level or judgment-level rules"
             )
-        prose_chars = sum(
-            len(block.markdown) + len(block.heading or "")
-            for block in packet.content_blocks
-        )
-        if prose_chars > prose_limit:
+        if len(packet.prose) > prose_limit:
             raise ValueError(
                 "Chapter prose exceeds the character budget "
-                f"({prose_chars} > {prose_limit}); remove detail owned by "
+                f"({len(packet.prose)} > {prose_limit}); remove detail owned by "
                 "other chapters and condense the evidence synthesis"
             )
-        if len(packet.claims) > self.chapter_max_claims:
+        if re.search(r"(?m)^\s*#{1,6}\s+", packet.prose):
             raise ValueError(
-                "Chapter artifact exceeds the Claim budget "
-                f"({len(packet.claims)} > {self.chapter_max_claims}); keep only claims "
-                "needed by this chapter"
+                "Chapter prose must not contain Markdown headings; use bold labels, "
+                "lists, or tables inside prose"
             )
-        if len(packet.decisions) > self.chapter_max_decisions:
+        if re.search(r"(?i)\bev-[a-z0-9]+\b|\b(?:C|D)\d+\b", packet.prose):
             raise ValueError(
-                "Chapter artifact exceeds the Decision budget "
-                f"({len(packet.decisions)} > {self.chapter_max_decisions})"
+                "Public chapter prose must not contain internal evidence, Claim, or "
+                "Decision IDs; keep them in structured metadata"
             )
-        for block in packet.content_blocks:
-            if block.heading:
+
+        contract_ids = {item.contract_id for item in packet.contracts}
+        if len(contract_ids) != len(packet.contracts):
+            raise ValueError("Contract IDs must be unique within a chapter")
+        for contract in packet.contracts:
+            if contract.type == "terms" and not contract.canonical_terms:
                 raise ValueError(
-                    "The single ContentBlock must not define a heading; the document "
-                    f"assembler uses the ChapterPlan title: {block.heading!r}"
-                )
-            if re.search(r"(?m)^\s*#{1,6}\s+", block.markdown):
-                raise ValueError(
-                    "Chapter prose must not contain Markdown headings; use bold labels, "
-                    "lists, or tables inside the single ContentBlock"
-                )
-            if re.search(r"(?i)\bev-[a-z0-9]+\b|\b(?:C|D)\d+\b", block.markdown):
-                raise ValueError(
-                    "Public chapter prose must not contain internal evidence, Claim, or "
-                    "Decision IDs; keep them in structured metadata"
+                    f"Terms contract {contract.contract_id} must declare canonical_terms"
                 )
 
-        claim_ids = {item.claim_id for item in packet.claims}
-        decision_ids = {item.decision_id for item in packet.decisions}
-        block_ids = {item.block_id for item in packet.content_blocks}
-        if len(claim_ids) != len(packet.claims):
-            raise ValueError("Claim IDs must be unique within a chapter")
-        if len(decision_ids) != len(packet.decisions):
-            raise ValueError("Decision IDs must be unique within a chapter")
-        if len(block_ids) != len(packet.content_blocks):
-            raise ValueError("Content block IDs must be unique within a chapter")
+        # A rule may reference a contract that this chapter promulgates or one it
+        # consumes via required_contracts; any other ID is a dangling reference.
+        allowed_contracts = contract_ids | set(chapter.required_contracts)
+        rule_evidence: set[str] = set()
+        for rule in packet.rules:
+            if (
+                rule.contract_id is not None
+                and rule.contract_id not in allowed_contracts
+            ):
+                raise ValueError(
+                    f"Rule references unknown contract {rule.contract_id!r}; it must be "
+                    "one of this chapter's contracts[] or required_contracts"
+                )
+            rule_evidence.update(rule.evidence_ids)
+        self.workspace.validate_evidence_ids(rule_evidence)
 
-        uncited_claims = [item.claim_id for item in packet.claims if not item.citations]
-        if uncited_claims:
+        # gaps only carries "to-be-calibrated / to-be-verified" disclosures, never
+        # diagnostic self-assessment ("check_terminology returned ...", "please rerun
+        # me"). Re-run / stop decisions are made on structured conditions, not model prose.
+        diagnostic_markers = re.compile(
+            r"check_terminology|请重跑|请重新|grammar|schema|校验失败|validation error",
+            re.IGNORECASE,
+        )
+        bad_gaps = [gap for gap in packet.gaps if diagnostic_markers.search(gap)]
+        if bad_gaps:
             raise ValueError(
-                f"Every Claim must cite evidence: {sorted(uncited_claims)}"
+                "gaps must not contain diagnostic self-assessment: "
+                + "; ".join(bad_gaps)
             )
-        cited = {
-            citation.evidence_id
-            for claim in packet.claims
-            for citation in claim.citations
-        }
-        decision_evidence = {
-            evidence_id
-            for decision in packet.decisions
-            for evidence_id in decision.evidence_ids
-        }
-        used = cited | decision_evidence
-
-        if packet.content_blocks:
-            block = packet.content_blocks[0]
-            if set(block.claim_ids) != claim_ids:
-                raise ValueError(
-                    "The single ContentBlock must reference every Claim exactly once"
-                )
-            if set(block.decision_ids) != decision_ids:
-                raise ValueError(
-                    "The single ContentBlock must reference every Decision exactly once"
-                )
-            if set(block.evidence_ids) != used:
-                unexplained = set(block.evidence_ids) - used
-                missing = used - set(block.evidence_ids)
-                details = []
-                if unexplained:
-                    details.append(
-                        f"evidence without a Claim or Decision reason: {sorted(unexplained)}"
-                    )
-                if missing:
-                    details.append(f"reasoned evidence missing from block: {sorted(missing)}")
-                raise ValueError(
-                    "The single ContentBlock evidence must exactly match evidence explained "
-                    "by Claims or Decisions; " + "; ".join(details)
-                )
-        self.workspace.validate_evidence_ids(used)
-
-        for block in packet.content_blocks:
-            if set(block.claim_ids) - claim_ids:
-                raise ValueError("Content block references an unknown claim")
-            if set(block.decision_ids) - decision_ids:
-                raise ValueError("Content block references an unknown decision")
-            if not block.claim_ids and not block.decision_ids:
-                raise ValueError("Every content block must expose its claim or decision")
-
-        for decision in packet.decisions:
-            if set(decision.claim_ids) - claim_ids:
-                raise ValueError("Decision references an unknown claim")
-            if decision.decision_type == "normative":
-                if not decision.assumptions:
-                    raise ValueError("A normative decision must state its assumptions")
-                if not decision.alternatives:
-                    raise ValueError("A normative decision must record alternatives")
-                if not decision.validation_requirements:
-                    raise ValueError(
-                        "A normative decision must state validation requirements"
-                    )
 
         if packet.status == "sufficient":
-            if len(packet.content_blocks) != 1 or not packet.claims or not used:
+            if not packet.prose or not packet.rules or not rule_evidence:
                 raise ValueError(
-                    "A sufficient chapter requires exactly one prose block, verified claims, "
+                    "A sufficient chapter requires prose, at least one auditable rule, "
                     "and used evidence"
                 )
-            missing_decisions = set(chapter.produces_decisions) - decision_ids
-            if missing_decisions:
+            missing_contracts = set(chapter.produces_contracts) - contract_ids
+            if missing_contracts:
                 raise ValueError(
-                    f"Chapter did not produce required decisions: {sorted(missing_decisions)}"
+                    f"Chapter did not produce required contracts: {sorted(missing_contracts)}"
                 )
-        elif packet.content_blocks:
-            raise ValueError("A non-sufficient chapter cannot submit final prose blocks")
-        packet.evidence_ids = sorted(used)
+        elif packet.prose or packet.rules:
+            raise ValueError("A non-sufficient chapter cannot submit final prose or rules")
+        packet.evidence_ids = sorted(rule_evidence)
 
     @staticmethod
     def _ancestor_packets(
@@ -773,44 +727,39 @@ class AgentRuntime:
                 }
                 for item in packets
             ],
-            "decisions": [
-                decision.model_dump(mode="json")
+            "contracts": [
+                contract.model_dump(mode="json")
                 for item in packets
-                for decision in item.decisions
+                for contract in item.contracts
             ],
-            "claims": [
-                {
-                    "claim_id": claim.claim_id,
-                    "text": claim.text,
-                    "conclusion_type": claim.conclusion_type,
-                    "evidence_ids": [citation.evidence_id for citation in claim.citations],
-                }
+            "rules": [
+                rule.model_dump(mode="json")
                 for item in packets
-                for claim in item.claims
+                for rule in item.rules
             ],
         }
 
     @classmethod
-    def _glossary_context(
+    def _contracts_context(
         cls,
         chapter: ChapterPlan,
         completed: dict[str, ResearchPacket],
         plan: DocumentPlan,
     ) -> list[dict[str, Any]]:
-        """Flatten glossary-bearing decisions declared in required_glossary.
+        """Surf the contracts this chapter declares via required_contracts.
 
-        Only decisions that both the chapter requested via required_glossary and
-        actually carry a non-empty glossary are surfaced, so workers see an
-        executable vocabulary list rather than a free-text declaration.
+        Only contracts that both the chapter requested via required_contracts and
+        actually exist upstream are surfaced, so workers see an executable
+        vocabulary list rather than a free-text declaration.
         """
         packets = cls._ancestor_packets(chapter, completed, plan)
-        wanted = set(chapter.required_glossary)
-        glossaries: list[dict[str, Any]] = []
+        wanted = set(chapter.required_contracts)
+        contracts: list[dict[str, Any]] = []
         for item in packets:
-            for decision in item.decisions:
-                if decision.decision_id in wanted and decision.glossary:
-                    glossaries.append(decision.model_dump(mode="json"))
-        return glossaries
+            for contract in item.contracts:
+                if contract.contract_id in wanted:
+                    contracts.append(contract.model_dump(mode="json"))
+        return contracts
 
     def _run_chapter(
         self,
@@ -833,7 +782,7 @@ class AgentRuntime:
             ],
             "chapter": chapter.model_dump(mode="json"),
             "upstream": self._upstream_context(chapter, completed, plan),
-            "glossary": self._glossary_context(chapter, completed, plan),
+            "contracts": self._contracts_context(chapter, completed, plan),
             "previous_attempt": (
                 {
                     "summary": previous_attempt.summary,
@@ -850,13 +799,13 @@ class AgentRuntime:
                 "emit only the research artifact and never those fields. "
                 "Treat document_structure as a hard ownership boundary: do not write sections "
                 "owned by another chapter. Do not add chapter numbers or reuse numbering from "
-                "sources. The ContentBlock is public standard text: write conclusions and "
-                "operational rules only, with no source names, citations, evidence IDs, or "
-                "internal Claim/Decision IDs. Use multiple paragraphs separated by blank lines "
-                "when the chapter has multiple conclusions. Submit exactly one ContentBlock "
-                "with heading=null and no Markdown headings. It must reference every Claim and "
-                "Decision, and its evidence_ids must exactly match evidence explained by Claim "
-                "citations or Decisions; these fields are metadata and are not printed in the "
+                "sources. prose is public standard text: write conclusions and "
+                "operational rules only, with no source names, citations, evidence IDs, "
+                "contract IDs, or internal Claim/Decision IDs. Use multiple paragraphs "
+                "separated by blank lines when the chapter has multiple conclusions. Submit "
+                "one prose block with no Markdown headings. List auditable rules in rules[] "
+                "(not per-sentence) and promulgate cross-chapter terms/classification in "
+                "contracts[]; these fields are audit metadata and are not printed in the "
                 "public document. "
                 "When previous_attempt reports evidence gaps, focus new searches on them. "
                 "When it reports diagnostics, correct the structured submission before doing "
@@ -955,19 +904,19 @@ class AgentRuntime:
                     for item in ancestors
                     if item.status != "sufficient"
                 ]
-                available_decisions = {
-                    decision.decision_id
+                available_contracts = {
+                    contract.contract_id
                     for item in ancestors
-                    for decision in item.decisions
+                    for contract in item.contracts
                 }
-                missing_decisions = sorted(
-                    set(chapter.required_decisions) - available_decisions
+                missing_contracts = sorted(
+                    set(chapter.required_contracts) - available_contracts
                 )
                 gaps = [
                     *(f"Upstream chapter is not sufficient: {item}" for item in failed_dependencies),
                     *(
-                        f"Required decision is unavailable: {item}"
-                        for item in missing_decisions
+                        f"Required contract is unavailable: {item}"
+                        for item in missing_contracts
                     ),
                 ]
                 if gaps:
@@ -1043,7 +992,12 @@ class AgentRuntime:
     ) -> list[ConsistencyIssue]:
         issues: list[ConsistencyIssue] = []
         by_chapter = {item.chapter_id: item for item in packets}
-        decision_statements: dict[str, str] = {}
+        contract_terms: dict[str, list[str]] = {}
+        contract_publisher: dict[str, str] = {}
+
+        def chapter_ids(packet: ResearchPacket) -> list[str]:
+            return [packet.chapter_id] if packet.chapter_id else []
+
         for packet in packets:
             if packet.status != "sufficient":
                 labels = {
@@ -1055,7 +1009,7 @@ class AgentRuntime:
                     ConsistencyIssue(
                         issue_id=f"chapter-insufficient:{packet.chapter_id}",
                         severity="error",
-                        chapter_ids=[packet.chapter_id] if packet.chapter_id else [],
+                        chapter_ids=chapter_ids(packet),
                         description=(
                             f"章节“{packet.chapter_title}”"
                             f"{labels.get(packet.status, '未完成')}。"
@@ -1063,50 +1017,126 @@ class AgentRuntime:
                         recommendation=(
                             "修复章节执行或结构化提交错误后重试。"
                             if packet.status == "failed"
-                            else "先完成上游章节和所需决策。"
+                            else "先完成上游章节和所需契约。"
                             if packet.status == "blocked"
-                            else "补充可迁移依据，或明确标注规范性综合及验证要求。"
+                            else "补充可迁移依据，或明确标注设计值与待验证项。"
                         ),
                     )
                 )
-            for decision in packet.decisions:
-                previous = decision_statements.get(decision.decision_id)
-                if previous is not None and previous != decision.statement:
+            for contract in packet.contracts:
+                previous = contract_terms.get(contract.contract_id)
+                if previous is not None and previous != contract.canonical_terms:
                     issues.append(
                         ConsistencyIssue(
-                            issue_id=f"decision-conflict:{decision.decision_id}",
+                            issue_id=f"contract-conflict:{contract.contract_id}",
                             severity="error",
-                            chapter_ids=[packet.chapter_id] if packet.chapter_id else [],
-                            description=f"决策 {decision.decision_id} 在章节间表述不一致。",
-                            recommendation="由决策所属基础章节统一该决策。",
+                            chapter_ids=chapter_ids(packet),
+                            description=f"契约 {contract.contract_id} 在章节间定义不一致。",
+                            recommendation="由契约所属基础章节统一该契约（canonical_terms）。",
                         )
                     )
-                decision_statements[decision.decision_id] = decision.statement
+                else:
+                    contract_terms[contract.contract_id] = contract.canonical_terms
+                contract_publisher[contract.contract_id] = packet.chapter_id or ""
             for conflict in packet.conflicts:
                 if conflict.status == "open":
                     issues.append(
                         ConsistencyIssue(
                             issue_id=f"open-conflict:{conflict.conflict_id}",
                             severity="warning",
-                            chapter_ids=[packet.chapter_id] if packet.chapter_id else [],
+                            chapter_ids=chapter_ids(packet),
                             description=conflict.description,
                             recommendation="在定稿前审查未解决的来源冲突。",
                         )
                     )
 
+        produced_anywhere = set(contract_publisher)
         for chapter in plan.chapters:
             packet = by_chapter.get(chapter.chapter_id)
             if packet is None:
                 continue
-            produced = {item.decision_id for item in packet.decisions}
-            for decision_id in set(chapter.produces_decisions) - produced:
+            produced = {item.contract_id for item in packet.contracts}
+            for contract_id in set(chapter.produces_contracts) - produced:
                 issues.append(
                     ConsistencyIssue(
-                        issue_id=f"missing-decision:{chapter.chapter_id}:{decision_id}",
+                        issue_id=f"missing-contract:{chapter.chapter_id}:{contract_id}",
                         severity="error",
                         chapter_ids=[chapter.chapter_id],
-                        description=f"章节未形成计划要求的决策 {decision_id}。",
-                        recommendation="重新执行该章节并补齐决策依据。",
+                        description=f"章节未形成计划要求的契约 {contract_id}。",
+                        recommendation="重新执行该章节并补齐契约定义。",
+                    )
+                )
+            for contract_id in set(chapter.required_contracts) - produced_anywhere:
+                issues.append(
+                    ConsistencyIssue(
+                        issue_id=f"unmet-contract:{chapter.chapter_id}:{contract_id}",
+                        severity="error",
+                        chapter_ids=[chapter.chapter_id],
+                        description=f"章节消费的契约 {contract_id} 未被任何章节产出。",
+                        recommendation="由基础章节产出该契约，或移除该 required_contracts。",
+                    )
+                )
+
+            # rules[].contract_id must resolve to a contract this chapter consumes or
+            # promulgates -- otherwise the reference is dangling.
+            if packet is not None:
+                own = {item.contract_id for item in packet.contracts}
+                allowed = own | set(chapter.required_contracts)
+                for rule in packet.rules:
+                    if rule.contract_id and rule.contract_id not in allowed:
+                        issues.append(
+                            ConsistencyIssue(
+                                issue_id=(
+                                    f"dangling-rule-contract:{chapter.chapter_id}:"
+                                    f"{rule.contract_id}"
+                                ),
+                                severity="error",
+                                chapter_ids=[chapter.chapter_id],
+                                description=(
+                                    f"规则引用了未声明的契约 {rule.contract_id}。"
+                                ),
+                                recommendation=(
+                                    "引用 required_contracts 或本章 contracts[] 内的契约。"
+                                ),
+                            )
+                        )
+
+        # Scan consumer prose for defensive-term drift against the terms contracts it
+        # consumes or publishes. This makes cross-chapter consistency machine-checkable
+        # instead of reliant on model self-discipline.
+        for chapter in plan.chapters:
+            packet = by_chapter.get(chapter.chapter_id)
+            if packet is None or packet.status != "sufficient" or not packet.prose:
+                continue
+            relevant = [
+                {
+                    "contract_id": cid,
+                    "type": "terms",
+                    "canonical_terms": contract_terms[cid],
+                }
+                for cid in (
+                    set(chapter.required_contracts)
+                    | {c.contract_id for c in packet.contracts}
+                )
+                if cid in contract_terms
+            ]
+            if not relevant:
+                continue
+            for suspect in scan_terminology(packet.prose, relevant):
+                issues.append(
+                    ConsistencyIssue(
+                        issue_id=(
+                            f"terminology-drift:{chapter.chapter_id}:{suspect['term']}"
+                        ),
+                        severity="error",
+                        chapter_ids=[chapter.chapter_id],
+                        description=(
+                            f"正文出现契约 {suspect['axis']} 的非规范词"
+                            f"“{suspect['term']}”。"
+                        ),
+                        recommendation=(
+                            f"改用规范词 {suspect['canonical_terms']}。"
+                        ),
                     )
                 )
         return issues
@@ -1132,23 +1162,13 @@ class AgentRuntime:
                     "chapter_id": packet.chapter_id,
                     "status": packet.status,
                     "summary": packet.summary,
-                    "claims": [
-                        {
-                            "claim_id": claim.claim_id,
-                            "text": claim.text,
-                            "conclusion_type": claim.conclusion_type,
-                        }
-                        for claim in packet.claims
+                    "prose": packet.prose,
+                    "rules": [
+                        rule.model_dump(mode="json") for rule in packet.rules
                     ],
-                    "decisions": [
-                        {
-                            "decision_id": decision.decision_id,
-                            "statement": decision.statement,
-                            "decision_type": decision.decision_type,
-                            "rationale": decision.rationale,
-                            "confidence": decision.confidence,
-                        }
-                        for decision in packet.decisions
+                    "contracts": [
+                        contract.model_dump(mode="json")
+                        for contract in packet.contracts
                     ],
                     "conflicts": [
                         item.model_dump(mode="json") for item in packet.conflicts
@@ -1236,14 +1256,22 @@ class AgentRuntime:
                 limitations.extend(packet.gaps)
                 limitations.extend(packet.diagnostics)
                 continue
-            for block in packet.content_blocks:
-                if block.heading:
-                    lines.extend(["", f"### {block.heading}"])
-                text = block.markdown.strip()
-                if "\\n" in text and "\n" not in text:
-                    text = text.replace("\\n", "\n")
-                lines.extend(["", text])
-                for evidence_id in block.evidence_ids:
+            text = packet.prose.strip()
+            if "\\n" in text and "\n" not in text:
+                text = text.replace("\\n", "\n")
+            lines.extend(["", text])
+            # Promulgated contracts are deliverable definitions; render them as a
+            # compact per-chapter section. rules[] stays out of the public prose
+            # (audit view only, per design §4.2).
+            if packet.contracts:
+                lines.extend([""])
+                for contract in packet.contracts:
+                    terms = "、".join(contract.canonical_terms)
+                    lines.append(
+                        f"- 契约 {contract.contract_id}（{contract.type}）：{terms}"
+                    )
+            for rule in packet.rules:
+                for evidence_id in rule.evidence_ids:
                     if evidence_id not in used_evidence:
                         used_evidence.append(evidence_id)
             limitations.extend(packet.gaps)

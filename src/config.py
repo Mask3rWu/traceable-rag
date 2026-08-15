@@ -145,8 +145,7 @@ class ResearchModelConfig:
     max_subtasks: int = 8
     document_max_chars: int = 6000
     chapter_max_chars: int = 1600
-    chapter_max_claims: int = 10
-    chapter_max_decisions: int = 4
+    chapter_max_rules: int = 20
     langfuse_enabled: bool = False
     langfuse_public_key: str = field(default="", repr=False)
     langfuse_secret_key: str = field(default="", repr=False)
@@ -205,11 +204,8 @@ class ResearchModelConfig:
             chapter_max_chars=_positive_int_env(
                 "RESEARCH_CHAPTER_MAX_CHARS", default=1600
             ),
-            chapter_max_claims=_positive_int_env(
-                "RESEARCH_CHAPTER_MAX_CLAIMS", default=10
-            ),
-            chapter_max_decisions=_positive_int_env(
-                "RESEARCH_CHAPTER_MAX_DECISIONS", default=4
+            chapter_max_rules=_positive_int_env(
+                "RESEARCH_CHAPTER_MAX_RULES", default=20
             ),
             langfuse_enabled=langfuse_enabled,
             langfuse_public_key=langfuse_public_key,
