@@ -1,0 +1,3105 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260816_0014",
+  "question_id": "q9",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3710,
+    "answer_truncated": true,
+    "evidence_tokens": 3272,
+    "evidence_included": 28,
+    "evidence_omitted": 73
+  },
+  "question": {
+    "id": "q9",
+    "category": "borrow",
+    "expected_route": "supervisor",
+    "question": "基于当前资料，设计一套激光武器反无人机的效能评估指标体系，并给出各指标的综合评估方法。",
+    "expected": "资料中只有激光毁伤机理与效能研究的碎片，应借鉴相关文献综合构建设计，允许 hypothesis，证据跨文档。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 2521.0,
+    "model_calls_count": 148,
+    "consistency_issues": [
+      {
+        "issue_id": "terminology-drift:ch1_foundations:瞄准能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“瞄准能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:毁伤能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“毁伤能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:协同能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“协同能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:束为毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“束为毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:截与毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“截与毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:规定毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“规定毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:层按杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“层按杀伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:打击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“打击毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:单套或多",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单套或多”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:单个目标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单个目标”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:单项评分",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单项评分”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:单目标全",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单目标全”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:向能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“向能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:高能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“高能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:测能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“测能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:准能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“准能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:伤能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“伤能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:同能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“同能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:为毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“为毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:与毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“与毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:定毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“定毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:按毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“按毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:按杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“按杀伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“击毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:与杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“与杀伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch1_foundations:效的",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效的”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch2_threats:毁伤难度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch2_threats"
+        ],
+        "description": "正文出现契约 engagement_scenario_contract 的非规范词“毁伤难度”。",
+        "recommendation": "改用规范词 ['近程交战', '中程交战', '远程交战', '昼间交战', '夜间交战', '晨昏交战', '弱湍流', '中湍流', '强湍流', '高能见度', '中能见度', '低能见度', '小规模蜂群', '中等规模蜂群', '大规模蜂群']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch2_threats:D海上蜂群",
+        "severity": "error",
+        "chapter_ids": [
+          "ch2_threats"
+        ],
+        "description": "正文出现契约 engagement_scenario_contract 的非规范词“D海上蜂群”。",
+        "recommendation": "改用规范词 ['近程交战', '中程交战', '远程交战', '昼间交战', '夜间交战', '晨昏交战', '弱湍流', '中湍流', '强湍流', '高能见度', '中能见度', '低能见度', '小规模蜂群', '中等规模蜂群', '大规模蜂群']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch2_threats:光毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch2_threats"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“光毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch2_threats:光杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch2_threats"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“光杀伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch2_threats:以毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch2_threats"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“以毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:数为功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“数为功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:初始倍率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“初始倍率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:射端功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“射端功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:到靶功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“到靶功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:时长",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“时长”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:发射光学口",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射光学口”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:发射单元数",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射单元数”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:发射端束宽",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射端束宽”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:发射端进行",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射端进行”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:发射端初始",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射端初始”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:要能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“要能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:为能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“为能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:到毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“到毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:效作",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效作”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:效通",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效通”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch3_capability:效期",
+        "severity": "error",
+        "chapter_ids": [
+          "ch3_capability"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效期”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:瞄准能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“瞄准能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:毁伤能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“毁伤能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:协同能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“协同能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:处理能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“处理能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:拦截能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“拦截能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:适应能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“适应能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:数与能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“数与能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:可用性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“可用性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:为乘性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“为乘性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:交换比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“交换比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:识别概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“识别概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:跟踪概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“跟踪概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:到靶功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“到靶功率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:达成概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“达成概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:备完好率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“备完好率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:生存概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“生存概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:伤三概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“伤三概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:为七个维度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“为七个维度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:靶功率密度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“靶功率密度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:盖全部维度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“盖全部维度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:单位时间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“单位时间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:反应时间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“反应时间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:测量或间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“测量或间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:探测距离",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“探测距离”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:跟踪瞄准",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“跟踪瞄准”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:系为四",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系为四”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:系统反",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系统反”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:系统可",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系统可”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:目标处理能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“目标处理能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:目标全流程或",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“目标全流程或”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:单目标全",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“单目标全”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:瞄准能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“瞄准能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:毁伤能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“毁伤能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:协同能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“协同能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:处理能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“处理能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:拦截能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“拦截能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:适应能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“适应能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:数与能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“数与能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:打击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“打击毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:目标毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“目标毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:与软毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“与软毁伤”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:单位时间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单位时间”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:单目标全",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单目标全”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:探测概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“探测概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:识别概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“识别概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:跟踪概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“跟踪概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:命中概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“命中概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:到靶功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“到靶功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:拦截概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“拦截概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:达成概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“达成概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:交战效率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“交战效率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:备完好率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“备完好率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:生存概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“生存概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:伤三概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“伤三概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:值由威胁",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 threat_classification_contract 的非规范词“值由威胁”。",
+        "recommendation": "改用规范词 ['Ⅰ级威胁', 'Ⅱ级威胁', 'Ⅲ级威胁', 'Ⅳ级威胁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:测能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“测能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:准能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“准能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:伤能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“伤能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:同能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“同能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:理能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“理能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:截能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“截能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:应能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“应能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:与能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“与能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“击毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:标毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“标毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“度毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:沿杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“沿杀伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:效探",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效探”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:效果",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效果”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:效率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效率”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:效交",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效交”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch4_index_system:效比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效比”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:统一输出标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“统一输出标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:时序类指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“时序类指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:距离实测标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“距离实测标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:处理能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“处理能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:拦截能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“拦截能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:适应能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“适应能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:标线性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“标线性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:交换比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“交换比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:接取概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“接取概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:到靶功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“到靶功率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:射端功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“射端功率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:平均功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“平均功率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:识别概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“识别概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:跟踪概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“跟踪概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:备完好率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“备完好率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:生存概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“生存概率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:靶功率密度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“靶功率密度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:均功率密度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“均功率密度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:反应时间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“反应时间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:单位时间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“单位时间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:探测距离",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“探测距离”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:跟踪时长",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“跟踪时长”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:系可分",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系可分”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:系统反",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系统反”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:系数与",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系数与”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:目标处理能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“目标处理能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:接取概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“接取概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:到靶功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“到靶功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:射端功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“射端功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:平均功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“平均功率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:命中概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“命中概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:拦截概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“拦截概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:探测概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“探测概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:识别概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“识别概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:跟踪概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“跟踪概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:备完好率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“备完好率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:生存概率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“生存概率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:时长",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“时长”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:按能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“按能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:理能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“理能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:截能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“截能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:应能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“应能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:电能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“电能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:效探",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效探”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch5_scoring:效交",
+        "severity": "error",
+        "chapter_ids": [
+          "ch5_scoring"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效交”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:节点下指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“节点下指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:父节点指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“父节点指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:由底层指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“由底层指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:输入均为标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“输入均为标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:分表达指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“分表达指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:毁伤能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“毁伤能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:瞄准能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“瞄准能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:协同能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“协同能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:一致性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“一致性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:可用性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“可用性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:确定性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“确定性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:两两比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“两两比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:致性比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“致性比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:方法比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“方法比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:致性比率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“致性比率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:标组与维度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“标组与维度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:杀伤链维度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“杀伤链维度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:识模糊测度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“识模糊测度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:等级置信度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“等级置信度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:一阶灵敏度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“一阶灵敏度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:链维度间",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“链维度间”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:跟踪瞄准",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“跟踪瞄准”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:系统可",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“系统可”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:组合权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“组合权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:维度权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“维度权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:各层权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“各层权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:每个权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“每个权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:复查权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“复查权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:定采用组合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“定采用组合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:式乘积聚合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“式乘积聚合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:糊积分聚合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“糊积分聚合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:据推理聚合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“据推理聚合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:不少于5",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 weight_set_contract 的非规范词“不少于5”。",
+        "recommendation": "改用规范词 ['0.25', '0.18', '0.15', '0.14', '0.10', '0.09', '0.09']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:0方可通",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 weight_set_contract 的非规范词“0方可通”。",
+        "recommendation": "改用规范词 ['0.25', '0.18', '0.15', '0.14', '0.10', '0.09', '0.09']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:0则综合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 weight_set_contract 的非规范词“0则综合”。",
+        "recommendation": "改用规范词 ['0.25', '0.18', '0.15', '0.14', '0.10', '0.09', '0.09']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:可依威胁",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 threat_classification_contract 的非规范词“可依威胁”。",
+        "recommendation": "改用规范词 ['Ⅰ级威胁', 'Ⅱ级威胁', 'Ⅲ级威胁', 'Ⅳ级威胁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:伤能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“伤能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:准能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“准能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:测能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“测能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:同能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“同能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“击毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:偿杀伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“偿杀伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch6_aggregation:效比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch6_aggregation"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“效比”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:部底层指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“部底层指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:以未舍入标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“以未舍入标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:人员以目标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“人员以目标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:各底层指标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“各底层指标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:度带宽时标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“度带宽时标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:名称作为标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“名称作为标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:据场景化标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“据场景化标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:须保持0",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 grading_threshold_contract 的非规范词“须保持0”。",
+        "recommendation": "改用规范词 ['0.85', '0.70', '0.60']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:度或权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“度或权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:得分与综合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“得分与综合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:聚合得综合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“聚合得综合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:先改进不合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“先改进不合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:测能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“测能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:准能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“准能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:伤能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“伤能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch7_grading:击毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch7_grading"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“击毁伤”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:值换算为标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“值换算为标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:采用明确标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“采用明确标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:计算底层标",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 scoring_method_contract 的非规范词“计算底层标”。",
+        "recommendation": "改用规范词 ['标准分', '极大型指标', '极小型指标', '线性归一化', '概率型指标']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:认权重0",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 grading_threshold_contract 的非规范词“认权重0”。",
+        "recommendation": "改用规范词 ['0.85', '0.70', '0.60']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:0阈值判",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 grading_threshold_contract 的非规范词“0阈值判”。",
+        "recommendation": "改用规范词 ['0.85', '0.70', '0.60']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:计算权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“计算权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:默认权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“默认权重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:可照章重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“可照章重”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:权重与聚合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“权重与聚合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:并逐层聚合",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 aggregation_method_contract 的非规范词“并逐层聚合”。",
+        "recommendation": "改用规范词 ['组合赋权', '主观权重', '客观权重', '一致性比率', '加权和聚合', '链式乘积聚合', '模糊积分聚合', '证据推理聚合', '灵敏度分析', '鲁棒性']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:采集能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“采集能力”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:单目标全",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 eval_framework_contract 的非规范词“单目标全”。",
+        "recommendation": "改用规范词 ['单次交战', '单目标全流程', '系统级', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '轻度毁伤', '中度毁伤', '重度毁伤', '歼灭或摧毁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:致性比率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“致性比率”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:发布报告并",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发布报告并”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:发射光学口",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 capability_parameter_contract 的非规范词“发射光学口”。",
+        "recommendation": "改用规范词 ['输出功率', '光束质量', '发射光学口径', '波长', '跟瞄误差', '辐照时长', '功率稳定性', '发射端功率', '到靶功率密度', '击落时间']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:采集能力",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“采集能力”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:一致性",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“一致性”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:两两比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“两两比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:致性比",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“致性比”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:致性比率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“致性比率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:输出功率",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“输出功率”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:与评估粒度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“与评估粒度”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:目标全流程或",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“目标全流程或”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:单目标全",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 index_system_contract 的非规范词“单目标全”。",
+        "recommendation": "改用规范词 ['综合效能', '探测能力', '跟踪瞄准能力', '打击毁伤能力', '响应与协同能力', '系统可用性', '生存性', '费效比', '目标毁伤效果', '交战效率', '单次交战', '单目标全流程', '系统级', '探测概率', '有效探测距离', '目标识别概率', '跟瞄误差', '稳定跟踪概率', '命中概率', '到靶功率密度', '拦截概率', '毁伤等级达成概率', '击落时间', '单位时间拦截数量', '有效交战窗口', '系统反应时间', '多目标处理能力', '协同拦截能力', '使用可用度', '任务可靠度', '战备完好率', '平台生存概率', '抗对抗措施适应能力', '单次交战成本', '成本交换比']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:不少于5",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 weight_set_contract 的非规范词“不少于5”。",
+        "recommendation": "改用规范词 ['0.25', '0.18', '0.15', '0.14', '0.10', '0.09', '0.09']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:0阈值判",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 weight_set_contract 的非规范词“0阈值判”。",
+        "recommendation": "改用规范词 ['0.25', '0.18', '0.15', '0.14', '0.10', '0.09', '0.09']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:级判定与报告",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“级判定与报告”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:核后发布报告",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“核后发布报告”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:景与威胁参数表",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“景与威胁参数表”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:参数测量记录表",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“参数测量记录表”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:重与聚合计算表",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“重与聚合计算表”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估实",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估实”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估准",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估准”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估任",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估任”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估目",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估目”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估粒",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估粒”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评审处",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评审处”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评分规",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评分规”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:评估报",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“评估报”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:场景与威胁参数",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“场景与威胁参数”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数据采",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数据采”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数与场",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数与场”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数据须",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数据须”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数测量",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数测量”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数据表",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数据表”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:数取输",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“数取输”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:权计算权重",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“权计算权重”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:权并逐层聚",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“权并逐层聚”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:专家判",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 application_procedure_contract 的非规范词“专家判”。",
+        "recommendation": "改用规范词 ['评估准备', '场景与威胁设置', '数据采集与测量', '指标评分', '权重与聚合', '等级判定与报告', '评估组', '数据组', '专家组', '评审组', '评估任务书', '场景与威胁参数表', '能力参数测量记录表', '底层指标数据表', '专家判断矩阵问卷', '权重与聚合计算表', '效能评估报告']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:景与威胁",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 threat_classification_contract 的非规范词“景与威胁”。",
+        "recommendation": "改用规范词 ['Ⅰ级威胁', 'Ⅱ级威胁', 'Ⅲ级威胁', 'Ⅳ级威胁']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch8_application:集能",
+        "severity": "error",
+        "chapter_ids": [
+          "ch8_application"
+        ],
+        "description": "正文出现契约 terms_contract 的非规范词“集能”。",
+        "recommendation": "改用规范词 ['激光武器', '反无人机作战', '效能', '效能评估', '硬毁伤', '软毁伤', '拦截概率', '辐照时长', '毁伤等级', '综合效能']。"
+      },
+      {
+        "issue_id": "ISSUE-001",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch4_index_system",
+          "ch6_aggregation"
+        ],
+        "description": "ch1_foundations states the indicator system is three-level with a criteria layer of four dimensions (探测能力、跟踪瞄准能力、打击毁伤能力、响应与协同能力). ch4_index_system defines a four-level tree with seven second-level dimensions (adding 系统可用性、生存性、费效比), and ch6_aggregation uses default weights for all seven dimensions. The hierarchy depth and dimension set are therefore incompatible across chapters.",
+        "recommendation": "Align ch1_foundations with ch4_index_system: revise the framework to describe a four-level tree with seven second-level dimensions, or explicitly present the four kill-chain dimensions as a primary subset within the seven dimensions and keep the additional three dimensions visible. Ensure ch6_aggregation references the same dimension list."
+      },
+      {
+        "issue_id": "ISSUE-002",
+        "severity": "error",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch3_capability",
+          "ch5_scoring"
+        ],
+        "description": "ch1_foundations defines 辐照时长 as the laser irradiation time required to reach a specified damage level. ch3_capability defines 辐照时长 as the actual continuous beam irradiation time and explicitly separates it from the 击落时间 required to reach the damage threshold. ch5_scoring then uses symbol T for 击落时间 in T=E_th/I_avg. The same term/symbol is used for required dwell time in ch1, measured dwell time in ch3, and kill time in ch5.",
+        "recommendation": "Harmonize definitions and notation: use 辐照时长 only for the measured/input continuous irradiation time (capability parameter), use a distinct term such as 击落时间 or 所需辐照时长 for the time needed to reach damage, and update ch1_foundations and ch5_scoring to follow that convention."
+      },
+      {
+        "issue_id": "ISSUE-003",
+        "severity": "error",
+        "chapter_ids": [
+          "ch4_index_system",
+          "ch5_scoring"
+        ],
+        "description": "ch4_index_system states that 拦截概率 = 探测概率 × 命中概率 × 毁伤概率, i.e., the product of detection, hit, and damage probabilities. ch5_scoring defines 拦截概率 as Pk=Phit·Pdamage, omitting detection probability. This is a direct contradiction in the computation rule for the same indicator.",
+        "recommendation": "Decide whether 拦截概率 is a target-level quantity (after detection/tracking, Pk=Phit×Pdamage) or a system-level kill-chain quantity (including detection). If system-level, update ch5_scoring to include detection probability; if target-level, revise ch4_index_system's kill-chain relation and introduce a separate term for system-level kill probability."
+      },
+      {
+        "issue_id": "ISSUE-004",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch8_application"
+        ],
+        "description": "ch1_foundations describes the six-step assessment as: 界定评估对象与场景 → 建立指标体系 → 数据采集与单项评分 → 确定权重 → 综合聚合 → 等级判定. ch8_application implements six steps as: 评估准备 → 场景与威胁设置 → 数据采集与测量 → 指标评分 → 权重与聚合 → 等级判定与报告. The step boundaries and names differ; ch8_application omits 建立指标体系 as a separate step and combines 确定权重 with 综合聚合.",
+        "recommendation": "Reconcile the two six-step procedures so both chapters use the same step count, names, and boundaries, for example by including 指标体系建立/确认 inside 评估准备 or adding it as an explicit step in ch8_application."
+      },
+      {
+        "issue_id": "ISSUE-005",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundations",
+          "ch4_index_system",
+          "ch7_grading"
+        ],
+        "description": "The standard uses the unqualified term 等级 for two different four-level classifications: 毁伤等级 (轻度/中度/重度/歼灭或摧毁) in ch1_foundations and ch4_index_system, and 效能等级 (优秀/良好/合格/不合格) in ch7_grading. ch7_grading also states that the same 等级 applies uniformly to all underlying indicator standard scores, which is ambiguous when an underlying indicator is itself a 毁伤等级达成概率.",
+        "recommendation": "Use distinct labels consistently (毁伤等级 vs 效能等级) and clarify in ch7_grading that all standard scores are graded with 效能等级, while 毁伤等级 remains a separate indicator value with its own classification."
+      },
+      {
+        "issue_id": "ISSUE-006",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch4_index_system",
+          "ch5_scoring"
+        ],
+        "description": "ch4_index_system requires 毁伤等级达成概率 to be reported for four damage levels (轻度/中度/重度/歼灭或摧毁) and separately for hard and soft kill. ch5_scoring provides a binary damage criterion for Pk (Pdamage takes 0/1 based on energy threshold) and lists thresholds 28.4/42.6/70.4 W/cm² and 277 J/cm², but does not specify how these thresholds map to the four damage levels or how 毁伤等级达成概率 is calculated.",
+        "recommendation": "Add an explicit mapping in ch5_scoring from the intensity/energy thresholds to the four damage levels and state the relationship between the multilevel 毁伤等级达成概率 and the binary Pdamage used in Pk=Phit·Pdamage, or revise ch4_index_system to derive 毁伤等级达成概率 from a separate damage model."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 激光武器反无人机效能评估指标体系与综合评估方法标准\n\n## 范围、术语与评估框架\n\n本标准界定适用范围、统一术语并规定总体评估框架。适用于陆基、车载、舰载、机载平台搭载的激光武器，对多旋翼、固定翼、微型及小型无人机（含无人机蜂群）实施反制的效能评估，覆盖探测、跟踪瞄准、指挥决策、打击干扰及毁伤评估全链路；评估对象可为单套或多套系统。光电探测与跟踪指标测量可参照相关光电系统测量规范部分适用，激光功率、光束质量等参数测量按能力参数规范执行。不适用于高功率微波武器、粒子束武器等非激光机理武器，以及以有人机、地面目标为对象的效能评估。\n\n术语定义：激光武器，以激光束毁伤目标的武器系统；反无人机作战，运用激光武器拦截并毁伤无人机目标的作战行动；效能，规定条件下完成任务的程度；效能评估，对效能的量化评定；硬毁伤，以热效应为主造成目标结构损毁；软毁伤，使目标光电与电子系统功能失效；拦截概率，规定条件下目标达到规定毁伤等级的概率；辐照时长，激光束连续作用目标表面的实测持续时间；击落时间，达到规定毁伤等级所需的时间；毁伤等级，按轻度毁伤、中度毁伤、重度毁伤、歼灭或摧毁四级划分；综合效能，各层指标加权聚合得到的评价值。\n\n评估框架为四层结构：目标层（综合效能）、准则层（探测能力、跟踪瞄准能力、打击毁伤能力、响应与协同能力、系统可用性、生存性、费效比七项能力）、指标层（单项指标）、测量层（实测参数）；评估层级分单次交战、单目标全流程、系统级。框架映射：指标体系设计、单项评分、加权聚合、等级判定与实施流程分别在后续对应章节规定。\n\n- 契约 terms_contract（terms）：激光武器、反无人机作战、效能、效能评估、硬毁伤、软毁伤、拦截概率、辐照时长、击落时间、毁伤等级、综合效能\n- 契约 eval_framework_contract（classification）：单次交战、单目标全流程、系统级、探测能力、跟踪瞄准能力、打击毁伤能力、响应与协同能力、系统可用性、生存性、费效比、轻度毁伤、中度毁伤、重度毁伤、歼灭或摧毁\n\n## 无人机威胁分类与交战场景\n\n威胁分类：无人机威胁按激光达到规定毁伤等级所需能量与时间分四级。威胁等级Ⅰ级：塑料蒙皮微小型多旋翼，重量≤7kg、速度≤20m/s、高度≤300m，无对抗措施；威胁等级Ⅱ级：塑料与碳纤维混杂结构小型机，重量7~25kg、速度20~40m/s、高度300~800m；威胁等级Ⅲ级：碳纤维或玻璃钢承力结构中小型固定翼，重量25~150kg、速度40~60m/s、高度800~1500m，或具备电子干扰、防护涂层；威胁等级Ⅳ级：金属或复合装甲结构中型以上目标，重量>150kg、速度>60m/s、高度>1500m，或具备诱饵规避。按判据逐项比对，任一指标达级即按最高级判定；大规模蜂群或对抗措施使等级提升一级，上限威胁等级Ⅳ级。\n\n交战场景：按五轴参数组合，至少规定六种典型场景。距离：近程交战≤1.5km、中程交战1.5~6km、远程交战>6km；能见度：高能见度≥15km、中能见度5~15km、低能见度<5km；湍流按路径等效折射率结构常数C²n分级，弱湍流<10⁻¹⁴、中湍流10⁻¹⁴~10⁻¹³、强湍流>10⁻¹³m⁻²/³；时段：昼间交战、夜间交战、晨昏交战；规模：小规模蜂群≤10架、中等规模蜂群11~50架、大规模蜂群>50架；对抗措施（电子干扰、诱饵规避、防护涂层）为可选轴。六种典型场景：近程交战×昼间交战×高能见度×弱湍流×单机；近程交战×夜间交战×中能见度×中湍流×小规模蜂群；中程交战×晨昏交战×低能见度×强湍流×中等规模蜂群；远程交战×昼间交战×高能见度×弱湍流×高等级单机；近程交战×夜间交战×低能见度×中湍流×大规模蜂群；中程交战×夜间交战×中能见度×强湍流×中等规模蜂群×对抗措施。评估须注明各轴取值，缺省采用基准场景（近程交战、昼间交战、高能见度、弱湍流、单机）。\n\n- 契约 threat_classification_contract（classification）：威胁等级Ⅰ级、威胁等级Ⅱ级、威胁等级Ⅲ级、威胁等级Ⅳ级\n- 契约 engagement_scenario_contract（terms）：近程交战、中程交战、远程交战、昼间交战、夜间交战、晨昏交战、弱湍流、中湍流、强湍流、高能见度、中能见度、低能见度、小规模蜂群、中等规模蜂群、大规模蜂群\n\n## 激光武器能力参数与测量规范\n\n效能评估的必要能力参数为六项：输出功率P(kW)、光束质量β(倍率，可换算为M²)、发射光学口径D(mm)、波长λ(nm)、跟瞄误差σ₂(μrad，取2σ值)、辐照时长T(s)。可选参数为功率稳定性δP(%)、最大有效作用距离(m)、发射单元数量。\n\n参数定义、符号、单位、测量前提与误差容限如下表。\n\n| 参数 | 符号 | 单位 | 测量前提 | 误差容限 |\n|---|---|---|---|---|\n| 输出功率 | P | kW | 发射端满功率稳定出光 | ±5% |\n| 光束质量 | β | 倍率 | 近场缩束取样，可换算M² | ±10% |\n| 发射光学口径 | D | mm | 有效通光直径 | ±1% |\n| 波长 | λ | nm | 中心波长 | ±1nm |\n| 跟瞄误差 | σ₂ | μrad | 稳定跟踪实测，取2σ值 | ±0\n… [省略 2700 字符] …\n数辨识复杂、可解释性弱，但能表达非线性、补偿与不确定性。正式评估以加权和聚合为基准方法，其余方法作交叉验证。\n\n- 契约 aggregation_method_contract（terms）：组合赋权、主观权重、客观权重、一致性比率、加权和聚合、链式乘积聚合、模糊积分聚合、证据推理聚合、灵敏度分析、鲁棒性\n- 契约 weight_set_contract（threshold）：0.25、0.18、0.15、0.14、0.10、0.09、0.09\n\n## 效能等级划分与判定准则\n\n效能等级统一为四级：优秀、良好、合格、不合格，适用于全部底层指标标准分、维度得分与综合效能（均∈[0,1]）。等级阈值见下表；区间一律含下不含上，最高级含上限，得分恰好等于阈值时进入上一等级。综合效能与维度得分按未舍入标准分判定，输出保留三位小数。\n\n|等级|区间|行为描述|\n|优秀|[0.85,1.00]|全面满足作战需求，可承担对应威胁等级任务|\n|良好|[0.70,0.85)|满足主要需求，个别短板可接受|\n|合格|[0.60,0.70)|达到最低可接受值，可列装但需改进|\n|不合格|[0.00,0.60)|未达最低可接受值，不得列装|\n\n判定流程：①各底层指标标准分按表判级；②门槛判定：拦截概率标准分低于0.60时，综合效能直接判不合格；③维度得分与综合效能按表判级；④敏感带宽复核：得分落于阈值下、带宽按灵敏度分析（权重±10%扰动）所得综合效能最大相对偏差确定，带宽内结果由复核组会商判定并标注。论证人员按维度等级确定改进优先序，试验人员按底层指标等级验收，指挥员按综合效能等级派遣任务。阈值应随靶场试验、部队使用与实战数据持续校准。\n\n- 契约 grading_threshold_contract（threshold）：0.85、0.70、0.60\n\n## 评估实施流程、模板与示例\n\n评估按六步流程实施，各步责任、输入输出如下：\n①评估准备——评估组依据评估任务书明确目的、对象、评估粒度与节点时限；\n②场景与威胁设置——确定威胁等级及交战场景参数；\n③数据采集与测量——数据组按测量规范采集能力参数并填写记录表，异常数据剔除并复核，缺失数据须说明并经评审组处理；\n④指标评分——按评分规则将原始值换算为标准分；\n⑤权重与聚合——专家组给出主观权重，与客观权重按组合赋权合成后逐层聚合；\n⑥等级判定与报告——按0.85、0.70、0.60阈值判定等级，评审组复核后发布效能评估报告。\n\n标准模板共七类：评估任务书、场景与威胁参数表、能力参数测量记录表、底层指标数据表、专家判断矩阵问卷、权重与聚合计算表、效能评估报告；模板字段须与指标体系、评分算法、权重与聚合、分级阈值严格对应。效能评估报告含概述、场景与威胁设置、数据来源、计算过程、结论与建议、附表六部分。\n\n示例（数据为假设，仅演示计算链路）：威胁等级Ⅰ级多旋翼，近程交战、昼间交战、高能见度、弱湍流，评估粒度为单次交战；输出功率30 kW、跟瞄误差8 μrad。按评分规则求各底层指标标准分，按组合赋权与加权和聚合得综合效能0.71，对照阈值判为良好。示例须逐项列出公式、代入值与结果，保证计算可复现。\n\n- 契约 application_procedure_contract（terms）：评估准备、场景与威胁设置、数据采集与测量、指标评分、权重与聚合、等级判定与报告、评估组、数据组、专家组、评审组、评估任务书、场景与威胁参数表、能力参数测量记录表、底层指标数据表、专家判断矩阵问卷、权重与聚合计算表、效能评估报告",
+      "content_truncated": true,
+      "limitations": [
+        "知识库内未检索到激光反无人机效能评估的统一国家或行业标准，术语与框架系综合现有研究合成，需在后续章节以规范条文固化",
+        "激光功率、光束质量等参数定量测量方法属能力参数章节范畴，本章仅作术语与前置输入声明，不展开测量规范",
+        "飞控系统等电子部件的激光损伤阈值与失效模式缺乏公开实测数据，威胁判据暂以蒙皮材料类别替代。",
+        "热晕、光束扩展等非线性大气效应的统一量化参数未在来源中给出，湍流判据仅以路径等效C²n分级表述。",
+        "蜂群规模档位数值无权威来源，按战例规模（2/13/18/30/37架）与专家论证设定，需后续实测校核。",
+        "知识库缺少光束质量M²与功率计量的国家/行业测量标准原文，β换算M²关系与各参数误差容限为设计规定，应用时以现行检定规程校准。",
+        "功率稳定性的直接测量规程证据不足，测量方法（连续出光窗口极差与均值之比）为设计规定。",
+        "协同拦截能力（多套系统）缺乏公开量化数据，取值规则按目标分配仿真结果设计，需用户补充协同场景参数。",
+        "生存性缺乏激光武器平台专用规范，参照军用平台生存力要求设计，平台特征数据需用户提供。",
+        "费效比依赖用户提供采购、维护与单次运行成本数据，本标准仅规定指标定义与统计口径。",
+        "平台生存概率与抗对抗措施适应能力缺乏公开定量解析模型，采用统计计数与效能保持率替代。",
+        "有效探测距离无公开解析探测方程，采用满足探测概率门槛的最大实测距离标定规程。",
+        "证据推理聚合的基本概率指派标定方法在本知识库无算例数据，参数设定为本标准设计值，实施时需按应用场景标定。",
+        "默认权重集缺乏本知识库标定试验数据支撑，属设计默认值，实施时应按交战场景与目标类别标定后替换。",
+        "G1: 0.85/0.70/0.60 为设计阈值，激光反无人机领域缺乏大样本统计支撑，需以靶场试验与部队使用数据持续校准。",
+        "G2: 敏感带宽默认取值（阈值±灵敏度分析所得综合效能最大相对偏差）尚未经应用章节案例校验。",
+        "七类模板的逐字段样例无单一权威来源，字段细节由工序表、FMECA表与损伤评估报告表证据综合设计，建议后续版本补充附录式字段清单。",
+        "正文出现契约 eval_framework_contract 的非规范词“瞄准能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“毁伤能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“协同能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“束为毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“截与毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“规定毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“层按杀伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“打击毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“单套或多”。",
+        "正文出现契约 eval_framework_contract 的非规范词“单个目标”。",
+        "正文出现契约 eval_framework_contract 的非规范词“单项评分”。",
+        "正文出现契约 eval_framework_contract 的非规范词“单目标全”。",
+        "正文出现契约 terms_contract 的非规范词“向能”。",
+        "正文出现契约 terms_contract 的非规范词“高能”。",
+        "正文出现契约 terms_contract 的非规范词“测能”。",
+        "正文出现契约 terms_contract 的非规范词“准能”。",
+        "正文出现契约 terms_contract 的非规范词“伤能”。",
+        "正文出现契约 terms_contract 的非规范词“同能”。",
+        "正文出现契约 terms_contract 的非规范词“为毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“与毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“定毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“按毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“按杀伤”。",
+        "正文出现契约 terms_contract 的非规范词“击毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“与杀伤”。",
+        "正文出现契约 terms_contract 的非规范词“效的”。",
+        "正文出现契约 engagement_scenario_contract 的非规范词“毁伤难度”。",
+        "正文出现契约 engagement_scenario_contract 的非规范词“D海上蜂群”。",
+        "正文出现契约 terms_contract 的非规范词“光毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“光杀伤”。",
+        "正文出现契约 terms_contract 的非规范词“以毁伤”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“数为功率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“初始倍率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“射端功率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“到靶功率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“时长”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发射光学口”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发射单元数”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发射端束宽”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发射端进行”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发射端初始”。",
+        "正文出现契约 terms_contract 的非规范词“要能”。",
+        "正文出现契约 terms_contract 的非规范词“为能”。",
+        "正文出现契约 terms_contract 的非规范词“到毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“效作”。",
+        "正文出现契约 terms_contract 的非规范词“效通”。",
+        "正文出现契约 terms_contract 的非规范词“效期”。",
+        "正文出现契约 index_system_contract 的非规范词“瞄准能力”。",
+        "正文出现契约 index_system_contract 的非规范词“毁伤能力”。",
+        "正文出现契约 index_system_contract 的非规范词“协同能力”。",
+        "正文出现契约 index_system_contract 的非规范词“处理能力”。",
+        "正文出现契约 index_system_contract 的非规范词“拦截能力”。",
+        "正文出现契约 index_system_contract 的非规范词“适应能力”。",
+        "正文出现契约 index_system_contract 的非规范词“数与能力”。",
+        "正文出现契约 index_system_contract 的非规范词“可用性”。",
+        "正文出现契约 index_system_contract 的非规范词“为乘性”。",
+        "正文出现契约 index_system_contract 的非规范词“交换比”。",
+        "正文出现契约 index_system_contract 的非规范词“识别概率”。",
+        "正文出现契约 index_system_contract 的非规范词“跟踪概率”。",
+        "正文出现契约 index_system_contract 的非规范词“到靶功率”。",
+        "正文出现契约 index_system_contract 的非规范词“达成概率”。",
+        "正文出现契约 index_system_contract 的非规范词“备完好率”。",
+        "正文出现契约 index_system_contract 的非规范词“生存概率”。",
+        "正文出现契约 index_system_contract 的非规范词“伤三概率”。",
+        "正文出现契约 index_system_contract 的非规范词“为七个维度”。",
+        "正文出现契约 index_system_contract 的非规范词“靶功率密度”。",
+        "正文出现契约 index_system_contract 的非规范词“盖全部维度”。",
+        "正文出现契约 index_system_contract 的非规范词“单位时间”。",
+        "正文出现契约 index_system_contract 的非规范词“反应时间”。",
+        "正文出现契约 index_system_contract 的非规范词“测量或间”。",
+        "正文出现契约 index_system_contract 的非规范词“探测距离”。",
+        "正文出现契约 index_system_contract 的非规范词“跟踪瞄准”。",
+        "正文出现契约 index_system_contract 的非规范词“系为四”。",
+        "正文出现契约 index_system_contract 的非规范词“系统反”。",
+        "正文出现契约 index_system_contract 的非规范词“系统可”。",
+        "正文出现契约 index_system_contract 的非规范词“目标处理能力”。",
+        "正文出现契约 index_system_contract 的非规范词“目标全流程或”。",
+        "正文出现契约 index_system_contract 的非规范词“单目标全”。",
+        "正文出现契约 eval_framework_contract 的非规范词“处理能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“拦截能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“适应能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“数与能力”。",
+        "正文出现契约 eval_framework_contract 的非规范词“目标毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“与软毁伤”。",
+        "正文出现契约 eval_framework_contract 的非规范词“单位时间”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“探测概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“识别概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“跟踪概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“命中概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“拦截概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“达成概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“交战效率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“备完好率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“生存概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“伤三概率”。",
+        "正文出现契约 threat_classification_contract 的非规范词“值由威胁”。",
+        "正文出现契约 terms_contract 的非规范词“理能”。",
+        "正文出现契约 terms_contract 的非规范词“截能”。",
+        "正文出现契约 terms_contract 的非规范词“应能”。",
+        "正文出现契约 terms_contract 的非规范词“与能”。",
+        "正文出现契约 terms_contract 的非规范词“标毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“度毁伤”。",
+        "正文出现契约 terms_contract 的非规范词“沿杀伤”。",
+        "正文出现契约 terms_contract 的非规范词“效探”。",
+        "正文出现契约 terms_contract 的非规范词“效果”。",
+        "正文出现契约 terms_contract 的非规范词“效率”。",
+        "正文出现契约 terms_contract 的非规范词“效交”。",
+        "正文出现契约 terms_contract 的非规范词“效比”。",
+        "正文出现契约 scoring_method_contract 的非规范词“统一输出标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“时序类指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“距离实测标”。",
+        "正文出现契约 index_system_contract 的非规范词“标线性”。",
+        "正文出现契约 index_system_contract 的非规范词“接取概率”。",
+        "正文出现契约 index_system_contract 的非规范词“射端功率”。",
+        "正文出现契约 index_system_contract 的非规范词“平均功率”。",
+        "正文出现契约 index_system_contract 的非规范词“均功率密度”。",
+        "正文出现契约 index_system_contract 的非规范词“跟踪时长”。",
+        "正文出现契约 index_system_contract 的非规范词“系可分”。",
+        "正文出现契约 index_system_contract 的非规范词“系数与”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“接取概率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“平均功率”。",
+        "正文出现契约 terms_contract 的非规范词“按能”。",
+        "正文出现契约 terms_contract 的非规范词“电能”。",
+        "正文出现契约 scoring_method_contract 的非规范词“节点下指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“父节点指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“由底层指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“输入均为标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“分表达指标”。",
+        "正文出现契约 index_system_contract 的非规范词“一致性”。",
+        "正文出现契约 index_system_contract 的非规范词“确定性”。",
+        "正文出现契约 index_system_contract 的非规范词“两两比”。",
+        "正文出现契约 index_system_contract 的非规范词“致性比”。",
+        "正文出现契约 index_system_contract 的非规范词“方法比”。",
+        "正文出现契约 index_system_contract 的非规范词“致性比率”。",
+        "正文出现契约 index_system_contract 的非规范词“标组与维度”。",
+        "正文出现契约 index_system_contract 的非规范词“杀伤链维度”。",
+        "正文出现契约 index_system_contract 的非规范词“识模糊测度”。",
+        "正文出现契约 index_system_contract 的非规范词“等级置信度”。",
+        "正文出现契约 index_system_contract 的非规范词“一阶灵敏度”。",
+        "正文出现契约 index_system_contract 的非规范词“链维度间”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“组合权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“维度权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“各层权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“每个权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“复查权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“定采用组合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“式乘积聚合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“糊积分聚合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“据推理聚合”。",
+        "正文出现契约 weight_set_contract 的非规范词“不少于5”。",
+        "正文出现契约 weight_set_contract 的非规范词“0方可通”。",
+        "正文出现契约 weight_set_contract 的非规范词“0则综合”。",
+        "正文出现契约 threat_classification_contract 的非规范词“可依威胁”。",
+        "正文出现契约 terms_contract 的非规范词“偿杀伤”。",
+        "正文出现契约 scoring_method_contract 的非规范词“部底层指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“以未舍入标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“人员以目标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“各底层指标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“度带宽时标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“名称作为标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“据场景化标”。",
+        "正文出现契约 grading_threshold_contract 的非规范词“须保持0”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“度或权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“得分与综合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“聚合得综合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“先改进不合”。",
+        "正文出现契约 scoring_method_contract 的非规范词“值换算为标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“采用明确标”。",
+        "正文出现契约 scoring_method_contract 的非规范词“计算底层标”。",
+        "正文出现契约 grading_threshold_contract 的非规范词“认权重0”。",
+        "正文出现契约 grading_threshold_contract 的非规范词“0阈值判”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“计算权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“默认权重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“可照章重”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“权重与聚合”。",
+        "正文出现契约 aggregation_method_contract 的非规范词“并逐层聚合”。",
+        "正文出现契约 eval_framework_contract 的非规范词“采集能力”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“致性比率”。",
+        "正文出现契约 capability_parameter_contract 的非规范词“发布报告并”。",
+        "正文出现契约 index_system_contract 的非规范词“采集能力”。",
+        "正文出现契约 index_system_contract 的非规范词“输出功率”。",
+        "正文出现契约 index_system_contract 的非规范词“与评估粒度”。",
+        "正文出现契约 weight_set_contract 的非规范词“0阈值判”。",
+        "正文出现契约 application_procedure_contract 的非规范词“级判定与报告”。",
+        "正文出现契约 application_procedure_contract 的非规范词“核后发布报告”。",
+        "正文出现契约 application_procedure_contract 的非规范词“景与威胁参数表”。",
+        "正文出现契约 application_procedure_contract 的非规范词“参数测量记录表”。",
+        "正文出现契约 application_procedure_contract 的非规范词“重与聚合计算表”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估实”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估准”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估任”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估目”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估粒”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评审处”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评分规”。",
+        "正文出现契约 application_procedure_contract 的非规范词“评估报”。",
+        "正文出现契约 application_procedure_contract 的非规范词“场景与威胁参数”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数据采”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数与场”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数据须”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数测量”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数据表”。",
+        "正文出现契约 application_procedure_contract 的非规范词“数取输”。",
+        "正文出现契约 application_procedure_contract 的非规范词“权计算权重”。",
+        "正文出现契约 application_procedure_contract 的非规范词“权并逐层聚”。",
+        "正文出现契约 application_procedure_contract 的非规范词“专家判”。",
+        "正文出现契约 threat_classification_contract 的非规范词“景与威胁”。",
+        "正文出现契约 terms_contract 的非规范词“集能”。",
+        "ch1_foundations states the indicator system is three-level with a criteria layer of four dimensions (探测能力、跟踪瞄准能力、打击毁伤能力、响应与协同能力). ch4_index_system defines a four-level tree with seven second-level dimensions (adding 系统可用性、生存性、费效比), and ch6_aggregation uses default weights for all seven dimensions. The hierarchy depth and dimension set are therefore incompatible across chapters.",
+        "ch1_foundations defines 辐照时长 as the laser irradiation time required to reach a specified damage level. ch3_capability defines 辐照时长 as the actual continuous beam irradiation time and explicitly separates it from the 击落时间 required to reach the damage threshold. ch5_scoring then uses symbol T for 击落时间 in T=E_th/I_avg. The same term/symbol is used for required dwell time in ch1, measured dwell time in ch3, and kill time in ch5.",
+        "ch4_index_system states that 拦截概率 = 探测概率 × 命中概率 × 毁伤概率, i.e., the product of detection, hit, and damage probabilities. ch5_scoring defines 拦截概率 as Pk=Phit·Pdamage, omitting detection probability. This is a direct contradiction in the computation rule for the same indicator."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-ddbb6e2739ee",
+        "source_file": "机载定向能武器发展趋势及关键技术研究.pdf",
+        "pages": 2,
+        "section_path": [
+          "2 定向能武器概况",
+          "2.1 作战应用领域和影响"
+        ],
+        "quote": "定向能武器主要包括高能激光武器、高功率微波武器和粒子束武器，前二者较为成熟。通过近几十年的试验和使用，陆基、车载、舰载、岸\n… [省略 414 字符] …\n影响将取决于其支持全新任务的能力，如远程防御、空间打击、非破坏性战略打击等[1-2]",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-129ad0ddf184",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 15,
+        "section_path": [
+          "1",
+          "1.2 激光反无人机技术发展",
+          "1.2.1 激光武器装备发展"
+        ],
+        "quote": "在当代区域安全维护领域，激光武器系统日益成为各军事强国及防务科技企业的重点研发方向。诺斯洛普·格鲁曼公司研发了多种激光武器\n… [省略 287 字符] …\n机。各大公司在激光武器研发领域均取得重要成果，为未来激光武器的广泛应用奠定坚实基础。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-38dff4da6bf5",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "108-111",
+        "section_path": [
+          "6",
+          "6.3 展望"
+        ],
+        "quote": "在激光反无人机技术领域，为推动其进一步发展，可在以下几个方面深化研究：\n\n拓展易损性分析深度。深入探究无人机内部各部件间的\n… [省略 524 字符] …\n相亮亮.无人机在军事中的应用与发展[J].科技展望，2016,26(14):292.",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f677182e7a07",
+        "source_file": "徐豫新 等 - 2025 - 基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势.pdf",
+        "pages": 2,
+        "section_path": [],
+        "quote": "传统结构毁伤评估方法大多依赖于卫星捕获的遥感图像作为算法输入[3].遥感图像覆盖范围大、运行稳定，能够按照预设轨道周期性地\n… [省略 488 字符] …\n-12]\n\n但是，基于无人机图像信息采集进行结构毁伤效果评估，目前具体存在以下问题：",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-9791e74a7173",
+        "source_file": "梁巍巍 等 - 2024 - 战术激光武器对无人机毁伤效果仿真分析研究.pdf",
+        "pages": 1,
+        "section_path": [
+          "1 引言"
+        ],
+        "quote": "近年来，随着无人机技术的不断成熟，其低成本、智能化水平不断提高，无人机在现代战场上得到了广泛的应用，以小型无人机为代表的无\n… [省略 213 字符] …\n面目标：正在进行的俄乌冲突中，俄乌双方在战场上大量使用无人机进行侦察和攻击地面目标。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a0ee3f74049c",
+        "source_file": "梁巍巍 等 - 2024 - 战术激光武器对无人机毁伤效果仿真分析研究.pdf",
+        "pages": 3,
+        "section_path": [
+          "2 战术激光武器作战流程分析"
+        ],
+        "quote": "战术激光武器主要由指挥控制系统、高能激光器、精密瞄准跟踪系统和光束控制系统组成。战术激光武器系统通过发射高能激光辐照目标，\n… [省略 327 字符] …\n制系统辐照到目标上，最终将无人机目标摧毁。如图2所示为战术激光武器系统的结构示意图。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-98b9b4f759ee",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "23-24",
+        "section_path": [
+          "1",
+          "1.3 激光反无人机作用机理及效能评估研究进展",
+          "1.3.2 激光反无人机效能评估研究进展"
+        ],
+        "quote": "L.Shi等[53]评估了机载激光武器在协同作战中的效能，采用了多种模型来构建其效能评估体系，其场景如图1-6。研究过程中\n… [省略 384 字符] …\n真实地反映激光在实战中的实用性，为未来激光反无人机的技术应用提供更为可靠的科学依据。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-19d258d80222",
+        "source_file": "罗曦 等 - 2025 - 高能激光对小型无人机塑料蒙皮材料的毁伤效果研究.pdf",
+        "pages": "2-3",
+        "section_path": [
+          "1 高能激光打击无人机流程分析"
+        ],
+        "quote": "高能激光毁伤无人机的基本原理在于利用高能激光束对目标进行打击，通过聚焦和放大激光能量，使其达到足够的功率密度，从而对目标造\n… [省略 514 字符] …\n值仿真的分析结果，实现对高能激光毁伤效果的评估。模型主要包括作战环境参数设置模块、目",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2e9184420c3e",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": "10-11",
+        "section_path": [
+          "5 打击干扰环节"
+        ],
+        "quote": "打击干扰环节即激光武器发射高能激光来毁伤目标，并对目标毁伤程度进行评估（图7）。毁伤方式分为硬毁伤和软毁伤，若是激光打击来\n… [省略 511 字符] …\n制欺骗激光则能误导敌方的激光测距或制导系统，最终导致目标传感器失效或功能瘫痪[41]",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c1debeda2daf",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": "1-2",
+        "section_path": [],
+        "quote": "引用格式：罗曦，张昊春，汤欣卓，等.激光武器攻击效能评估方法研究进展[J].世界科技研究与发展，2025，47(5):63\n… [省略 474 字符] …\n威力进行了仿真建模，采用典型作战参数进行计算分析，系统探讨了影响毁伤效果的关键因素。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-63cf8328be6e",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 13,
+        "section_path": [],
+        "quote": "激光反无人机技术正逐渐受到关注，它利用高能激光束照射无人机，实现有效拦截或摧毁[23]。该技术具有独特的作用机理，能针对无\n… [省略 100 字符] …\n用化水平仍有待提升，这不仅涉及系统硬件配置的优化，更需要在战术应用层面进行深入研究。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c1aaacbd5d03",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": "11-12",
+        "section_path": [
+          "5 打击干扰环节",
+          "5.1 作战能力评估方法现有研究"
+        ],
+        "quote": "高能激光武器系统是一个复杂的系统，对其\n\n作战能力的评估需考虑大量关系复杂的不确定性因素，精确的目标毁伤效果评估是判定作战\n… [省略 273 字符] …\n属性威胁进行仿真，认为该方法在危险评估中具有一定的普适性;彭彪等[49]基于ADC模",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f3f1b17d1ffc",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": 12,
+        "section_path": [
+          "5 打击干扰环节",
+          "5.1 作战能力评估方法现有研究"
+        ],
+        "quote": "表1作战能力评估方法对比\n\n<div style=\"text-align: center;\"><html><body><t\n… [省略 1090 字符] …\n估等。</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-0d303b09f463",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 定义",
+          "3.1 术语",
+          "3.1.5 任务成功概率mission completion success probability"
+        ],
+        "quote": "在规定的任务剖面内，产品能完成规定任务的概率。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-819d1be90b64",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 34,
+        "section_path": [
+          "2",
+          "2.2 激光反无人机效能评估模型构建"
+        ],
+        "quote": "为评估激光反无人机防御效能，建立效能评估模型，并从激光拦截概率与激光辐照时长两个维度展开分析。在拦截概率方面，建立激光反无\n… [省略 252 字符] …\n无人机目标被激光有效摧毁所需的时间分布，为激光反无人机的效能评估提供科学的方法支撑。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-d9b3137d47f7",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "89-90",
+        "section_path": [
+          "5",
+          "5.2 场景参数对激光拦截效果的影响",
+          "5.2.1 激光功率对拦截概率影响分析"
+        ],
+        "quote": "在仿真过程中，调整激光功率，同时保持其他所有参数与预设参数表5-1一致。因激光在面对无人机蜂群袭击时，长时间连续辐照目标对\n… [省略 573 字符] …\nwidth=\"40%\" /></div>\n\n图5-4不同激光功率参数下的激光拦截概率",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-116e1493ab8e",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "33-34",
+        "section_path": [
+          "2",
+          "2.1 激光辐照目标的易损性建模方法",
+          "2.1.5 目标模型杀伤概率计算与最佳瞄准点的确定"
+        ],
+        "quote": "连续激光辐照目标的杀伤概率是通过对特定瞄准点进行多次辐照实现的，其中各辐照点与瞄准点之间的距离服从正态分布。依据激光对不同\n… [省略 436 字符] …\n从正态分布。重复上述步骤，并比较不同瞄准点的杀伤概率，最终确定目标的最佳激光瞄准点。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-24430d5c5ba0",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 42,
+        "section_path": [
+          "2",
+          "2.2 激光反无人机效能评估模型构建",
+          "2.2.7 激光辐照时长模型构建"
+        ],
+        "quote": "在激光反无人机效能评估模型中，辐照时长模型的核心功能在于计算激光击落无人机所需的时间。基于距离和角度参数对激光发射单元周围\n… [省略 272 字符] …\n估，必须结合实际的激光发射单元具体装备参数，并应用于已有的辐照时长模型进行深入分析。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-21005d0be362",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 105,
+        "section_path": [
+          "5",
+          "5.5 小结"
+        ],
+        "quote": "在激光拦截模型中，模拟不同参数下的激光拦截情况，发现激光功率和发射口径对拦截概率具有显著影响。当激光功率超过一定阈值时，由\n… [省略 369 字符] …\n机杀伤概率存在上限值。\n\n图5-14(e)中所示以飞控系统为照射目标的等效辐照时长。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-bfc6e2805496",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 99,
+        "section_path": [
+          "5",
+          "5.4 激光辐照诸元对毁伤时间的影响"
+        ],
+        "quote": "在激光反无人机效能评估中，无人机飞控系统与发动机作为激光辐照目标。飞控系统一旦功能受损，将直接导致无人机失控，而发动机部分损\n… [省略 61 字符] …\n激光能量击落阈值，并结合激光传输仿真，一起引入效能评估模型。边界条件如表5-9所示。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-57ba08d86ea3",
+        "source_file": "徐永会和袁诗桐 - 2025 - 一种基于图像变化检测的目标毁伤评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 实验结果与分析",
+          "3.1 目标毁伤等级划分"
+        ],
+        "quote": "目标毁伤等级是根据对目标的毁伤程度对毁伤效果划分的级别。以《XXX教程》规定的毁伤效果判定标准为例，目标毁伤等级划分为“轻度\n… [省略 12 字符] …\n度毁伤为a%～b%；中度毁伤为b%～c%；重度毁伤为c%～d%：歼灭或摧毁大于d%。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-292a26bf8bf7",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 目标毁伤级别划分"
+        ],
+        "quote": "目标在毁伤元作用下将部分或者全部丧失完成使命能力或执行任务能力，造成不同程度的毁伤，通常用毁伤级别来表示。在划分目标毁伤级\n… [省略 524 字符] …\n、飞机、导弹、雷达、建筑物、机场跑道和电力系统等）毁伤级别的划分可参考文献[12]。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-355057f360f2",
+        "source_file": "李峰 等 - 2018 - 目标毁伤效果评估技术研究综述.pdf",
+        "pages": 2,
+        "section_path": [
+          "2 毁伤评估模型",
+          "1） 1 ）层次分析法评价模型"
+        ],
+        "quote": "层次分析法（AHP）是20世纪70年代中期美国运筹学家T.L.Saaty提出的系统与层次分析相结合的定性和定量分析方法。我\n… [省略 165 字符] …\n供新的方案，在评价目标毁伤效果的指标较多时，数据量大，并且指标的权重也很难准确确定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-d94d300670cb",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": 13,
+        "section_path": [
+          "6 激光武器攻击效能发展趋势展望"
+        ],
+        "quote": "本文聚焦激光武器攻击效能评估这一前沿领域，基于其直接毁伤作战装备与光电系统的核心军事价值，系统构建激光武器全链路效能分析框\n… [省略 127 字符] …\n强”向“范式重构”跃迁，主要体现在以下3个方向：探测智能化、跟瞄光场化、博弈协同化。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-9cac7a896dca",
+        "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+        "pages": 2,
+        "section_path": [],
+        "quote": "本文以激光武器打击目标的作战过程为核心，融合观察、调整、决策、行动循环（Observe，Orient，Decide，Act\n… [省略 104 字符] …\n外研究现状，分析影响毁伤效能的关键因素，旨在为国内激光武器毁伤效能评估研究奠定基础。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a18d9e3e99ab",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "85-86",
+        "section_path": [
+          "5",
+          "5.1 拦截概率模型的状态机及边界条件"
+        ],
+        "quote": "针对现代无人机蜂群威胁，构建了一种系统级的效能评估模型，整合导弹、激光两种拦截手段及动态毁伤计算模型。以静态拦截平台为核心\n… [省略 562 字符] …\n离最近的激光单元；若仅单个激光智能体可用，则优先拦截距离更近的目标，以提升拦截概率。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-72eb42f552ed",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": "37-38",
+        "section_path": [
+          "2",
+          "2.2 激光反无人机效能评估模型构建",
+          "2.2.2 拦截概率模型的功能模块设定"
+        ],
+        "quote": "在激光拦截平台框架下，激光智能体协同模块主要负责多个激光发射单元的应用场景，共同应对空中威胁目标。当特定空域内出现多个威胁\n… [省略 360 字符] …\n激光拦截平台在面对复杂空中威胁时，能够高效、有序地调度激光智能体，实现最佳防御效果。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2105dbf1a9db",
+        "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+        "pages": 88,
+        "section_path": [
+          "5",
+          "5.1 拦截概率模型的状态机及边界条件"
+        ],
+        "quote": "表5-1拦截概率模型边界条件\n\nTable 5-1 Interception probability model boun\n… [省略 1027 字符] …\n</tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 101,
+      "included": 28,
+      "omitted": 73,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 43454,
+      "quote_chars_after": 3263
+    }
+  }
+}

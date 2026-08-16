@@ -1,0 +1,2351 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260816_0014",
+  "question_id": "q8",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 4153,
+    "answer_truncated": true,
+    "evidence_tokens": 3301,
+    "evidence_included": 32,
+    "evidence_omitted": 15
+  },
+  "question": {
+    "id": "q8",
+    "category": "borrow",
+    "expected_route": "supervisor",
+    "question": "生成一份反舰导弹打击补给船的毁伤等级划分方案。",
+    "expected": "当前资料无直接对应的补给船毁伤等级标准，应综合多份文献（易损性、毁伤评估、舰船结构）推断划分，允许 hypothesis，证据跨文档引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 2055.0,
+    "model_calls_count": 125,
+    "consistency_issues": [
+      {
+        "issue_id": "terminology-drift:ch01_foundations:典型毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“典型毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:度对毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“度对毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:应指毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“应指毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:物理毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“物理毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:功能毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“功能毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:常规毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“常规毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:典型毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“典型毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:度对毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“度对毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:应指毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“应指毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:轻度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“轻度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:中度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“中度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:重度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“重度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:歼灭毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“歼灭毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:常规毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“常规毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤方式",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤方式”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤程度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤程度”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤元在",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤元在”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤及其",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤及其”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤与功",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤与功”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤环境",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤环境”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:毁伤信息",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤信息”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundations:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundations"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:扩大毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“扩大毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:重度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“重度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:能毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“能毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:何吨位含船",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“何吨位含船”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:货舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“货舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:药舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“药舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:油舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:物舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“物舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:与舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“与舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:键舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“键舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:弹药与",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药与”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:弹药补",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药补”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_target_classification:双层壳",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“双层壳”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:别按速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“别按速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:着靶速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:穿甲战斗部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“穿甲战斗部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:数含命中部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“数含命中部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:命中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“命中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:着靶",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:作为毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“作为毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:伤效应评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“伤效应评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_missile_strike:数叠加评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_missile_strike"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“数叠加评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:着靶速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:伤按战斗部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“伤按战斗部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:穿甲战斗部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“穿甲战斗部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:水按命中部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“水按命中部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:命中同一部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“命中同一部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:为中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“为中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:命中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“命中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:船体",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船体”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:船火",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船火”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:船爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船爆”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:船与",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船与”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:船结",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船结”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:着靶",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:结构毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“结构毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:布与毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“布与毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:输出毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“输出毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:毁伤按战",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤按战”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:毁伤半径",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤半径”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:取各效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“取各效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:其余效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“其余效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:单舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“单舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:多舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“多舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:油舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:与舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“与舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:货舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“货舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:通舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“通舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:损舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“损舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:大舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“大舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:弹药殉",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药殉”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:弹药补",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药补”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_effects:双层壳",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“双层壳”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:射为任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“射为任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:各项任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“各项任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:给船任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“给船任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:作业任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“作业任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:保障任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“保障任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:每项任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“每项任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:部分任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“部分任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:全部任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“全部任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:调节任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“调节任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:全可用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“全可用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:分可用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“分可用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:结构毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“结构毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:作为毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“作为毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:毁伤映射",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤映射”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:方式或应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“方式或应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:装置与全船",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“装置与全船”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:药舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“药舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:油舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:弹药补",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药补”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_capability_degradation:双推进",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_capability_degradation"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“双推进”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:作业任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“作业任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:保障任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“保障任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:四项任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“四项任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:序适用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“序适用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:全可用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“全可用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:分可用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“分可用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:电站毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“电站毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:歼灭毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“歼灭毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:轻度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“轻度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:重度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“重度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:中度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“中度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:电站毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“电站毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_assignment_rules:级与效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_assignment_rules"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“级与效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:着靶速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:室及速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“室及速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:持快速",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“持快速”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:源与置信",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“源与置信”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:命中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“命中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:告中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“告中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:船体",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“船体”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:着靶",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“着靶”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:数据采集",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据采集”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:数据基础",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据基础”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:数据来源",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据来源”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:毁伤等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤等级”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤评估”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:水舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“水舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:油舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:弹类别",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹类别”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:弹道或",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹道或”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:观测毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“观测毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:记录毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“记录毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:结构毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“结构毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:判定毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“判定毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:采用毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“采用毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:观测毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“观测毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:记录毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“记录毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:结构毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“结构毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:判定毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“判定毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:采用毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“采用毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:用毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“用毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:毁伤现象",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤现象”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_data_collection:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_data_collection"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:作业任务",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“作业任务”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:分可用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 capability_loss_levels 的非规范词“分可用”。",
+        "recommendation": "改用规范词 ['航行任务', '补给作业任务', '自卫任务', '损管保障任务', '完全可用', '部分可用', '不可用']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:穿甲战斗部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“穿甲战斗部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:作业任务部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“作业任务部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:中非冗余部",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“中非冗余部”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:命中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“命中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:构中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“构中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:定中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“定中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:集中",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 missile_strike_categories 的非规范词“集中”。",
+        "recommendation": "改用规范词 ['亚音速', '超音速', '半穿甲战斗部', '爆破战斗部', '触发引信', '延时引信', '近炸引信', '船首', '船中', '船尾', '上层建筑', '水线附近', '甲板', '单发命中', '多发命中', '着角', '着靶速度']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:数据采集",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据采集”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:数据时对",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据时对”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:数据时经",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“数据时经”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:毁伤等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤等级”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 reporting.forms 的非规范词“毁伤评估”。",
+        "recommendation": "改用规范词 ['数据采集清单', '目标特征', '打击特征', '毁伤现象', '毁伤评估报告', '数据质量', '复核']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:毁伤效应",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 damage_effect_scores 的非规范词“毁伤效应”。",
+        "recommendation": "改用规范词 ['结构毁伤', '进水', '火灾', '爆炸', '综合毁伤效应评分', '轻微效应', '中等效应', '严重效应', '致命效应']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:近舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“近舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:单舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“单舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:油舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:药舱",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“药舱”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:弹类别",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹类别”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:弹药补",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“弹药补”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:双层壳",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 target_classes.vulnerability 的非规范词“双层壳”。",
+        "recommendation": "改用规范词 ['综合补给船', '油料补给船', '弹药补给船', '物资运输船', '机舱', '燃油舱', '弹药舱', '货物舱', '上层建筑', '双层壳舷侧', '双层底', '独立部件', '冗余部件']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:四级毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“四级毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:须与毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“须与毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:填写毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 damage_levels.classification 的非规范词“填写毁伤”。",
+        "recommendation": "改用规范词 ['轻度毁伤', '中度毁伤', '重度毁伤', '歼灭毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:四级毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“四级毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:须与毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“须与毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:中度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“中度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:综合毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“综合毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:填写毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“填写毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:重度毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“重度毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:歼灭毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“歼灭毁伤”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:与两种评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“与两种评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:写毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“写毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:毁伤评估",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“毁伤评估”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:打击后评",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch08_validation_examples:打击前预",
+        "severity": "error",
+        "chapter_ids": [
+          "ch08_validation_examples"
+        ],
+        "description": "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "recommendation": "改用规范词 ['补给船', '反舰导弹', '毁伤等级', '任务能力', '毁伤效应', '目标类别', '打击特征', '物理毁伤', '功能毁伤', '打击前预估', '打击后评估']。"
+      },
+      {
+        "issue_id": "ch05_ch04_ch06_event_consequence_conflict",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_effects",
+          "ch05_capability_degradation",
+          "ch06_assignment_rules"
+        ],
+        "description": "ch04 defines oil-tank explosion and ammunition explosion as fatal effects (75–100) and ch06 uses them as first-level mandatory criteria to assign annihilation directly. ch05, however, lists ammunition hold explosion as only making the replenishment task unavailable and fuel-tank explosion as only making replenishment and damage-control tasks unavailable. The same event is therefore mapped to task-level unavailability in ch05 but to annihilation in ch06, and even within ch05 it is milder than the 75–100 fatal-effect rule.",
+        "recommendation": "Harmonize ch05's mandatory criteria with ch04/ch06: ammunition and fuel-tank explosions should be stated as overriding annihilation triggers (all tasks unavailable) before task-level capability grading; if retained in ch05, they should not be described as limited to specific tasks."
+      },
+      {
+        "issue_id": "hit_location_controlled_vocab_mismatch",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_target_classification",
+          "ch03_missile_strike",
+          "ch06_assignment_rules",
+          "ch08_validation_examples"
+        ],
+        "description": "ch03 fixes the hit-location classification to six values (bow, midship, stern, superstructure, waterline, deck) and encodes them in MS-A-B-C-D-E. ch06 and ch08 use finer compartment-level hit locations ('engine room hit', 'multiple hits on ammunition hold', 'fuel tank section/engine room') that are not in that taxonomy, so those examples cannot be represented in the defined MS code and the input vocabulary is inconsistent.",
+        "recommendation": "Extend ch03's hit-location taxonomy with compartment-level values or provide an explicit mapping from compartment locations (engine room, fuel tank, ammunition hold, cargo hold) to the six regional codes, and update the MS code/examples to use the aligned vocabulary."
+      },
+      {
+        "issue_id": "global_score_vs_task_specific_score_ambiguity",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch04_damage_effects",
+          "ch05_capability_degradation"
+        ],
+        "description": "ch04 defines one comprehensive damage-effect score by weighted aggregation of four effect scores. ch05 says capability is judged by taking the comprehensive score according to task-effect primary relationships, listing different primary effects for each task (navigation: structural damage/flooding; replenishment: structural damage/fire; etc.). It is not specified whether the single global score from ch04 is used for every task or whether a separate task-specific score is computed; if task-specific, ch05 lacks the aggregation formula and contradicts ch04's single-score definition.",
+        "recommendation": "Specify in ch05 how the comprehensive score from ch04 is used per task: either use the one global score for all tasks (and delete the implied task-specific primary-effect selection) or define a task-specific scoring procedure that is consistent with ch04's score bands and aggregation rule."
+      },
+      {
+        "issue_id": "tonnage_class_boundary_overlap",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch02_target_classification"
+        ],
+        "description": "ch02 defines tonnage classes as large ≥10,000 t, medium 5,000–10,000 t, and small <5,000 t. The 10,000 t boundary belongs to both large and medium, making the classification ambiguous for a ship of exactly 10,000 t.",
+        "recommendation": "Make the tonnage intervals disjoint, e.g., large >10,000 t and medium 5,000–10,000 t, or large ≥10,000 t and medium 5,000–<10,000 t, and record the chosen convention."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 反舰导弹打击补给船毁伤等级划分方案\n\n## 基础、范围与毁伤等级框架\n\n本方案适用于以海上补给为主要任务、具有油舱或货舱结构的军用补给船，含综合补给船、油料补给船及执行同类保障任务的运输船；范围以作战角色界定，不设严格吨位限制。目标类别按补给功能与结构特征细分。\n\n评估对象为受反舰导弹命中后的补给船，单发与多发命中均适用。打击特征含导弹类别（亚音速、超音速巡航型）、战斗部类型（半穿甲、爆破型）与命中条件；典型毁伤效应为穿舱后爆炸，含直接破坏与次生破坏。\n\n评估时机分为打击前预估与打击后评估：打击前预估依据模型计算或历史经验预测毁伤等级；打击后评估依据命中后的毁伤效应信息评定毁伤等级。\n\n毁伤等级指目标受毁伤效应作用后任务能力丧失或降低程度的级别划分，统一表述物理毁伤与功能毁伤结果，以任务能力丧失程度为核心；任务能力以完成航行与补给任务的能力为准。\n\n本方案设四级，由高到低：歼灭毁伤，任务能力完全丧失，沉没或失去修复价值；重度毁伤，任务能力绝大部分丧失，仅存有限自救能力；中度毁伤，任务能力部分丧失，经修复可恢复；轻度毁伤，任务能力轻微降低，不影响完成当前任务。\n\n- 契约 terms.operational（terms）：补给船、反舰导弹、毁伤等级、任务能力、毁伤效应、目标类别、打击特征、物理毁伤、功能毁伤、打击前预估、打击后评估\n- 契约 damage_levels.classification（classification）：轻度毁伤、中度毁伤、重度毁伤、歼灭毁伤\n\n## 目标船分类与易损性属性\n\n补给船按补给功能与结构特征划分为四个目标类别：综合补给船，同载油料、弹药与干货，多为万吨级；油料补给船，载燃油、滑油与淡水，燃油舱与货物舱区段设双层壳舷侧与双层底；弹药补给船，载弹药，弹药舱独立布置并加强防护；物资运输船，执行同类保障任务，以干货为主。吨位为定义性属性而非适用范围限制：大型不小于10000t，中型5000～10000t，小型小于5000t。\n\n每类目标的易损性属性按“关键部位—位置—防护—冗余”表述，舱室位置统一相对艏、舯、艉、上层建筑、水线、甲板六个区域给出：机舱位于舯后段水线附近，受击面积大，进水后难以修复；燃油舱位于舯部装载区段，受双层壳舷侧与双层底保护；弹药舱独立设于主甲板以下，命中后易殉爆，引发连锁反应并扩展物理毁伤与功能毁伤范围；货物舱位于舯部，舱壁较薄；上层建筑距水面高，集中非冗余设备，受击后易坍塌。\n\n舱壁防护厚度参照典型油料补给船：舷侧外壳10mm、内壳8mm，燃油舱与货物舱8mm，机舱5mm，其余4mm，上层建筑4mm。部件按冗余度分为独立部件与冗余部件：独立部件（损管中心、操纵台等）单点受损即致对应功能丧失；冗余部件（两套推进装置、前后电站、三个损管站）须全部受损方致功能丧失。\n\n- 契约 target_classes.vulnerability（terms）：综合补给船、油料补给船、弹药补给船、物资运输船、机舱、燃油舱、弹药舱、货物舱、上层建筑、双层壳舷侧、双层底、独立部件、冗余部件\n\n## 反舰导弹打击特征分类\n\n打击特征由导弹类别、战斗部、引信与命中参数四要素构成，统一编码为MS码：MS-速度-战斗部-引信-命中区域-命中舱室-着角-命中次数，作为毁伤效应评估的统一输入。\n\n导弹类别按着靶速度分亚音速、超音速；制导方式影响命中精度，仅用于打击前预估。战斗部分半穿甲战斗部（利用动能进入船体内部后爆炸）与爆破战斗部（船体外部爆炸）。引信分触发引信、延时引信、近炸引信。\n\n命中区域为船首、船中、船尾、上层建筑、水线附近、甲板六类；命中舱室为机舱、油舱、弹药舱、货舱、其他，映射规则：机舱→船中，油舱、货舱按纵向位置归入船首/船中/船尾，弹药舱→甲板或上层建筑。着角≤30°为小着角，>30°为大着角；命中次数分单发命中、多发命中。\n\n威胁排序：船尾、上层建筑命中最易致重度毁伤，船中次之，船首较轻；机舱、弹药舱、水线附近命中威胁最高（引发进水、殉爆、火灾）。\n\n- 契约 missile_strike_categories（terms）：亚音速、超音速、半穿甲战斗部、爆破战斗部、触发引信、延时引信、近炸引信、船首、船中、船尾、上层建筑、水线附近、甲板、机舱、油舱、弹药舱、货舱、着角、着靶速度、小着角、大着角、单发命中、多发命中、命中参数、命中区域、命中舱室、命中次数、命中精度\n\n## 毁伤效应严重度评估\n\n毁伤效应按结构毁伤、进水、火灾、爆炸四类评定，每类先识别直接破坏（破片、超压、爆炸火球）与次生破坏（冲击振动、进水、火灾），再按0～100统一打分；综合毁伤效应评分取四类评分的最大值。\n\n评分规则（输入取自目标类别与打击特征）：\n- 结构毁伤：半穿甲战斗部穿舱内爆、超音速、大着角命中增大破口与变形；命中上层建筑按坍塌或撕裂计；主甲板歪斜凹陷、舱室坍塌或船体失去水密性计严重及以上；剩余极限弯矩低于阈值判为船体折断、沉没。\n- 进水：命中水线附近或机舱直接判进水；1个舱室进水计中等，2个及以上计严重；机舱进水难以修复按严重计。\n- 火灾：命中燃油舱或燃油系统引燃计严重；局部火灾计中等，大面积火灾计严重。\n- 爆炸：穿舱后爆炸为基本毁伤形式；油舱爆炸、弹药殉爆直接置入致命区间，优先于其他效应。\n\n受双层壳舷侧、双层底防护的舱段，破口与进水评分各下调一个区间。\n\n评分区\n… [省略 1161 字符] …\n开。最终的毁伤等级取能力级与效应级中的更严重者。输入缺项时取最不利情形保守估计并记录缺项。\n\n输入规范化：命中舱室为机舱、燃油舱、弹药舱、货物舱者归并至命中区域船中，为上层建筑者对应上层建筑。判定表覆盖全部81种任务能力组合，无未定义情形。\n\n示例：油料补给船机舱命中进水，航行任务不可用、损管保障任务部分可用、其余完全可用，能力级为重度毁伤；进水评分属严重效应，效应级为重度毁伤；无强制判据，最终判重度毁伤；若进水失控致沉没，则判歼灭毁伤。\n\n## 数据采集程序与报告模板\n\n数据采集以数据采集清单为依据，按评估时机分为打击前预估与打击后评估两类。打击前预估须采集目标特征（目标类别、吨位、船长、吃水、舱室布局、结构防护、独立部件与冗余部件）与打击特征（导弹类别、战斗部与装药、引信、命中区域、命中舱室、着角、着靶速度、命中次数、命中精度）。打击后评估补记炸点位置与毁伤现象观测：结构毁伤（破口尺寸、变形、坍塌）、进水（舱室、速率）、火灾（部位、范围）、爆炸（殉爆迹象、破片散布），并记录动力电力与损管措施状态，与打击前预估数据比对。\n\n采集步骤依次为现场勘察、影像与定位记录、舱室核查、人员询问、数据登记；每项对照数据采集清单，缺项标记并安排回补。数据质量要求：核心字段完整无缺项；毁伤现象观测记录须注明时间与位置，保持时空一致性；数据按实测、观测、推断、未知分级并记录置信度；同一事项多源冲突时取保守值并注明。\n\n毁伤评估报告按统一模板填写：报告编号、评估时机、目标特征、打击特征、毁伤现象观测记录、数据质量说明、任务能力判定（航行任务、补给作业任务、自卫任务、损管保障任务）与综合毁伤效应评分、毁伤等级结论（轻度毁伤、中度毁伤、重度毁伤、歼灭毁伤）、复核栏。报告字段编号引用清单条目，结论附判据依据，由两名以上人员复核签字后上报，支持快速判定与事后复查。\n\n- 契约 reporting.forms（terms）：数据采集清单、目标特征、打击特征、毁伤现象、毁伤评估报告、数据质量、复核\n\n## 验证、校验与示例应用\n\n示例构造规则：代表性示例须覆盖不少于三种目标类别、差异化打击特征（导弹类别、战斗部、引信、命中区域与命中舱室、单发/多发）与两种评估时机，判定结果须与毁伤等级定义一致。每个示例按五步复算：输入数据→效应评分→能力定级→填写毁伤评估报告→复核。\n\n示例1 弹药补给船（打击后评估）：亚音速反舰导弹、半穿甲战斗部、延时引信、单发命中，命中舱室弹药舱（映射船中）。弹药舱殉爆并级联沉没，爆炸评为致命效应、综合毁伤效应评分≥75，按强制判据判定歼灭毁伤；报告记录炸点与殉爆迹象并复核签字。\n\n示例2 油料补给船（打击后评估）：超音速反舰导弹、半穿甲战斗部、触发引信、单发命中，水线附近命中燃油舱。进水与火灾并存，机舱进水致航行任务不可用、补给作业任务不可用，综合毁伤效应评分60（严重效应），判定重度毁伤；报告记录进水舱室与火势范围。\n\n示例3 物资运输船（打击前预估）：亚音速反舰导弹、爆破战斗部、近炸引信、单发命中，甲板命中货物舱。结构毁伤评分25（中等效应），各项任务能力均部分可用，判定中度毁伤；报告按数据采集清单填写并标注缺项。\n\n验证清单：①输入一致性——打击特征按MS码填写，舱室按机舱/燃油舱/弹药舱/货物舱映射船中、上层建筑对应上层建筑；②规则无矛盾——按强制判据→能力定级→效应复核顺序判定，任一判歼灭即终止，能力组合均有定义；③独立复算——两名评估员各自按五步复算，结果一致方生效；④数据质量——缺项按最不利保守估计并记录，报告复核签字后上报。",
+      "content_truncated": true,
+      "limitations": [
+        "知识库缺乏权威的补给船吨位分级标准，适用范围以作战角色界定，吨位阈值留待目标分类章节依据具体船型数据补充。",
+        "缺乏针对补给船全船（含补给功能）毁伤等级的直接权威定义，四级框架基于通用目标毁伤等级体系与补给船航行功能三级体系综合设计。",
+        "弹药补给船、物资运输船的舱室布置细节缺少直接公开来源，弹药舱独立布置与防护特征系由战斗舰船弹药舱证据及生存力设计原则推演。",
+        "各类目标干舷高度与舱壁厚度的定量区间缺少公开来源，舱壁厚度参照值取自单一典型双层壳油料补给船模型，需在应用中作敏感性校核。",
+        "引信触发/延时/近炸三分类无直接来源，按设计值采用",
+        "着角30°小/大着角分界阈值无直接来源，按设计值采用",
+        "超音速类别无直接来源实例，速度二分按设计采用（亚音速实例见来源）",
+        "多发命中对毁伤等级的叠加规则需在毁伤效应与分配规则章节验证",
+        "定量殉爆概率、破口尺寸与剩余极限弯矩具体阈值未在来源中给出，本章以评分区间与物理状态描述代替，具体数值需由试验或仿真数据补充（衔接第7章数据采集）。",
+        "补给作业任务与自卫任务的专用设备级毁伤判据（补给装置、近防武器、电子对抗设备）缺乏公开源数据，采用设计规则，留待验证与示例章节以典型目标校核。",
+        "多任务能力组合判定表为本方案新设计，源标准中未见可直接引用的多任务组合矩阵，规则有效性需经第8章示例应用与实测数据校验。",
+        "强制判据清单与效应评分边界（25/50/75、左闭右开）为设计值，需经第8章验证确认。",
+        "知识库无补给船专用数据采集清单与报告模板的权威标准原文，清单字段集、质量要求与模板结构为基于相关记录表与检验流程惯例的设计合成，需在验证章示例中检验适用性。",
+        "示例中的评分值（25/60/≥75）为设计构造的示意值，实际应用时以现场采集数据为准。",
+        "正文出现契约 damage_levels.classification 的非规范词“典型毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“度对毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“应指毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“物理毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“功能毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“常规毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“典型毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“度对毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“应指毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“轻度毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“中度毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“重度毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“歼灭毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“常规毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤方式”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤程度”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤元在”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤及其”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤与功”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤环境”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤信息”。",
+        "正文出现契约 terms.operational 的非规范词“打击前预”。",
+        "正文出现契约 terms.operational 的非规范词“打击后评”。",
+        "正文出现契约 terms.operational 的非规范词“扩大毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“能毁伤评估”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤评估”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“何吨位含船”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“货舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“药舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“油舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“物舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“与舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“键舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“弹药与”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“弹药补”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“双层壳”。",
+        "正文出现契约 missile_strike_categories 的非规范词“别按速”。",
+        "正文出现契约 missile_strike_categories 的非规范词“着靶速”。",
+        "正文出现契约 missile_strike_categories 的非规范词“穿甲战斗部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“数含命中部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“命中”。",
+        "正文出现契约 missile_strike_categories 的非规范词“着靶”。",
+        "正文出现契约 terms.operational 的非规范词“作为毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“伤效应评估”。",
+        "正文出现契约 terms.operational 的非规范词“数叠加评估”。",
+        "正文出现契约 missile_strike_categories 的非规范词“伤按战斗部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“水按命中部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“命中同一部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“为中”。",
+        "正文出现契约 missile_strike_categories 的非规范词“船体”。",
+        "正文出现契约 missile_strike_categories 的非规范词“船火”。",
+        "正文出现契约 missile_strike_categories 的非规范词“船爆”。",
+        "正文出现契约 missile_strike_categories 的非规范词“船与”。",
+        "正文出现契约 missile_strike_categories 的非规范词“船结”。",
+        "正文出现契约 terms.operational 的非规范词“结构毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“综合毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“布与毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“输出毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤按战”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤半径”。",
+        "正文出现契约 damage_effect_scores 的非规范词“毁伤效应”。",
+        "正文出现契约 damage_effect_scores 的非规范词“取各效应”。",
+        "正文出现契约 damage_effect_scores 的非规范词“其余效应”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“单舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“多舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“通舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“损舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“大舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“弹药殉”。",
+        "正文出现契约 capability_loss_levels 的非规范词“射为任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“各项任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“给船任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“作业任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“保障任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“每项任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“部分任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“全部任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“调节任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“全可用”。",
+        "正文出现契约 capability_loss_levels 的非规范词“分可用”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤映射”。",
+        "正文出现契约 damage_effect_scores 的非规范词“方式或应”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“装置与全船”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“双推进”。",
+        "正文出现契约 capability_loss_levels 的非规范词“四项任务”。",
+        "正文出现契约 capability_loss_levels 的非规范词“序适用”。",
+        "正文出现契约 damage_levels.classification 的非规范词“综合毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“电站毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“电站毁伤”。",
+        "正文出现契约 damage_effect_scores 的非规范词“级与效应”。",
+        "正文出现契约 missile_strike_categories 的非规范词“室及速”。",
+        "正文出现契约 missile_strike_categories 的非规范词“持快速”。",
+        "正文出现契约 missile_strike_categories 的非规范词“源与置信”。",
+        "正文出现契约 missile_strike_categories 的非规范词“告中”。",
+        "正文出现契约 reporting.forms 的非规范词“数据采集”。",
+        "正文出现契约 reporting.forms 的非规范词“数据基础”。",
+        "正文出现契约 reporting.forms 的非规范词“数据来源”。",
+        "正文出现契约 reporting.forms 的非规范词“毁伤等级”。",
+        "正文出现契约 reporting.forms 的非规范词“毁伤评估”。",
+        "正文出现契约 reporting.forms 的非规范词“毁伤效应”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“水舱”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“弹类别”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“弹道或”。",
+        "正文出现契约 damage_levels.classification 的非规范词“观测毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“记录毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“结构毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“判定毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“采用毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“观测毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“记录毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“判定毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“采用毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“用毁伤评估”。",
+        "正文出现契约 terms.operational 的非规范词“毁伤现象”。",
+        "正文出现契约 missile_strike_categories 的非规范词“作业任务部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“中非冗余部”。",
+        "正文出现契约 missile_strike_categories 的非规范词“构中”。",
+        "正文出现契约 missile_strike_categories 的非规范词“定中”。",
+        "正文出现契约 missile_strike_categories 的非规范词“集中”。",
+        "正文出现契约 reporting.forms 的非规范词“数据时对”。",
+        "正文出现契约 reporting.forms 的非规范词“数据时经”。",
+        "正文出现契约 target_classes.vulnerability 的非规范词“近舱”。",
+        "正文出现契约 damage_levels.classification 的非规范词“四级毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“须与毁伤”。",
+        "正文出现契约 damage_levels.classification 的非规范词“填写毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“四级毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“须与毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“填写毁伤”。",
+        "正文出现契约 terms.operational 的非规范词“与两种评估”。",
+        "正文出现契约 terms.operational 的非规范词“写毁伤评估”。",
+        "ch04 defines oil-tank explosion and ammunition explosion as fatal effects (75–100) and ch06 uses them as first-level mandatory criteria to assign annihilation directly. ch05, however, lists ammunition hold explosion as only making the replenishment task unavailable and fuel-tank explosion as only making replenishment and damage-control tasks unavailable. The same event is therefore mapped to task-level unavailability in ch05 but to annihilation in ch06, and even within ch05 it is milder than the 75–100 fatal-effect rule.",
+        "ch03 fixes the hit-location classification to six values (bow, midship, stern, superstructure, waterline, deck) and encodes them in MS-A-B-C-D-E. ch06 and ch08 use finer compartment-level hit locations ('engine room hit', 'multiple hits on ammunition hold', 'fuel tank section/engine room') that are not in that taxonomy, so those examples cannot be represented in the defined MS code and the input vocabulary is inconsistent."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-1b5b542c87f4",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "2 补给船构效关系分析"
+        ],
+        "quote": "本文基于某型补给油船和调研得到的补给船的主要特点，选定补给船的航行功能作为功能毁伤研究对象。结合国军标及船舶设计规范，梳理\n… [省略 501 字符] …\n\n\n结合组成各个系统的关键部件，可以建立对应毁伤等级下的毁伤树，列出对应的毁伤事件。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4c7d201566f6",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 2,
+        "section_path": [
+          "2 目标舰船和弹药威力分析",
+          "2.2 弹药威力分析"
+        ],
+        "quote": "“海王星”是乌克兰“路奇”设计局研制的反舰巡航导弹，其设计是基于俄罗斯的Kh-35“天王星”反舰导弹，乌克兰在“天王星”的基\n… [省略 46 字符] …\n水面战舰和运输船，该导弹由导弹发射车发射，其主要性能参数如表2所示[12-13]。O",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1dc0b5ac4019",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": "4-5",
+        "section_path": [
+          "3 反舰导弹内爆载荷作用下各关键部件的毁伤模式",
+          "3.2 设备在内爆作用下的毁伤模式及判据"
+        ],
+        "quote": "反舰导弹打击舰船的破坏形式主要是穿舱后爆炸。此时舰载设备的破坏模式主要分为破片、超压、爆炸火球引起的直接破坏，以及冲击振动、\n… [省略 69 字符] …\n载设备是否损坏时，不仅要考虑爆心近场的直\n\n接破坏，还应考虑中远场的次生破坏[\"\"。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c1d859b1affe",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 6,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.5 补给船易损性辅助计算程序"
+        ],
+        "quote": "本文开发了补给船易损性辅助计算程序，具有较好的用户交互界面和基于毁伤树的毁伤结果分析及可视化功能，包括船体模型结构树、毁伤\n… [省略 340 字符] …\n行功能有重大贡献的部件都位于船尾和上层建筑处，例如舵机、柴油发动机和操纵台等，在作战",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-481f45a9cde1",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 术语和定义",
+          "3.1 整体爆破类战斗部 blast warhead"
+        ],
+        "quote": "以炸药装药爆炸时产生的生成物、爆炸形成的冲击波或应力波为主要毁伤元素在目标外部爆炸的整体式战斗部。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-3e0471268d51",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 基于开源情报的目标舰船结构与功能逻辑关系快速分析",
+          "1） 1 ）舰船结构分析"
+        ],
+        "quote": "种者“王，华\n\nTab. 2 Performance parameters of Neptune anti-ship mi\n… [省略 417 字符] …\n60°，</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-29084de7b743",
+        "source_file": "张重阳 等 - 2017 - 目标毁伤效果评估技术现状与发展.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 目标毁伤效果评估方法与评估模型",
+          "3.1 目标毁伤效果评估方法",
+          "3.1.2 基于历史经验的评估方法"
+        ],
+        "quote": "基于历史经验的目标毁伤效果评估是指根据古今中外战争实践，特别是信息化条件下作战的相关经验，或有关的军事演习、武器试验等获得的\n… [省略 73 字符] …\n进行预测性评估。由于该方法需要建立特定目标的毁伤历史数据库，所以有效性和通用性不强。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-78977b3246b0",
+        "source_file": "李峰 等 - 2018 - 目标毁伤效果评估技术研究综述.pdf",
+        "pages": 2,
+        "section_path": [
+          "1 毁伤效果评估方法",
+          "1） 1 ）模型评估法"
+        ],
+        "quote": "模型评估法是指考虑影响毁伤效果因素，建立反映毁伤效果的评估模型，通过模拟弹药对目标的作用过程以及目标受到打击后所反映的状态\n… [省略 262 字符] …\n响，与真实情况相比有很多不足，因此获取与真实环境相同的评估模型还有很长的一段路要走。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-292a26bf8bf7",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 目标毁伤级别划分"
+        ],
+        "quote": "目标在毁伤元作用下将部分或者全部丧失完成使命能力或执行任务能力，造成不同程度的毁伤，通常用毁伤级别来表示。在划分目标毁伤级\n… [省略 524 字符] …\n、飞机、导弹、雷达、建筑物、机场跑道和电力系统等）毁伤级别的划分可参考文献[12]。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-62061abc1423",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 3,
+        "section_path": [
+          "1 般规定",
+          "1.2 定义"
+        ],
+        "quote": "毁伤等级：核爆炸时在一定范围内对舰艇的毁伤程度。\n\n毁伤等级标准：指达到预期毁伤等级时，舰艇效能损失应达到的要求。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-57ba08d86ea3",
+        "source_file": "徐永会和袁诗桐 - 2025 - 一种基于图像变化检测的目标毁伤评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 实验结果与分析",
+          "3.1 目标毁伤等级划分"
+        ],
+        "quote": "目标毁伤等级是根据对目标的毁伤程度对毁伤效果划分的级别。以《XXX教程》规定的毁伤效果判定标准为例，目标毁伤等级划分为“轻度\n… [省略 12 字符] …\n度毁伤为a%～b%；中度毁伤为b%～c%；重度毁伤为c%～d%：歼灭或摧毁大于d%。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-07edc5c5ccdc",
+        "source_file": "李扑 - 2023 - 无人机空战决策与毁伤评估的智能化方法研究.pdf",
+        "pages": "68-69",
+        "section_path": [
+          "5",
+          "5.3 基于贝叶斯网络的目标毁伤评估算法",
+          "5.3.2 目标毁伤等级"
+        ],
+        "quote": "目标毁伤评估需要确定被打击目标的毁伤程度，对应到贝叶斯网络中的评估等级划分即确定被打击目标的毁伤等级，根据相关研究的经验目\n… [省略 328 字符] …\n我方无人机进行再次打击，无人机完成打击任务重新分配新的作战任务并调整作战资源的分配。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-225f4cacd1bf",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "4-5",
+        "section_path": [
+          "4 一般要求",
+          "4.2 核破坏等级的划分原则",
+          "4.2.3 严重破坏"
+        ],
+        "quote": "基本功能绝大部分丧失，失去修复价值。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-b8c931e72f55",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 4,
+        "section_path": [
+          "2 各系统的毁伤等级",
+          "2.3 武器装备"
+        ],
+        "quote": "在武器装备中，主要以导弹系统的毁伤程度，作为舰载武备及发射装置毁伤等级的划分依据。\n\n2.3.1严重毁伤\n\n2.3.1.1\n… [省略 195 字符] …\n生轻微变形，其变形量不超过允许公差范围。\n\n2.3.3.2检修要求：导弹系统应检测。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5adbbe619a74",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.1 补给船数值计算模型"
+        ],
+        "quote": "结合之前的补给船目标构效关系，首先建立全船的等比例有限元模型，即取船体结构的所有主要构件以及各系统关键部件的简化结构建立三\n… [省略 376 字符] …\n，得到补给船航行功能的毁伤结果。接下来以船尾爆炸为例，计算补给船航行功能的毁伤程度。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f03c571b4293",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 目标舰船易损部位分析",
+          "1） 1 ）结构易损分析"
+        ],
+        "quote": "由于该舰以钢质和铝合金为主要结构组成，在上层建筑和舰体内部分铝镁合金材质结构易燃，铝镁合金被引燃后会释放大量有毒气体，将极\n… [省略 136 字符] …\n风险较高。以上是该舰的易损结构，这些易损性结构被反舰导弹命中产生的影响将是致命性的。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5d7b86314cc6",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 7,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.1 非核生存力",
+          "3.2.1.4 坚固性"
+        ],
+        "quote": "在概念设计和初步设计阶段，应从总体外形、结构布局及子结构系统构形等方面来降低飞机结构的易损性。在初步设计阶段采用易损性减缩\n… [省略 328 字符] …\n；\n\nj)油箱爆炸防护和燃油火灾扑灭能力；\n\nk)）飞机结构应具有一定的抗坠撞功能。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-e84e7409bcaa",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 2,
+        "section_path": [
+          "1 易损性分析基本流程"
+        ],
+        "quote": "本文建立了舰船类目标在反舰导弹打击下易损性分析的基本流程，以补给船目标航行功能为例，易损性分析V型流程如图1所示。\n\n根据流\n… [省略 39 字符] …\n安装位置，分析补给船各个设备、系统对整体功能的贡献，并建立毁伤等级及其对应的毁伤树。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2cbb64595949",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 7,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.5 补给船易损性辅助计算程序"
+        ],
+        "quote": "为了更全面地展示易损性分析的结果，采用爆点模式对补给船易损性分布进行了研究。在不考虑打击精度的情况下，选取某些位置作为爆点\n… [省略 488 字符] …\n建筑中大部分设备都是非冗余的，意味着当反舰导弹打击这些位置时，对补给船航行功能造成的",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-66504930d7ca",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "该型舰船受到打击后直接产生了较为严重的损伤，但是由于损管和修复的不及时性，命中后随即引起航侧导弹武器火灾、水线附件舱室及动力舱进水等级联事故出现，包括弹药殉爆、易燃物火灾、舱室进水等多种后效应发生才最终导致沉没事件的发生。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-4ddcd4733226",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 8,
+        "section_path": [
+          "5 结语"
+        ],
+        "quote": "补给船航行功能的毁伤程度进行了计算与展示。\n\n通过对各种典型目标进行易损性分析，得到目标毁伤特性数据，达到辅助火力筹划和作\n… [省略 482 字符] …\n Midrand, South Africa:[s.n.],1998: 23–27.",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-77ebcd3a5672",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": "5-6",
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "武器火力打击子系统）及机动进行功能区域划分，同时考虑到结构及辅助保障功能具有全船分布的情况，所以认为全船区域都涉及结构及辅\n… [省略 672 字符] …\namage to the Moskva guided missile cruiser",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4b1840f43959",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 术语和定义"
+        ],
+        "quote": "下列术语和定义适用于本标准。\n\n整体侵爆类战斗部 earth penetration warhead\n\n利用自身动能侵彻进入目标内部爆炸毁伤目标的整体式战斗部。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-83d05d5bd24f",
+        "source_file": "侯鹏 等 - 2025 - 基于毁伤评估结果的无人机对地攻击任务分配方法.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "1 典型地面目标的毁伤评估模型",
+          "1.2 导弹发射架的毁伤评估模型"
+        ],
+        "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_\n… [省略 231 字符] …\n定交会条件。给定交会条件下，利用蒙特卡洛多次仿真的方式计算导弹发射架最终的毁伤概率。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f199f35f7b03",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 7,
+        "section_path": [
+          "7 打击典型目标的毁伤效应",
+          "7.2 试验检验",
+          "7.2.2 测量内容",
+          "7.2.2.1 战斗部着靶姿态测量"
+        ],
+        "quote": "实时测量战斗部着靶前的速度及姿态，并分析给出战斗部着靶前的攻角和着角。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-283510c14108",
+        "source_file": "孔祥锡1 等 - 基于深度学习及模糊层次分析的毁伤评估算法.pdf",
+        "pages": 10,
+        "section_path": [
+          "1 毁伤评估系统构建",
+          "1.2 基于三角模糊层次分析法的毁伤等级评估方法",
+          "1.2.2 基于三角模糊数的毁伤评估体系"
+        ],
+        "quote": "表2毁伤等级评定[10]\n\nTable 2 Damage severity assessment[10]\n\n<div st\n… [省略 310 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1f4af5654d30",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 一般要求",
+          "4.4 核破坏程度表征量Y值的区间范围"
+        ],
+        "quote": "轻微破坏25Y<50；\n\n中等破坏50≤Y<75;\n\n严重破坏75≤Y≤100.",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-88c04efb538c",
+        "source_file": "刘方 等 - 2024 - 地面装甲类目标毁伤建模与评估方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 目标毁伤律与破片场分析",
+          "3.1 目标毁伤准则",
+          "2） 2 )引燃概率"
+        ],
+        "quote": "若破片击中了轻型装甲车的油箱，会导致燃油材料的燃烧，其对目标也是一种毁伤，单个破片对油箱第j面的引燃概率为\n\n式中： W = \n… [省略 6 字符] …\na 为破片的平均迎风面积；δ为破片形状系数，m为破片质量，v为破片撞击油箱时的速度。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-e8058ade0494",
+        "source_file": "冯彬和陈力 - 2025 - 深度学习技术赋能工程结构爆炸毁伤评估.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 ．毁伤效果智能后评估"
+        ],
+        "quote": "毁伤后评估是指在爆炸事件发生之后对工程结构的毁伤等级及受损程度进行定量化的过程，相较于可依靠高精度易损性模型的事前评估，后评\n… [省略 88 字符] …\n判断其当前的毁伤等级（轻度毁伤、中度毁伤、重度毁伤等），从而为后续决策提供基本依据。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5f197baf5f7c",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 10,
+        "section_path": [
+          "6 通用修复方法",
+          "6.1 应急处理措施",
+          "6.1.2 降额使用"
+        ],
+        "quote": "船艇装备受到损伤后，其性能虽有所降低，但仍有部分能力，且对当前的安全无大的影响，可以暂不修理，允许继续使用，发挥其剩余能力。如船艇两台柴油机中的-一台损坏后，可采用单机推进，虽然航速有所降低，但仍具有一定的航行能力来完成输送任务。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-881db9b272cc",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 整舰的毀伤等級",
+          "3.1 等级划分原则"
+        ],
+        "quote": "3.1.1以舰体结构毁伤程度为基础，将动力装置视为第一要素.武器装备视为第二要素，舰用设备视为第三要素。\n\n3.1.2在整舰条\n… [省略 4 字符] …\n分析。\n\n3.1.3从整舰毁伤特征出发，对舰艇生命力和作战使用影响程度进行综合评定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5a625d9d31f4",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "8-9",
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "b.第5.1.1.1～5.1.1.8条各类武器装备具体破坏部位、器件不同破坏等级范围内，微观上的轻、重程度；\n\nc.第4.\n… [省略 549 字符] …\n系统的综合核破坏程度表征量值。然后依照第4.4条的规定，确定该武器系统的核破坏等级。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 47,
+      "included": 32,
+      "omitted": 15,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 15285,
+      "quote_chars_after": 3385
+    }
+  }
+}

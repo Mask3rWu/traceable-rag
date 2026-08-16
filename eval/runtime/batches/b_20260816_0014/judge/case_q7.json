@@ -1,0 +1,1266 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260816_0014",
+  "question_id": "q7",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3969,
+    "answer_truncated": true,
+    "evidence_tokens": 3373,
+    "evidence_included": 38,
+    "evidence_omitted": 16
+  },
+  "question": {
+    "id": "q7",
+    "category": "direct",
+    "expected_route": "supervisor",
+    "question": "输出一份舰艇在核爆环境中毁伤等级划分的评估要点报告，说明各毁伤等级的定义、判定依据与适用场景。",
+    "expected": "直接基于 核爆环境中舰艇毁伤等级的划分 等标准，多章节输出，明确等级边界与判定依据，可回查原文。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 1780.24,
+    "model_calls_count": 126,
+    "consistency_issues": [
+      {
+        "issue_id": "terminology-drift:ch01_foundation:中的毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“中的毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:受的毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“受的毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:预期毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“预期毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:遭受毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“遭受毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:整舰毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“整舰毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:结构毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“结构毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:战场损伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“战场损伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:毁伤后保",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤后保”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch01_foundation:毁伤特征",
+        "severity": "error",
+        "chapter_ids": [
+          "ch01_foundation"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤特征”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:期核辐射",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“期核辐射”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:冲与放射",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“冲与放射”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:波与放射",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“波与放射”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:别按主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“别按主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:击波主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“击波主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:辐射主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“辐射主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:脉冲主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“脉冲主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:空爆以空气",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“空爆以空气”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:水介质作用",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“水介质作用”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:水线下舷侧",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“水线下舷侧”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:水面爆兼有",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“水面爆兼有”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:经迎爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“经迎爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:景由爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“景由爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:比例爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“比例爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:艇距爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“艇距爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:为核爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“为核爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch02_nuclear_environment:毁伤由六",
+        "severity": "error",
+        "chapter_ids": [
+          "ch02_nuclear_environment"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤由六”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:功能组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“功能组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:为六组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“为六组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:系统组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“系统组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:感知组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“感知组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:命力组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“命力组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:逻辑组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“逻辑组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch03_ship_vulnerability:毁伤主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤主导”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:电缆损伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“电缆损伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:导弹及导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“导弹及导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:击波主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“击波主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:辐射主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“辐射主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:脉冲主导",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“脉冲主导”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:水密性与轴",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 nuclear_environment_categories 的非规范词“水密性与轴”。",
+        "recommendation": "改用规范词 ['空气冲击波', '水下冲击波', '光热辐射', '早期核辐射', '核电磁脉冲', '放射性污染', '空气冲击波主导', '水下冲击波主导', '热辐射主导', '辐射脉冲主导', '污染主导']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:功能组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“功能组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:系统组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“系统组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:感知组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“感知组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch04_damage_levels:命力组",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels"
+        ],
+        "description": "正文出现契约 ship_functional_groups 的非规范词“命力组”。",
+        "recommendation": "改用规范词 ['平台组', '动力组', '电力组', '作战系统组', '指挥通信与感知组', '生命力组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:能组毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“能组毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:各组毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“各组毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:毁伤等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“毁伤等级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:初步定级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“初步定级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:修复层级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“修复层级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:据优先级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“据优先级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:更重等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“更重等级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:不得降级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“不得降级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:比例爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“比例爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:确认爆",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“确认爆”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch05_assessment_rules:毁伤特征",
+        "severity": "error",
+        "chapter_ids": [
+          "ch05_assessment_rules"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤特征”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:三级毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“三级毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:毁伤等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“毁伤等级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:修复层级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“修复层级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:水面舰",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“水面舰”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:空母舰",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“空母舰”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:辅助舰",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“辅助舰”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:航母提高",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“航母提高”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:航母另须",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“航母另须”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch06_applicability:航空保障",
+        "severity": "error",
+        "chapter_ids": [
+          "ch06_applicability"
+        ],
+        "description": "正文出现契约 applicability_matrix 的非规范词“航空保障”。",
+        "recommendation": "改用规范词 ['驱逐舰', '护卫舰', '航空母舰', '补给舰', '在港锚泊', '航行戒备', '转换部署', '指挥员', '损管队长', '工程评估组']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:系统毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“系统毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:积累毁伤",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 damage_level_taxonomy 的非规范词“积累毁伤”。",
+        "recommendation": "改用规范词 ['轻微毁伤', '中等毁伤', '严重毁伤']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:毁伤判据",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤判据”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:毁伤数据",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 canonical_terms 的非规范词“毁伤数据”。",
+        "recommendation": "改用规范词 ['毁伤等级', '毁伤等级标准', '毁伤程度', '效能损失', '舰艇生命力', '核空爆', '水面爆', '大、中型水面舰艇']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:证据等级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“证据等级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:信度三级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“信度三级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:修复层级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“修复层级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:时报上级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“时报上级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:用于定级",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 assessment_decision_rules 的非规范词“用于定级”。",
+        "recommendation": "改用规范词 ['评估程序', '证据优先级', '保守原则', '暂定等级', '实测优先']。"
+      },
+      {
+        "issue_id": "terminology-drift:ch07_evidence_confidence:与置信度",
+        "severity": "error",
+        "chapter_ids": [
+          "ch07_evidence_confidence"
+        ],
+        "description": "正文出现契约 evidence_confidence_levels 的非规范词“与置信度”。",
+        "recommendation": "改用规范词 ['高置信度', '中置信度', '低置信度']。"
+      },
+      {
+        "issue_id": "iss-survivability-weight-role",
+        "severity": "error",
+        "chapter_ids": [
+          "ch03_ship_vulnerability",
+          "ch04_damage_levels",
+          "ch05_assessment_rules"
+        ],
+        "description": "Ch03 defines six default mission-capability weights including survivability at 0.10 and states the weights sum to 1.00. Ch04, however, states that the survivability group is used only for comprehensive review (生命力组用于综合复核) and omits it from the weighted order; Ch05 computes Y=ΣAi·Yi using weights based on hull, power, weapons and equipment only, with no survivability weight in the formula. This makes it ambiguous whether Y includes survivability and whether Ch03's default weights are intended for Ch05's calculation.",
+        "recommendation": "Align Ch03/Ch04/Ch05 by explicitly stating whether survivability is part of the additive Y calculation or only a review/veto factor. If survivability is excluded from Y, remove its 0.10 default weight and renormalize the remaining five group weights to sum to 1.00; if it is included, revise Ch04's 'only for comprehensive review' wording and Ch05's weight specification accordingly."
+      },
+      {
+        "issue_id": "iss-low-confidence-veto",
+        "severity": "error",
+        "chapter_ids": [
+          "ch04_damage_levels",
+          "ch05_assessment_rules",
+          "ch07_evidence_confidence"
+        ],
+        "description": "Ch07 lists '否决条件细化值' (e.g., any functional group severe, loss of watertightness/unsinkability, loss of repair value) as low-confidence design values and mandates that low-confidence provisions must not be used alone for final rating without expert confirmation. Ch04 and Ch05, however, apply these veto conditions as automatic direct rules: Ch04 says any functional group severe or loss of watertightness/unsinkability directly yields severe damage, and Ch05 step ⑦ treats them as final decisive criteria with no expert confirmation requirement. This contradicts the confidence-control rule in Ch07.",
+        "recommendation": "Either upgrade the veto refinement values to at least medium confidence with supporting evidence, or modify Ch05 step ⑦ so that veto-based severe damage is treated as a provisional/direct decision only after expert confirmation, with the rating marked provisional until confirmation when the low-confidence values are the sole basis."
+      },
+      {
+        "issue_id": "iss-env-threshold-application",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch04_damage_levels",
+          "ch05_assessment_rules"
+        ],
+        "description": "Ch04 states that environmental categories affect threshold selection (air-shock-dominated by overpressure/deflection, underwater-shock by watertightness/shafting, thermal by burn/cable damage, radiation-pulse by electronics/personnel dose, contamination by repair-time relaxation). Ch05 step ② only requires identifying the dominant effect category, but step ④ specifies damage classification solely by deflection-ratio thresholds and step ⑥ applies only the Y bands. The procedure does not implement the environment-specific threshold orientations from Ch04, so identical Y/deflection values can be assessed without applying the required environmental modifiers.",
+        "recommendation": "Add a mapping routine in Ch05 after step ② that translates each Ch02 environment category into the corresponding Ch04 threshold indicators and any upward/downward adjustments (e.g., radiation-pulse recoverability upgrade, contamination repair-time relaxation) before computing Y or applying the Y bands."
+      },
+      {
+        "issue_id": "iss-radiation-pulse-category",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch02_nuclear_environment",
+          "ch04_damage_levels"
+        ],
+        "description": "Ch02 lists '早期核辐射' and '核电磁脉冲' as two distinct effects among the six nuclear effects, but its five environment categories use the single composite label '辐射脉冲主导' without defining whether it covers both effects. Ch04's description of this category as using both '电子设备失效比例' (an EMP effect) and '人员剂量' (an early-radiation effect) implies the category is a combination, yet the terminology is inconsistent with the distinct-effect classification and may cause ambiguous classification of a threat scenario.",
+        "recommendation": "Explicitly define '辐射脉冲主导' in Ch02 as a composite category covering both early nuclear radiation and nuclear electromagnetic pulse, or split it into separate categories such as '早期核辐射主导' and '电磁脉冲主导' to match the six-effect taxonomy. Ensure Ch04 uses the same defined terminology."
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 7
+    },
+    "answer": {
+      "content": "# 舰艇核爆环境毁伤等级划分评估要点报告\n\n## 范围、术语与毁伤等级分类框架\n\n本标准适用于大、中型水面舰艇在核空爆和水面爆环境中的毁伤程度评定；使用者为抗核加固设计建造、作战使用及核打击后组织抢修的单位与人员。\n\n毁伤等级：核爆炸时在一定范围内对舰艇的毁伤程度。毁伤等级标准：达到预期毁伤等级时，舰艇效能损失应达到的要求。舰艇生命力：舰艇在核爆环境中保持规定功能并继续作战使用的能力，是整舰毁伤程度评定的着眼点。\n\n核爆环境下舰艇毁伤等级分为三级：严重毁伤、中等毁伤、轻微毁伤。严重毁伤：整舰应进厂大修，作战能力基本丧失；中等毁伤：应返回基地修理，主要功能受损但可恢复；轻微毁伤：在舰上修复后即可继续使用，性能略有降低。\n\n划分总原则：以舰体结构毁伤程度为基础，动力装置为第一要素，武器装备为第二要素，舰用设备为第三要素；整舰评定按分系统毁伤等级进行等效分析；综合评定对舰艇生命力和作战使用的影响程度；以修复方式区分等级界限。\n\n边界与接口：本标准只评定核爆环境毁伤等级；逐件装备的战损修复判定按战损评估与修复体系执行；损害管制处置措施不在本标准范围内。各等级量化阈值由后续判定章节规定。\n\n- 契约 canonical_terms（terms）：毁伤等级、毁伤等级标准、毁伤程度、效能损失、舰艇生命力、核空爆、水面爆、大、中型水面舰艇\n- 契约 damage_level_taxonomy（classification）：轻微毁伤、中等毁伤、严重毁伤\n\n## 核爆炸环境表征与威胁参数\n\n核爆环境对舰艇的毁伤由六类效应构成：空气冲击波、水下冲击波、光热辐射、早期核辐射、核电磁脉冲与放射性污染。前五类为瞬时效应，放射性污染为持续效应。作用时序为：核电磁脉冲最先到达，其后为早期核辐射与光热辐射，再次为空气冲击波与水下冲击波。\n\n各效应与舰艇的耦合途径：空气冲击波以超压与动压直接加载上层建筑外壁板、主甲板及进排气道并激励结构响应；水下冲击波经水介质作用于水线下舷侧外板与底板；光热辐射使表面材料快速受热、引燃易燃物并致人员烧伤与致盲；早期核辐射以中子和γ射线贯穿舱壁，产生剂量率效应；核电磁脉冲经天线、电缆耦合瞬时电磁场，损坏电子设备；放射性污染沉积于舰面与舱室并经进气系统吸入，需洗消处置。\n\n威胁按当量Q（kt）、比例爆高h₁＝H/Q^⅓（m/kt^⅓）与距爆心投影点距离R分类，并区分为核空爆与水面爆：核空爆以空气冲击波主导；水面爆兼有空气冲击波与水下冲击波，水下冲击波主导水线下结构毁伤；热辐射主导用于大当量核空爆；辐射脉冲主导用于早期核辐射与核电磁脉冲显著工况；污染主导用于放射性沉降显著工况。\n\n环境威胁以四类参数表征：空气冲击波超压以kPa计，50kPa作为轻微毁伤参考值；光热辐射以热流密度或比热流（J/cm²）计；早期核辐射以中子剂量率、γ剂量率及总剂量（Gy）计；核电磁脉冲以场强（kV/m）计。上述量级为环境表征输入，毁伤阈值与置信度分别由判定与证据章节规定。\n\n- 契约 nuclear_environment_categories（classification）：空气冲击波、水下冲击波、光热辐射、早期核辐射、核电磁脉冲、放射性污染、空气冲击波主导、水下冲击波主导、热辐射主导、辐射脉冲主导、污染主导\n\n## 舰艇功能组成与毁伤敏感性基线\n\n舰艇毁伤等级评定对象包括：平台组（主甲板、上层建筑、水密结构等船体承载与防护）、动力组（推进、烟气道、锅炉及操纵装置）、电力组（发电、配电、电网）、作战系统组（导弹、舰炮及发射装置）、指挥通信与感知组（雷达、通信、导航、电子对抗）、生命力组（抗沉、消防、损管）。各分系统毁伤等级单独判定，作为整舰评定输入。\n\n使命能力加权和计算采用：平台组0.30、动力组0.25、作战系统组0.20、电力组0.15、指挥通信与感知组0.10，合计1.00；权重综合重要性、易损性与修复难易确定，可按任务剖面校核调整。生命力组不进入加权和，仅作综合复核因子：整舰沉没、进水或火灾失控时直接判为严重毁伤。\n\n核效应—功能退化映射：冲击波（超压、激励响应）致结构坍塌失水密、烟气道冲倒堵塞、弹体变形、天线折断、发配电设备毁坏；光辐射致上层建筑与弹药引燃起火、光电传感器失明；电磁脉冲经天线、电缆耦合使电子元器件失效，危及指挥通信与感知组、电力组；早期核辐射以中子、γ剂量损伤电子元器件；放射性沾染污染外表面、限制人员作业，威胁平台组与生命力组。\n\n任务能力按等效分析综合：先由各分系统毁伤等级加权求和，再叠加生命力组复核，在轻微、中等、严重三个毁伤等级中取最高适用者；殉爆、进水、火灾等二次效应计入复核。\n\n- 契约 ship_functional_groups（terms）：平台组、动力组、电力组、作战系统组、指挥通信与感知组、生命力组\n\n## 毁伤等级定义与判定阈值\n\n整舰毁伤等级按效能损失与修复要求划为三级；判定先对平台组、动力组、电力组、作战系统组、指挥通信与感知组、生命力组分别评定毁伤程度，再综合定级。各级判定阈值如下表。\n\n| 毁伤等级 | 效能损失Y | 残存作战能力 | 修复要求 | 触发条件示例 |\n|---|---|---|---|---|\n| 轻微毁伤 | 25≤Y<50 | 可执行主要任务 | 现场或随舰检修 | 壁板挠度比<5%，进排气道内凹 |\n| 中等毁伤 | 50≤Y<75 | 可\n… [省略 808 字符] …\n毁伤程度高者；证据不完整时先给暂定等级并标注待补证据。任一分组严重毁伤、失去水密性、进水或火灾失控、沉没或倾覆等否决项直接判严重毁伤；若评定仅依据设计阈值或二次效应判据，须专家确认，确认前保持暂定等级。\n\n算例（水面爆）：当量Q=100kt，距爆心投影点5km。实测平台组挠度比6%评中等毁伤，动力组进排气量减少55%评中等毁伤，电力组、作战系统组、指挥通信与感知组均轻微毁伤，生命力组无进水、火灾。各分组代表值取中等毁伤50、轻微毁伤25，Y=0.25×50+0.25×50+0.20×25+0.20×25+0.10×25=37.5，落入25≤Y<50，判轻微毁伤；生命力组复核通过，输出轻微毁伤。\n\n- 契约 assessment_decision_rules（terms）：评估程序、证据优先级、保守原则、暂定等级、实测优先\n\n## 适用场景指南：舰型、任务与角色\n\n本章给出毁伤等级标准在舰型、场景与角色上的应用细则：轻微毁伤、中等毁伤、严重毁伤三级分档与Y值区间为通用基线，各舰型不改阈值，只调整六组权重与核查重点。\n\n适用性矩阵：驱逐舰、护卫舰为战斗舰型，提高作战系统组权重，侧重火力与探测；航空母舰另须核查飞行甲板与机库功能可用性；补给舰以动力组、平台组为核查重点，按完成补给任务能力定级；潜艇不在大、中型水面舰艇范围内，不适用。\n\n场景重点：在港锚泊重平台组与生命力组（抗沉、消防、进水）；航行戒备重电力组、指挥通信与感知组、作战系统组，实测优先；转换部署先按暂定等级定级并补证。\n\n角色流程：损管队长填基本功能评估、分系统损伤评估与损伤零部件清单三类报告表（损伤程度、抢修次序、使用限制）并上报；工程评估组执行评估程序，按保守原则复核并签署结论；指挥员据评定结论决断继续作战、撤离或自救。战场评估仅限战斗中或紧急条件下使用，条件允许时首选常规维修，任务完成后立即实施常规修理并补填报告。\n\n- 契约 applicability_matrix（terms）：驱逐舰、护卫舰、航空母舰、补给舰、在港锚泊、航行戒备、转换部署、指挥员、损管队长、工程评估组\n\n## 证据来源、冲突消解与置信度\n\n本章规定证据可追溯、冲突消解与置信度评定三项要求，作为全部阈值与规则的使用约束。\n\n证据可追溯：每条款须附证据清单，载明证据来源、类别与对应条款，随评估记录保存。证据类别划分为三类：A类为现行标准直接规定，B类为同类标准移植或综合推导，C类为文献、经验或专家判断。\n\n冲突消解：遵循实测优先原则，有试验结果时以试验结果为准；无试验结果或子样有限时采用计算评估，但须专家确认或审查，计算结果与试验结果误差不超过20%方可采信。证据冲突时按证据优先级处理，遵循保守原则取毁伤程度高者；证据不足时先定暂定等级，再迭代补证。\n\n置信度评定：高置信度指有试验数据或现行标准直接支撑；中置信度指经移植或计算验证通过；低置信度指半经验外推或专家判断。低置信度判据不得单独用于确定毁伤等级；仅依此类判据（含否决性判据）单独判定时，结果须标注暂定等级，经专家确认后方可生效。\n\n应用限制：缺乏实船核环境试验数据；电子系统与新材料核效应判据缺实测支撑；半经验公式外推能力有限，目标结构变化时适用性下降；效能损失指数分档为跨标准移植值，未经舰艇标定。补强建议：开展模拟冲击波、热效应及核效应结构响应试验，建立数据积累库并以仿真数据扩充样本，对专家判断校准并迭代减小不确定度。\n\n- 契约 evidence_confidence_levels（classification）：高置信度、中置信度、低置信度",
+      "content_truncated": true,
+      "limitations": [
+        "损害管制处置措施与核爆毁伤等级评定的接口无权威来源直接定义，属设计性规定，待第7章置信度评估时复核。",
+        "各等级量化阈值（挠度比、进排气量等）不属本章范围，由第4章定义。",
+        "舰艇专用核环境定量参数（热流密度、辐射剂量、电磁场强）权威数值在现有证据中缺失，本章以设计参考量级给出，需在第4章毁伤阈值与第7章置信度环节校准。",
+        "各效应时程的具体数值（如冲击波正压作用时间、热脉冲持续时间）缺乏舰艇专用权威数据。",
+        "源标准未给出各功能组数值权重，默认权重为设计建议，须按任务剖面校核调整。",
+        "电磁脉冲与早期核辐射对舰艇电子设备的具体失效阈值缺乏舰艇专用数据，映射表系由航空核生存力规范与武器系统核破坏等级方法外推，需专项试验补充。",
+        "整舰以小时计的修复时间阈值无源标准，以修复场所判据（现场/随舰检修、返回基地修理、进厂大修）与Y值设计分档替代。",
+        "早期核辐射剂量与核电磁脉冲场强的量化定级阈值缺源证据，以电子设备失效比例与人员剂量判据补充，具体数值需试验标定。",
+        "放射性污染对抢修作业的剂量率限值未在源标准中给出，需标定后执行。",
+        "沉没/倾覆量化判据（剩余极限承载能力阈值）取自常规武器文献，需按核爆场景标定。",
+        "源标准未给出整舰五功能组权重数值表，本章权重0.25/0.25/0.20/0.20/0.10为演示性设计值，须经试验与专家评审标定",
+        "计算与实测误差20%限值取自地面目标毁伤计算验证条款，用于舰艇环境属外推设计，须以舰艇试验数据复核",
+        "辐射剂量类量化阈值缺源证据，须试验标定后用于分组判定",
+        "舰型权重修正系数无源标准定量值，须依第7章置信度规则标定",
+        "场景重点与角色细则主要属设计性规定，源标准未单列舰型与场景条款",
+        "缺乏实船核环境试验数据，数据库不足以直接支撑验证",
+        "电子系统与新材料核效应判据缺乏实测支撑，仅有加固要求无失效阈值",
+        "半经验公式外推能力有限，目标结构变化时适用性迅速下降",
+        "效能损失指数分档为跨标准移植值，未经舰艇标定",
+        "分组权重与剂量、场强阈值为设计值，需试验标定后确认",
+        "正文出现契约 damage_level_taxonomy 的非规范词“中的毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“受的毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“预期毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“遭受毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“整舰毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“结构毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“战场损伤”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤后保”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤特征”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“期核辐射”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“冲与放射”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“波与放射”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“别按主导”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“击波主导”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“辐射主导”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“脉冲主导”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“空爆以空气”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“水介质作用”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“水线下舷侧”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“水面爆兼有”。",
+        "正文出现契约 canonical_terms 的非规范词“经迎爆”。",
+        "正文出现契约 canonical_terms 的非规范词“景由爆”。",
+        "正文出现契约 canonical_terms 的非规范词“比例爆”。",
+        "正文出现契约 canonical_terms 的非规范词“艇距爆”。",
+        "正文出现契约 canonical_terms 的非规范词“为核爆”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤由六”。",
+        "正文出现契约 ship_functional_groups 的非规范词“功能组”。",
+        "正文出现契约 ship_functional_groups 的非规范词“为六组”。",
+        "正文出现契约 ship_functional_groups 的非规范词“系统组”。",
+        "正文出现契约 ship_functional_groups 的非规范词“感知组”。",
+        "正文出现契约 ship_functional_groups 的非规范词“命力组”。",
+        "正文出现契约 ship_functional_groups 的非规范词“逻辑组”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤主导”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“电缆损伤”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“导弹及导”。",
+        "正文出现契约 nuclear_environment_categories 的非规范词“水密性与轴”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“能组毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“各组毁伤”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“毁伤等级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“初步定级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“修复层级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“据优先级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“更重等级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“不得降级”。",
+        "正文出现契约 canonical_terms 的非规范词“确认爆”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“三级毁伤”。",
+        "正文出现契约 applicability_matrix 的非规范词“水面舰”。",
+        "正文出现契约 applicability_matrix 的非规范词“空母舰”。",
+        "正文出现契约 applicability_matrix 的非规范词“辅助舰”。",
+        "正文出现契约 applicability_matrix 的非规范词“航母提高”。",
+        "正文出现契约 applicability_matrix 的非规范词“航母另须”。",
+        "正文出现契约 applicability_matrix 的非规范词“航空保障”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“系统毁伤”。",
+        "正文出现契约 damage_level_taxonomy 的非规范词“积累毁伤”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤判据”。",
+        "正文出现契约 canonical_terms 的非规范词“毁伤数据”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“证据等级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“信度三级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“时报上级”。",
+        "正文出现契约 assessment_decision_rules 的非规范词“用于定级”。",
+        "正文出现契约 evidence_confidence_levels 的非规范词“与置信度”。",
+        "Ch03 defines six default mission-capability weights including survivability at 0.10 and states the weights sum to 1.00. Ch04, however, states that the survivability group is used only for comprehensive review (生命力组用于综合复核) and omits it from the weighted order; Ch05 computes Y=ΣAi·Yi using weights based on hull, power, weapons and equipment only, with no survivability weight in the formula. This makes it ambiguous whether Y includes survivability and whether Ch03's default weights are intended for Ch05's calculation.",
+        "Ch07 lists '否决条件细化值' (e.g., any functional group severe, loss of watertightness/unsinkability, loss of repair value) as low-confidence design values and mandates that low-confidence provisions must not be used alone for final rating without expert confirmation. Ch04 and Ch05, however, apply these veto conditions as automatic direct rules: Ch04 says any functional group severe or loss of watertightness/unsinkability directly yields severe damage, and Ch05 step ⑦ treats them as final decisive criteria with no expert confirmation requirement. This contradicts the confidence-control rule in Ch07."
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-34064bbea04e",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 3,
+        "section_path": [
+          "1 般规定",
+          "1.1 适用范围"
+        ],
+        "quote": "本标准适用于大、中型水面舰艇在核空爆和水面爆环境中所遭受到的毁伤。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-68360cc921b6",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": "1-3",
+        "section_path": [],
+        "quote": "内部\n\n中华人民共和国国家军用标准\n\nGJB 352-87\n\n1987-05-23发布\n\n1988—0101实施\n\n国防科学\n… [省略 16 字符] …\n境中的抗核加固设计建造，作战使用以及遭受核打击后组织抢修提供技术依据，特制定本标准。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-881db9b272cc",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 整舰的毀伤等級",
+          "3.1 等级划分原则"
+        ],
+        "quote": "3.1.1以舰体结构毁伤程度为基础，将动力装置视为第一要素.武器装备视为第二要素，舰用设备视为第三要素。\n\n3.1.2在整舰条\n… [省略 4 字符] …\n分析。\n\n3.1.3从整舰毁伤特征出发，对舰艇生命力和作战使用影响程度进行综合评定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-036706b7cf5d",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 7,
+        "section_path": [
+          "5 陆军船艇战场损伤评估",
+          "5.1 概述"
+        ],
+        "quote": "陆军船艇战场损伤评估是实施战损修复前的关键步骤，是进行战场抢修的重要环节。本章论述了陆军船艇装备战场损伤评估内容、评估方法、评估程序以及评估报告表的标准格式。本章论述的内容适用于陆军船艇各功能系统的战场损伤评估。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-35187a6cbc73",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 6,
+        "section_path": [
+          "1 范围"
+        ],
+        "quote": "本指导性技术文件规定了陆军船艇装备的战场损伤评估与修复方法和准则。\n\n本指导性技术文件适用于各类陆（空）军船艇装备。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-a7b2db4e32d6",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 15,
+        "section_path": [
+          "6 说明事项",
+          "6.1 术语和定义",
+          "6.1.18 核武器 nuclear weapon"
+        ],
+        "quote": "利用重原子核的链式裂变和(或)轻原子核的自持聚变反应，瞬时释放出巨大能量而产生爆炸，对目标实施大规模杀伤破坏作用的武器。其\n… [省略 347 字符] …\ncontamination 核爆炸的裂变产物、剩余核装料和放射性物质等对环境的污染。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-cf8b2a12a4e5",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 9,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.2 核生存力",
+          "3.2.2.4 损伤模式和威胁影响",
+          "3.2.2.4.2 威胁类型"
+        ],
+        "quote": "部件可能暴露于威胁之中的损伤机理，可按如下的一种或多种联合形式进行分类：\n\na）冲击波：超压、激励响应；\n\nb)光辐射：快速\n… [省略 16 字符] …\n中子剂量率，y辐射剂量率、总的离子化剂量率；\n\ne）粉屑与碎片：穿透、冲击能、侵蚀。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2b54122d4e79",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": "15-16",
+        "section_path": [
+          "7",
+          "7.2 船艇壳板破损",
+          "7.2.4 坐滩抢修方法",
+          "7.2.4.1 说明"
+        ],
+        "quote": "船艇水线以下壳板破损主要由水下障碍物或受敌方火力打击所引起，会使海水大量涌入，严重时将对船艇安全产生威胁。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-447067c0b1d8",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 16,
+        "section_path": [
+          "7",
+          "7.2 船艇壳板破损",
+          "7.2.4 坐滩抢修方法",
+          "7.2.4.2 适用范围"
+        ],
+        "quote": "船艇舷板、底板、舭龙骨、平板龙骨损伤且底部受损位可在船艇内部复板抢修。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-31012c2a1e85",
+        "source_file": "GJB 67.11A-2008 军用飞机结构强度规范 第11部分：结构生存力.pdf",
+        "pages": 10,
+        "section_path": [
+          "3 要求",
+          "3.2 详细要求",
+          "3.2.2 核生存力",
+          "3.2.2.7 带战伤结构的修理性和可用性"
+        ],
+        "quote": "飞机结构带有战伤后，修理性和可用性除了满足3.2.1.5.a)～e)的要求外，还应包括：\n\na）对防光辐射的表面漆，应给出\n… [省略 193 字符] …\n切防护措施均应考虑检测、维修方便易行。\n\nf)应把核环境维护与非核环境维修结合起来。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-bab3a038bbca",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 23,
+        "section_path": [
+          "5 详细要求",
+          "5.2 核破坏等级的预测"
+        ],
+        "quote": "核破坏等级的预测，是对武器系统遭受核袭击破坏等级的预先估计。\n\n5.2.1预测方法\n\n按给出的核爆炸参数查表判定。\n\n5.2\n… [省略 95 字符] …\n心投影点的距离Rw进行比较，根据Rw落入R的区间确定该武器系统可能遭受的核破坏等级。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-d1b974205d9e",
+        "source_file": "地地战略导弹武器系统作战使用要求.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "6 论证方法、步骤",
+          "6.2 论证方法",
+          "6.2.1 毁伤半径的计算"
+        ],
+        "quote": "根据核导弹的威力、比高和目标的抗压强度计算毁伤半径。\n\n6.2.1.1将爆高换算成比高\n\n式中：H₁——比高，m/kt/3；\n… [省略 45 字符] …\n附录B（补充件）公式（B2）计算比毁伤半径\n\nR1o\n\n$$H₁ = H/\\Q $$",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8468eb1a9303",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 24,
+        "section_path": [
+          "5 详细要求",
+          "5.2 核破坏等级的预测",
+          "5.2.2 预测所需参数"
+        ],
+        "quote": "$$b.0≤h₁≤200$$",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-592e0d34b009",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 47,
+        "section_path": [
+          "附录G 附录G"
+        ],
+        "quote": "G3.2.4型号论证中提出抗核爆炸表征超压，应大于50kPa（即当核爆炸冲击波超压值等于50kPa时出现轻微破坏是合乎要求的\n… [省略 66 字符] …\n王和平、么勇、李扬振、刘卫平、林清明、刘敬宜、汪惠宝、\n\n计划项目代号：3KJ05。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-738afc6594f2",
+        "source_file": "武双章 等 - 2024 - 目标易损性评估通用流程研究.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 毁伤元特性分析",
+          "3.1 毁伤参量"
+        ],
+        "quote": "毁伤元的毁伤参量是指描述毁伤元特性的物理量。描述不同类型毁伤元的物理量是不同的，即不同\n\n类型毁伤元的毁伤参量是不同的。破\n… [省略 243 字符] …\n态延伸率α等：热辐射毁伤元和核辐射毁伤元的毁伤参量有辐射强度、辐射时间、辐射剂量等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f71f5ff82c1e",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 3,
+        "section_path": [
+          "3 基于开源情报的目标舰船结构与功能逻辑关系快速分析",
+          "2） 2 ）舰船功能组成分析"
+        ],
+        "quote": "根据舰船设计规范和相关标准，可将该型舰船的功能划分为结构完好性、作战能力、机动能力和保障能力，如图3所示。\n\n①结构完好性\n… [省略 267 字符] …\n管保障方面进行分析，包括发电机、配电装置、电力网、电力监控装置及消防管线、损管站等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a945d57e365a",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 36,
+        "section_path": [
+          "9 9",
+          "9.1 概述"
+        ],
+        "quote": "表7电气系统项目损伤修复方法索引\n\n<div style=\"text-align: center;\"><html><bod\n… [省略 706 字符] …\n损伤修复</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8054d65c806e",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 9,
+        "section_path": [
+          "5 陆军船艇战场损伤评估",
+          "5.4 损伤评估报告表"
+        ],
+        "quote": "表1×××型船艇基本功能评估报告表\n\n<div style=\"text-align: center;\"><html><bo\n… [省略 447 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-b8c931e72f55",
+        "source_file": "核爆环境中舰艇毁伤等级的划分.pdf",
+        "pages": 4,
+        "section_path": [
+          "2 各系统的毁伤等级",
+          "2.3 武器装备"
+        ],
+        "quote": "在武器装备中，主要以导弹系统的毁伤程度，作为舰载武备及发射装置毁伤等级的划分依据。\n\n2.3.1严重毁伤\n\n2.3.1.1\n… [省略 195 字符] …\n生轻微变形，其变形量不超过允许公差范围。\n\n2.3.3.2检修要求：导弹系统应检测。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4e5754b220cc",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "9-10",
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "式中：Y，一——武器系统或分系统的综合核破坏程度表征量；\n\nY，一一第i件装备或第；个分系统的核破坏程度表征量；\n\nA.-\n… [省略 657 字符] …\n0.10</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f03c571b4293",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 目标舰船易损部位分析",
+          "1） 1 ）结构易损分析"
+        ],
+        "quote": "由于该舰以钢质和铝合金为主要结构组成，在上层建筑和舰体内部分铝镁合金材质结构易燃，铝镁合金被引燃后会释放大量有毒气体，将极\n… [省略 136 字符] …\n风险较高。以上是该舰的易损结构，这些易损性结构被反舰导弹命中产生的影响将是致命性的。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-66504930d7ca",
+        "source_file": "王琪 等 - 2025 - 基于现场图像的舰船目标易损性及毁伤效能分析.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 目标舰船功能毁伤评估验证"
+        ],
+        "quote": "该型舰船受到打击后直接产生了较为严重的损伤，但是由于损管和修复的不及时性，命中后随即引起航侧导弹武器火灾、水线附件舱室及动力舱进水等级联事故出现，包括弹药殉爆、易燃物火灾、舱室进水等多种后效应发生才最终导致沉没事件的发生。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-5483bbedbbb1",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 29,
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "表A4电源、电缆网和车辆核破坏特征及其加权值\n\n<div style=\"text-align: center;\"><htm\n… [省略 533 字符] …\n 0.3</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-448a3386d93c",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "2 补给船构效关系分析"
+        ],
+        "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_\n… [省略 573 字符] …\n管站毁伤</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1f4af5654d30",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 一般要求",
+          "4.4 核破坏程度表征量Y值的区间范围"
+        ],
+        "quote": "轻微破坏25Y<50；\n\n中等破坏50≤Y<75;\n\n严重破坏75≤Y≤100.",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-68d48a07f7a2",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 一般要求",
+          "4.2 核破坏等级的划分原则"
+        ],
+        "quote": "4.2.1轻微破坏\n\n基本性能部分降低或部分功能丧失，但在阵地可以修复。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-9f7a1d6389f2",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "7-8",
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "发射设备外表漆层及便携装具烧蚀：外露光学镜片、保护玻璃破裂；水准器玻璃管炸裂；非筒装导弹弹翼蒙皮吹起或局部烧蚀等。\n\n5.\n… [省略 513 字符] …\n划分原则中，关于“性能或功能丧失程度”和“需何处修复”及“有无修复价值”的宏观结论；",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5a625d9d31f4",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": "8-9",
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "b.第5.1.1.1～5.1.1.8条各类武器装备具体破坏部位、器件不同破坏等级范围内，微观上的轻、重程度；\n\nc.第4.\n… [省略 549 字符] …\n系统的综合核破坏程度表征量值。然后依照第4.4条的规定，确定该武器系统的核破坏等级。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8c6b1632d20c",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 反舰导弹内爆载荷作用下各关键部件的毁伤模式",
+          "3.1 船体结构在内爆作用下的毁伤模式及判据"
+        ],
+        "quote": "表3重度毁伤的顶事件及中间事件列表\n\nTable 3 List of top events and intermediat\n… [省略 626 字符] …\n管站毁伤</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-6577db301be9",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 爆炸冲击波检验与评估方法",
+          "5.2 飞行试验",
+          "5.2.2 测量内容"
+        ],
+        "quote": "测量距爆心不同距离处爆炸冲击波超压一一时间曲线，得到该测点的下列冲击波参数：\n\na)冲击波超压峰值：\n\nb)冲击波正压区作用时间：\n\nc)冲击波冲量。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-b69e24507ae1",
+        "source_file": "战术导弹武器系统核破坏等级.pdf",
+        "pages": 11,
+        "section_path": [
+          "5 详细要求",
+          "5.1 核破坏等级的判定",
+          "5.1.1 初始判定",
+          "5.1.1.8 H类武器系统",
+          "5.1.1.8.1 轻微破坏特征"
+        ],
+        "quote": "此时：\n\nY₁=Y，即第i个发射设备的核破坏程度表征量；\n\nA₁=An;\n\nN为火力单元发射设备类别数。\n\n5.1.2.2\n… [省略 605 字符] …\ne\" width=\"72%\" /></div>\n\n图2B类武器系统核破坏等级判定程序",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-e6d16140c9e1",
+        "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 3,
+        "section_path": [
+          "4 检验与评估的项目和原则",
+          "4.2 评估原则"
+        ],
+        "quote": "评估应遵循如下原则：\n\na）一般采用试验结果对毁伤效应进行评估：\n\nb）无试验结果或试验子样有限时，可以采用计算评估，但须对计算结果进行专家确认或审查。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-961414c5281d",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 9,
+        "section_path": [
+          "6 对典型目标毁伤效应检验与评估",
+          "6.1 对地面建筑物毁伤效应评估",
+          "6.1.4 计算评估",
+          "6.1.4.3 计算验证",
+          "6.1.4.3.3 模拟计算综合验证"
+        ],
+        "quote": "主要验证计算结果的可靠性。可利用地面或飞行毁伤效应试验结果对模拟计算进行综合验证。计算结果与试验结果误差不超过20%。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-748fd2646164",
+        "source_file": "整体爆破类战斗部毁伤效应检验与评估方法.pdf",
+        "pages": 4,
+        "section_path": [
+          "4 检验评估项目与原则",
+          "4.2 评估原则"
+        ],
+        "quote": "评估应遵循如下原则：\n\na）飞行试验数据子样足够多时，利用飞行试验数据给出评估结论；\n\nb）飞行试验数据子样不充分时，通过地面试验数据、飞行试验数据与计算结果综合评估给出评估结论。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-dbbbda750180",
+        "source_file": "王志辉 等 - 2024 - 未确知条件下多枚导弹打击不规则面目标的毁伤效果评估.pdf",
+        "pages": 2,
+        "section_path": [],
+        "quote": "多枚导弹打击复杂不规则的面目标，若导弹参数未确知，其毁伤效果也就未确知，传统的评估方法难以得到可靠稳定的毁伤评估结果。本文基于\n… [省略 7 字符] …\n的探索性评估方法，旨在指导评估实践，通过迭代渐近的方式减小毁伤效果评估中的不确定性。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-0a297b3297ae",
+        "source_file": "6-舰船.pdf",
+        "pages": "8-9",
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "在各任务阶段中参与工作的各主要系统见表A1。\n\n根据使用需求，复杂程度、预期维修方案的分析，结合舰船具有可修复性的特点，以\n… [省略 492 字符] …\n役舰船的实际使用情况，考虑使用要求，确定新研护卫舰的使用可用度A。的门限值为0.6。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-5de8734f121a",
+        "source_file": "6-舰船.pdf",
+        "pages": "7-8",
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "（参考件）\n\n本附录以护卫舰的总体为例，为舰船的可靠性、维修性参数选择和指标确定提供参考。本附录所用数据不供引用。\n\n该护\n… [省略 508 字符] …\n电力系统、雷达系统、水声系统、指控系统、武器系统（含导弹、舰炮）等八个主要系统构成。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c482b633700c",
+        "source_file": "董泽恒 等 - 2024 - 一种反舰导弹打击下补给船目标的易损性分析方法.pdf",
+        "pages": 7,
+        "section_path": [
+          "4 反舰导弹打击船体不同位置下补给船的易损性分布",
+          "4.5 补给船易损性辅助计算程序"
+        ],
+        "quote": "(c)船尾工况7\n\n(d)上层建筑工况10\n\n图7典型工况下补给船航行功能毁伤程度\n\nFig. 7 Functional d\n… [省略 19 字符] …\navigation under typical working conditions",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 54,
+      "included": 38,
+      "omitted": 16,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 16454,
+      "quote_chars_after": 3786
+    }
+  }
+}

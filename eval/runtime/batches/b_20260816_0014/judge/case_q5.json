@@ -1,0 +1,60 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260816_0014",
+  "question_id": "q5",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 209,
+    "answer_truncated": false,
+    "evidence_tokens": 119,
+    "evidence_included": 1,
+    "evidence_omitted": 0
+  },
+  "question": {
+    "id": "q5",
+    "category": "unrelated",
+    "expected_route": "fast",
+    "question": "简要说明快速排序算法在平均情况下的时间复杂度，并列举一个适合使用它的典型应用场景。",
+    "expected": "与当前毁伤评估资料完全无关，应诚实声明无资料支撑，基于通用算法知识作答，不得虚构资料引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "fast",
+    "elapsed_s": 45.24,
+    "model_calls_count": 8,
+    "consistency_issues": [],
+    "packet_statuses": {},
+    "answer": {
+      "content": "经对知识库进行全面检索，知识库中并未收录专门介绍快速排序算法（quicksort）的资料，因此无法直接给出其平均时间复杂度与应用场景的权威说明。检索到的最接近内容为排序操作的时间复杂度分析（排序复杂度为O(M log N)量级），这与快速排序平均情况下的时间复杂度量级 O(n log n) 一致，但知识库中没有关于快速排序算法的专门论述，也没有其典型应用场景的记载。建议在补充相关资料后再行回答。",
+      "content_truncated": false,
+      "limitations": [
+        "知识库中不存在专门介绍快速排序算法的内容，检索结果仅涉及一般排序操作的复杂度（O(M log N)），无法据此确认快速排序的平均时间复杂度及其典型应用场景。"
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-e969de0eeedf",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": 11,
+        "section_path": [
+          "2 火力资源分配优化算法",
+          "2.5 算法复杂度分析"
+        ],
+        "quote": "本文算法只需要对选定的N个作战区和M个目标进行计算，而不是对目标区域和作战区区域的所有网格进行搜索。\n\n进行特征抽取后，需\n… [省略 549 字符] …\n项的时间复杂度为O(Nm*x×(K×M×N））。各项计算的复杂度分析统计如表1所示。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 1,
+      "included": 1,
+      "omitted": 0,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 669,
+      "quote_chars_after": 120
+    }
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "schema_version": "judge-report-v1",
+  "batch_id": "b_20260816_0014",
+  "git_commit": "8f70764f43f94d7b81925f1fffb7abfaaf63eeea",
+  "created_at": "2026-08-16T11:48:26Z",
+  "cases": [
+    {
+      "question_id": "q1",
+      "status": "rated",
+      "route": "fast",
+      "correctness": "A",
+      "faithfulness": "A",
+      "completeness": "A",
+      "consistency": "A",
+      "honesty": "A",
+      "recommendation": "approve"
+    },
+    {
+      "question_id": "q2",
+      "status": "rated",
+      "route": "fast",
+      "correctness": "A",
+      "faithfulness": "A",
+      "completeness": "A",
+      "consistency": "A",
+      "honesty": "A",
+      "recommendation": "approve"
+    },
+    {
+      "question_id": "q3",
+      "status": "rated",
+      "route": "fast",
+      "correctness": "D",
+      "faithfulness": "D",
+      "completeness": "D",
+      "consistency": "D",
+      "honesty": "D",
+      "recommendation": "reject",
+      "note": "agent step budget exhausted, no answer"
+    },
+    {
+      "question_id": "q4",
+      "status": "skipped",
+      "reason": "no runs/q4.json (checkpoint only)"
+    },
+    {
+      "question_id": "q5",
+      "status": "rated",
+      "route": "fast",
+      "correctness": "B",
+      "faithfulness": "A",
+      "completeness": "B",
+      "consistency": "A",
+      "honesty": "A",
+      "recommendation": "approve",
+      "note": "unrelated honest handling"
+    },
+    {
+      "question_id": "q6",
+      "status": "skipped",
+      "reason": "no runs/q6.json (checkpoint only)"
+    },
+    {
+      "question_id": "q7",
+      "status": "rated",
+      "route": "supervisor",
+      "correctness": "A",
+      "faithfulness": "A",
+      "completeness": "A",
+      "consistency": "C",
+      "honesty": "A",
+      "operability": "C",
+      "recommendation": "revise"
+    },
+    {
+      "question_id": "q8",
+      "status": "rated",
+      "route": "supervisor",
+      "correctness": "B",
+      "faithfulness": "A",
+      "completeness": "A",
+      "consistency": "C",
+      "honesty": "A",
+      "operability": "C",
+      "recommendation": "revise"
+    },
+    {
+      "question_id": "q9",
+      "status": "rated",
+      "route": "supervisor",
+      "correctness": "B",
+      "faithfulness": "A",
+      "completeness": "A",
+      "consistency": "C",
+      "honesty": "A",
+      "operability": "C",
+      "recommendation": "revise"
+    },
+    {
+      "question_id": "q10",
+      "status": "skipped",
+      "reason": "no runs/q10.json (checkpoint only)"
+    }
+  ],
+  "aggregate": {
+    "as_of": "2026-08-16",
+    "rated": 7,
+    "skipped": 3,
+    "approve": 3,
+    "revise": 3,
+    "reject": 1,
+    "note": "2 runtime failures (q6,q10) + 1 routed_away (q4) auto-skipped"
+  }
+}
