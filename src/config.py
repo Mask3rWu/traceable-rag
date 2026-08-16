@@ -141,6 +141,7 @@ class ResearchModelConfig:
     supervisor_max_steps: int = 12
     retrieval_top_k: int = 8
     max_evidence_reads: int = 40
+    max_search_per_worker: int = 5
     max_workers: int = 4
     max_subtasks: int = 8
     document_max_chars: int = 6000
@@ -196,6 +197,9 @@ class ResearchModelConfig:
             ),
             retrieval_top_k=_positive_int_env("RETRIEVAL_DEFAULT_TOP_K", default=8),
             max_evidence_reads=_positive_int_env("RESEARCH_MAX_EVIDENCE_READS", default=40),
+            max_search_per_worker=_positive_int_env(
+                "RESEARCH_MAX_SEARCH_PER_WORKER", default=5
+            ),
             max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),
             max_subtasks=_positive_int_env("RESEARCH_MAX_SUBTASKS", default=8),
             document_max_chars=_positive_int_env(

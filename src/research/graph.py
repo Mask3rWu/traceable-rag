@@ -204,6 +204,7 @@ class AgentRuntime:
         document_max_chars: int = 6000,
         chapter_max_chars: int = 1600,
         chapter_max_rules: int = 20,
+        max_search_per_worker: int = 5,
         metrics: RuntimeMetrics | None = None,
     ) -> None:
         if min(
@@ -213,6 +214,7 @@ class AgentRuntime:
             document_max_chars,
             chapter_max_chars,
             chapter_max_rules,
+            max_search_per_worker,
         ) <= 0:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
@@ -228,6 +230,9 @@ class AgentRuntime:
         self.document_max_chars = document_max_chars
         self.chapter_max_chars = chapter_max_chars
         self.chapter_max_rules = chapter_max_rules
+        # Per-chapter search budget: each chapter worker may perform at most this
+        # many search_knowledge calls before the tool returns budget_reached.
+        self.max_search_per_worker = max_search_per_worker
         self._metrics = metrics
         self._packets: list[ResearchPacket] = []
         self._evidence_aliases: dict[str, EvidenceAliasRegistry] = {}
@@ -482,7 +487,7 @@ class AgentRuntime:
     ):
         prose_limit = chapter_char_limit or self.chapter_max_chars
         tools = [
-            *self._retrieval_tools(aliases),
+            *self._retrieval_tools(aliases, search_limit=self.max_search_per_worker),
             self.workspace.make_terminology_tool(),
             self._submit_chapter_tool(chapter, aliases, prose_limit),
         ]
@@ -494,6 +499,11 @@ class AgentRuntime:
                 f"at most {self.chapter_max_rules} rules. Use short unnumbered local "
                 "labels inside prose when needed. The document assembler owns the chapter "
                 "heading and all chapter numbering.\n"
+                f"Search budget for this chapter: at most {self.max_search_per_worker} "
+                "search_knowledge calls. Each search result reports new_uncovered (how many "
+                "new snippets it added beyond what you already had). When new_uncovered is "
+                "small or reaches zero, stop broad searching and write and submit this "
+                "chapter from the evidence you have gathered.\n"
                 "Terminology self-check: when upstream terms contracts are provided in the "
                 "request, call check_terminology with your draft prose and those contracts "
                 "before submit_chapter. If it returns suspect_terms, revise the prose to use "
@@ -518,9 +528,15 @@ class AgentRuntime:
             ),
         )
 
-    def _retrieval_tools(self, aliases: EvidenceAliasRegistry) -> list[BaseTool]:
+    def _retrieval_tools(
+        self,
+        aliases: EvidenceAliasRegistry,
+        search_limit: int | None = None,
+    ) -> list[BaseTool]:
         try:
-            return self.workspace.make_retrieval_tools(aliases, self._cancel_check)
+            return self.workspace.make_retrieval_tools(
+                aliases, self._cancel_check, search_limit
+            )
         except TypeError as exc:
             if "positional argument" not in str(exc) and "unexpected keyword" not in str(exc):
                 raise

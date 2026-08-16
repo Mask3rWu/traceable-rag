@@ -16,6 +16,25 @@ class _ToolWorkspace:
         ]
 
 
+class _SearchWorkspace(_ToolWorkspace):
+    def __init__(self) -> None:
+        self._pool: dict[str, dict] = {}
+        self.search_count = 0
+
+    def evidence_by_id(self) -> dict[str, dict]:
+        return dict(self._pool)
+
+    def search(self, query: str, top_k: int | None = None) -> list[dict]:
+        # Each call surfaces one fresh evidence and returns the whole (deduped)
+        # pool, mirroring merge_evidence, so a repeat query reports new=0.
+        self.search_count += 1
+        self._pool[f"ev-{query}"] = {"evidence_id": f"ev-{query}"}
+        return [
+            {"evidence_id": eid, "quote": "source"}
+            for eid in sorted(self._pool)
+        ]
+
+
 class ResearchToolsTest(unittest.TestCase):
     def test_evidence_alias_registry_is_stable_and_translates_payloads(self):
         aliases = EvidenceAliasRegistry()
@@ -52,6 +71,41 @@ class ResearchToolsTest(unittest.TestCase):
         self.assertEqual(exhausted["status"], "budget_reached")
         self.assertEqual(exhausted["available_evidence_ids"], ["ev-1"])
         self.assertEqual(reread[0]["evidence_id"], "ev-1")
+
+    def test_search_budget_reports_reached_after_limit(self):
+        ws = _SearchWorkspace()
+        tools = EvidenceWorkspace.make_retrieval_tools(ws, search_limit=2)
+        search_knowledge = next(
+            item for item in tools if item.name == "search_knowledge"
+        )
+
+        first = json.loads(search_knowledge.invoke({"query": "a"}))
+        second = json.loads(search_knowledge.invoke({"query": "b"}))
+        exhausted = json.loads(search_knowledge.invoke({"query": "c"}))
+
+        self.assertEqual(first["status"], "ok")
+        self.assertEqual(second["status"], "ok")
+        # The third calls sites budget_reached and stops broad searching.
+        self.assertEqual(exhausted["status"], "budget_reached")
+        self.assertEqual(ws.search_count, 2)
+        self.assertEqual(
+            sorted(exhausted["available_evidence_ids"]), ["ev-a", "ev-b"]
+        )
+
+    def test_search_new_uncovered_counts_fresh_evidence(self):
+        ws = _SearchWorkspace()
+        tools = EvidenceWorkspace.make_retrieval_tools(ws)
+        search_knowledge = next(
+            item for item in tools if item.name == "search_knowledge"
+        )
+
+        fresh = json.loads(search_knowledge.invoke({"query": "a"}))
+        repeat = json.loads(search_knowledge.invoke({"query": "a"}))
+
+        self.assertEqual(fresh["status"], "ok")
+        self.assertEqual(fresh["new_uncovered"], 1)
+        self.assertEqual(repeat["new_uncovered"], 0)
+        self.assertEqual([r["evidence_id"] for r in repeat["results"]], ["ev-a"])
 
 
 if __name__ == "__main__":
