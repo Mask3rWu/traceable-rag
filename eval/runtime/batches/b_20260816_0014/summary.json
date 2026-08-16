@@ -1,0 +1,214 @@
+{
+  "batch_id": "b_20260816_0014",
+  "schema_version": "runtime-eval-v2",
+  "git_commit": "c7621ac5bff4b96d41acceea4508118c13f74e30",
+  "created_at": "2026-08-15T16:57:21Z",
+  "question_set": {
+    "file": "D:\\Project\\cc\\eval\\runtime\\questions.yaml",
+    "hash": "2a4b5a185b2d3340",
+    "count": 10,
+    "categories": {
+      "direct": 4,
+      "borrow": 4,
+      "unrelated": 2
+    }
+  },
+  "total": 10,
+  "by_outcome": {
+    "completed": 6,
+    "incomplete": 1,
+    "failed": 2,
+    "cancelled": 0,
+    "routed_away": 1
+  },
+  "aggregate": {
+    "model_calls": {
+      "count": 426,
+      "total_cost_usd": 11.565782,
+      "schema_validation": {
+        "attempts": 58,
+        "passed": 52,
+        "failed": 6,
+        "failures": [
+          {
+            "stage": "submit_answer",
+            "reason": "ValueError: A grounded answer requires at least one evidence ID"
+          },
+          {
+            "stage": "submit_chapter",
+            "reason": "ValueError: Rule references unknown contract 'damage_level_taxonomy'; it must be one of this chapter's contracts[] or required_contracts"
+          },
+          {
+            "stage": "submit_chapter",
+            "reason": "ValueError: Rule references unknown contract 'ship_functional_groups'; it must be one of this chapter's contracts[] or required_contracts"
+          },
+          {
+            "stage": "submit_chapter",
+            "reason": "ValueError: Rule references unknown contract 'damage_effect_scores'; it must be one of this chapter's contracts[] or required_contracts"
+          },
+          {
+            "stage": "submit_chapter",
+            "reason": "ValueError: Chapter prose exceeds the character budget (812 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+          },
+          {
+            "stage": "submit_chapter",
+            "reason": "ValueError: Chapter prose exceeds the character budget (755 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+          }
+        ]
+      },
+      "failures": []
+    },
+    "tool_calls": {
+      "count": 790,
+      "success_rate": 0.9873,
+      "by_tool": {
+        "search_knowledge": {
+          "count": 588,
+          "success": 588,
+          "failed": 0,
+          "total_latency_ms": 385424.637699849
+        },
+        "read_evidence": {
+          "count": 96,
+          "success": 92,
+          "failed": 4,
+          "total_latency_ms": 343.8045001239516
+        },
+        "submit_answer": {
+          "count": 4,
+          "success": 3,
+          "failed": 1,
+          "total_latency_ms": 1.8088999786414206
+        },
+        "check_terminology": {
+          "count": 51,
+          "success": 51,
+          "failed": 0,
+          "total_latency_ms": 61.24510004883632
+        },
+        "submit_chapter": {
+          "count": 51,
+          "success": 46,
+          "failed": 5,
+          "total_latency_ms": 57.69969994435087
+        }
+      },
+      "failures": [
+        {
+          "tool": "submit_answer",
+          "reason": "ValueError: A grounded answer requires at least one evidence ID"
+        },
+        {
+          "tool": "read_evidence",
+          "reason": "ValidationError: 1 validation error for ReadEvidenceInput\nevidence_ids\n  List should have at most 4 items after validation, not 6 [type=too_long, input_value=['E38', 'E39', 'E47', 'E1', 'E6', 'E37'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long"
+        },
+        {
+          "tool": "read_evidence",
+          "reason": "ValidationError: 1 validation error for ReadEvidenceInput\nevidence_ids\n  List should have at most 4 items after validation, not 5 [type=too_long, input_value=['E1', 'E2', 'E4', 'E18', 'E27'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Rule references unknown contract 'damage_level_taxonomy'; it must be one of this chapter's contracts[] or required_contracts"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Rule references unknown contract 'ship_functional_groups'; it must be one of this chapter's contracts[] or required_contracts"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Rule references unknown contract 'damage_effect_scores'; it must be one of this chapter's contracts[] or required_contracts"
+        },
+        {
+          "tool": "read_evidence",
+          "reason": "ValidationError: 1 validation error for ReadEvidenceInput\nevidence_ids\n  List should have at most 4 items after validation, not 5 [type=too_long, input_value=['E15', 'E48', 'E2', 'E1', 'E3'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (812 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (755 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "read_evidence",
+          "reason": "ValidationError: 1 validation error for ReadEvidenceInput\nevidence_ids\n  List should have at most 4 items after validation, not 5 [type=too_long, input_value=['E2', 'E5', 'E1', 'E70', 'E40'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/too_long"
+        }
+      ]
+    },
+    "retrieval": {
+      "search_count": 588,
+      "evidence_total": 5378,
+      "evidence_unique": 1758,
+      "evidence_cited": 295
+    },
+    "delivery": {
+      "questions": 10,
+      "planned_chapters": 23,
+      "executed_packets": 23,
+      "packet_sufficient": 23,
+      "packet_insufficient": 0,
+      "packet_failed": 0,
+      "packet_blocked": 0,
+      "assembled": 7,
+      "answer_chars": 17466,
+      "answer_evidence": 295
+    },
+    "phase_cost": {
+      "router": {
+        "questions": 7,
+        "model_calls": 7,
+        "prompt_tokens": 1447,
+        "completion_tokens": 795,
+        "cost_usd": 0.006444,
+        "total_latency_ms": 13437.8,
+        "failed": 0
+      },
+      "fast": {
+        "questions": 4,
+        "model_calls": 23,
+        "prompt_tokens": 253305,
+        "completion_tokens": 8484,
+        "cost_usd": 0.267036,
+        "total_latency_ms": 81307.2,
+        "failed": 0
+      },
+      "planner": {
+        "questions": 3,
+        "model_calls": 3,
+        "prompt_tokens": 3103,
+        "completion_tokens": 22447,
+        "cost_usd": 0.135993,
+        "total_latency_ms": 170018.8,
+        "failed": 0
+      },
+      "worker": {
+        "questions": 3,
+        "model_calls": 206,
+        "prompt_tokens": 6254032,
+        "completion_tokens": 349068,
+        "cost_usd": 5.270741,
+        "total_latency_ms": 2805457.8,
+        "failed": 0
+      },
+      "review": {
+        "questions": 3,
+        "model_calls": 3,
+        "prompt_tokens": 43660,
+        "completion_tokens": 42326,
+        "cost_usd": 0.38151,
+        "total_latency_ms": 340995.4,
+        "failed": 0
+      },
+      "unknown": {
+        "questions": 3,
+        "model_calls": 184,
+        "prompt_tokens": 5943406,
+        "completion_tokens": 415191,
+        "cost_usd": 5.504055,
+        "total_latency_ms": 3215166.5,
+        "failed": 0
+      }
+    }
+  }
+}

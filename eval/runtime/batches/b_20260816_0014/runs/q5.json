@@ -1,0 +1,2410 @@
+{
+  "run_id": "8315ef4effb64e21aa7256e5d4ddb02d",
+  "request": "简要说明快速排序算法在平均情况下的时间复杂度，并列举一个适合使用它的典型应用场景。",
+  "route": {
+    "mode": "fast",
+    "reason": "简单算法问题，无需多步研究"
+  },
+  "outcome": "completed",
+  "answer": {
+    "content": "经对知识库进行全面检索，知识库中并未收录专门介绍快速排序算法（quicksort）的资料，因此无法直接给出其平均时间复杂度与应用场景的权威说明。检索到的最接近内容为排序操作的时间复杂度分析（排序复杂度为O(M log N)量级），这与快速排序平均情况下的时间复杂度量级 O(n log n) 一致，但知识库中没有关于快速排序算法的专门论述，也没有其典型应用场景的记载。建议在补充相关资料后再行回答。",
+    "evidence_ids": [
+      "ev-e969de0eeedf"
+    ],
+    "limitations": [
+      "知识库中不存在专门介绍快速排序算法的内容，检索结果仅涉及一般排序操作的复杂度（O(M log N)），无法据此确认快速排序的平均时间复杂度及其典型应用场景。"
+    ]
+  },
+  "document_plan": null,
+  "consistency_issues": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-194d2646d96f",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00039",
+      "content_hash": "b1ceddd6389b48e19de201b949b3b3566cf5a5ec00f3502cc53098bf6a2d66bf",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 11,
+      "page_end": 12,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.5 算法复杂度分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B18",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B19",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B20",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P012_B03"
+      ],
+      "quote": "因此，综上分析可知，该算法最大时间计算复杂度为O（K²M)+O(N×(K×M×N)）。如果采用基于动态规划模型的方法，将火力分配问题等价为一个求解最小威胁树的问题，时间复杂度为O(MN!)[22]\n\n如果使用蒙特卡洛方法，每生成一次火力分配方案，需要为每个作战区和每个目标分配K种导弹，时间复杂度为O（N×M×K），每评估一次火力分配方案，需要遍历所有的作战区、目标和导弹类型，可认为是O（N×M×K），因此进行S次蒙特卡洛模拟的时间复杂度为O(S×（N×M×K））。\n\n以K=10、N=10、M=5的规模为例，计算O(MN!)\n\n的比值约为3628.8，O(KN2M) +O(Nmx×(K×M×N) )\n\n意味着即使在规模很小的火力资源分配任务中，本\n\n文提出的优化算法也比采用动态规划模型的算法快约103倍。当问题规模比较小时，本文提出算法仅需50次迭代左右即可得到最优解，此时蒙特卡洛仿真大概需要1000次才能得到优解，计算比值O(S×(K×M×N) )\n\n≈16.7.表示本文O(KN2M) +O(Nmax×(K×M×N) )\n\n算法比蒙特卡洛方法快约16.7倍。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.6007393777590807,
+          "bm25_rank": 3,
+          "bm25_score": 6.434490203857422,
+          "fusion_score": 0.032266458495966696
+        },
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 6,
+          "dense_rank": 1,
+          "dense_score": 0.5045514407486591,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.01639344262295082
+        },
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 3,
+          "dense_rank": 33,
+          "dense_score": 0.4901778995990753,
+          "bm25_rank": 2,
+          "bm25_score": 9.93916130065918,
+          "fusion_score": 0.026881720430107527
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.5905859050329302,
+          "bm25_rank": 2,
+          "bm25_score": 8.033851623535156,
+          "fusion_score": 0.03252247488101534
+        },
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 3,
+          "dense_rank": 13,
+          "dense_score": 0.4567266838767139,
+          "bm25_rank": 1,
+          "bm25_score": 3.4294440746307373,
+          "fusion_score": 0.03009207275993712
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.5803360342979431,
+          "bm25_rank": 3,
+          "bm25_score": 6.434490203857422,
+          "fusion_score": 0.032266458495966696
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-41b0c00e20a7",
+      "chunk_id": "2-电子系统_C00027",
+      "content_hash": "c96796a4c0441bd275dff5e56c4e462958dff2c572aab4e149c685695ed0ad06",
+      "document_id": "2-电子系统",
+      "source_file": "2-电子系统.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "section_path": [
+        "附录A 附录A"
+      ],
+      "block_ids": [
+        "2-电子系统_P011_B07",
+        "2-电子系统_P011_B08",
+        "2-电子系统_P011_B09",
+        "2-电子系统_P011_B10",
+        "2-电子系统_P011_B11",
+        "2-电子系统_P011_B12",
+        "2-电子系统_P011_B13",
+        "2-电子系统_P011_B14",
+        "2-电子系统_P011_B15",
+        "2-电子系统_P011_B16",
+        "2-电子系统_P011_B02",
+        "2-电子系统_P011_B05"
+      ],
+      "quote": "α一系统复杂度因子。\n\n设K=0.066α=1.43\n\n则：T（最低可接受值）=0.066(Tm）1.³=229h\n\n确定可靠性、维修性合同指标（最低可接受值）：\n\n平均故障间隔时间：T =229h;\n\n任务可靠度：Rm=90%;\n\n平均修复时间：Mcπ =2.5h;\n\n使用寿命：S=15年。\n\n鉴于野战通信网是大型复杂系统，其可靠性指标验证采用低层次产品的试验，结合现场试用性试验中采集到的数据进行统计分析，并对整个野战通信网的可靠性水平作出评估。\n\n$$Tm= DA/(1- Ao)= 299h $$\n\n$$TB = K(TBm)^$$",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 2,
+          "dense_rank": 2,
+          "dense_score": 0.5806744271717798,
+          "bm25_rank": 2,
+          "bm25_score": 6.7867937088012695,
+          "fusion_score": 0.03225806451612903
+        },
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 7,
+          "dense_rank": 2,
+          "dense_score": 0.4908312851686061,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.016129032258064516
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 2,
+          "dense_rank": 3,
+          "dense_score": 0.5646789073944092,
+          "bm25_rank": 2,
+          "bm25_score": 6.7867937088012695,
+          "fusion_score": 0.03200204813108039
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-e969de0eeedf",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00038",
+      "content_hash": "314a0d86a3d13fb2d4cf6070c3c5e22940620b280d53ec65e4374308f4e0870f",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.5 算法复杂度分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B10",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B11",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B12",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B13",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B14"
+      ],
+      "quote": "本文算法只需要对选定的N个作战区和M个目标进行计算，而不是对目标区域和作战区区域的所有网格进行搜索。\n\n进行特征抽取后，需要对特征提取中的适应度得分进行排序并循环判断毁伤方案的可行性，排序的复杂度为O（MlgN），在不可行的情况下，需要增加所要求的作战区的数量再次进入循环，循环部分最坏的复杂度为O（N（NKM+f）），f为使用贪婪分配方式来确保每个作战区在满足约束条件下满足作战需求的函数，最坏情况下复杂度为O（KMV），最坏情况下，循环需要执行N次，每次循环的复杂度为\n\nO（NKM+KMN），综合分析得到的计算复杂度为O( N2KM +N2KM) = O(N2KM)\n\n火力分配优化方案中主要包括生成初始解和迭代优化解两个步骤，其中生成初始解采用基于用弹量最少的贪婪分配算法实现，遍历两层循环，最坏情况下的复杂度为O（KMN）。迭代优化解中包括使用方案更新算子生成新的方案和评估新解是否有提升两个操作，其中方案更新算子选择邻域搜索算子，计算主要包括基于最近邻选择新的作战区和更新作战区资源，综合复杂度为O（KMN）。评估解的性能基于火力分配的4个指标，需要分别得到4个指标的评分再进行加权求和，得到综合得分。此过程主要复杂度在于弹道交叉数计算，两层循环嵌套，内外层的复杂度都是O（M），总计算复杂度为O（V²），另外还有一些矩阵之间的加法和乘法操作，计算复杂度为O（KMN）。考虑Nmax（Nm为确保获得最优解的迭代次数）次迭代得到最优解，可认为该项的时间复杂度为O(Nm*x×(K×M×N））。各项计算的复杂度分析统计如表1所示。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B17",
+          "block_type": "table",
+          "page": 11,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p011_b17_table.png",
+          "description": "图片展示了一个标题为“表1 计算复杂度分析”的表格，该表格分为左右两栏，列出了包括距离矩阵、打击时效性、生成初始解等在内的多项计算任务及其对应的算法时间复杂度，如O(MN)、O(KMN)和O(N²)。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 3,
+          "dense_rank": 7,
+          "dense_score": 0.5448068109039551,
+          "bm25_rank": 1,
+          "bm25_score": 8.534388542175293,
+          "fusion_score": 0.03131881575727918
+        },
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 1,
+          "dense_rank": 4,
+          "dense_score": 0.5208529389158769,
+          "bm25_rank": 1,
+          "bm25_score": 12.925681114196777,
+          "fusion_score": 0.032018442622950824
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 2,
+          "dense_rank": 3,
+          "dense_score": 0.564738188072335,
+          "bm25_rank": 1,
+          "bm25_score": 9.822723388671875,
+          "fusion_score": 0.032266458495966696
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 6,
+          "dense_rank": 34,
+          "dense_score": 0.5252892531540769,
+          "bm25_rank": 7,
+          "bm25_score": 3.1545610427856445,
+          "fusion_score": 0.025563671006668783
+        },
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 2,
+          "dense_rank": 10,
+          "dense_score": 0.4590129827864755,
+          "bm25_rank": 2,
+          "bm25_score": 3.202970266342163,
+          "fusion_score": 0.0304147465437788
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 3,
+          "dense_rank": 7,
+          "dense_score": 0.5538849995698037,
+          "bm25_rank": 1,
+          "bm25_score": 8.534388542175293,
+          "fusion_score": 0.03131881575727918
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-dc0a2e11bee4",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00040",
+      "content_hash": "5904c5ed3d4aab2ecf16ccf53563a25e20c4d4c3795ddc4cbf6061bd78b11245",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.5 算法复杂度分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B15",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B16",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B17"
+      ],
+      "quote": "表1计算复杂度分析\n\nTable 1 Computational complexity analysis\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>计算项</td><td>复杂度</td><td>计算项</td><td>复杂度</td></tr><tr><td>距离矩阵</td><td>0(MN)</td><td>毁伤方案效费比</td><td>0( LKNM)</td></tr><tr><td>打击时效性</td><td>0(NMlgM)</td><td>火力可达性</td><td>0( KNM)</td></tr><tr><td>综合发射能力</td><td>0( KN+LM)</td><td>特征抽取</td><td>0( KN2M)</td></tr><tr><td>火力覆盖能力</td><td>0(KMN)</td><td>生成初始解</td><td>0( KMN)</td></tr><tr><td>火力突防能力</td><td>0(KMN)</td><td>更新方案</td><td>0(KMN)</td></tr><tr><td>总数量需求</td><td>0(LKM)</td><td>弹道交叉计算</td><td>0(N2)</td></tr><tr><td>总成本需求</td><td>0(LKM)</td><td>毁伤指标评分</td><td>0(KMN)</td></tr><tr><td>毁伤等级满足</td><td>0(LM)</td><td></td><td></td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B17",
+          "block_type": "table",
+          "page": 11,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p011_b17_table.png",
+          "description": "图片展示了一个标题为“表1 计算复杂度分析”的表格，该表格分为左右两栏，列出了包括距离矩阵、打击时效性、生成初始解等在内的多项计算任务及其对应的算法时间复杂度，如O(MN)、O(KMN)和O(N²)。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 4,
+          "dense_rank": 6,
+          "dense_score": 0.5474801553023003,
+          "bm25_rank": 4,
+          "bm25_score": 5.747950077056885,
+          "fusion_score": 0.030776515151515152
+        },
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 3,
+          "dense_rank": 24,
+          "dense_score": 0.45129688993655326,
+          "bm25_rank": 10,
+          "bm25_score": 3.0331156253814697,
+          "fusion_score": 0.026190476190476188
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 3,
+          "dense_rank": 4,
+          "dense_score": 0.562477936966235,
+          "bm25_rank": 3,
+          "bm25_score": 7.2537336349487305,
+          "fusion_score": 0.03149801587301587
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 4,
+          "dense_rank": 4,
+          "dense_score": 0.5645645001271079,
+          "bm25_rank": 4,
+          "bm25_score": 5.747950077056885,
+          "fusion_score": 0.03125
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-5534fd845e5b",
+      "chunk_id": "7-装甲车辆和军用汽车_C00011",
+      "content_hash": "9d87ce8b29b5a185874fb7ffb0b7cdd70ce665d7e929d25aaf63a8ffead78535",
+      "document_id": "7-装甲车辆和军用汽车",
+      "source_file": "7-装甲车辆和军用汽车.pdf",
+      "page_start": 3,
+      "page_end": 3,
+      "section_path": [
+        "3 定义",
+        "3.6 平均零部件更換时间mean parts replacement time"
+      ],
+      "block_ids": [
+        "7-装甲车辆和军用汽车_P003_B13",
+        "7-装甲车辆和军用汽车_P003_B14"
+      ],
+      "quote": "装甲车辆和军用汽车在规定的条件下，拆装并调试某种零部件的平均时间，不包括管理等待时间。也称平均总成更换时间。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 5,
+          "dense_rank": 14,
+          "dense_score": 0.5298509755686218,
+          "bm25_rank": 12,
+          "bm25_score": 4.103953838348389,
+          "fusion_score": 0.027402402402402402
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-913779ebfe5f",
+      "chunk_id": "5-军用飞机_C00030",
+      "content_hash": "a51663109ac7fcb90ab0570e809aa633956a061d1b2c9330e770328a128681fb",
+      "document_id": "5-军用飞机",
+      "source_file": "5-军用飞机.pdf",
+      "page_start": 6,
+      "page_end": 7,
+      "section_path": [
+        "3 定义",
+        "3.2 符号"
+      ],
+      "block_ids": [
+        "5-军用飞机_P006_B01",
+        "5-军用飞机_P007_B01"
+      ],
+      "quote": "3.2.4TrA再次出动准备时间。\n\n3.2.5TAL无维修待命时间。\n\n3.2.6As储存可用度\n\n3.2.7Ta致命性故障间的任务时间。\n\n3.2.8Pmc任务成功概率。\n\n3.2.9rrs空中停车率。\n\n3.2.10rBFs基本空中停车率。\n\n3.2.11Rm任务可靠度。\n\n3.2.12P₁损失率（损失概率）。\n\n3.2.13Tmr（λ)平均故障间隔时间（故障率）。\n\n3.2.14TMFHBF平均故障间隔飞行小时。\n\n3.2.15Tm平均维修间隔时间。\n\n3.2.16TBR平均拆卸间隔时间。\n\n3.2.17 r IuER提前换发率。\n\n3.2 18 T Trr故障前平均时间。\n\n3.2.191TmMA平均维修活动间隔时间。\n\n3.2.20Tmpm平均预防性维修间隔时间。\n\n3.2.21Tmum平均非计划维修间隔时间。\n\n3.2.22T TBUMA平均非计划维修活动间隔时间。\n\n3.2.23Tm平均需求间隔时间。\n\n3.2.24Mcr(m)平均修复时间(修复率)。\n\n3.2.251MMAXCT最大修复时间。\n\n3.2.26Tm平均维修时间。\n\n3.2.27Lomr每飞行小时直接维修工时。\n\n3.2.281LpM)每工作小时直接维修工时。\n\n3.2.29（CMMF每飞行小时的维修器材费用。\n\n3.2.30TER更换发动机时间。\n\n3.2.311Tc拆装发动机时间。\n\n3.2.32T平均不能工作时间。\n\n3.2.33TmRF恢复功能用的任务时间。\n\n3.2.34Tpm平均预防性维修时间。\n\n3.2.35Cpmp每飞行小时直接维修费用。\n\n3.2.36I故障检测率。\n\n3.2.37rp故障隔离率。\n\n3.2.38rFA虚警率。\n\n3.2.39rcvp不能复现率。\n\n」\n\n3.2.40rk重测合格率。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 6,
+          "dense_rank": 48,
+          "dense_score": 0.5121909532603908,
+          "bm25_rank": 8,
+          "bm25_score": 4.468206882476807,
+          "fusion_score": 0.023965141612200435
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-8a85411e6ac5",
+      "chunk_id": "7-装甲车辆和军用汽车_C00028",
+      "content_hash": "11fa5669919358796a1566c36cce3f93831a528e7ea10596f75f5776a7027374",
+      "document_id": "7-装甲车辆和军用汽车",
+      "source_file": "7-装甲车辆和军用汽车.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "5 详细要求",
+        "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+        "5.2.3 任务剖面的确定"
+      ],
+      "block_ids": [
+        "7-装甲车辆和军用汽车_P006_B01",
+        "7-装甲车辆和军用汽车_P006_B02"
+      ],
+      "quote": "表2军用汽车可靠性维修性参数选择表\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tbody><tr><td colspan=\"2\">序 号 1 2 3 4</td><td rowspan=\"11\">零部件更换率 TPK 最大修复时间 Mmasct 平均修复时间 Mct 百公里修复性维修工时 MI(MH 百公里小修工时 MMR 百公里中修工时 MMER 百公里保养工时 MsMH 总成更换时间 TPR 大修间隔时间 TB0 首次大修前工作时间 TFo 使用寿命Lt</td><td colspan=\"5\">类型适用范围 使 合</td><td colspan=\"3\">反映目标</td><td rowspan=\"2\"></td></tr><tr><td>参数名称</td><td colspan=\"2\">用 同 参 参 数数</td><td></td><td colspan=\"2\">整车</td><td>发动机</td><td>战备完好性 作业参数</td><td></td><td>任务成功性</td><td>维修人力费用</td></tr><tr><td colspan=\"2\">5 店 7 8 9 10 11 12 13 14 15 16 17 18 储存寿命 19 Ls</td><td>可达可用度 An 固有可用度 A, 致命性故障间的任务时间 TBCF 平均首次致命性故障前工作时间 TTFF 平均故障间隔时间 TBF 故障率λ 平均维修间隔时间</td><td></td><td>Δ Δ Δ Δ Δ △ △ Δ</td><td>Δ △ ★★</td><td></td><td>A △ Δ △ △ △ △△ ★★★ </td><td></td><td>√</td><td></td><td></td><td></td><td>保障费用 △ △△ △ Δ △ Δ△ △ △ △ △ △△△ Δ</td></tr></tbody></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "7-装甲车辆和军用汽车_P006_B02",
+          "block_type": "table",
+          "page": 6,
+          "relation": "contained",
+          "image_crop": "processed/parsed/7-装甲车辆和军用汽车/assets/crops/p006_b02_table.png",
+          "description": "表2为军用汽车可靠性维修性参数选择表，包含序号、参数名称及符号（如An、λ）、适用范围（使用/合同参数、整车/发动机/作业参数）和反映目标（战备完好性、任务成功性等）列。部分单元格标有“★”表示优先选用，“△”表示适用，底部图例说明符号含义。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 7,
+          "dense_rank": 36,
+          "dense_score": 0.5151583994877836,
+          "bm25_rank": 24,
+          "bm25_score": 3.708064556121826,
+          "fusion_score": 0.02232142857142857
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-687fda1f17fc",
+      "chunk_id": "7-装甲车辆和军用汽车_C00016",
+      "content_hash": "27ca0f04350223bfc4efb5af42bdb469c87e64c5dc5974f7902541378e2c5bde",
+      "document_id": "7-装甲车辆和军用汽车",
+      "source_file": "7-装甲车辆和军用汽车.pdf",
+      "page_start": 3,
+      "page_end": 3,
+      "section_path": [
+        "3 定义",
+        "3.11 平均首次致命性故障前工作时间mean time to first critical failure"
+      ],
+      "block_ids": [
+        "7-装甲车辆和军用汽车_P003_B23",
+        "7-装甲车辆和军用汽车_P003_B24"
+      ],
+      "quote": "军用汽车在规定的条件下，从交付使用到发生首次致命性故障时的平均工作时间。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均时间复杂度",
+          "final_rank": 8,
+          "dense_rank": 35,
+          "dense_score": 0.5153813822908447,
+          "bm25_rank": 26,
+          "bm25_score": 3.6702380180358887,
+          "fusion_score": 0.022154222766217868
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-6f028d102f8b",
+      "chunk_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_C00092",
+      "content_hash": "e76188fb492c71192d22d98e2f77499763a5d46185a3bc07d1860dde46e275ea",
+      "document_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究",
+      "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+      "page_start": 50,
+      "page_end": 51,
+      "section_path": [
+        "3",
+        "3.1 航空星型四冲程活塞发动机简化模型与毁伤树状图"
+      ],
+      "block_ids": [
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_B08",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_B02",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_B05",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_B06",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_B07",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P050_O34",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B01",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B04",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B09",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B12"
+      ],
+      "quote": "Vcenter为平板中心穿透速率；tpene为平板中心穿透时间；r'表示光斑中心区域半径；Vaverage为光束平均穿透速率。当光斑直径较大时，光束平均穿透速率将更接近于平板中心穿透速率。不同部件材料的仿真计算结果显示，激光穿透速率对不同激光功率密度线性拟合结果较好，如图3-5所示，线性拟合系数如下表3-3所示。\n\n$$ρc ∂T /∂t = ∂/∂xi(λ ∂T /∂xi)δi + Qlaser $$\n\n$$Vcenter = d/tpene $$\n\n$$r′ = r − 1$$\n\n$$νaverage = νcenter(√2π(2r/√2π + 0.683)/(2r + 2))$$\n\n表3-3所示。\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_180_153_573_436.jpg\" alt=\"Image\" width=\"32%\" /></div>\n\nFigure 3-3 Transient laser perforation morphology of aluminum alloy: (a) penetration time in the center of the spot; (b) penetration time in the edge of the spot\n\nFigure 3-4 Analysis of average beam penetration rate\n\nFigure 3-5 Linear fitting of average laser penetration rate of component materials",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B01",
+          "block_type": "figure",
+          "page": 51,
+          "relation": "contained",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p051_b01_figure.png",
+          "description": "图(a)展示了铝合金瞬态激光穿孔的有限元温度场模拟结果，中心区域形成直径为1 cm的熔池。左侧色标显示最高温度为856.2°C，左上角标注当前时间为0.42105秒。",
+          "status": "ok"
+        },
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P051_B10",
+          "block_type": "figure",
+          "page": 51,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p051_b10_figure.png",
+          "description": "该图展示了不同部件材料的激光平均穿透速率随功率密度的变化关系，横坐标为功率密度（kW·cm⁻²），纵坐标为穿透速率（mm·s⁻¹）。图中包含七种材料（如灰铸铁、铜合金等）的线性拟合曲线，其中铝合金斜率最大，石墨最小。",
+          "status": "ok"
+        },
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P052_B03",
+          "block_type": "table",
+          "page": 52,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p052_b03_table.png",
+          "description": "表3-3展示了不同材料激光穿透速率线性拟合系数，包含“材料”、“一次项系数”和\"0次项系数”三列数据。表格列出了石墨树脂、铝合金材料等九种材料的对应数值，其中铝合金的一次项系数为4.86，铜合金为4.0795。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 1,
+          "dense_rank": 10,
+          "dense_score": 0.46458500201523334,
+          "bm25_rank": 2,
+          "bm25_score": 5.1734771728515625,
+          "fusion_score": 0.0304147465437788
+        },
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 1,
+          "dense_rank": 7,
+          "dense_score": 0.4632383999143602,
+          "bm25_rank": 3,
+          "bm25_score": 3.1727118492126465,
+          "fusion_score": 0.030798389007344232
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 8,
+          "dense_rank": 6,
+          "dense_score": 0.5566300485509673,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.015151515151515152
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a694383a10ae",
+      "chunk_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_C00067",
+      "content_hash": "3210df9a48a596649b24afe80d9040be9cf219e242610f1c1e4ac86abc9aa2d7",
+      "document_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法",
+      "source_file": "孔祥锡1 等 - 基于深度学习及模糊层次分析的毁伤评估算法.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "3 结论"
+      ],
+      "block_ids": [
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P018_B10"
+      ],
+      "quote": "Then, in the damage assessment subsystem based on the triangular fuzzy analytic hierarchy process, multiple damage assessment weight systems and damage tree criteria are designed to comprehensively consider the damage features and categories extracted from the previous stage , achieving online real-time damage assessment for targets.Experimental results show that on various simulated datasets with multiple interference factors, the Yolov5-based dualstage target detection subsystem with the attention mechanism achieves an average improvement in detection accu racy of over 3.6% when compared to classical target fine-grained recognition algorithms.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 2,
+          "dense_rank": 31,
+          "dense_score": 0.44732317014474776,
+          "bm25_rank": 4,
+          "bm25_score": 3.9877777099609375,
+          "fusion_score": 0.02661401098901099
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a095a8209057",
+      "chunk_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_C00019",
+      "content_hash": "e85a2add2062b3989c878da5445fb80a19a3dcf528e840324af1aae99c4041e3",
+      "document_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery",
+      "source_file": "Ballinger - 2024 - Open access battle damage detection via pixel-wise T-test on sentinel-1 imagery.pdf",
+      "page_start": 2,
+      "page_end": 2,
+      "section_path": [
+        "2 METHODS"
+      ],
+      "block_ids": [
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P002_B11",
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P002_B12"
+      ],
+      "quote": "The computation of the test statistic is simple enough to be calculated by hand, and can consequently be applied over very large areas at regular time intervals.The use of time-series statistical change detection obviates the need for training and (cid:)fine-tuning, and mitigates many of the problems associated with overfi tting and domain shift that plague neural networks.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 4,
+          "dense_rank": 36,
+          "dense_score": 0.44494400426244796,
+          "bm25_rank": 16,
+          "bm25_score": 2.5439531803131104,
+          "fusion_score": 0.02357456140350877
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-8919014e62b9",
+      "chunk_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_C00030",
+      "content_hash": "54394c71ac0aabdf56a177daccf5d9c6eabf9379108297354cacd9954d93314b",
+      "document_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery",
+      "source_file": "Ballinger - 2024 - Open access battle damage detection via pixel-wise T-test on sentinel-1 imagery.pdf",
+      "page_start": 4,
+      "page_end": 4,
+      "section_path": [
+        "2 METHODS",
+        "2.2 The Pixel-Wise T-Test"
+      ],
+      "block_ids": [
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P004_B11"
+      ],
+      "quote": "The pre-war reference period spans a full year (∼30 images) in order to capture the effect of seasonal changes in the dielectric properties of the target (e.g., the presence of snow). The inference period uses two months' worth of imagery (∼5 images)shorter time periods result in too small a sample for inference,and the use of longer time periods increases the risk of damage accruing during the inference period. For optimal performance,there should be minimal change during both sample periods.This is the case for Ukraine and Gaza which both featured an abrupt onset of hostilities. However, the algorithm still performs well when there is substantial damage occurring during the reference period, as is the case for the cities in Syria and Iraq.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 5,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 1,
+          "bm25_score": 5.3382978439331055,
+          "fusion_score": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-b56abe7efcc6",
+      "chunk_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_C00086",
+      "content_hash": "f13c13019d72ef8890e0865e87b6595c84c75f6a5b85c9f6aeff2792ec91c1a1",
+      "document_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery",
+      "source_file": "Ballinger - 2024 - Open access battle damage detection via pixel-wise T-test on sentinel-1 imagery.pdf",
+      "page_start": 12,
+      "page_end": 12,
+      "section_path": [
+        "4 DISCUSSION"
+      ],
+      "block_ids": [
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P012_B22",
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P012_B23"
+      ],
+      "quote": "Ali Darvishi Boloorani, Mehdi Darvishi, Qihao Weng, and Xiangtong Liu. Post-War Urban Damage Mapping Using InSAR: The Case of Mosul City in Iraq. ISPRS International Journal of Geo-Information, 10(3):140, March 2021.ISSN 2220-9964. doi:10.3390/ijgi10030140. URL https://www.mdpi.com/2220-9964/10/3/140.Number: 3 Publisher: Multidisciplinary Digital Publishing Institute.\n\nAndreas Braun. Assessment of Building Damage in Raqqa during the Syrian Civil War Using Time-Series of Radar Satellite Imagery. Journal for Geographic Information Science, 1:228–242, July 2018. doi:10.1553/giscience2018_01_s228.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "quicksort average case time complexity application",
+          "final_rank": 8,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 3,
+          "bm25_score": 4.142247676849365,
+          "fusion_score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-fbc3ba9dd594",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00069",
+      "content_hash": "2043a95c68d573b165efdae9d08f1324686f8b19accb1d25492c271a5316425a",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "4 算法性能测试",
+        "4.3 作战区/目标规模性能分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B18",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B19"
+      ],
+      "quote": "表8算法性能对比结果\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tbody><tr><td colspan=\"4\">Table 8 Algorithm performance comparison</td></tr><tr><td>规模</td><td>40≤m,n≤80</td><td>80≤m,n≤120</td><td>s 120≤m,n≤200</td></tr><tr><td>GA</td><td>33.709</td><td>157.471</td><td>605.796</td></tr><tr><td>PSO</td><td>35.911</td><td>174.533</td><td>649.032</td></tr><tr><td>WOA</td><td>35.126</td><td>165.325</td><td>649.032</td></tr><tr><td>BSO</td><td>35.126</td><td>181.774</td><td>620.101</td></tr><tr><td>DGMBSO</td><td>37.947</td><td>180.916</td><td>668.363</td></tr><tr><td>RCI-DGMBSO</td><td>37.657</td><td>177.968</td><td>668.811</td></tr><tr><td>本文算法</td><td>32.262</td><td>109.409</td><td>459.658</td></tr></tbody></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B19",
+          "block_type": "table",
+          "page": 17,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b19_table.png",
+          "description": "表8展示了不同算法在三种规模（40≤m,n≤80、80≤m,n≤120、120≤m,n≤200）下的性能对比结果，包含GA、PSO、WOA、BSO及本文提出的DGMBSO和RCI-DGMBSO算法。表格中“本文算法”对应的三组数据以红色字体突出显示，数值分别为32.262、109.409和459.",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 2,
+          "dense_rank": 14,
+          "dense_score": 0.4976719616456018,
+          "bm25_rank": 11,
+          "bm25_score": 6.250204563140869,
+          "fusion_score": 0.027598020555767037
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-4ab59a7fd34c",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00032",
+      "content_hash": "699a1f8b8068895e70fe46f23e6d9e389e0d06dce878251fc299d4c6513a42e9",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 9,
+      "page_end": 9,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.4 火力分配高效优化算法"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B13"
+      ],
+      "quote": "算法1：火力分配高效优化算法\n\n输入：作战区资源矩阵B、拦截概率矩阵O、毁伤方案矩阵\n1：S、距离矩阵D,loc_fs，loc_mb，Ni，trapped_count_th \n2：输出:优化结果 opt_result：(obj_trace,A)\n\n初始化：使用基于用弹量最少的贪婪算法生成初始解Ai；\n3：使用性能评估函数生成初始性能指标perfs，obj；\n计数器 trapped_count = 0\n4：for iteration = 1 to N;, do \n\n5:运行 change_assignment 函数，获得新的火力预案Anew \n6:运行 evaluate_obj_mt_mc 函数，对新预案进行性能评估\n7：if objnew ≤obj \n\n8:更新当前的毁伤预案A=Anw \n9:更新当前毁伤预案的性能obj=objnew \n10:end if \n\n11:trapped_count + = 1\n\n12:计算优化终止条件：\ncondition1 = (trapped_count > trapped_count_th/2) and( cft_\n13:\nnum = = 0)\n\n14:condition2 = ( trapped_count >= trapped_count_th)\n15:if (conditionl or condition2) :\n16:优化完成，输出优化结果opt_result：（obj_trace,A）\n17:break:\n18：end if \n\n19:end for \n\n20：最小性能值对应的优化次数为trapped_count \n21：最优火力分配方案为A",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 4,
+          "dense_rank": 2,
+          "dense_score": 0.5261730708531462,
+          "bm25_rank": 34,
+          "bm25_score": 4.742167949676514,
+          "fusion_score": 0.026767330130404943
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-dd6b8ad7e310",
+      "chunk_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_C00187",
+      "content_hash": "5228f739c5258462b377e56fffbed3ae584a3367bc4e31bfaf40a81888f32a2f",
+      "document_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究",
+      "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+      "page_start": 98,
+      "page_end": 98,
+      "section_path": [
+        "5",
+        "5.3 拦截概率模型中参数灵敏度分析"
+      ],
+      "block_ids": [
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P098_B07",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P098_B08",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P098_B09"
+      ],
+      "quote": "表5-8激光拦截无人机的参数灵敏度排序表\n\nTable 5-8 Parameter sensitivity ranking table of laser interception drones\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>拦截情况</td><td colspan=\"5\">灵敏度排序（从高到低）</td></tr><tr><td rowspan=\"4\">全部拦截 低于两架未被拦截</td><td>SP(0.5 kW)|5−13.8</td><td>V −SP(0.5 kW)|15-40</td><td>V</td><td>−Sv(1m/s)|20-50</td><td>V</td></tr><tr><td>SD(1 mm)|210-265</td><td>> Sang(1°)|15°-45°</td><td>−Sang(1°)|-15°-15° V</td><td></td><td>></td></tr><tr><td>−Sang(1°)−45°−-15°</td><td></td><td>>SD(1 mm)|280-400</td><td></td><td></td></tr><tr><td>SP(0.5 kW)|5−13.8 −Sν(1 m/s)|20−50 −Sang(1°)|</td><td>V > -45°--15</td><td>−SP(0.5 kW)|15-40 v Sang(1°)15°-45° V > SD(1 mm)|280−400'</td><td>SD(1mm)|210-265 −Sang(1°)|-15°−15°</td><td>7 ></td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P098_B09",
+          "block_type": "table",
+          "page": 98,
+          "relation": "contained",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p098_b09_table.png",
+          "description": "表5-8展示了激光拦截无人机在“全部拦截”与“低于两架未被拦截”两种情况下的参数灵敏度排序。表格列出了功率、速度、直径及角度等参数的敏感度数值范围，并通过大于号连接各参数，直观呈现了不同拦截条件下各因素对概率影响的优先级差异。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 5,
+          "dense_rank": 21,
+          "dense_score": 0.4946800470352173,
+          "bm25_rank": 10,
+          "bm25_score": 6.518129825592041,
+          "fusion_score": 0.026631393298059962
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-d92d40cab822",
+      "chunk_id": "整体侵爆类战斗部毁伤效应检验与评估方法_C00024",
+      "content_hash": "668c246a89c4ba90a257fdf58242c1b05df16aeaa2bfdcb6afed68dc719b977e",
+      "document_id": "整体侵爆类战斗部毁伤效应检验与评估方法",
+      "source_file": "整体侵爆类战斗部毁伤效应检验与评估方法.pdf",
+      "page_start": 6,
+      "page_end": 6,
+      "section_path": [
+        "6 战斗部自然破片",
+        "6.5 评估方法",
+        "6.5.2 自然破片的初速分布和衰减系数"
+      ],
+      "block_ids": [
+        "整体侵爆类战斗部毁伤效应检验与评估方法_P006_B21",
+        "整体侵爆类战斗部毁伤效应检验与评估方法_P006_B22"
+      ],
+      "quote": "$$lnv0∑x}∑1nv;−∑xi∑(x:1nv;)n∑x2−(∑xi )2$$\n\n$$Q _∑xi ∑1nv;−n∑(x,1nv;)n∑x2−(∑xi )2$$",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 6,
+          "dense_rank": 13,
+          "dense_score": 0.49902106818619596,
+          "bm25_rank": 31,
+          "bm25_score": 4.8791961669921875,
+          "fusion_score": 0.024687641125997292
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-1ca97341e57b",
+      "chunk_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_C00069",
+      "content_hash": "19880f5fee8528ecc901e6d3e6da41ae42302ed37e611ea47d1134f2b7de54fb",
+      "document_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery",
+      "source_file": "Ballinger - 2024 - Open access battle damage detection via pixel-wise T-test on sentinel-1 imagery.pdf",
+      "page_start": 9,
+      "page_end": 9,
+      "section_path": [
+        "3 RESULTS",
+        "3.3 Damage Intensity"
+      ],
+      "block_ids": [
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P009_B02",
+        "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P009_B03"
+      ],
+      "quote": "Table 3: Regression Results Between log Number of Damaged Buildings and Mean T-value, 500m Grid-Level\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td></td><td>Palestine</td><td>Ukraine</td><td>Syria</td><td>Iraq</td><td>All</td></tr><tr><td>Intercept Mean T-Value</td><td>-0.907*** (0.092) 0.724***</td><td>-0.668*** (0.038) 0.345***</td><td>-0.582*** (0.096) 0.660***</td><td>-0.767*** (0.084) 0.529***</td><td>0.073* (0.039) 0.524*** (0.011)</td></tr><tr><td>Building Count</td><td>(0.029) 0.008*** (0.000)</td><td>(0.013) 0.006*** (0.000)</td><td>(0.041) 0.014*** (0.001)</td><td>(0.025) 0.005*** (0.000)</td><td>0.008*** (0.000)</td></tr><tr><td>R-squared N</td><td>0.531 1780</td><td>0.529 4977</td><td>0.634 1188</td><td>0.463 1141</td><td>0.633 9086</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery_P009_B03",
+          "block_type": "table",
+          "page": 9,
+          "relation": "contained",
+          "image_crop": "processed/parsed/Ballinger_-_2024_-_Open_access_battle_damage_detection_via_pixel-wise_T-test_on_sentinel-1_imagery/assets/crops/p009_b03_table.png",
+          "description": "该表格展示了巴勒斯坦、乌克兰、叙利亚、伊拉克及全样本的回归结果，列出了截距项、平均T值和建筑数量的系数及其显著性（***表示p<0.01），并提供了R-squared和样本量N数据。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 7,
+          "dense_rank": 42,
+          "dense_score": 0.4869214609955035,
+          "bm25_rank": 16,
+          "bm25_score": 5.7282304763793945,
+          "fusion_score": 0.022961816305469555
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-91defd6af9fb",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00031",
+      "content_hash": "c260f4cea2e72bc2da9f9ab95670ada40e5aa214366bac887d43d7771608c701",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 9,
+      "page_end": 9,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.4 火力分配高效优化算法"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B07",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B08",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B09",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B10",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B11",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B12"
+      ],
+      "quote": "在选择作战区和单目标毁伤方案后，进一步需要明确各作战区所分配的子目标，以及各作战区向其所分配的子目标所发射的导弹类型和相应的数量。本文使用一个三维张量A= [ak,i,i]kxNxM来表示火力分配方案，当aki>0时，表示作战区i向目标j 发射了类型为k的导弹：当没有发射任何导弹时，ak,i,j= 0,并且 ak,i,j 应为一个整数。\n\n具体的火力分配高效优化算法（算法1）流程如图4所示，其中使用贪婪算法生成初始解的算法（算法2)流程如图5所示。\n\n在算法1中，采用基于最少弹量的贪婪算法生成初始解A.，以初始化优化过程并为后续优化提供基准。良好的初始解能够有效加速优化算法的收敛，帮助其更快速地找到较优解。所生成的初始解满足问题的约束条件，确保优化过程从一个可行解出发，从而避免在不可行解上浪费计算资源。\n\n算法1中所使用的性能评估函数涵盖了多个性能指标，包括总发射导弹数、弹道交叉数、平均发射时间、命中概率和未覆盖目标数。这些指标综合反映了火力分配方案的效果和效率。通过计算这些性能指标，能够量化火力分配方案的优劣，并为不同方案的比较和评估提供依据，指导优化过程向提升整体性能的方向推进。\n\n对算法1和算法2 中:X= [k,i,j]kxMxN ,k,ij 为1表示可打击，xkii为0表示不可打击，loc_fs为作战区在二维平面上的（x，y）坐标，loc_mb为子目标在二维平面上的（x，γ）坐标，N为优化算法的最大迭代次数; trapped_count_th 表示目标函数值在连续多少次迭代中没有得到改善，就认为算法已经陷入了局部最优解，此时应该终止优化过程。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 排序算法 平均情况 O(n log n)",
+          "final_rank": 8,
+          "dense_rank": 20,
+          "dense_score": 0.4952101707458496,
+          "bm25_rank": 47,
+          "bm25_score": 4.470512866973877,
+          "fusion_score": 0.021845794392523363
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 7,
+          "dense_rank": 32,
+          "dense_score": 0.5270070433616638,
+          "bm25_rank": 21,
+          "bm25_score": 2.415147066116333,
+          "fusion_score": 0.023215244229736982
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f353d85a2231",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00067",
+      "content_hash": "e357f3d8dd593640cdfbcd7f53c5edf50f6c6999e31f87502f3cdd457e3d8126",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "4 算法性能测试",
+        "4.3 作战区/目标规模性能分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B03",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B04",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B05"
+      ],
+      "quote": "表7实验4变量参数\n\nTable 7 Variable parameters of Experiment 4\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><thead><tr><td>规模分类</td><td>N</td><td>M</td></tr></thead><tbody><tr><td rowspan=\"4\">小规模</td><td>10</td><td>5</td></tr><tr><td>20</td><td>10</td></tr><tr><td>5</td><td>10</td></tr><tr><td>10</td><td>20</td></tr><tr><td rowspan=\"4\">中规模</td><td>30</td><td>15</td></tr><tr><td>40</td><td>20</td></tr><tr><td>15</td><td>30</td></tr><tr><td>20</td><td>40</td></tr><tr><td rowspan=\"4\">大规模</td><td>50</td><td>25</td></tr><tr><td>60</td><td>30</td></tr><tr><td>25</td><td>50</td></tr><tr><td>30</td><td>60</td></tr></tbody></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B05",
+          "block_type": "table",
+          "page": 17,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b05_table.png",
+          "description": "表7展示了实验4的变量参数设置，表格包含“规模分类”、“N”和“M”三列。数据按小规模、中规模和大规模三类分组，每组列出四组对应的数值组合，其中N与M的取值范围从10至60不等。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 1,
+          "dense_rank": 1,
+          "dense_score": 0.5221325159072876,
+          "bm25_rank": 2,
+          "bm25_score": 8.811105728149414,
+          "fusion_score": 0.03252247488101534
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-b558e997acf5",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00065",
+      "content_hash": "b5b18c815370553df7d362c439965b6eab83c839d4ea459501f5e1457ea1fb53",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "4 算法性能测试",
+        "4.3 作战区/目标规模性能分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B09"
+      ],
+      "quote": "从表8中可以看出，在3种大规模范围下，尽管本文算法的规模值设置为范围内最大值，且本文所建立的模型和约束条件更为复杂，但本文算法依然能够在更短的时间内获得优化结果。特别地，随着问题规模的增大，本文算法在性能上的提升尤为显著。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B19",
+          "block_type": "table",
+          "page": 17,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b19_table.png",
+          "description": "表8展示了不同算法在三种规模（40≤m,n≤80、80≤m,n≤120、120≤m,n≤200）下的性能对比结果，包含GA、PSO、WOA、BSO及本文提出的DGMBSO和RCI-DGMBSO算法。表格中“本文算法”对应的三组数据以红色字体突出显示，数值分别为32.262、109.409和459.",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 2,
+          "dense_rank": 4,
+          "dense_score": 0.5132108346475203,
+          "bm25_rank": 4,
+          "bm25_score": 8.18525505065918,
+          "fusion_score": 0.03125
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 5,
+          "dense_rank": 30,
+          "dense_score": 0.5172496612742059,
+          "bm25_rank": 17,
+          "bm25_score": 3.879408359527588,
+          "fusion_score": 0.024098124098124098
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-4c306503437d",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00028",
+      "content_hash": "685de02bd8438c75e1a9694ddebebc7d547d0a03fe7da156c2eb8ad2b55a5bbc",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 8,
+      "page_end": 9,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.3 基于特征适应度评估的作战区和毁伤方案排序与选择"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B23",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B24",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B25",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B26",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P008_B27",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B03"
+      ],
+      "quote": "在获取作战区和毁伤方案的高层次特征的基础上，可直接实现作战区和毁伤方案的优选，以进一步优化火力分配方案，完成目标与作战区之间的分配任务。由于综合考虑了各项指标，所选择的作战区的毁伤方案可以获取比较高的整体效益。优选包含以下两个方面：\n\n1）作战区的综合评估与选择。基于所得到的4个作战区适应度特征，可进一步得到作战区综合适应度：\n\n(25）式中：w1 、…、w5 为融合权重, ωi ，… , w5 ≥0 且W 5=5°1\n\n根据上述作战区综合适应度得分，可以进一步对作战区进行排序，在确定使用作战区的数量后，选择出符合要求的作战区作为本轮火力打击任务所使用的作战区。具体而言，作战区的数量不能太少，可以按照适应度从大到小排序，逐步增加所选择的作战区数量，直至作战区的总体发射能力能够有效满\n\n足目标对导弹资源的需求。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 3,
+          "dense_rank": 10,
+          "dense_score": 0.4990438819501479,
+          "bm25_rank": 17,
+          "bm25_score": 5.654793739318848,
+          "fusion_score": 0.027272727272727275
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-21cba97cb960",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00033",
+      "content_hash": "eb0416b19f2d13da792277a179a8b1f6e0e0af39dc53b413fe4ffa609a721c4d",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 9,
+      "page_end": 9,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.3 基于特征适应度评估的作战区和毁伤方案排序与选择"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P009_B05"
+      ],
+      "quote": "$$+W \n$$",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 4,
+          "dense_rank": 14,
+          "dense_score": 0.4972401261329651,
+          "bm25_rank": 15,
+          "bm25_score": 5.820711135864258,
+          "fusion_score": 0.02684684684684685
+        },
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 1,
+          "dense_rank": 8,
+          "dense_score": 0.5616403818130493,
+          "bm25_rank": 3,
+          "bm25_score": 7.446504592895508,
+          "fusion_score": 0.03057889822595705
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-83a4055ec539",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00061",
+      "content_hash": "770b37ad55ce8a25f1d14b0fc5231eab72d158991941f02a266fdbb6bd82d92d",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 16,
+      "page_end": 16,
+      "section_path": [
+        "4 算法性能测试",
+        "4.3 作战区/目标规模性能分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P016_B15",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P016_B16",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P016_B28",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P016_B29"
+      ],
+      "quote": "为对算法在战场复杂程度上的效果进行验证，针对作战区与目标的数量规模进行第4组实验设计，当二者数量发生变化时，模型会在初始态势地图上随机生成作战区与目标群的位置。分别考虑作战区数量大于子目标数量和作战区数量小于子目标数量两种情况.并分别进行小、中、大3种数量规模进\n\n行实验。实验中，毁伤预案数量与弹型数量与目标群中子目标数量保持一致。实验规模设置如表7所示。\n\n图13为针对作战区和目标规模进行实验的初始弹道交叉情况和优化耗时的实验结果，从中可以看到，不同的作战区与子目标数量比例在该算法下的表现差别较大。虽然随着作战规模的增大，初始",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B05",
+          "block_type": "table",
+          "page": 17,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b05_table.png",
+          "description": "表7展示了实验4的变量参数设置，表格包含“规模分类”、“N”和“M”三列。数据按小规模、中规模和大规模三类分组，每组列出四组对应的数值组合，其中N与M的取值范围从10至60不等。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B13",
+          "block_type": "figure",
+          "page": 17,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b13_figure.png",
+          "description": "图(b)展示了优化耗时随作战区数量变化的趋势，横轴为作战区数量（0至70），纵轴为优化耗时（-1.0至6.0秒）。图中包含两条折线：绿色方块代表N/M=2.0，橙色圆点代表N/M=0.5。数据显示，随着作战区数量增加，两种比例下的耗时均呈上升趋势，且N/M=0.5的耗时显著高于N/M=2.0。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 5,
+          "dense_rank": 5,
+          "dense_score": 0.5093573483633207,
+          "bm25_rank": 42,
+          "bm25_score": 3.4172520637512207,
+          "fusion_score": 0.025188536953242836
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9aec13123926",
+      "chunk_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_C00016",
+      "content_hash": "8c662e1c65c226384c1394d4532b8bde288a3cc7fefcb3e23717099e6848dd3f",
+      "document_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究",
+      "source_file": "钟宏正 - 2023 - 基于深度学习的海陆目标分类研究.pdf",
+      "page_start": 12,
+      "page_end": 13,
+      "section_path": [
+        "1",
+        "1.2 国内外研究现状",
+        "1.2.2 基于深度学习的海面船舶目标分类研究"
+      ],
+      "block_ids": [
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P012_B03",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P012_B04",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P013_B01"
+      ],
+      "quote": "现有的决策级融合方法主要包括：多数投票[53]、加权多数投票[53]、基于决策模板[54]和基于排序的决策融合[55]等。马等人在遥感影像的小目标检测任务中，使用不同的权重组合对子网络的检测结果进行决策级融合，得出最优权重组合[56]。毕等人在近岸船舶的检测中，在候选区域识别阶段设计了三个子模型对船舶候选区域进行提取，并使用决策模板对三个子模型的提取结果做决策融合[57]。黄等人在船舶分类中，设计了三种特征提取算法，将提取的特征经过SVM进行分类，并对分类器的分类结果使用决策级融合算法进行融合，每个分类器所占权重相等[58]。R.Huan等人在微小目标分类时，采用基于排序的决策级融合算法对不同分类器的分类结果进行融合判定[59]。唐等人将光学影像与红外影像中的识别结果进行叠加，然后去除重叠率高的目标框，同时保留高置信度的目标检测框作为最终的检测结果[60]。然而，这些研究中不同分类器在融合过程中分类器识别结果所占权重需要人为设置或依赖测试集的先验结果，影响了模型的鲁棒性。\n\n根据上述研究，船舶分类中还存在一些问题。首先，由于船只是一种运动的物体，获取时空配准的异源影像是一个巨大的挑战。其次，现有的大多数研究主要关注模型的特征提取性能，很少有研究关注预测框定位的准确性对船舶分类精度的影响。最后，决策级融合算法中不同分类器的权重大部分是通过手动设置或\n\n依赖于先验知识确定，会导致模型的鲁棒性较差。因此，有必要提出一种自适应的方法来提高决策级融合分类的准确性。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 6,
+          "dense_rank": 20,
+          "dense_score": 0.49491286277770996,
+          "bm25_rank": 35,
+          "bm25_score": 3.781222105026245,
+          "fusion_score": 0.023026315789473686
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 7,
+          "dense_rank": 22,
+          "dense_score": 0.52078045966567,
+          "bm25_rank": 34,
+          "bm25_score": 2.9891912937164307,
+          "fusion_score": 0.022833419823559936
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 1,
+          "dense_rank": 11,
+          "dense_score": 0.5480660796165466,
+          "bm25_rank": 9,
+          "bm25_score": 2.9891912937164307,
+          "fusion_score": 0.028577260665441927
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-2d08c5fb6213",
+      "chunk_id": "徐豫新_等_-_2025_-_基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势_C00027",
+      "content_hash": "e65e70c1d6325b0141be0758dd70e6503b6ac7948454919982b73ca0996aaa01",
+      "document_id": "徐豫新_等_-_2025_-_基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势",
+      "source_file": "徐豫新 等 - 2025 - 基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势.pdf",
+      "page_start": 7,
+      "page_end": 8,
+      "section_path": [
+        "2 关键技术归纳与梳理",
+        "2.3 毁伤评估模型构建技术"
+      ],
+      "block_ids": [
+        "徐豫新_等_-_2025_-_基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势_P007_B14",
+        "徐豫新_等_-_2025_-_基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势_P008_B04",
+        "徐豫新_等_-_2025_-_基于无人机的战场目标信息采集和毁伤效果评估现状及发展趋势_P008_B05"
+      ],
+      "quote": "(c)毁伤等级分类[21]\n\n在数据来源和结果可靠性方面，HONG等[16]使用的数据主要来源于国内地震灾害后拍摄的公开图像，但是每个图像对应的受损等级的标注没有参考文献作为依据，依赖于人工主观判断.CHENG等[21]通过网络搜索飓风灾后的视频数据，数据标注等级给出了参考依据，但是标注数据没有公开.MUNAWAR 等[18]和MIAO等[19]都是通过自己收集数据或创建数据集来完成裂缝检测的研究，但是也没有公开数据集.这种情况限制了模型的泛化能力和可靠性.未来的研究人员应该致力于建立大规模公开的评估数据集，以众包的方式发动领域内的研究人员对不同类型目标的毁伤程度划分等级进行准确标注，\n\n总而言之，基于数据特征的毁伤评估方法的优点是比较直观，通过深度学习方法可以对微小的破坏细节进行自动化识别，从而能够提高评估的精准性和时效性.但是，基于数据规律的方法也存在挑战和空白.基于数据的方法对于图像质量和拍摄环境的依赖较大，比如图像中的遮挡、无人机移动过快导致出现噪声、拍摄环境中出现烟雾等都可能导致评估出现误差，目前尚未有针对这些情况的大规模数据集.此外，基于深度学习的分类、识别和分割方法都高度依赖于大规模数据集，但是构建破坏数据集在实际操作中存在一定困难.在军用领域，无人机大多数情况下只能从高空拍摄，无法进行近距离拍摄观察.在民用领域，灾后无人机虽然能近距离拍摄损毁建筑或设备，但如何对大量损毁部位的图像进行快速标注也是一个挑战.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 7,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 1,
+          "bm25_score": 9.437467575073242,
+          "fusion_score": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-62d98bc3736e",
+      "chunk_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_C00072",
+      "content_hash": "3e2e67ad02cd5c3a955f4d84f70bda8ff0d818f9b3d27625af7d7f8d9de85131",
+      "document_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发",
+      "source_file": "王捷飞 - 2021 - 基于视觉的激光反无人机系统设计与开发.pdf",
+      "page_start": 38,
+      "page_end": 38,
+      "section_path": [
+        "3 基于YOLOv3-tiny的无人机检测算法研究与设计",
+        "3.4 基于视觉显著性检测的图像分割算法",
+        "3.4.1 视觉显著性检测算法原理"
+      ],
+      "block_ids": [
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B05",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B07",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B08",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B10",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B11",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B12",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B13",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B14",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B15",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B16",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B17",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B18",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B19",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B03",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B04"
+      ],
+      "quote": "在使用RasterScan最小化x像素点处的路径代价函数F(π)时，只使用了每个像素点x邻域的一半，即上邻域像素点和左邻域像素点。路径最小化操作表示如下：\n\n其中，P(y)是当前分配给y像素点的路径；表示从y到x的边缘；P(y)表示x像素点的路径，方向为从y到x。\n\n令 ,(x) = P(y)•，则有：\n\n其中，U(y)和L(y)分别是在路径P(y)上的最大像素值和最小像素值。\n\n显著特征图快速计算的具体方法如下：\n\n输入：原始图像J=(IV，其中I为像素值，V为像素的位置，背景种子集合S，扫描次数K。\n\n输出：基于MBD的特征图D(X)。\n\n中间变量：最大像素集合U和最小像素集合L。\n\n算法流程：\n\nStep1：将特征图上背景种子所在区域的特征值D(x)设置为0，其余区域的特征值设置为∞。利用当前特征图设置最大和最小像素集合；\n\nStep2：进行一次扫描，如果扫描次数为奇数次就执行Step3，否则执行Step4；\n\nStep3：进行一次正向光栅扫描。若未达到设定扫描次数，则重复Step2，否则结束；\n\nStep4：进行一次反向光栅扫描。若未达到设定扫描次数，则重复Step2，否则结束。\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_274_372_936_628.jpg\" alt=\"Image\" width=\"55%\" /></div>\n\n图3.14RasterScan算法的扫描方向示意图",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P038_B03",
+          "block_type": "figure",
+          "page": 38,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p038_b03_figure.png",
+          "description": "图分为左右两部分，左侧标题为“Raster Scan”，展示网格中水平扫描线交替向右和向左的箭头方向；右侧标题为“Inverse Raster Scan”，同样显示水平扫描线，但包含绿色与红色填充块以区分区域。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 典型应用 大规模数据排序",
+          "final_rank": 8,
+          "dense_rank": 2,
+          "dense_score": 0.515260488704473,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.016129032258064516
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 5,
+          "dense_rank": 9,
+          "dense_score": 0.5510687560480101,
+          "bm25_rank": 27,
+          "bm25_score": 2.1770739555358887,
+          "fusion_score": 0.025987006496751626
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a91bf0ee2643",
+      "chunk_id": "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_C00032",
+      "content_hash": "3f15582b6c7616138af9669154c14476babfaff4f4fe9d17f89745e520f912dc",
+      "document_id": "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展",
+      "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+      "page_start": 10,
+      "page_end": 10,
+      "section_path": [
+        "4 指挥决策环节",
+        "4.2 干扰视场计算与火力分配模型",
+        "3） 3 ）粒子群优化算法"
+      ],
+      "block_ids": [
+        "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_P010_B08",
+        "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_P010_B09"
+      ],
+      "quote": "粒子群优化算法模拟鸟群觅食行为，通过粒子在解空间中的飞行搜索最优解。每个粒子代表一个可能的武器目标分配方案，粒子的位置和速度根据自身历史最优位置和群体历史最优位置进行更新，经过多次迭代逐渐收敛到全局最优解附近。在武器目标分配中，粒子群优化算法能够快速搜索到较优的分配方案，且对问题的维度和复杂性具有较好的适应性，适用于实时性要求较高的作战场景。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 2,
+          "dense_rank": 2,
+          "dense_score": 0.5794908404350281,
+          "bm25_rank": 26,
+          "bm25_score": 3.9552173614501953,
+          "fusion_score": 0.0277569392348087
+        },
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 8,
+          "dense_rank": 42,
+          "dense_score": 0.513716772607469,
+          "bm25_rank": 18,
+          "bm25_score": 3.863101005554199,
+          "fusion_score": 0.02262443438914027
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 4,
+          "dense_rank": 10,
+          "dense_score": 0.5494484305381775,
+          "bm25_rank": 14,
+          "bm25_score": 2.7248318195343018,
+          "fusion_score": 0.027799227799227798
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-22d1f343e5c7",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00075",
+      "content_hash": "dfdbbaaeaaf60dbf899714c7e11ca7a5beec419050cdbb03d3de4e50bd36d4b6",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 18,
+      "page_end": 18,
+      "section_path": [
+        "5 结论"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P018_B23",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P018_B24",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P018_B25"
+      ],
+      "quote": "[15刘昊，谢鹏，李玥.联合火力打击中的多目标组合排序算法J].兵工学报,2020,41（12）：2570-2578.LIU H, XIE P , LI Y. Combined sorting algorithm for multi-target sorting in joint firepower strike [ J]. Acta Armamentarii, 2020,41(12) :2570–2578.(in Chinese)\n\n[16]XING H X, XING Q H. An air defense weapon target assignment method based on multi-objective artificial bee colony algorithm [J]. Computers, Materials & Continua, 2023, 76(3) : 2685 –2705.\n\n[17吴巍，任成坤，张成，等.非饱和打击场景下考虑附带毁伤的火力分配方法[J].兵工自动化，2024，43（6）：61–66.WU W, REN C K, ZHANG C, et al. Firepower allocation method considering collateral damage in unsaturated strike scenario| J.Ordnance Industry Automation, 2024, 43 (6): 61 – 66. (in Chinese)",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 3,
+          "dense_rank": 27,
+          "dense_score": 0.5458991798222563,
+          "bm25_rank": 6,
+          "bm25_score": 6.298202991485596,
+          "fusion_score": 0.02664576802507837
+        },
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 1,
+          "dense_rank": 4,
+          "dense_score": 0.5403404461728738,
+          "bm25_rank": 1,
+          "bm25_score": 6.538418769836426,
+          "fusion_score": 0.032018442622950824
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9862c6093454",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00022",
+      "content_hash": "7718870247f6a6752aafd60c6ba1e2cca051abbc78a39b2fabf281ea10c2f0b8",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 7,
+      "page_end": 7,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.1 算法主要流程"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P007_B04",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P007_B05"
+      ],
+      "quote": "4）基于特征提取的适应度评估模型。该模型用于解决作战区选择和单目标毁伤方案选择两个子问题。确定作战区和毁伤方案需要综合考虑各项战场态势信息，本文通过特征学习的方式来实现这一目标，分别在作战区特征和毁伤方案特征的基础上，进一步评估融合得到各项的综合适应度得分，以分别进行作战区和毁伤方案的排序与选择。\n\n5）火力资源高效优化分配。在给出所选择的作战区和单目标毁伤方案后，火力资源优化分配问题的复杂度将大幅度降低，但仍需要优化火力分配方案，包括各作战区分配的目标、使用弹型及数量。火力分配方案的优化仍然是一个维度很高的复杂NP-hard问题，难以使用深度学习或机器学习直接进行优化求解，需要使用启发式优化算法求解。传统启发式优化算法，例如GA、PSO算法等计算复杂度很高，收敛速度很慢，难以满足效率要求。为解决该问题.本文针对火力分配问题特性，针对性地设计和实现了高效优化算法，其核心算子包括火力分配方案高效搜索算子、效能计算算子、约束判断算子和方案更新算子。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 4,
+          "dense_rank": 23,
+          "dense_score": 0.5482710003852844,
+          "bm25_rank": 17,
+          "bm25_score": 4.420007705688477,
+          "fusion_score": 0.025035205758097326
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 6,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 5,
+          "bm25_score": 5.132943153381348,
+          "fusion_score": 0.015384615384615385
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-afef9055b03e",
+      "chunk_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_C00084",
+      "content_hash": "cafcee0f096979ae53431eb72f5b752156e4f1f406bbda4291f81abe731bdd1c",
+      "document_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发",
+      "source_file": "王捷飞 - 2021 - 基于视觉的激光反无人机系统设计与开发.pdf",
+      "page_start": 44,
+      "page_end": 46,
+      "section_path": [
+        "3 基于YOLOv3-tiny的无人机检测算法研究与设计",
+        "3.5 实验测试与分析",
+        "3.5.3 YOLOv3-tiny模型训练"
+      ],
+      "block_ids": [
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P044_B14",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B06",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B07",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P046_B02",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B02",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B03",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B04"
+      ],
+      "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_637_1172_1008_1512.jpg\" alt=\"Image\" width=\"31%\" /></div>\n\n图中，四旋翼被蓝色矩形框标出，固定翼被黑色矩形框标出，说明检测算法能够对这两类无人机进行准确的识别。本文的自建数据集中，无人机的种类和无人机所处的场景十分有限。如果能够在数据集中加入更多样本，模型的鲁棒性可以得到进一步提升。\n\n本文利用系统采集了大量无人机实际飞行的视频，将视频分成长度为3帧的子序列，子序列间不重叠。将子序列作为测试样本，利用本文设计的算法对测试样本进行检测并\n\n评估算法的性能，得到性能指标，如表3.5所示，表中Fps的值对应了个人笔记本电脑上的算法处理速度。\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_142_179_1049_689.jpg\" alt=\"Image\" width=\"76%\" /></div>\n\n图3.21改进算法对大疆MavicMini四旋翼无人机的检测结果\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_142_750_1047_1260.jpg\" alt=\"Image\" width=\"75%\" /></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P044_B14",
+          "block_type": "figure",
+          "page": 44,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p044_b14_figure.png",
+          "description": "图f展示了一张包含两栋高层建筑的背景图像，下方标注有“f)”及“识别结果图”字样。底部文字提及了DJI Mini四旋翼无人机以及Parrot SWIR相关设备，并引用了图3.21和3.22。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B02",
+          "block_type": "figure",
+          "page": 45,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p045_b02_figure.png",
+          "description": "图3-21展示了改进算法对大疆Mavic Mini四旋翼无人机的检测结果，画面中央的无人机被蓝色矩形框标出，并配有红色中心十字线，背景为灰白色天空及底部树梢。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P045_B04",
+          "block_type": "figure",
+          "page": 45,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p045_b04_figure.png",
+          "description": "图3.22展示了改进算法对Parrot SWING固定翼无人机的检测结果，画面中央天空中有一架红色无人机被黑色矩形框选中，并带有红色十字准星标记，背景为蓝天、树木及地面设施。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P046_B04",
+          "block_type": "table",
+          "page": 46,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p046_b04_table.png",
+          "description": "表3.5展示了模型性能指标，分为两行数据：第一行包含TP、FN、FP、TN及IoU的数值；第二行列出了Accuracy、Precision、Recall和Fps的具体指标值。表格通过边框分隔单元格，清晰呈现了各项评估结果。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 5,
+          "dense_rank": 15,
+          "dense_score": 0.5558950040277851,
+          "bm25_rank": 37,
+          "bm25_score": 3.6523401737213135,
+          "fusion_score": 0.023642611683848798
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f3f1b17d1ffc",
+      "chunk_id": "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_C00040",
+      "content_hash": "a4b652914a1fbfdaaa8bdb1b1c451a349e8a30aee2dc07fd6aa29c7ef612817f",
+      "document_id": "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展",
+      "source_file": "罗曦 等 - 2025 - 激光武器攻击效能评估方法研究进展.pdf",
+      "page_start": 12,
+      "page_end": 12,
+      "section_path": [
+        "5 打击干扰环节",
+        "5.1 作战能力评估方法现有研究"
+      ],
+      "block_ids": [
+        "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_P012_B05",
+        "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_P012_B07"
+      ],
+      "quote": "表1作战能力评估方法对比\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>评估方法</td><td>技术概述</td><td>优势</td><td>劣势</td><td>适用场景</td></tr><tr><td>仿真分析法[2,46]</td><td>借助仿真模拟技术和数据分析方 法，通过构建激光武器打击目标的 物理模型，模拟在不同环境条件下场环境，量化物理 的打击过程，预测武器的打击效过程。 果，为实际作战提供帮助。</td><td>可复现复杂动态战</td><td>依赖高精度建模，误 差易累积，计算 量大。</td><td>需要精确模拟和预 测武器打击效果的 场景，如军事作战 模拟、武器系统设 计等。</td></tr><tr><td>AHP 法[47,48]</td><td>将一个复杂的目标分解成多个目 标，进而分解成不同层次，分配不 同权重进行定性和定量分析。</td><td>结构化分解复杂问 题，适合多准则 决策。</td><td>仅对同一准则下的 指标进行两两比较， 忽略了不同准则层 两个指标的相互 影响。</td><td>多目标决策、评价 和优化问题，如项 目评估、资源 配等。</td></tr><tr><td>ADC模型[49,50]</td><td>认为系统的效能（E)是一个与系统 可用性（A）、可信性（D）和固有能 力(C)相关的函数：E=A·D·C。</td><td>结合系统作战时的 各项能力，较为全面 地析统作 效能。</td><td>忽略因素间耦合 关系。</td><td>系统效能评估，尤 其是军事系统、复 杂工程系统等。</td></tr><tr><td>模糊综合 评价法[512]]</td><td>基于模糊数学的应用方法.依据模 糊变换原理和最大隶属度原则.综 合因，实综于据缺失场景 评估。</td><td>兼容主观判断，适用</td><td>权重设定依赖专家 经验，主观性强。</td><td>评价指标难以精确 量化、数据不完整 的情况，如质量评 价、风险评估等。</td></tr><tr><td>神经网络法[53,54]</td><td>从信息处理的角度对人脑神经元 进行抽象，对于事物之间进行线性 非线性关联。利用深度学习（如 CNN、LSTM）学习历史数据或仿真 数据中的非线性关系，预测毁伤效 果或分类作战状态。</td><td>自适应学习复杂关 联（如多因素耦合效 应)，实时性强，适合 动态评估。</td><td>需大量标注数据训 练，小样本场景性能 下降；模型可解释性 差，难以追溯决策 逻辑。</td><td>数据量大、关系复 杂的场景，如图像 识别、动态系统评 估等。</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展_P012_B07",
+          "block_type": "table",
+          "page": 12,
+          "relation": "contained",
+          "image_crop": "processed/parsed/罗曦_等_-_2025_-_激光武器攻击效能评估方法研究进展/assets/crops/p012_b07_table.png",
+          "description": "图片展示了一个包含五列的表格，表头分别为“评估方法”、“技术概述”、“优势”、“劣势”和“适用场景”。表格详细对比了仿真分析法、AHP法、ADC模型、模糊综合评价法和神经网络法这五种作战能力评估方法的原理、优缺点及应用范围。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 6,
+          "dense_rank": 18,
+          "dense_score": 0.5526872873306274,
+          "bm25_rank": 36,
+          "bm25_score": 3.6649346351623535,
+          "fusion_score": 0.023237179487179488
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-d2c6343f3c8b",
+      "chunk_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_C00021",
+      "content_hash": "bf2b3437686ca68c527483bf444d2804bac13cd33e6920b0dbcf2cc43f83eef1",
+      "document_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法",
+      "source_file": "孔祥锡1 等 - 基于深度学习及模糊层次分析的毁伤评估算法.pdf",
+      "page_start": 7,
+      "page_end": 8,
+      "section_path": [
+        "1 毁伤评估系统构建",
+        "1.1 带有注意力机制的毁伤图像双层检测系统",
+        "1.1.3 基于决策树和匈牙利算法的毁伤分类器"
+      ],
+      "block_ids": [
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B01",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B02",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B03",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P008_B01",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P008_B02"
+      ],
+      "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_154_184_581_717.jpg\" alt=\"Image\" width=\"34%\" /></div>\n\n图5匈牙利算法流程图\n\nFig. 5 Hungarian algorithm flowchart\n\n对于检测系统第2层级输入的每一张关键区域图像，该分类器实现了不依赖于数据驱动的毁伤部件分类任务，对于不同作战场景下的小样本毁伤\n\n分类问题，依据检测框之间的位置关系对毁伤部件进行合适的分类，输出毁伤所属的部件类别Cdm以及各部件毁伤特征0，算法流程如图6所示。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B01",
+          "block_type": "figure",
+          "page": 7,
+          "relation": "contained",
+          "image_crop": "processed/parsed/孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法/assets/crops/p007_b01_figure.png",
+          "description": "该流程图展示了匈牙利算法的执行步骤，左侧为主流程，包含开始、输入代价矩阵、变换矩阵、寻找最大匹配及返回结果等阶段；右侧虚线框内为“寻找最大匹配”的详细子流程，依次经过减列、减量转移，并通过判断是否减行扩增和是否进入扩增阶段进行循环迭代。",
+          "status": "ok"
+        },
+        {
+          "block_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P008_B03",
+          "block_type": "figure",
+          "page": 8,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法/assets/crops/p008_b03_figure.png",
+          "description": "该流程图展示了基于决策树的毁伤分类器算法，从输入毁伤框与部件框信息开始，依次经过候选框筛选、检测结果存在性判断及相交判定。流程中包含“送入匈牙利线性匹配模块”的灰色处理步骤，并根据部件类别缺失情况分别输出毁伤类别、毁伤程度或结束流程。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 7,
+          "dense_rank": 22,
+          "dense_score": 0.5485951525859823,
+          "bm25_rank": 34,
+          "bm25_score": 3.701082706451416,
+          "fusion_score": 0.022833419823559936
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-4c7202360886",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00006",
+      "content_hash": "9721073610b5df268a3c77aafc4e7034e8049ac28d5e5909bbc50efe39dab80b",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 2,
+      "page_end": 2,
+      "section_path": [
+        "0 0引言"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B08",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B09"
+      ],
+      "quote": "当前，相关研究主要包括以下两个方面：一是通过优化火力资源分配模型来适应特定作战场景[2-5]，提高解的可解释性和准确性；二是通过改进求解算法来实现不同复杂程度的高效准确求解，提高方案的时效性和适应性[6-8]。智洪欣等[9]针对防空作战火力分配中未考虑可设计概率影响防空作战效能的问题，提出一种基于可设计概率约束的火力分配模型，为防空系统提供了持续作战能力。褚凯轩等[10]为提高地面分队火力分配的科学性，构建基于打击效益的地面作战WTA模型，提出一种改进人工蜂群算法。周奕丽[1]根据基本粒子群优化(ParticleSwarmOptimization，PSO)算法信息更新的本质机理，提出一种求解资源受限的WTA问题的离散PSO算法。刘昊等[12]以遗传算法（Genetic Algorithm，GA)为基础，提出一种基于敌我对抗进化的智能对抗进化算法，以解决联合火力打击任务规划的评估优化问题。聂俊峰等[13]为解决集群目标来袭火力分配建模与优化问题，提出基于非支配排序遗传算法-Ⅲ（Nondominated SortingGeneticAlgorithm-Ⅲ，NSGA-Ⅲ）的集群目标来袭火力分配优化框架，在想定案例上收敛性指标和间距指标表现更\n\n优。Chang等[14]针对多阶段WTA问题，提出了一种改进的自适应大规模邻域搜索算法，实验结果表明，在大多数情况下，该算法可以在更短的时间内获得更高质量的解。刘吴等[15]针对联合火力打击中的目标排序问题，建立了多目标组合火力打击排序数学模型，实验结果表明，基于信息流循环算法的多目标组合排序符合联合火力打击的目标排序战场需求。Xing等[16]为实现高效、低损耗的防御作战，提出了一种基于多目标人工蜂群算法的防空武器任务调度优化框架，在设想的防空场景执行模拟，结果在反世代距离评价指标上收敛性更好。吴巍等[17]针对弹药资源不足的非饱和攻击存在无法确保重要目标达到毁伤预期或效率过低、不适合工程应用等问题，提出一种考虑附带毁伤和毁伤约束的火力分配方法。季顺松等[18]通过基于规则的剪枝算法对弹目组合进行剪枝后，使用改进的GA求解了静态的火力分配方案。张安等[19]为解决WTA与空地导弹的接力制导规划问题，提出基于双序列编码的多种群非支配排序遗传算法-Ⅱ（NondominatedSorting Genetic Algorithm-Ⅱ, NSGA-Ⅱ），通过优化 WTA序列和制导站序列，实现了WTA方案和各导弹制导序列的优化。赵文飞等[20]针对海上要地群协同作战动态火力分配问题，基于马尔可夫决策模型，构建以海上要地毁伤期望、拦截成本为指标的动态火力分配优化模型。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "排序算法 快速排序 应用场景 数据",
+          "final_rank": 8,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 1,
+          "bm25_score": 8.626289367675781,
+          "fusion_score": 0.01639344262295082
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 2,
+          "dense_rank": 19,
+          "dense_score": 0.5385984182357788,
+          "bm25_rank": 3,
+          "bm25_score": 4.404894828796387,
+          "fusion_score": 0.028531243721117136
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-8e78bb5bc0e1",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00037",
+      "content_hash": "e2007cd6e5502b6431fe709bf9b8a4bf625de0e8a10ddf9bf41bb48a5a6b9d69",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 11,
+      "page_end": 11,
+      "section_path": [
+        "2 火力资源分配优化算法",
+        "2.4 火力分配高效优化算法"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B06",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B07",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B08",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P011_B09"
+      ],
+      "quote": "步骤2加权求和。将每个准则的值乘以相应的权重，然后求和得到综合效能指标。权重向量w 用于调整不同准则的重要性。\n\n效能计算算子通过提供一个量化的评估指标，帮助优化算法在搜索解空间时选择更优的火力分配方案。通过不断优化效能指标，可以提高火力分配的效率和效果，从而实现更好的作战效果。\n\n3）方案更新机制算子。包括贪婪更新机制和退火更新机制两种，前者可以实现快速的目标函数收敛过程，但其优化效果可能比退火机制相对弱。退火机制是一种典型的启发式优化更新机制，有助于跳出局部最优，但是会加大算法复杂度，增加优化时间。\n\n在本文中，更新火力分配方案使用的是基于模拟退火思想的启发式算法。具体地，这个算法通过不断地生成新的火力分配方案，并根据一定的概率接受或拒绝这些方案，逐步优化目标函数。通过这种方式，算法可以在解空间中进行搜索.并逐步找到更优的火力分配方案。同时，通过设置陷入局部最优的计数器和终止条件，可以避免算法陷入局部最优，并在一定程度上控制算法的运行时间。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 4,
+          "dense_rank": 9,
+          "dense_score": 0.5347853420866779,
+          "bm25_rank": 5,
+          "bm25_score": 5.775417327880859,
+          "fusion_score": 0.029877369007803793
+        },
+        {
+          "query": "快速排序算法",
+          "final_rank": 3,
+          "dense_rank": 8,
+          "dense_score": 0.5515276728239489,
+          "bm25_rank": 16,
+          "bm25_score": 2.6382269859313965,
+          "fusion_score": 0.02786377708978328
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-9a6fde890e65",
+      "chunk_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_C00019",
+      "content_hash": "9c9b74241cde515d50f6be7c54012dff738d73576c90f14a2461f852eb3a61fe",
+      "document_id": "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法",
+      "source_file": "孔祥锡1 等 - 基于深度学习及模糊层次分析的毁伤评估算法.pdf",
+      "page_start": 6,
+      "page_end": 7,
+      "section_path": [
+        "1 毁伤评估系统构建",
+        "1.1 带有注意力机制的毁伤图像双层检测系统",
+        "1.1.3 基于决策树和匈牙利算法的毁伤分类器"
+      ],
+      "block_ids": [
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P006_B11",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P006_B13",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B04",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B05",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B06",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B07",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B08",
+        "孔祥锡1_等_-_基于深度学习及模糊层次分析的毁伤评估算法_P007_B10"
+      ],
+      "quote": "$$IOU (Pimg, Pcom)Pdmg ∩ P com Pimg U Pcom $$\n\n$$cj = 1 − IOU (Pdmg, P om)$$\n\n最小值：为第j列的最小值。对于变换矩阵M，采用匈牙利算法进行最大匹配，最后，将最大匹配的结果反转，得到原问题的最优匹配。算法1为匈牙利算法进行毁伤部件匹配的具体流程。\n\n算法1基于匈牙利算法的毁伤部件匹配\n1.初始化变量：S表示毁伤框集合，T表示部件框集合，C为代\n价矩阵，P为匹配集合，T为未匹配部件框集合。2.转换代价矩阵：对代价矩阵C中的每个元c取其负值一c 分别对S中的行i和T中的列j取最小元素绝对值u和v，并将其分别与行i和列j的所有元素相减。\n3.寻找最大匹配：应用匈牙利算法在转换后的代价矩阵中寻找最大匹配，对未匹配的部件框j∈T。，使用增广路法[23]扩增\n再匹配。返回匹配集合P。\n4.反转匹配结果：将P中的每个匹配结果(i,j）反转为(j,i)。5.返回最优匹配：P中的每个元素（ij）表示毁伤框i和部件框j 之间的最优匹配。\n\n毁伤区域及部件经过分配后，可以得到检测图像中毁伤区域的具体类别，由于匈牙利算法的时间复杂度为Q（n），因此可以使分类器在短时间内完成毁伤框的分类。\n\n对于各毁伤部件的毁伤程度量化值，分类器将匹配的毁伤框和部件框之间的面积比作为毁\n\n伤特征，即\n\n式中：0表示毁伤特征，为第i个毁伤框与第j个部件框的面积之比；i和j分别为经过匈牙利模块匹配后的毁伤框和部件框索引值。",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 quicksort 算法 时间复杂度",
+          "final_rank": 6,
+          "dense_rank": 46,
+          "dense_score": 0.511192575430649,
+          "bm25_rank": 14,
+          "bm25_score": 3.9948370456695557,
+          "fusion_score": 0.022947475777664456
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f2b7f0d70873",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00064",
+      "content_hash": "1fca243d74298f283b4f28c1d97ceda8fe7890152e5392efab9072e83ecfde62",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 17,
+      "page_end": 17,
+      "section_path": [
+        "4 算法性能测试",
+        "4.3 作战区/目标规模性能分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B06",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B07",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B08"
+      ],
+      "quote": "弹道交叉数都呈明显增长趋势，但是当作战区数量为子目标数量一半时，初始弹道交叉数呈指数增长趋势，当作战区数量为子目标数量的2倍时，初始弹道交叉数增加呈幂增长趋势，更多的弹道交叉数导致优化耗时也明显更高。Cao等[24]提出的基于Spark 框架的蚁群优化算法在3个防御武器、20个保护资产和3种类型攻击性武器问题规模上的WTA求解，耗时19s，实验结果表明相同规模问题求解使用本文算法耗时不超过6s，表现出更好的时间优越性。\n\n为进一步体现本文算法在大规模求解中的优越性，在3种大规模范围下与Xu等[25]使用的6种算法进行对比。在每种范围下取最大值（80、120、200），经过10次仿真得到平均值，作为本文算法的实验结果。\n\n实验结果如表8所示，其中m、n分别表示武器数量和目标数量。表8中包含经典GA、PSO算法、鲸鱼优化算法(Whale Optimization Algorithm， WOA）、头脑风暴优化算法（BrainStormOptimizationAlgorithm，BSO)和基于BSO优化的两种算法：动态高斯突变头脑风暴优化算法（DynamicalGaussianMutation Brain Storm Optimization Algorithm, DGBSO) 和基于规则混沌初始化-动态高斯突变头脑风暴优化算法（Rule Based Chaotic Initialization-Dynamical Gaussian Mutation Brain Storm Optimization Algorithm , RCIDGBSO)。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P017_B19",
+          "block_type": "table",
+          "page": 17,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p017_b19_table.png",
+          "description": "表8展示了不同算法在三种规模（40≤m,n≤80、80≤m,n≤120、120≤m,n≤200）下的性能对比结果，包含GA、PSO、WOA、BSO及本文提出的DGMBSO和RCI-DGMBSO算法。表格中“本文算法”对应的三组数据以红色字体突出显示，数值分别为32.262、109.409和459.",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序算法",
+          "final_rank": 8,
+          "dense_rank": 21,
+          "dense_score": 0.537761926651001,
+          "bm25_rank": 48,
+          "bm25_score": 1.7096590995788574,
+          "fusion_score": 0.021604938271604937
+        },
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 5,
+          "dense_rank": 37,
+          "dense_score": 0.5068494073332098,
+          "bm25_rank": 46,
+          "bm25_score": 2.1893866062164307,
+          "fusion_score": 0.019743240614666407
+        },
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 5,
+          "dense_rank": 2,
+          "dense_score": 0.5653730630874634,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-39b59a6e7baf",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00003",
+      "content_hash": "9d296469b4c420dda838fffdfd28a7079e18e44076b592095546ca5ec8614432",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 1,
+      "page_end": 2,
+      "section_path": [],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P001_B15",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B03"
+      ],
+      "quote": "Abstract: In order to solve the problems of high dimensionality , multiple constraints and discontinuity of firepower resource allocation , an objective function of firepower resource allocation is constructed based on the four firepower resource allocation indexes, i. e. , the minimization of the number of missiles used,ballistic crossing , interception probability and maximizing strike timeliness , by considering the constraints such as damage efficiency , interception probability , penetration probability , ammunition quantity and damage level. From the perspective of damage assessment, the damage features are designed, which comprise two categories: 1 ) four operational area features : strike timeliness , comprehensive launch capability , firepower coverage capability , and firepower penetration capability ; 2 ) five damage scheme features : total quantity requirement , total cost requirement , damage level satisfaction ability , damage scheme cost-effectiveness ratio, and firepower accessibility. A fitness evaluation model based on fused damage characteristics is developed, enabling the generation of high-quality initial solutions and significantly enhancing the optimization efficiency of the algorithm. Furthermore , the heuristic algorithm of efficient neighborhood search is used to obtain the optimal solution of firepower resource allocation\n\nproblem. The experimental results show that the proposed algorithm can obtain the optimized results more quickly at the small , medium and large scales compared with GA, PSO, WOA, BSO, DGMBSO and RCIDGMBSO algorithms , which reflects the strong adaptability and efficiency of the proposed algorithm.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 2,
+          "dense_rank": 43,
+          "dense_score": 0.5051968386417329,
+          "bm25_rank": 4,
+          "bm25_score": 4.384415626525879,
+          "fusion_score": 0.02533373786407767
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-99578d27cb6b",
+      "chunk_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_C00005",
+      "content_hash": "48cc3e0e524dc89d283419b92794a43ab0cbcd0f9721e0e2272f2fa81551637e",
+      "document_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究",
+      "source_file": "钟宏正 - 2023 - 基于深度学习的海陆目标分类研究.pdf",
+      "page_start": 4,
+      "page_end": 5,
+      "section_path": [],
+      "block_ids": [
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P004_B04",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P005_B01"
+      ],
+      "quote": "In earthquake disasters, buildings are one of the most vulnerable ground features,and their damage is directly related to the progress and work efficiency of disaster relief.The traditional manual survey method is limited by factors such as manpower, time and location, and it is difficult to quickly and accurately obtain the damage of buildings in the disaster area. The earthquake damage classification of buildings based on deep learning can quickly provide detailed disaster information and provide strong support for postdisaster rescue and reconstruction. Although many methods have been proposed in the study of seismic damage assessment of buildings, most of them divide damaged buildings into two categories—intact and damagedwhich is in-sufficient to meet practical needs.To address this issue, this study presents a novel convolutional neural networknamely,the earthquake building damage classification net (EBDC-Net)for assessment of building damage. The proposed network comprises a feature building damage feature extraction encoder module and a damage classification module. The feature extraction encoder module is employed to extract semantic information on building damage, and introduce a spatial attention mechanism to gather scattered damage features in the image,enhance the feature expression ability of network, and improve the ability to distinguish between different damage levels. while the classification module combines the global\n\nand contextual feature extraction modules to enhance the network's ability to explore the relationship between global features and local features, and improves the accuracy of the network in classifying building damage levels. The performance of EBDC-Net was evaluated on the Ludian and Yushu earthquake building damage datasets, and a largescale damage assessment was performed on the Yangbi earthquake dataset. The results of the experiments indicate that this approach can quickly and accurately classify buildings with different damage levels. The overall classification accuracy was 94.44%,85.53%, and 77.49% when the damage to the buildings was divided into two, three, and four categories, respectively.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 3,
+          "dense_rank": 34,
+          "dense_score": 0.5087997458458231,
+          "bm25_rank": 10,
+          "bm25_score": 3.69402813911438,
+          "fusion_score": 0.02492401215805471
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-f14a360b742c",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00004",
+      "content_hash": "f27d378314810eea83f4b6b2654db003073b1d82b944d84a3209e2fdffcf7c65",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 2,
+      "page_end": 2,
+      "section_path": [],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P002_B04"
+      ],
+      "quote": "Keywords: damage feature extraction; firepower allocation ; heuristic algorithm; damage assessment",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 4,
+          "dense_rank": 36,
+          "dense_score": 0.5071556114713357,
+          "bm25_rank": 38,
+          "bm25_score": 2.5154120922088623,
+          "fusion_score": 0.020620748299319726
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-901cfc0faa0b",
+      "chunk_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_C00074",
+      "content_hash": "17e1829c1c709a067cd9521a10924da047d4d91c01952b9cbcaedff159911a44",
+      "document_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发",
+      "source_file": "王捷飞 - 2021 - 基于视觉的激光反无人机系统设计与开发.pdf",
+      "page_start": 39,
+      "page_end": 39,
+      "section_path": [
+        "3 基于YOLOv3-tiny的无人机检测算法研究与设计",
+        "3.4 基于视觉显著性检测的图像分割算法",
+        "3.4.2 图像分割算法对比"
+      ],
+      "block_ids": [
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B09",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B10",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B11"
+      ],
+      "quote": "常用的图像分割算法主要是基于直方图阈值选取的分割，直方图反映的是图像每个灰度值上像素出现次数的统计。此类分割方法的缺点在于：只能分割两类物体，如天空和无人机，如果混入第三类物体，如云层，则分割效果不理想，如图3.15(a)所示。\n\n视觉显著性检测算法则将边缘像素以及与边缘像素灰度值接近的像素视作背景，边缘像素可以包含天空、树木、建筑等多类物体，只要目标与背景的灰度值存在差异，即可获得良好的分割效果，如图3.15(b)所示。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B12",
+          "block_type": "figure",
+          "page": 39,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p039_b12_figure.png",
+          "description": "图3.15(a)展示了一张黑底白图的分割效果对比，画面中央有一个不规则的白色小斑点，周围为纯黑色背景，对应文中提到的混入云层导致分割不理想的情况。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 6,
+          "dense_rank": 1,
+          "dense_score": 0.5483153404813638,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-ee0a24e96373",
+      "chunk_id": "杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_C00002",
+      "content_hash": "775ee5e17432db96a027348ea3312e8c4a4173bb9fe147db7d6efd204d98587d",
+      "document_id": "杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究",
+      "source_file": "杨帅 等 - 2025 - 爆炸冲击波破片耦合毁伤效能研究.pdf",
+      "page_start": 1,
+      "page_end": 1,
+      "section_path": [],
+      "block_ids": [
+        "杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P001_B13",
+        "杨帅_等_-_2025_-_爆炸冲击波破片耦合毁伤效能研究_P001_B14"
+      ],
+      "quote": "(1. School of Mechanical and Electrical Engineering, North University of China, Taiyuan O30051, China;\n\nAbstract: Kill explosion warheads are widely used in various air defense and anti-missile weapon systems.This type warhead realizes efficient damage to incoming missile targets mainly using 2 types of destructive elements of explosive shock waves and fragments.Here, to study the coupled damage capability of explosion shock wave /fragment destructive elements on missile targets under different explosion scenarios, a cylindrical shell was chosen as the effect target.Based on velocity variation formulas and motion characteristics of explosion shock wave and fragments, a calculation method was proposed to divide different explosion action fields.",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 7,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 2,
+          "bm25_score": 4.740583896636963,
+          "fusion_score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-35faf2cc4773",
+      "chunk_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_C00077",
+      "content_hash": "1e67ef9e3629ce689cdf4677fa9bf72c8179c6416378140bc5bcca9000969b1d",
+      "document_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发",
+      "source_file": "王捷飞 - 2021 - 基于视觉的激光反无人机系统设计与开发.pdf",
+      "page_start": 39,
+      "page_end": 39,
+      "section_path": [
+        "3 基于YOLOv3-tiny的无人机检测算法研究与设计",
+        "3.4 基于视觉显著性检测的图像分割算法",
+        "3.4.2 图像分割算法对比"
+      ],
+      "block_ids": [
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B12",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B16",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B13",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B14",
+        "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B15"
+      ],
+      "quote": "<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_699_919_945_1157.jpg\" alt=\"Image\" width=\"20%\" /></div>\n\n图3.15分割效果对比图\n\nb）基于视觉显著性检测的图像分割\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_244_921_495_1156.jpg\" alt=\"Image\" width=\"21%\" /></div>\n\na）基于直方图阈值选取的分割",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B12",
+          "block_type": "figure",
+          "page": 39,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p039_b12_figure.png",
+          "description": "图3.15(a)展示了一张黑底白图的分割效果对比，画面中央有一个不规则的白色小斑点，周围为纯黑色背景，对应文中提到的混入云层导致分割不理想的情况。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发_P039_B14",
+          "block_type": "figure",
+          "page": 39,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王捷飞_-_2021_-_基于视觉的激光反无人机系统设计与开发/assets/crops/p039_b14_figure.png",
+          "description": "图片展示了一个黑白二值的区域掩膜，主体为不规则的黑色块状区域，背景为白色。黑色区域内包含一个微小的白色矩形孔洞，整体轮廓边缘呈现锯齿状像素特征。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "sorting algorithm divide and conquer partition",
+          "final_rank": 8,
+          "dense_rank": 2,
+          "dense_score": 0.5430604168104667,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-1ba8d97d9920",
+      "chunk_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_C00146",
+      "content_hash": "96cef07df2ccc160f277978126374f2c386d7c4fc7f88f18a95a72a737f8bade",
+      "document_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南",
+      "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+      "page_start": 32,
+      "page_end": 32,
+      "section_path": [
+        "8 过程FMECA",
+        "8.3 工艺FMECA步骤的主要内容",
+        "8.3.5 风险优先数（RPN)分析"
+      ],
+      "block_ids": [
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P032_B02",
+        "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P032_B03"
+      ],
+      "quote": "表32工艺故障模式的发生概率等级（O）的评分准则\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tbody><tr><td>工艺故障模式发生的可能性</td><td>可能的工艺故障模式发生的概率(P)</td><td>发生概率等级(O)的评分等级</td></tr><tr><td rowspan=\"2\">很高(持续发生的故障)</td><td>P_≥10-1</td><td>10</td></tr><tr><td>5×10-1≤P<10-1</td><td>9</td></tr><tr><td rowspan=\"2\">高（经常发生的故障)</td><td>2×10-²≤P<5×10-1</td><td>8</td></tr><tr><td>1×10^²≤P<2×10-2</td><td>7</td></tr><tr><td rowspan=\"3\">中等(偶尔发生的故障)</td><td>5×10-³≤P<1×10-2</td><td>6</td></tr><tr><td>2×10^³≤P<5×10-³</td><td>5</td></tr><tr><td>1×10-³≤P<2×10-3</td><td>4</td></tr><tr><td rowspan=\"2\">低(很少发生的故障)</td><td>5×10-4≤P<1×10-3</td><td>3</td></tr><tr><td>1×10-4≤P<5×10-4</td><td>2</td></tr><tr><td>极低(不大可能发生故障)</td><td>P1×10-4</td><td>1</td></tr></tbody></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "GJB_Z_1391-2006_故障模式_影响及危害性分析指南_P032_B03",
+          "block_type": "table",
+          "page": 32,
+          "relation": "contained",
+          "image_crop": "processed/parsed/GJB_Z_1391-2006_故障模式_影响及危害性分析指南/assets/crops/p032_b03_table.png",
+          "description": "图片展示了一个三列表格，标题分别为“工艺故障模式发生的可能性”、“可能的工艺故障模式发生的概率(Po)”和“发生概率等级(O)的评分等级”。表格按可能性从高到低分为很高、高、中等、低、极低五个类别，对应列出了具体的概率数值范围及1至10的评分等级。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 4,
+          "dense_rank": 15,
+          "dense_score": 0.45240454233898375,
+          "bm25_rank": 12,
+          "bm25_score": 2.3106045722961426,
+          "fusion_score": 0.027222222222222224
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-adbdaaa9513a",
+      "chunk_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_C00036",
+      "content_hash": "8ea4e4e6f5c934a64a747ff6095150ada56b421e441e8310117de37f4e3b19c1",
+      "document_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究",
+      "source_file": "钟宏正 - 2023 - 基于深度学习的海陆目标分类研究.pdf",
+      "page_start": 22,
+      "page_end": 23,
+      "section_path": [
+        "2",
+        "2.3 实验结果与分析",
+        "2.3.1 实验设置"
+      ],
+      "block_ids": [
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P022_B05",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P022_B06",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P022_B07",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P022_B09",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P023_B02",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P023_B03",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P023_B04",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P023_B05"
+      ],
+      "quote": "$$∑k c (i, i)OA =∑i ∑ c(i, j))$$\n\n$$∑k (∑ c (i, j) * ∑ c (j, i)ρe =N2$$\n\n$$OA − ρe kappa \n1 − pe $$\n\n$$N \n1\n\nMSE =(i − y)2\ni=1\n$$\n\n表2-4不同batchsize模型的分类精度\n\nTab.2-4 Classification accuracy of model with different batch size\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>测试</td><td>OA (%)</td><td>Kappa</td><td>MSE</td></tr><tr><td>LR-0001-BS-8</td><td>68.39</td><td>0.56</td><td>0.44</td></tr><tr><td>LR-0001-BS-16</td><td>75.00</td><td>0.65</td><td>0.28</td></tr><tr><td>LR-0001-BS-32</td><td>77.49</td><td>0.69</td><td>0.26</td></tr><tr><td>LR-0001-BS-64</td><td>75.96</td><td>0.67</td><td>0.28</td></tr></table></body></html></div>\n\n表2-5不同学习率模型的分类精度",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P023_B04",
+          "block_type": "table",
+          "page": 23,
+          "relation": "contained",
+          "image_crop": "processed/parsed/钟宏正_-_2023_-_基于深度学习的海陆目标分类研究/assets/crops/p023_b04_table.png",
+          "description": "图片展示了一个包含四列的表格，表头分别为“测试”、“OA (%)”、“Kappa”和\"MSE\"。表格列出了四种不同学习率与批量大小组合（LR-0001-BS-8至64）下的分类精度数据，其中第三行对应LR-0001-BS-32的数据在OA、Kappa及MSE三列中均以加粗字体显示。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 5,
+          "dense_rank": 1,
+          "dense_score": 0.49396182578688363,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-ca479f7bf9e1",
+      "chunk_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_C00088",
+      "content_hash": "daed3a74d2464fd090ff15ef34dabf87581f1e03836f158456f7588706330132",
+      "document_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究",
+      "source_file": "钟宏正 - 2023 - 基于深度学习的海陆目标分类研究.pdf",
+      "page_start": 44,
+      "page_end": 44,
+      "section_path": [
+        "3",
+        "3.5 实验结果与分析",
+        "3.5.2 单源数据船舶分类结果"
+      ],
+      "block_ids": [
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P044_B04",
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P044_B06"
+      ],
+      "quote": "表3-1不同模型在不同数据源上的船舶分类精度\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td rowspan=\"2\">模型名称</td><td colspan=\"2\">SAR (%)</td><td colspan=\"4\">光学(%)</td></tr><tr><td>Precision</td><td>Recall</td><td>mAP</td><td>Precision</td><td>Recall</td><td>mAP</td></tr><tr><td>SSD</td><td>76.75</td><td>57.64</td><td>54.35</td><td>80.73</td><td>70.10</td><td>66.40</td></tr><tr><td>Faster R-CNN</td><td>73.61</td><td>73.71</td><td>66.72</td><td>82.45</td><td>83.28</td><td>78.82</td></tr><tr><td>YOLOv3</td><td>77.28</td><td>64.10</td><td>62.07</td><td>84.71</td><td>72.00</td><td>73.38</td></tr><tr><td>YOLOv4</td><td>80.13</td><td>77.71</td><td>76.58</td><td>77.11</td><td>86.00</td><td>83.70</td></tr><tr><td>YOLOv4-Gaussian</td><td>83.30</td><td>78.10</td><td>78.89</td><td>86.00</td><td>87.63</td><td>86.85</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P044_B06",
+          "block_type": "table",
+          "page": 44,
+          "relation": "contained",
+          "image_crop": "processed/parsed/钟宏正_-_2023_-_基于深度学习的海陆目标分类研究/assets/crops/p044_b06_table.png",
+          "description": "表3-1展示了不同模型在SAR和光学数据源下的船舶分类精度对比，包含SSD、Faster R-CNN、YOLOv3、YOLOv4及YOLOv4-Gaussian五种模型。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 6,
+          "dense_rank": 2,
+          "dense_score": 0.4734897597724056,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-14954670ef4c",
+      "chunk_id": "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究_C00111",
+      "content_hash": "a784bbfd03308d46cab958e37f64b3eebe6bbf002b734de85224fa38be730be0",
+      "document_id": "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究",
+      "source_file": "李扑 - 2023 - 无人机空战决策与毁伤评估的智能化方法研究.pdf",
+      "page_start": 57,
+      "page_end": 57,
+      "section_path": [
+        "4",
+        "4.4 基于脉冲神经网络的机动决策算法",
+        "4.4.2 ANN2SNN算法"
+      ],
+      "block_ids": [
+        "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究_P057_B01",
+        "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究_P057_B02",
+        "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究_P057_B04",
+        "李扑_-_2023_-_无人机空战决策与毁伤评估的智能化方法研究_P057_B06"
+      ],
+      "quote": "$$ai = max(0, ∑=\n\n$$\n\n$$i (t) = h(0, ∑)1 M−1j=1W1θ1−] + bi))jj $$\n\n$$i(t):d:==(c( c(t − 1) + zi(t)(1− Θi)1(t −1) + z1(t) −Vh,i $$\n\n$$V thr V():)aj max Vihr + Si t( thr + si)ri (t) =\nar max t.V hrr V()$$",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 7,
+          "dense_rank": 3,
+          "dense_score": 0.4702353021572623,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-32128de7318d",
+      "chunk_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_C00127",
+      "content_hash": "ebb69aeedf9caf73672494055406a2106df61ec676b1f02f655ae3ddbd943967",
+      "document_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究",
+      "source_file": "柳乐 - 2025 - 激光反无人机的作用机理及效能评估研究.pdf",
+      "page_start": 66,
+      "page_end": 66,
+      "section_path": [
+        "4",
+        "4.2 烧蚀损伤"
+      ],
+      "block_ids": [
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B06",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B13",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B22",
+        "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B07"
+      ],
+      "quote": "Figure 4-6 Ablation morphology of the back side of the flight control system after laser irradiation stops at different average power densities to the target, (a) 28.4 W/cm2, (b) 42.6W/cm2, (c) 49.7 W/cm2, (d) 56.0 W/cm2, (e) 70.4 W/cm2.\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_177_714_420_868.jpg\" alt=\"Image\" width=\"20%\" /></div>\n\nFigure 4-7 Ablation morphology of the front side of the flight control system after laser irradiation stops at different average power densities to the target, (a) 28.4 W/cm², (b) 42.6W/cm2, (c) 49.7 W/cm2, (d) 56.0 W/cm2, (e) 70.4 W/cm2.\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_470_144_706_295.jpg\" alt=\"Image\" width=\"19%\" /></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B13",
+          "block_type": "figure",
+          "page": 66,
+          "relation": "contained",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p066_b13_figure.png",
+          "description": "图(a)展示了飞行控制系统背面的电路板，其边缘排列着密集的黑色矩形组件，中央区域分布有方形芯片、电容及连接器等电子元件，底部可见一个椭圆形接口。",
+          "status": "ok"
+        },
+        {
+          "block_id": "柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究_P066_B07",
+          "block_type": "figure",
+          "page": 66,
+          "relation": "contained",
+          "image_crop": "processed/parsed/柳乐_-_2025_-_激光反无人机的作用机理及效能评估研究/assets/crops/p066_b07_figure.png",
+          "description": "图(b)展示了一块绿色电路板，板面中央印有白色“PRO MINI FC”字样及一个指向右侧的箭头标志。电路板四周分布着多个金属焊盘和四个固定螺丝，其中左侧中部区域有一处明显的深色烧蚀痕迹。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 8,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 4,
+          "bm25_score": 3.1364026069641113,
+          "fusion_score": 0.015625
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-724f7bfdff2d",
+      "chunk_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_C00055",
+      "content_hash": "11370b55f737602f85a35dc2a0c239016c85138f21a13eb78207b35c145fd46a",
+      "document_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究",
+      "source_file": "钟宏正 - 2023 - 基于深度学习的海陆目标分类研究.pdf",
+      "page_start": 28,
+      "page_end": 28,
+      "section_path": [
+        "2",
+        "2.3 实验结果与分析",
+        "2.3.4 不同建筑物损毁分类方法分类精度比较"
+      ],
+      "block_ids": [
+        "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P028_B06"
+      ],
+      "quote": "<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td rowspan=\"2\">模型名称</td><td colspan=\"3\">Group1</td><td colspan=\"3\">Group2</td><td colspan=\"3\">Group3</td></tr><tr><td>OA (%)</td><td>Kappa</td><td>MSE</td><td>OA (%)</td><td>Kappa</td><td>MSE</td><td>OA (%)</td><td>Kappa</td><td>MSE</td></tr><tr><td>Res-CNN</td><td>91.44</td><td>0.91</td><td>0.09</td><td>75.32</td><td>0.58</td><td>0.37</td><td>58.20</td><td>0.43</td><td>0.64</td></tr><tr><td>Dense-CNN</td><td>92.15</td><td>0.83</td><td>0.08</td><td>76.03</td><td>0.60</td><td>0.32</td><td>59.49</td><td>0.44</td><td>0.74</td></tr><tr><td>VGG-GAP</td><td>94.00</td><td>0.87</td><td>0.06</td><td>78.89</td><td>0.67</td><td>0.23</td><td>63.77</td><td>0.51</td><td>0.56</td></tr><tr><td>VGG-OR</td><td>93.30</td><td>0.85</td><td>0.07</td><td>77.75</td><td>0.65</td><td>0.26</td><td>65.05</td><td>0.53</td><td>0.43</td></tr><tr><td>EBDC-Net</td><td>94.72</td><td>0.88</td><td>0.05</td><td>79.02</td><td>0.65</td><td>0.26</td><td>67.62</td><td>0.56</td><td>0.42</td></tr></table></body></html></div>",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "钟宏正_-_2023_-_基于深度学习的海陆目标分类研究_P028_B06",
+          "block_type": "table",
+          "page": 28,
+          "relation": "contained",
+          "image_crop": "processed/parsed/钟宏正_-_2023_-_基于深度学习的海陆目标分类研究/assets/crops/p028_b06_table.png",
+          "description": "该表格对比了Res-CNN、Dense-CNN、VGG-GAP、VGG-OR和EBDC-Net五种模型在Group1至Group3三个数据集上的性能，指标包括OA(%)、Kappa和MSE。其中EBDC-Net在各组数据中均取得了最高的OA值和Kappa值，且MSE最低，数值以加粗字体显示。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 9,
+          "dense_rank": 4,
+          "dense_score": 0.4692163309221369,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.015625
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-89ff9ae6625c",
+      "chunk_id": "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_C00028",
+      "content_hash": "0dfdbff8a57d1c7944d7b9035caf52c954ca50a9bd8269052ff8705bf985b369",
+      "document_id": "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估",
+      "source_file": "徐艺博 等 - 2024 - 基于多源信息融合的巡飞弹对地目标识别与毁伤评估.pdf",
+      "page_start": 8,
+      "page_end": 9,
+      "section_path": [
+        "3 仿真实验结果与分析",
+        "3.2 基于YOLO-VGGNet的毁伤等级评估"
+      ],
+      "block_ids": [
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P008_B20",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P008_B21",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P008_B22",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P009_L04",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P009_B04",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P009_B05",
+        "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P009_B06"
+      ],
+      "quote": "表2毁伤等级评估结果\n\nTable 2 Results of damage level assessment %\n\n<div style=\"text-align: center;\"><html><body><table border=\"1\"><tr><td>等级</td><td>YOLO-VGGNetPCA-k-means Mask-RCNN真值</td></tr><tr><td>正常 86</td><td>62</td></tr><tr><td>82</td><td>79 55 63</td></tr><tr><td>轻度</td><td>100 100</td></tr><tr><td>中度 81 59</td><td>68 100</td></tr><tr><td>重度 92 86 准确率 84.50</td><td>84 100 65.50 74.25</td></tr></table></body></html></div>\n\n图9YOIO-VGGNet评估效果\n\nFig. 9 Results of YOLO-VGGNet assessment\n\n实际测试中，巡飞弹每秒接收15帧分辨率为720×540的可见光图像，YOLOv3将图像中识别出的目标小块存储在内存的缓冲区中，平均每帧图像处理耗时32帧/s，VGG1系列网络分别对内存中包含特定种类的图像小块进行并行的毁伤等级评估。在对VGG1系列网络单独进行测试时，以300×300的图像小块为例，VGG1系列网络平均处理速率为125帧/s，满足巡飞弹对地移动目标在线检测与实时评估的要求。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P008_B22",
+          "block_type": "table",
+          "page": 8,
+          "relation": "contained",
+          "image_crop": "processed/parsed/徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估/assets/crops/p008_b22_table.png",
+          "description": "表2展示了毁伤等级评估结果，包含“正常”、“轻度”、“中度”、“重度”四个等级及准确率行。表格横向对比了YOLO-VGGNet、PCA-k-means、Mask-RCNN三种方法与真值的百分比数据，其中YOLO-VGGNet在各项指标上均优于其他方法。",
+          "status": "ok"
+        },
+        {
+          "block_id": "徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估_P009_L04",
+          "block_type": "figure",
+          "page": 9,
+          "relation": "contained",
+          "image_crop": "processed/parsed/徐艺博_等_-_2024_-_基于多源信息融合的巡飞弹对地目标识别与毁伤评估/assets/crops/p009_l04_figure.png",
+          "description": "图9展示了基于YOLO-VGGNet的两阶段紧耦合毁伤评估流程：左侧原始图像经检测框出三个目标区域，分别通过箭头指向右侧对应的VGG子网络（VGG_3、VGG_1、VGG_4）进行独立评估，最终输出中度、重度和轻度毁伤等级结果。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "quicksort average O(nlogn)",
+          "final_rank": 10,
+          "dense_rank": 5,
+          "dense_score": 0.46840666328648917,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.015384615384615385
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-df1a41174ddd",
+      "chunk_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_C00053",
+      "content_hash": "78d6b4a38b9fc9163f3fc7968b1f9f8c50fa7152abbdd0fa92e88f3252a56820",
+      "document_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法",
+      "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+      "page_start": 14,
+      "page_end": 14,
+      "section_path": [
+        "4 算法性能测试",
+        "4.2 测试结果分析"
+      ],
+      "block_ids": [
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B08",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B09",
+        "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B10"
+      ],
+      "quote": "在初始化之后，会得到初始生成方案的弹道交叉数量、初始化综合突防概率、各目标毁伤方案的导弹需求量和总弹道数。在优化过程中，秉承最小化导弹消耗、最小化弹道交叉数量、最大化打击时效性以及最小化被拦截概率4个火力资源分配任务毁伤指标，本文对各目标的毁伤方案的导弹需求量求平均作为优化过程中导弹消耗的平均指标值，打击时效性使用优化耗时和是否满足约束条件来衡量，最小化被拦截概率等价为最大化突防概率。以下所有实验的结果均满足了所有的约束条件。为确保仿真结果的可靠性，对每组参数设置均进行了10次仿真实验，取平均值作为测试结果展示。\n\n从表4~表6中展示的3组实验结果可知，各项实验优化耗时均不超过1s，最长耗时为0.924s，最短仅需0.123s。相同规模的问题使用文本的优化算法只需0.351s，而使用Tunga等[23]提出的多目标PSO算法和NSGA-Ⅱ算法分别需要1.598s和1.599s，表现算法在高效快速求解方面的性能较好。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B13",
+          "block_type": "table",
+          "page": 14,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p014_b13_table.png",
+          "description": "该表格展示了不同目标可打击概率下的实验结果，包含作战区使用率、导弹型号使用率、优化后弹道交叉数及综合突防概率等指标。最后一列“优化耗时/s”中，最大值0.924和最小值0.152以加粗字体标示。",
+          "status": "ok"
+        },
+        {
+          "block_id": "王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法_P014_B19",
+          "block_type": "table",
+          "page": 14,
+          "relation": "referenced",
+          "image_crop": "processed/parsed/王露_等_-_2025_-_融合毁伤特征的火力资源优化分配算法/assets/crops/p014_b19_table.png",
+          "description": "该图为表6毁伤预案数量实验结果，展示了10组实验数据。表格包含毁伤预案数量、作战区使用率、导弹型号使用率等8列指标。其中第8组和第9组的优化耗时（分别为0.520s和0.155s）以加粗字体显示，分别对应每组的最长和最短耗时。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 7,
+          "dense_rank": 5,
+          "dense_score": 0.5632354877450781,
+          "bm25_rank": null,
+          "bm25_score": null,
+          "fusion_score": 0.015384615384615385
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-a286b6165480",
+      "chunk_id": "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_C00004",
+      "content_hash": "67f34867ef20f71b7ba7ea0f22b6e0beb48fc45a52311e9d024e06d564ba1f1e",
+      "document_id": "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估",
+      "source_file": "王志辉 等 - 2024 - 未确知条件下多枚导弹打击不规则面目标的毁伤效果评估.pdf",
+      "page_start": 1,
+      "page_end": 2,
+      "section_path": [],
+      "block_ids": [
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B16",
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B17",
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P002_B03",
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B09",
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B10",
+        "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P002_B04"
+      ],
+      "quote": "毁伤评估结果是一项严峻的挑战。\n\n未确知性是指由于信息不足或认识局限而产生的认知上的不确定性[2]。相较于随机型不确定性，这种不确定性可以通过引入更多信息或增加知识来减少[3]。在评估活动中，评估对象的属性未确知，按照评估模型计算，将得到一个未确知的结果。如果评估结果的未确知程度很高，则无法为后续的决策论证提供支撑，其价值作用将受到明显限制。文献「4-5]运用主观概率区间手\n\n段刻画各类属性的未确知性，然后通过相应的评估模型，综合算子等手段，求出评估结果的概率分布，最后用均值或相关统计量来代表未确知的评估结果。文献[6]用定性到定量转换的语言刻画武装直升机的能力参数与相应权重，并运用层次分析法进行效能综合。对于方案的评估，文献[7-9]用区间数刻画未确知性，用区间数排序法[10-1]确定方案排序。区间数排序法有中值排序法、基于期望和方差的排序法、基于可能度的排序法等，但不同的区间排序法得出的结论可能不一样。\n\n<div style=\"text-align: center;\"><img src=\"imgs/img_in_image_box_840_526_952_635.jpg\" alt=\"Image\" width=\"9%\" /></div>\n\n与作者互动\n\n从文献调研的结果看，面对评估中普遍存在的未确知性，大多数文献秉持“平均主义”的思想，用平均值等统计量去替代不确定的结果，得出的结论与实际值仍然存在较大的偏差，犹如文献「12]所指的“平均的终结”。在评估实践中，为了获得准确的评估结果.评估工作应当逐步减少评估结果的未确知性，然而减少未确知性的评估模式很少有文献讨论。",
+      "quote_truncated": false,
+      "visual_assets": [
+        {
+          "block_id": "王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估_P001_B09",
+          "block_type": "figure",
+          "page": 1,
+          "relation": "contained",
+          "image_crop": "processed/parsed/王志辉_等_-_2024_-_未确知条件下多枚导弹打击不规则面目标的毁伤效果评估/assets/crops/p001_b09_figure.png",
+          "description": "图片展示了一个标准的黑白二维码，由密集排列的黑色模块和白色背景组成，四个角各有一个定位图案。",
+          "status": "ok"
+        }
+      ],
+      "retrieval": [
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 9,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 6,
+          "bm25_score": 5.061915397644043,
+          "fusion_score": 0.015151515151515152
+        }
+      ]
+    },
+    {
+      "evidence_id": "ev-739f1425872c",
+      "chunk_id": "2-电子系统_C00026",
+      "content_hash": "1002e3a01c69411ff9ce6c200377b4ad3e9d380b16d91edead21e40cd1e6e0a6",
+      "document_id": "2-电子系统",
+      "source_file": "2-电子系统.pdf",
+      "page_start": 10,
+      "page_end": 11,
+      "section_path": [
+        "附录A 附录A"
+      ],
+      "block_ids": [
+        "2-电子系统_P010_B03",
+        "2-电子系统_P010_B04",
+        "2-电子系统_P010_B05",
+        "2-电子系统_P010_B06",
+        "2-电子系统_P010_B07",
+        "2-电子系统_P010_B08",
+        "2-电子系统_P010_B09",
+        "2-电子系统_P010_B10",
+        "2-电子系统_P010_B12",
+        "2-电子系统_P010_B13",
+        "2-电子系统_P010_B14",
+        "2-电子系统_P010_B15",
+        "2-电子系统_P010_B16",
+        "2-电子系统_P010_B17",
+        "2-电子系统_P010_B18",
+        "2-电子系统_P010_B19",
+        "2-电子系统_P010_B20",
+        "2-电子系统_P010_B21",
+        "2-电子系统_P010_B22",
+        "2-电子系统_P010_B23",
+        "2-电子系统_P010_B24",
+        "2-电子系统_P010_B25",
+        "2-电子系统_P010_B26",
+        "2-电子系统_P010_B27",
+        "2-电子系统_P010_B29",
+        "2-电子系统_P010_B30",
+        "2-电子系统_P011_B01",
+        "2-电子系统_P010_B28",
+        "2-电子系统_P011_B03",
+        "2-电子系统_P011_B04",
+        "2-电子系统_P011_B06"
+      ],
+      "quote": "鉴于野战通信网是一个复杂的网络系统以及退化失效的特点，其主要目标是战备完好性和任务成功性。因此，选择使用可用度和任务可靠度，此外，选择平均修复时间和使用寿命用于表述系统维修性和耐久性的要求。\n\n根据使用需求和以往野战通信网的可靠性、维修性水平，要求新研制的野战通信网可靠性、维修性有所提高。因此，初步确定可靠性、维修性使用指标如下：\n\n使用可用度：Ao(门限值）=95%；\n\n任务可靠度：Rm（门限值）=90%；\n\n平均修复时间：Mcr（门限值）=2.5h;\n\n使用寿命：S（门限值）=15a。\n\n根据新研制的野战通信网的方案，进而确定以下使用指标：\n\n使用可用度：Ao（门限值）=92%；\n\n任务可靠度：Rm（门限值）=90%；\n\n平均修复时间：Mc（门限值）=2.5h;\n\n使用寿命：Sμ（门限值）=15年。\n\n可靠性、维修性合同参数分别为：\n\n平均故障问隔时间：TE\n\n任务可靠度：RMi\n\n平均修复时间：Ma;\n\n使用寿命：Suo\n\n上述可靠性、维修性使用指标中的任务可靠度、平均修复时间和使用寿命可直接作为合同指标列于合同，现只需对使用可用度进行指标转换。\n\n指标转换过程：将Ao转换为TBm\n\n因：\n\n式中：D———系统平均不能工作时间。\n\n设：D=26h,\n\n则：\n\n$$Ao= TrM/(TBm+ D)$$\n\n将Tm转换为T\n\n地面通信系统Tm转换为T的数学模型为：\n\n式中：K一系统使用参数因子；",
+      "quote_truncated": false,
+      "visual_assets": [],
+      "retrieval": [
+        {
+          "query": "快速排序 平均 时间复杂度 应用",
+          "final_rank": 10,
+          "dense_rank": null,
+          "dense_score": null,
+          "bm25_rank": 7,
+          "bm25_score": 4.488229274749756,
+          "fusion_score": 0.014925373134328358
+        }
+      ]
+    }
+  ],
+  "worker_packets": [],
+  "evidence_aliases": {},
+  "parent_run_id": null,
+  "attempt": 1,
+  "review_revised": false,
+  "review_verified": true,
+  "requires_human_review": false,
+  "trace_id": "2fa03d22ff3487617a86257e8b0d9b1e",
+  "created_at": "2026-08-15T16:15:06.003408Z"
+}

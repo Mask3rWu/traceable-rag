@@ -1,0 +1,62 @@
+{
+  "question": {
+    "id": "q4",
+    "sequence": 4,
+    "category": "borrow",
+    "expected_route": "fast"
+  },
+  "run_id": "cf189c6a256c45679044fa95e6a9f139",
+  "outcome": "routed_away",
+  "error": "routed to 'supervisor' which violates the caller's route policy; interrupting before the subgraph (router: 请求涉及核爆环境与舰船结构易损性多源资料的综合归纳，需系统整理因素并形成评估框架，属于多部分研究报告。)",
+  "ended_at": "2026-08-15T16:14:41.263107Z",
+  "route": {
+    "mode": "supervisor",
+    "reason": "请求涉及核爆环境与舰船结构易损性多源资料的综合归纳，需系统整理因素并形成评估框架，属于多部分研究报告。"
+  },
+  "route_matched": false,
+  "retrieval": {
+    "search_count": 0,
+    "search_latency_ms": [],
+    "evidence_total": 0,
+    "evidence_unique": 0,
+    "evidence_cited": 0,
+    "dedup_ratio": null,
+    "citation_coverage": null
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": false,
+    "answer_chars": 0,
+    "answer_evidence": 0
+  },
+  "model_calls": {
+    "count": 0,
+    "total_cost_usd": null,
+    "avg_latency_ms": null,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 0,
+    "by_tool": {},
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 0,
+    "tool_calls": 0,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {},
+  "elapsed_s": 9.03
+}

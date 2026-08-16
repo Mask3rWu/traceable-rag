@@ -1,0 +1,99 @@
+{
+  "question": {
+    "id": "q2",
+    "sequence": 2,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "95b3287e4122438a8377845ab92773a1",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-15T16:15:18.011823Z",
+  "route": {
+    "mode": "fast",
+    "reason": "Direct question answerable with a few searches."
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 6,
+    "search_latency_ms": [
+      420.7,
+      420.7,
+      160.2,
+      172.2,
+      166.5,
+      169.6
+    ],
+    "evidence_total": 48,
+    "evidence_unique": 23,
+    "evidence_cited": 15,
+    "dedup_ratio": 0.4792,
+    "citation_coverage": 0.6522
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 832,
+    "answer_evidence": 15
+  },
+  "model_calls": {
+    "count": 6,
+    "total_cost_usd": 0.068492,
+    "avg_latency_ms": 3396.2,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 7,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 6,
+        "success": 6,
+        "failed": 0,
+        "total_latency_ms": 1509.9256000248715
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.5076000234112144
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 6,
+    "tool_calls": 7,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 194,
+      "completion_tokens": 95,
+      "cost_usd": 0.000771,
+      "total_latency_ms": 1757.9,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 5,
+      "prompt_tokens": 30254,
+      "completion_tokens": 2316,
+      "cost_usd": 0.06772,
+      "total_latency_ms": 18619.2,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 45.21
+}
