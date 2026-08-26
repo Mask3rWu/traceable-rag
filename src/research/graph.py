@@ -27,6 +27,7 @@ from src.research.agent_models import (
     AgentAnswer,
     AgentRun,
     ChapterPlan,
+    ChapterRepair,
     ChapterSubmission,
     ConsistencyIssue,
     ConsistencyReport,
@@ -40,7 +41,6 @@ from src.research.eval_metrics import RuntimeMetrics
 from src.research.tools import (
     EvidenceAliasRegistry,
     EvidenceWorkspace,
-    scan_terminology,
 )
 
 
@@ -142,10 +142,33 @@ or another substantial structured deliverable. Return a JSON object matching thi
 {"mode": "fast|supervisor", "reason": "short operational reason"}."""
 
 REVIEW_PROMPT = """You are a consistency reviewer for a structured research deliverable.
-Review only the supplied chapter summaries, verified claims, public decision rationales, and
-open conflicts. Identify contradictory terminology, classifications, thresholds, or rules and
-missing cross-chapter alignment. Do not add facts or evidence. Report only actionable issues
-using known chapter IDs. Return a JSON object matching the supplied schema."""
+
+You review only the supplied chapter artifacts (prose, rules, contracts, conflicts) and the
+plan (chapter structure, produced/required contracts) plus the global contracts index. You do
+NOT add facts, evidence, or drop existing rules or evidence shares.
+
+Report and repair two kinds of cross-chapter inconsistency directly:
+
+1. terminology-drift: a chapter's prose uses a word that belongs to a terms-contract axis (the
+   canonical_terms of a contract that chapter consumes or promulgates, per the contracts index)
+   but is not itself in that contract's canonical set -- e.g. "期核辐射" for canonical "早期核辐射",
+   or a graded label written as a near-miss spelling. Do not flag an axis name itself, and do not
+   flag a term that is already canonical.
+
+2. contract-conflict: the same contract_id is defined with different canonical_terms in different
+   chapters. Adjudicate to one definition and repair each affected chapter so they agree.
+
+For every detected drift or conflict, immediately repair it by emitting a "repairs" entry for the
+affected chapter_id. Each repair must reproduce the FULL corrected chapter: prose, rules,
+contracts, conflicts, and gaps -- never a partial patch. Keep rules and their evidence_ids intact;
+only change what the correction requires. Do not change a chapter's status to insufficient.
+
+Do NOT emit repairs for unmet-contract, chapter-insufficient, or open-conflict -- report those as
+issues only (they are not in-place fixable). Issues you successfully repaired may still be listed;
+the runtime downgrades fully-repaired ones.
+
+Use only known chapter IDs. Return a JSON object with "issues" and "repairs" arrays matching the
+supplied schema."""
 
 
 class RoutePolicyError(RuntimeError):
@@ -488,7 +511,6 @@ class AgentRuntime:
         prose_limit = chapter_char_limit or self.chapter_max_chars
         tools = [
             *self._retrieval_tools(aliases, search_limit=self.max_search_per_worker),
-            self.workspace.make_terminology_tool(),
             self._submit_chapter_tool(chapter, aliases, prose_limit),
         ]
 
@@ -504,13 +526,7 @@ class AgentRuntime:
                 "new snippets it added beyond what you already had). When new_uncovered is "
                 "small or reaches zero, stop broad searching and write and submit this "
                 "chapter from the evidence you have gathered.\n"
-                "Terminology self-check: when upstream terms contracts are provided in the "
-                "request, call check_terminology with your draft prose and those contracts "
-                "before submit_chapter. If it returns suspect_terms, revise the prose to use "
-                "only the canonical terms from the relevant contract axis. "
-                "check_terminology is advisory and never blocks submission; if you judge a "
-                "flagged term is not a controlled-vocabulary drift, you may keep it. "
-                "Always use the canonical terms from the contracts when writing terminology."
+                "Use only canonical terms from the contracts when writing terminology."
                 " Evidence references exposed by search are short aliases such as E1 and E2. "
                 "Use those aliases exactly in read_evidence and every structured evidence field; "
                 "the system resolves them to stable provenance IDs before persistence."
@@ -675,10 +691,10 @@ class AgentRuntime:
         self.workspace.validate_evidence_ids(rule_evidence)
 
         # gaps only carries "to-be-calibrated / to-be-verified" disclosures, never
-        # diagnostic self-assessment ("check_terminology returned ...", "please rerun
-        # me"). Re-run / stop decisions are made on structured conditions, not model prose.
+        # diagnostic self-assessment ("please rerun me", grammar/schema notes).
+        # Re-run / stop decisions are made on structured conditions, not model prose.
         diagnostic_markers = re.compile(
-            r"check_terminology|请重跑|请重新|grammar|schema|校验失败|validation error",
+            r"请重跑|请重新|grammar|schema|校验失败|validation error",
             re.IGNORECASE,
         )
         bad_gaps = [gap for gap in packet.gaps if diagnostic_markers.search(gap)]
@@ -1071,17 +1087,6 @@ class AgentRuntime:
             packet = by_chapter.get(chapter.chapter_id)
             if packet is None:
                 continue
-            produced = {item.contract_id for item in packet.contracts}
-            for contract_id in set(chapter.produces_contracts) - produced:
-                issues.append(
-                    ConsistencyIssue(
-                        issue_id=f"missing-contract:{chapter.chapter_id}:{contract_id}",
-                        severity="error",
-                        chapter_ids=[chapter.chapter_id],
-                        description=f"章节未形成计划要求的契约 {contract_id}。",
-                        recommendation="重新执行该章节并补齐契约定义。",
-                    )
-                )
             for contract_id in set(chapter.required_contracts) - produced_anywhere:
                 issues.append(
                     ConsistencyIssue(
@@ -1093,74 +1098,24 @@ class AgentRuntime:
                     )
                 )
 
-            # rules[].contract_id must resolve to a contract this chapter consumes or
-            # promulgates -- otherwise the reference is dangling.
-            if packet is not None:
-                own = {item.contract_id for item in packet.contracts}
-                allowed = own | set(chapter.required_contracts)
-                for rule in packet.rules:
-                    if rule.contract_id and rule.contract_id not in allowed:
-                        issues.append(
-                            ConsistencyIssue(
-                                issue_id=(
-                                    f"dangling-rule-contract:{chapter.chapter_id}:"
-                                    f"{rule.contract_id}"
-                                ),
-                                severity="error",
-                                chapter_ids=[chapter.chapter_id],
-                                description=(
-                                    f"规则引用了未声明的契约 {rule.contract_id}。"
-                                ),
-                                recommendation=(
-                                    "引用 required_contracts 或本章 contracts[] 内的契约。"
-                                ),
-                            )
-                        )
-
-        # Scan consumer prose for defensive-term drift against the terms contracts it
-        # consumes or publishes. This makes cross-chapter consistency machine-checkable
-        # instead of reliant on model self-discipline.
-        for chapter in plan.chapters:
-            packet = by_chapter.get(chapter.chapter_id)
-            if packet is None or packet.status != "sufficient" or not packet.prose:
-                continue
-            relevant = [
-                {
-                    "contract_id": cid,
-                    "type": "terms",
-                    "canonical_terms": contract_terms[cid],
-                }
-                for cid in (
-                    set(chapter.required_contracts)
-                    | {c.contract_id for c in packet.contracts}
-                )
-                if cid in contract_terms
-            ]
-            if not relevant:
-                continue
-            for suspect in scan_terminology(packet.prose, relevant):
-                issues.append(
-                    ConsistencyIssue(
-                        issue_id=(
-                            f"terminology-drift:{chapter.chapter_id}:{suspect['term']}"
-                        ),
-                        severity="error",
-                        chapter_ids=[chapter.chapter_id],
-                        description=(
-                            f"正文出现契约 {suspect['axis']} 的非规范词"
-                            f"“{suspect['term']}”。"
-                        ),
-                        recommendation=(
-                            f"改用规范词 {suspect['canonical_terms']}。"
-                        ),
-                    )
-                )
         return issues
 
     @staticmethod
     def _review_payload(
         plan: DocumentPlan, packets: list[ResearchPacket]
     ) -> dict[str, Any]:
+        # Global contract index: contract_id -> publisher chapter + executable
+        # vocabulary. Gives the reviewer the canonical terms of every promulgated
+        # contract so it can judge terminology drift and contract conflicts across
+        # chapters with the authoritative vocabulary.
+        contracts_index: dict[str, dict[str, Any]] = {}
+        for packet in packets:
+            for contract in packet.contracts:
+                contracts_index[contract.contract_id] = {
+                    "publisher": packet.chapter_id or "",
+                    "type": contract.type,
+                    "canonical_terms": contract.canonical_terms,
+                }
         return {
             "plan": {
                 "title": plan.title,
@@ -1169,10 +1124,13 @@ class AgentRuntime:
                         "chapter_id": item.chapter_id,
                         "title": item.title,
                         "depends_on": item.depends_on,
+                        "produces_contracts": item.produces_contracts,
+                        "required_contracts": item.required_contracts,
                     }
                     for item in plan.chapters
                 ],
             },
+            "contracts": contracts_index,
             "artifacts": [
                 {
                     "chapter_id": packet.chapter_id,
@@ -1194,62 +1152,74 @@ class AgentRuntime:
             ],
         }
 
-    def _revise_reviewed_chapters(
+    def _apply_reviewer_repairs(
         self,
         plan: DocumentPlan,
         packets: list[ResearchPacket],
-        issues: list[ConsistencyIssue],
-        config: RunnableConfig,
-    ) -> tuple[list[ResearchPacket], bool]:
-        errors_by_chapter: dict[str, list[str]] = {}
-        for issue in issues:
-            if issue.severity != "error":
-                continue
-            for chapter_id in issue.chapter_ids:
-                errors_by_chapter.setdefault(chapter_id, []).append(
-                    f"Consistency review: {issue.description} Required correction: {issue.recommendation}"
-                )
-        if not errors_by_chapter:
-            return packets, False
+        report: ConsistencyReport,
+    ) -> tuple[list[ResearchPacket], set[str], bool]:
+        """Apply reviewer in-place chapter repairs, single-pass ("改一次即接受").
 
-        completed = {item.chapter_id: item for item in packets if item.chapter_id}
+        Returns ``(packets, repaired_issue_ids, revised)``:
+        ``repaired_issue_ids`` holds the issue_ids of repairable-kind
+        (terminology-drift / contract-conflict) issues whose every affected chapter
+        had a valid repair applied, so the caller can downgrade them to warning
+        (auditable, but kept out of limitations / human-review). A repair that fails
+        ``_validate_packet`` is rejected: the original chapter is retained, a
+        diagnostic is appended, and the governing issue stays error. There is no
+        whole-chapter ``_run_chapter`` re-research in this path.
+        """
+        repairable_prefixes = ("terminology-drift", "contract-conflict")
         by_plan = {item.chapter_id: item for item in plan.chapters}
+        current = {item.chapter_id: item for item in packets if item.chapter_id}
+        repaired_chapters: dict[str, bool] = {}
         revised = False
-        for chapter_id in sorted(
-            errors_by_chapter, key=lambda item: by_plan[item].ordinal
-        ):
-            if self._cancel_check():
-                raise RuntimeError("Research run was cancelled")
-            previous = completed[chapter_id]
-            repair_context = previous.model_copy(
+
+        for repair in report.repairs:
+            cid = repair.chapter_id
+            if cid not in by_plan or cid not in current:
+                continue
+            if current[cid].status != "sufficient":
+                continue
+            candidate = current[cid].model_copy(
                 update={
-                    "diagnostics": list(
-                        dict.fromkeys(
-                            [*previous.diagnostics, *errors_by_chapter[chapter_id]]
-                        )
-                    )
+                    "prose": repair.prose,
+                    "rules": repair.rules,
+                    "contracts": repair.contracts,
+                    "conflicts": repair.conflicts,
+                    "gaps": repair.gaps,
                 }
             )
-            candidate = self._run_chapter(
-                plan, by_plan[chapter_id], completed, config, previous_attempt=repair_context
-            )
-            if candidate.status == "sufficient":
-                completed[chapter_id] = candidate
-                revised = True
-            else:
-                previous.diagnostics = list(
+            try:
+                self._validate_packet(candidate, by_plan[cid])
+            except ValueError as exc:
+                current[cid].diagnostics = list(
                     dict.fromkeys(
-                        [
-                            *previous.diagnostics,
-                            "Consistency revision failed; original sufficient chapter retained",
-                            *candidate.diagnostics,
-                        ]
+                        [*current[cid].diagnostics, f"Review repair rejected: {exc}"]
                     )
                 )
-        ordered = [completed[item.chapter_id] for item in sorted(plan.chapters, key=lambda x: x.ordinal)]
+                repaired_chapters[cid] = False
+                continue
+            current[cid] = candidate
+            repaired_chapters[cid] = True
+            revised = True
+
+        repaired_issue_ids: set[str] = set()
+        for issue in report.issues:
+            if not issue.issue_id.startswith(repairable_prefixes):
+                continue
+            if issue.chapter_ids and all(
+                repaired_chapters.get(ch) for ch in issue.chapter_ids
+            ):
+                repaired_issue_ids.add(issue.issue_id)
+
+        ordered = [
+            current[item.chapter_id]
+            for item in sorted(plan.chapters, key=lambda x: x.ordinal)
+        ]
         with self._lock:
             self._packets = ordered
-        return ordered, revised
+        return ordered, repaired_issue_ids, revised
 
     @staticmethod
     def _assemble_answer(
@@ -1414,9 +1384,15 @@ class AgentRuntime:
                     continue
                 if issue.issue_id not in {item.issue_id for item in issues}:
                     issues.append(issue)
-            revised_packets, revised = self._revise_reviewed_chapters(
-                plan, packets, issues, config
+            revised_packets, repaired_ids, revised = self._apply_reviewer_repairs(
+                plan, packets, report
             )
+            # Auto-repaired issues stay auditable but no longer block / pollute
+            # limitations: warnings do not enter _assemble_answer's limitations and
+            # do not set requires_human_review.
+            for issue in issues:
+                if issue.issue_id in repaired_ids:
+                    issue.severity = "warning"
             return {
                 "packets": [item.model_dump(mode="json") for item in revised_packets],
                 "issues": [item.model_dump(mode="json") for item in issues],
@@ -1609,9 +1585,12 @@ class AgentRuntime:
                     if not (set(item.chapter_ids) - known_chapters)
                     and item.issue_id not in {current.issue_id for current in issues}
                 )
-                packets, revised = self._revise_reviewed_chapters(
-                    plan, packets, issues, runnable_config
+                packets, repaired_ids, revised = self._apply_reviewer_repairs(
+                    plan, packets, report
                 )
+                for issue in issues:
+                    if issue.issue_id in repaired_ids:
+                        issue.severity = "warning"
             answer = self._assemble_answer(plan, packets, issues)
             run = AgentRun(
                 **({"run_id": run_id} if run_id else {}),

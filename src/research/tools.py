@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import re
 import threading
 from collections.abc import Callable, Sequence
 
@@ -21,14 +20,6 @@ class SearchInput(BaseModel):
 
 class ReadEvidenceInput(BaseModel):
     evidence_ids: list[str] = Field(min_length=1, max_length=4)
-
-
-class CheckTerminologyInput(BaseModel):
-    prose: str = Field(min_length=0, description="The draft chapter prose to scan")
-    contracts: list[dict] = Field(
-        default_factory=list,
-        description="Terms contracts carrying canonical_terms to scan prose against",
-    )
 
 
 class EvidenceAliasRegistry:
@@ -92,122 +83,6 @@ class EvidenceAliasRegistry:
             else:
                 translated[key] = self.translate_payload(item)
         return translated
-def extract_terms_contracts(contracts: Sequence[dict]) -> list[dict]:
-    """Flatten every ``type == "terms"`` contract into a list of axis dicts.
-
-    Each returned dict has ``axis`` (the contract_id), ``canonical_terms`` (set),
-    and ``terms`` (ordered list). Contracts of other types are ignored.
-    """
-    axes: list[dict] = []
-    for contract in contracts:
-        if contract.get("type") != "terms":
-            continue
-        terms = contract.get("canonical_terms") or []
-        if not terms:
-            continue
-        axes.append(
-            {
-                "axis": contract.get("contract_id", ""),
-                "canonical_terms": set(terms),
-                "terms": list(terms),
-            }
-        )
-    return axes
-
-
-def _axis_patterns(axis: dict) -> list[str]:
-    """Build candidate-matching patterns for one glossary axis.
-
-    Patterns are derived purely from the canonical terms so no domain vocabulary
-    is hard-coded. Terms are grouped by shared single-character affix:
-
-    * A suffix shared by >=2 terms (e.g. "级" in K级/M级, or "度" in
-      轻度/中度/重度 even when a fourth term like 歼灭 lacks it) yields a
-      pattern matching ``one preceding char + suffix`` -- i.e. a token shaped
-      like the canonical terms.
-    * A prefix shared by >=2 terms yields ``prefix + one following char``.
-
-    The matched span is exactly the length of the shortest canonical term
-    sharing that affix, so multi-word phrases are not over-matched. Axes whose
-    terms share no affix produce no pattern -- drift on such axes is not
-    detected, which is the accepted cost of not listing forbidden aliases.
-    """
-    terms = [t for t in axis["terms"] if t]
-    if not terms:
-        return []
-
-    patterns: list[str] = []
-
-    by_suffix: dict[str, list[str]] = {}
-    for term in terms:
-        by_suffix.setdefault(term[-1], []).append(term)
-    for suffix, group in by_suffix.items():
-        if len(group) < 2:
-            continue
-        # Span length: the canonical terms in this group, all sharing the suffix.
-        span = min(len(t) for t in group)
-        preceding = span - 1
-        if preceding < 1:
-            continue
-        patterns.append(rf"[一-鿿A-Za-z]{{{preceding}}}{re.escape(suffix)}")
-
-    by_prefix: dict[str, list[str]] = {}
-    for term in terms:
-        by_prefix.setdefault(term[0], []).append(term)
-    for prefix, group in by_prefix.items():
-        if len(group) < 2:
-            continue
-        span = min(len(t) for t in group)
-        following = span - 1
-        if following < 1:
-            continue
-        patterns.append(rf"{re.escape(prefix)}[一-鿿]{{{following}}}")
-
-    return patterns
-
-
-def scan_terminology(prose: str, contracts: Sequence[dict]) -> list[dict]:
-    """Return suspect terms in ``prose`` that match a terms-contract axis pattern
-    but are not in that axis's canonical set.
-
-    This is advisory only: it never raises and may under-report terms that do
-    not match any derived pattern. The empty list means "no suspect terms".
-
-    Matches that occur as part of an axis name (e.g. "程度" inside "毁伤程度")
-    are not flagged, since mentioning the axis itself is not a vocabulary drift.
-    """
-    axes = extract_terms_contracts(contracts)
-    if not axes or not prose:
-        return []
-
-    axis_names = [axis["axis"] for axis in axes if axis["axis"]]
-
-    findings: list[dict] = []
-    for axis in axes:
-        for pattern in _axis_patterns(axis):
-            for match in re.finditer(pattern, prose):
-                word = match.group(0)
-                if word in axis["canonical_terms"]:
-                    continue
-                if any(word in name or name in word for name in axis_names):
-                    continue
-                findings.append(
-                    {
-                        "axis": axis["axis"],
-                        "term": word,
-                        "canonical_terms": axis["terms"],
-                    }
-                )
-    # Deduplicate by (axis, term) preserving order.
-    seen: set[tuple[str, str]] = set()
-    unique: list[dict] = []
-    for item in findings:
-        key = (item["axis"], item["term"])
-        if key in seen:
-            continue
-        seen.add(key)
-        unique.append(item)
-    return unique
 
 
 class EvidenceWorkspace:
@@ -414,36 +289,3 @@ class EvidenceWorkspace:
             return json.dumps(results, ensure_ascii=False)
 
         return [search_knowledge, read_evidence]
-
-    @staticmethod
-    def make_terminology_tool() -> BaseTool:
-        """Build the advisory terminology self-check tool for a chapter worker.
-
-        The tool is stateless: the worker passes its draft prose and the upstream
-        terms contracts, and receives suspect terms (if any). It never raises and
-        never blocks submission.
-        """
-
-        @tool(args_schema=CheckTerminologyInput)
-        def check_terminology(prose: str, contracts: list[dict]) -> str:
-            """Compare draft prose against the upstream terms contracts.
-
-            Pass your draft prose and the terms contracts from upstream. Returns a
-            JSON object with a ``suspect_terms`` list: terms that look like they
-            belong to a controlled-vocabulary axis but are not among that axis's
-            canonical terms. Revise your prose to use only canonical terms when you
-            agree a flagged term is a drift. This tool is advisory: it never blocks
-            submission and may miss terms that match no axis pattern.
-            """
-
-            suspects = scan_terminology(prose, contracts)
-            return json.dumps(
-                {
-                    "suspect_terms": suspects,
-                    "count": len(suspects),
-                    "advisory": "Revise to canonical terms where appropriate; submission is never blocked.",
-                },
-                ensure_ascii=False,
-            )
-
-        return check_terminology

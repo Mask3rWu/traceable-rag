@@ -151,8 +151,26 @@ class ConsistencyIssue(BaseModel):
     recommendation: str = Field(min_length=1)
 
 
+class ChapterRepair(BaseModel):
+    """Consistency reviewer 就地修正后的整章内容（完整复制，非补丁）。
+
+    只带模型可产出的提交字段；程序所属身份（chapter_title/depends_on/task/summary/
+    diagnostics）与派生的 evidence_ids（由 _validate_packet 重算）留在原
+    ResearchPacket，应用时用 model_copy(update=...) 桥接。
+    """
+
+    chapter_id: str = Field(min_length=1)
+    status: Literal["sufficient", "insufficient"] = "sufficient"
+    prose: str = Field(min_length=1)
+    rules: list[RuleRecord] = Field(default_factory=list)
+    contracts: list[ContractRecord] = Field(default_factory=list)
+    conflicts: list[Conflict] = Field(default_factory=list)
+    gaps: list[str] = Field(default_factory=list)
+
+
 class ConsistencyReport(BaseModel):
     issues: list[ConsistencyIssue] = Field(default_factory=list)
+    repairs: list[ChapterRepair] = Field(default_factory=list)
 
 
 class ChapterSubmission(BaseModel):

@@ -7,6 +7,8 @@ from pathlib import Path
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 
 from src.research.agent_models import (
+    ChapterRepair,
+    ConsistencyIssue,
     ConsistencyReport,
     DocumentPlan,
     ResearchPacket,
@@ -572,7 +574,7 @@ class ResearchGraphTest(unittest.TestCase):
         self.assertEqual(result["depends_on"], ["foundation"])
         self.assertNotIn("evidence_ids", result)
 
-    def test_structural_consistency_flags_terminology_drift(self):
+    def test_apply_reviewer_repairs_applies_valid_repair_and_downgrades_issue(self):
         plan = DocumentPlan.model_validate(
             {
                 "title": "毁伤标准",
@@ -583,13 +585,6 @@ class ResearchGraphTest(unittest.TestCase):
                         ordinal=1,
                         title="等级",
                         produces_contracts=["D-LEVELS"],
-                    ),
-                    _chapter(
-                        chapter_id="scope",
-                        ordinal=2,
-                        title="范围",
-                        depends_on=["levels"],
-                        required_contracts=["D-LEVELS"],
                     ),
                 ],
             }
@@ -602,35 +597,109 @@ class ResearchGraphTest(unittest.TestCase):
                     "chapter_title": "等级",
                     "status": "sufficient",
                     "summary": "完成",
-                    "prose": "采用K级判定",
+                    "prose": "采用期核辐射判定",
                     "rules": [
-                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
-                ],
+                        {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                    ],
                     "contracts": [
-                        {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["K级", "M级"]}
+                        {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["早期核辐射"]}
                     ],
                 }
             ),
+        ]
+        report = ConsistencyReport(
+            issues=[
+                ConsistencyIssue(
+                    issue_id="terminology-drift:levels:期核辐射",
+                    severity="error",
+                    chapter_ids=["levels"],
+                    description="非规范词“期核辐射”",
+                    recommendation="改用早期核辐射",
+                )
+            ],
+            repairs=[
+                ChapterRepair(
+                    chapter_id="levels",
+                    prose="采用早期核辐射判定",
+                    rules=[
+                        {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                    ],
+                    contracts=[
+                        {"contract_id": "D-LEVELS", "type": "terms", "canonical_terms": ["早期核辐射"]}
+                    ],
+                )
+            ],
+        )
+        runtime = AgentRuntime(
+            model=_ScriptedModel(route="supervisor"), workspace=_Workspace()
+        )
+        revised_packets, repaired_ids, revised = runtime._apply_reviewer_repairs(
+            plan, packets, report
+        )
+
+        self.assertTrue(revised)
+        self.assertIn("terminology-drift:levels:期核辐射", repaired_ids)
+        self.assertEqual(revised_packets[0].prose, "采用早期核辐射判定")
+        self.assertEqual(revised_packets[0].diagnostics, [])
+
+    def test_apply_reviewer_repairs_rejects_invalid_repair(self):
+        plan = DocumentPlan.model_validate(
+            {
+                "title": "毁伤标准",
+                "rationale": "测试",
+                "chapters": [_chapter(chapter_id="levels", ordinal=1, title="等级")],
+            }
+        )
+        packets = [
             ResearchPacket.model_validate(
                 {
-                    "task": "范围",
-                    "chapter_id": "scope",
-                    "chapter_title": "范围",
+                    "task": "等级",
+                    "chapter_id": "levels",
+                    "chapter_title": "等级",
                     "status": "sufficient",
                     "summary": "完成",
-                    "prose": "该目标判定为Q级。",
+                    "prose": "采用早期核辐射判定",
                     "rules": [
-                    {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
-                ],
+                        {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                    ],
                 }
             ),
         ]
+        # Repair injects a markdown heading, which _validate_packet must reject.
+        report = ConsistencyReport(
+            issues=[
+                ConsistencyIssue(
+                    issue_id="terminology-drift:levels:期核辐射",
+                    severity="error",
+                    chapter_ids=["levels"],
+                    description="非规范词“期核辐射”",
+                    recommendation="改用早期核辐射",
+                )
+            ],
+            repairs=[
+                ChapterRepair(
+                    chapter_id="levels",
+                    prose="# 标题\n采用早期核辐射判定",
+                    rules=[
+                        {"basis": "source", "evidence_ids": ["ev-test"], "rationale": "测试"}
+                    ],
+                )
+            ],
+        )
+        runtime = AgentRuntime(
+            model=_ScriptedModel(route="supervisor"), workspace=_Workspace()
+        )
+        revised_packets, repaired_ids, revised = runtime._apply_reviewer_repairs(
+            plan, packets, report
+        )
 
-        issues = AgentRuntime._structural_consistency_issues(plan, packets)
-
-        drift = [item for item in issues if item.issue_id.startswith("terminology-drift")]
-        self.assertTrue(drift, f"expected a terminology-drift issue, got {issues}")
-        self.assertIn("Q级", drift[0].description)
+        self.assertFalse(revised)
+        self.assertNotIn("terminology-drift:levels:期核辐射", repaired_ids)
+        # Original prose retained; rejection recorded in diagnostics.
+        self.assertEqual(revised_packets[0].prose, "采用早期核辐射判定")
+        self.assertTrue(
+            any("Review repair rejected" in d for d in revised_packets[0].diagnostics)
+        )
 
     def test_structural_consistency_flags_unmet_required_contract(self):
         plan = DocumentPlan.model_validate(
