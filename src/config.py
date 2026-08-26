@@ -28,6 +28,20 @@ def _positive_int_env(name: str, *, default: int) -> int:
     return value
 
 
+def _optional_positive_int_env(name: str) -> int | None:
+    """Load an optional positive-integer env var; unset/empty means ``None``."""
+    raw_value = os.getenv(name, "").strip()
+    if not raw_value:
+        return None
+    try:
+        value = int(raw_value)
+    except ValueError as exc:
+        raise ConfigError(f"{name} must be an integer") from exc
+    if value <= 0:
+        raise ConfigError(f"{name} must be greater than zero")
+    return value
+
+
 def _bool_env(name: str, *, default: bool = False) -> bool:
     raw_value = os.getenv(name, str(default)).strip().lower()
     if raw_value in {"1", "true", "yes", "on"}:
@@ -149,6 +163,13 @@ class ResearchModelConfig:
     # model_kwargs={"thinking":{"type":"disabled"}} 生效（探测确认可关思考）。
     disable_thinking_supervisor: bool = False
     disable_thinking_fast: bool = False
+    # 方案 B（上限兜底）：completion token 硬上限，走 extra_body.max_tokens。
+    # deepseek 只认 max_tokens，而 langchain 会把 ChatOpenAI.max_tokens 静默
+    # 改写成 max_completion_tokens（deepseek 忽略），故上限必须经 LLM 工厂的
+    # token_budget 走 extra_body，不能设 ChatOpenAI.max_tokens。
+    # None = 不限（现状）；fast/supervisor 分角色，opt-in 按 env 配置。
+    fast_token_budget: int | None = None
+    supervisor_token_budget: int | None = None
     max_workers: int = 4
     max_subtasks: int = 8
     document_max_chars: int = 6000
@@ -212,6 +233,12 @@ class ResearchModelConfig:
             ),
             disable_thinking_fast=_bool_env(
                 "RESEARCH_DISABLE_THINKING_FAST", default=False
+            ),
+            fast_token_budget=_optional_positive_int_env(
+                "RESEARCH_FAST_TOKEN_BUDGET"
+            ),
+            supervisor_token_budget=_optional_positive_int_env(
+                "RESEARCH_SUPERVISOR_TOKEN_BUDGET"
             ),
             max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),
             max_subtasks=_positive_int_env("RESEARCH_MAX_SUBTASKS", default=8),

@@ -147,3 +147,46 @@ class ConfigTest(unittest.TestCase):
 
         self.assertTrue(config.disable_thinking_supervisor)
         self.assertTrue(config.disable_thinking_fast)
+
+    def test_research_model_config_token_budget_defaults_to_none(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            env_file = Path(tmp) / ".env"
+            env_file.write_text(
+                "RESEARCH_MODEL=test-model\n"
+                "RESEARCH_BASE_URL=https://research.example/v1/\n"
+                "RESEARCH_API_KEY=test-secret\n",
+                encoding="utf-8",
+            )
+
+            config = ResearchModelConfig.from_env(env_file)
+
+        # 方案 B 默认关闭（不限 token，维持现状，opt-in）
+        self.assertIsNone(config.fast_token_budget)
+        self.assertIsNone(config.supervisor_token_budget)
+
+    def test_research_model_config_token_budget_from_env(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            env_file = Path(tmp) / ".env"
+            env_file.write_text(
+                "RESEARCH_MODEL=test-model\n"
+                "RESEARCH_BASE_URL=https://research.example/v1/\n"
+                "RESEARCH_API_KEY=test-secret\n"
+                "RESEARCH_FAST_TOKEN_BUDGET=1500\n"
+                "RESEARCH_SUPERVISOR_TOKEN_BUDGET=3000\n",
+                encoding="utf-8",
+            )
+
+            config = ResearchModelConfig.from_env(env_file)
+
+        self.assertEqual(config.fast_token_budget, 1500)
+        self.assertEqual(config.supervisor_token_budget, 3000)
+
+    def test_research_model_config_rejects_non_positive_token_budget(self):
+        env = {
+            "RESEARCH_MODEL": "test-model",
+            "RESEARCH_BASE_URL": "https://research.example/v1",
+            "RESEARCH_API_KEY": "test-secret",
+            "RESEARCH_FAST_TOKEN_BUDGET": "0",
+        }
+        with patch.dict(os.environ, env, clear=True), self.assertRaises(ConfigError):
+            ResearchModelConfig.from_env()

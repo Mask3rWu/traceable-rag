@@ -1,8 +1,8 @@
 # 领域研究 Agent
 
 当前主入口是基于 LangGraph/LangChain 的路由 ReAct Agent。它复用现有 Dense、
-BM25 与 RRF；模型自主决定检索词、证据读取、补充检索和停止时机。旧的固定纵向
-工作流仍保留在 `scripts/run_research.py`，用于兼容和对照。
+BM25 与 RRF；模型自主决定检索词、证据读取、补充检索和停止时机。所有模型调用统一
+收敛到 `src/research/llm.py` 的 `build_chat_model` 工厂。
 
 统一入口先由 Router 判断任务复杂度：
 
@@ -100,25 +100,6 @@ conda run -n dba-py311 python scripts/run_agent.py `
   "生成一份可溯源的装甲目标视觉毁伤评估标准"
 ```
 
-## Legacy 固定工作流
-
-以下命令仅用于兼容和回归对照。其产物仍写到
-`processed/research/runs/<run_id>/run.json`：
-
-确保 Dense 和 BM25 索引已经构建，然后运行：
-
-```powershell
-conda run -n dba-py311 python scripts/run_research.py `
-  "装甲目标的视觉毁伤等级应如何划分？"
-```
-
-可以临时覆盖查询数和每轮证据数：
-
-```powershell
-conda run -n dba-py311 python scripts/run_research.py `
-  "装甲目标的视觉毁伤等级应如何划分？" `
-  --max-queries 3 --evidence-limit 8
-```
 
 命令行会打印每条已核验结论及其 evidence ID，再打印 evidence ID 对应的文件、页码和
 章节。完整引文、检索分数与工具轨迹保存在 `run.json`。

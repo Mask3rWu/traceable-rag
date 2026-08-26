@@ -5,13 +5,13 @@ from dataclasses import dataclass
 from collections.abc import Callable
 from typing import Any
 
-from langchain_openai import ChatOpenAI
 from langfuse import Langfuse
 from langchain_core.callbacks import BaseCallbackHandler
 from langfuse.langchain import CallbackHandler
 
 from src.config import ResearchModelConfig
 from src.research.agent_models import AgentRun
+from src.research.llm import build_chat_model
 from src.research.agent_store import AgentRunStore
 from src.research.evidence import EvidenceResolver
 from src.research.eval_metrics import RuntimeMetrics
@@ -108,25 +108,24 @@ def build_research_agent(
 ) -> RoutedResearchAgent:
     resolved = config or ResearchModelConfig.from_env()
 
-    def _chat_model(*, disable_thinking: bool) -> ChatOpenAI:
-        kwargs = {
-            "model": resolved.model,
-            "base_url": resolved.base_url,
-            "api_key": resolved.api_key,
-            "temperature": 0,
-        }
-        if disable_thinking:
-            # OpenAI 兼容的顶层字段。必须走 extra_body：model_kwargs 会被当作
-            # create() 具名参数而触发 SDK 校验错误；extra_body 由 SDK 合并进请求
-            # 体，经探测确认 deepseek 认它并真正关掉思考。
-            # （注意：langchain 会把 max_tokens 自发转成 max_completion_tokens，
-            # deepseek 不认后者，故限 token 不能走 ChatOpenAI.max_tokens。）
-            kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
-        return ChatOpenAI(**kwargs)
+    def _chat_model(
+        *, disable_thinking: bool, token_budget: int | None
+    ) -> Any:
+        return build_chat_model(
+            model=resolved.model,
+            base_url=resolved.base_url,
+            api_key=resolved.api_key,
+            disable_thinking=disable_thinking,
+            token_budget=token_budget,
+        )
 
-    model = _chat_model(disable_thinking=resolved.disable_thinking_fast)
+    model = _chat_model(
+        disable_thinking=resolved.disable_thinking_fast,
+        token_budget=resolved.fast_token_budget,
+    )
     worker_model = _chat_model(
-        disable_thinking=resolved.disable_thinking_supervisor
+        disable_thinking=resolved.disable_thinking_supervisor,
+        token_budget=resolved.supervisor_token_budget,
     )
     catalog = ChunkCatalog.load()
     workspace = EvidenceWorkspace(

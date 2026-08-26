@@ -463,12 +463,14 @@ supervisor 题额外：
 
 def _judge_one(case: dict, model: str, base_url: str, api_key: str) -> dict:
     try:
-        from langchain_openai import ChatOpenAI
+        from src.research.llm import build_chat_model
     except ImportError as exc:  # pragma: no cover - env-dependent
         raise SystemExit(
             "--api requires langchain-openai (pip install langchain-openai): " + str(exc)
         )
-    llm = ChatOpenAI(model=model, base_url=base_url, api_key=api_key, temperature=0)
+    llm = build_chat_model(
+        model=model, base_url=base_url, api_key=api_key, temperature=0
+    )
     prompt = (
         JUDGE_RUBRIC
         + "\n\n以下为待判 case（JSON）：\n"

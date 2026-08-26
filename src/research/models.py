@@ -1,15 +1,9 @@
-"""Persisted contracts for traceable research runs."""
+"""Persisted contracts shared by the research agent."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from typing import Literal
-from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
-
-
-def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
 
 
 class RetrievalTrace(BaseModel):
@@ -56,23 +50,6 @@ class Evidence(BaseModel):
     retrieval: list[RetrievalTrace] = Field(default_factory=list)
 
 
-class Citation(BaseModel):
-    """A source anchor pointing at an evidence excerpt."""
-
-    model_config = ConfigDict(frozen=True)
-
-    evidence_id: str
-
-
-class Claim(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    claim_id: str
-    text: str = Field(min_length=1)
-    conclusion_type: Literal["direct", "synthesized", "normative", "hypothesis"]
-    citations: list[Citation] = Field(default_factory=list)
-
-
 class Conflict(BaseModel):
     model_config = ConfigDict(frozen=True)
 
@@ -84,39 +61,3 @@ class Conflict(BaseModel):
     resolution: str | None = None
 
 
-class ToolCall(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    call_id: str
-    tool: str
-    arguments: dict
-    result: dict
-    created_at: datetime = Field(default_factory=utc_now)
-
-
-class ResearchRun(BaseModel):
-    """Complete, resumable record of a single research question."""
-
-    run_id: str = Field(default_factory=lambda: uuid4().hex)
-    question: str = Field(min_length=1)
-    status: Literal[
-        "created",
-        "planning",
-        "retrieving",
-        "synthesizing",
-        "verifying",
-        "completed",
-        "failed",
-    ] = "created"
-    queries: list[str] = Field(default_factory=list)
-    evidence: list[Evidence] = Field(default_factory=list)
-    claims: list[Claim] = Field(default_factory=list)
-    conflicts: list[Conflict] = Field(default_factory=list)
-    tool_calls: list[ToolCall] = Field(default_factory=list)
-    summary: str = ""
-    error: str | None = None
-    created_at: datetime = Field(default_factory=utc_now)
-    updated_at: datetime = Field(default_factory=utc_now)
-
-    def touch(self) -> None:
-        self.updated_at = utc_now()
