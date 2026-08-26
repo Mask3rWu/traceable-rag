@@ -1,0 +1,142 @@
+{
+  "schema_version": "judge-report-v1",
+  "batch_id": "b_20260817_0028",
+  "git_commit": "85fc34b6195ffb0b2dcc072e390be1976849a34b",
+  "created_at": "2026-08-16T16:50:48Z",
+  "cases": [
+    {
+      "question_id": "q1",
+      "status": "done",
+      "category": "direct",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "A",
+          "fidelity": "A",
+          "completeness": "A",
+          "consistency": "A",
+          "honesty": "A"
+        },
+        "conclusion": "标准题的标准答法：方法分类/定定量适用条件/矩阵图判读均与 GJB-Z 1391-2006 §5.5.2 吻合，主张逐条可回查原文，无越证据断言。",
+        "recommendation": "approve"
+      }
+    },
+    {
+      "question_id": "q2",
+      "status": "done",
+      "category": "direct",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "A",
+          "fidelity": "B",
+          "completeness": "A",
+          "consistency": "A",
+          "honesty": "A"
+        },
+        "conclusion": "环境适应性要求覆盖面广、来源条目具体（§3.1.3/§3.5/§4.3），唯末条「抗风」主张证据偏薄，属轻微不足。",
+        "recommendation": "approve"
+      }
+    },
+    {
+      "question_id": "q3",
+      "status": "done",
+      "category": "borrow",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "D",
+          "fidelity": "D",
+          "completeness": "D",
+          "consistency": "D",
+          "honesty": "A"
+        },
+        "conclusion": "执行预算耗尽未产出，最终答案仅为「未能在执行预算内形成可靠答案」。诚实收手无虚构，但无任何交付，按最终答案判即为无作答。",
+        "recommendation": "reject"
+      }
+    },
+    {
+      "question_id": "q4",
+      "status": "skipped",
+      "reason": "no runs/q4.json (checkpoint only) - routed_away, router 误判 supervisor"
+    },
+    {
+      "question_id": "q5",
+      "status": "done",
+      "category": "unrelated",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "D",
+          "fidelity": "B",
+          "completeness": "D",
+          "consistency": "A",
+          "honesty": "B"
+        },
+        "conclusion": "诚实声明无资料、不虚构引用方向正确，但过度防御：快速排序复杂度是通用知识，本可作答；实际拒答致交付缺位，且附带 3 条未使用的无关军事证据。",
+        "recommendation": "revise"
+      }
+    },
+    {
+      "question_id": "q6",
+      "status": "skipped",
+      "reason": "no runs/q6.json (checkpoint only) - 执行失败 OutputParserException"
+    },
+    {
+      "question_id": "q7",
+      "status": "done",
+      "category": "direct",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "B",
+          "fidelity": "A",
+          "completeness": "A",
+          "consistency": "C",
+          "honesty": "A",
+          "operability": "B"
+        },
+        "conclusion": "覆盖全、证据高密度、诚实标注设计项，是 supervisor direct 高质量范本；但存在未自报的「三级/四级」等级计数矛盾与术语漂移硬伤，落地前须统一分级口径。",
+        "recommendation": "revise"
+      }
+    },
+    {
+      "question_id": "q8",
+      "status": "skipped",
+      "reason": "no runs/q8.json (checkpoint only) - 执行失败 LengthFinishReasonError"
+    },
+    {
+      "question_id": "q9",
+      "status": "skipped",
+      "reason": "no runs/q9.json (checkpoint only) - 执行失败 BadRequestError tool_calls"
+    },
+    {
+      "question_id": "q10",
+      "status": "done",
+      "category": "unrelated",
+      "route_matched": true,
+      "verdict": {
+        "dimensions": {
+          "correctness": "B",
+          "fidelity": "D",
+          "completeness": "A",
+          "consistency": "C",
+          "honesty": "D"
+        },
+        "conclusion": "公交通用方案内容专业完整可复用，但全文未声明资料域不匹配，并以 53 条不相关军事证据作为支撑面，命中无关题强套引用红线（诚实性 D = 生死线），须将正文从证据底座剥离为通用设计值呈现后再交付。",
+        "recommendation": "reject"
+      }
+    }
+  ],
+  "aggregate": {
+    "as_of": "2026-08-16T16:50:48Z",
+    "judged": 6,
+    "skipped": 4,
+    "distribution": {
+      "approve": 2,
+      "revise": 2,
+      "reject": 2
+    },
+    "notes": "A×21, B×6, C×3, D×9。supervisor 段 q7/q10 一致性问题集中；unrelated 两极分化：q5 诚实拒答但交付缺位(revise)，q10 强套引用(诚实性 D,reject)。q3 执行预算耗尽无交付(reject)。"
+  }
+}

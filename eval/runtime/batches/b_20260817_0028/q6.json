@@ -1,0 +1,62 @@
+{
+  "question": {
+    "id": "q6",
+    "sequence": 6,
+    "category": "direct",
+    "expected_route": "supervisor"
+  },
+  "run_id": "fa2d10bc3fc94acb8d60b7f9780f650a",
+  "outcome": "failed",
+  "error": "OutputParserException: Invalid json output: \nFor troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE ",
+  "ended_at": "2026-08-16T16:40:31.092862Z",
+  "route": {
+    "mode": null,
+    "reason": null
+  },
+  "route_matched": null,
+  "retrieval": {
+    "search_count": 0,
+    "search_latency_ms": [],
+    "evidence_total": 0,
+    "evidence_unique": 0,
+    "evidence_cited": 0,
+    "dedup_ratio": null,
+    "citation_coverage": null
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": false,
+    "answer_chars": 0,
+    "answer_evidence": 0
+  },
+  "model_calls": {
+    "count": 0,
+    "total_cost_usd": null,
+    "avg_latency_ms": null,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 0,
+      "passed": 0,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 0,
+    "by_tool": {},
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 0,
+    "tool_calls": 0,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {},
+  "elapsed_s": 696.71
+}

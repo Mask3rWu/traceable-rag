@@ -1,0 +1,101 @@
+{
+  "question": {
+    "id": "q1",
+    "sequence": 1,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "bdbb3538278c46cb9b66dbc3c5fb0301",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-16T16:28:56.122010Z",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question about specific standard's analysis methods, answerable with a few searches."
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 2,
+    "search_latency_ms": [
+      840.6,
+      842.1
+    ],
+    "evidence_total": 16,
+    "evidence_unique": 13,
+    "evidence_cited": 5,
+    "dedup_ratio": 0.8125,
+    "citation_coverage": 0.3846
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 478,
+    "answer_evidence": 5
+  },
+  "model_calls": {
+    "count": 4,
+    "total_cost_usd": 0.02589,
+    "avg_latency_ms": 3086.8,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 4,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 2,
+        "success": 2,
+        "failed": 0,
+        "total_latency_ms": 1682.6850000070408
+      },
+      "read_evidence": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.5206000059843063
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.5987000185996294
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 4,
+    "tool_calls": 4,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 217,
+      "completion_tokens": 66,
+      "cost_usd": 0.000666,
+      "total_latency_ms": 1457.7,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 3,
+      "prompt_tokens": 11005,
+      "completion_tokens": 1367,
+      "cost_usd": 0.025223,
+      "total_latency_ms": 10889.6,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 33.17
+}

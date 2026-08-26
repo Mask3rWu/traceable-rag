@@ -1,0 +1,109 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260817_0028",
+  "question_id": "q2",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 596,
+    "answer_truncated": false,
+    "evidence_tokens": 428,
+    "evidence_included": 5,
+    "evidence_omitted": 0
+  },
+  "question": {
+    "id": "q2",
+    "category": "direct",
+    "expected_route": "fast",
+    "question": "无人机在环境适应性方面有哪些主要要求？",
+    "expected": "应自行定位并直接引用《无人机通用规范》中环境适应性相关条目，给出明确要求，可回查原文。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "fast",
+    "elapsed_s": 33.12,
+    "model_calls_count": 5,
+    "consistency_issues": [],
+    "packet_statuses": {},
+    "answer": {
+      "content": "根据《无人机通用规范》等资料，无人机在环境适应性方面的主要要求包括：\n\n1. 总体要求：无人机所有部件应能承受贮存、运输和飞行条件下所规定的各种环境条件，主要包括气候环境、力学环境、生物环境和电磁环境等。\n\n2. 使用性能要求：无人机在地面运转和飞行中遇到规定环境条件时，应能满足规定的性能要求。\n\n3. 贮存与运输要求：在规定的贮存和运输条件下及规定环境影响下，无人机应能安全贮存和运输，性能不受损害。\n\n4. 力学环境要求：无人机及其部件应能承受正常操作、发射、回收、飞行中所遇到的加速度、冲击和振动；装箱状态下还应能承受运输和贮存中的加速度、冲击和振动。\n\n5. 电磁兼容性要求：无人机电磁兼容性应符合GJB151、GJB152、GJB1389要求；机上舵机须进行电磁兼容性设计，引爆装置须对电磁敏感度留有安全余量；电子对抗等设备应保证在作战使用的电磁环境下正常工作，并确保机载设备之间及机载与地面设备之间的兼容。\n\n6. 电子设备环境要求：电子设备环境试验按GJB150要求进行，检验测试环境条件按GJB150或订购方提出的条件执行；设备应根据需要采取冷却或加温等环控措施。\n\n7. 指标地位：环境适应性是无人机战术技术指标之一，抗风要求（含地面及空中抗风要求）也属于重要的环境适应性内容。",
+      "content_truncated": false,
+      "limitations": []
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-a1b4468c55da",
+        "source_file": "无人机通用规范.pdf",
+        "pages": 5,
+        "section_path": [
+          "3 要求",
+          "3.1 -般要求",
+          "3.1.3",
+          "3.1.3.1 环境"
+        ],
+        "quote": "无人机所有部件应能承受贮存、运输和飞行条件下所规定的各种环境条件，包括：气候、力学、生物、电磁环境等。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-9e5d95f7715f",
+        "source_file": "无人机通用规范.pdf",
+        "pages": 6,
+        "section_path": [
+          "3 要求",
+          "3.1 -般要求",
+          "3.1.3",
+          "3.1.3.9 电磁兼容性"
+        ],
+        "quote": "无人机的电磁兼容性应符合GJB151、GJB152、GJB1389的有关要求。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-27afefe2d53f",
+        "source_file": "无人机通用规范.pdf",
+        "pages": 18,
+        "section_path": [
+          "3 要求",
+          "3.5 电子设备",
+          "3.5.3 性能"
+        ],
+        "quote": "所有电子设备的性能都应满足GJB457的有关要求并与无人机总体性能要求相匹配。也可以根据订购方要求或“制造与验收技术条件”\n… [省略 323 字符] …\n线、机载无线电遥控接收天线、遥控接收机和基带信号解调器，完成各指令对飞机的操作控制。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-cdd8a36881d2",
+        "source_file": "无人机通用规范.pdf",
+        "pages": 25,
+        "section_path": [
+          "4 质量保证规定",
+          "4.3 检验条件"
+        ],
+        "quote": "a．用于无人机系统的检验、测试用仪器的精度应高于被测设备精度的3～5倍，且必须经过标定、校正并在有效期内；\n\nb．所有试验、\n… [省略 72 字符] …\n订购方提出的条件执行；\n\nd、检验试验报告、技术文件、图样资料按GJB1362执行。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a4e5e8bc5e46",
+        "source_file": "无人机通用规范.pdf",
+        "pages": "4-5",
+        "section_path": [
+          "3 要求",
+          "3.1 -般要求",
+          "3.1.2 无人机的战术技术指标",
+          "3.1.2.1 飞行性能"
+        ],
+        "quote": "a.速度指标：最大速度、巡航速度、最小速度；\n\nb．高度指标：实用升限、最大使用高度、最低飞行高度；\n\n核）。\n\n3.1.\n… [省略 139 字符] …\n\n3.1.2.12耐久性与寿命特性\n\n3.1.2.13隐身性\n\n3.1.2.14其它",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 5,
+      "included": 5,
+      "omitted": 0,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 984,
+      "quote_chars_after": 450
+    }
+  }
+}

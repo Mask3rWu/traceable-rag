@@ -1,0 +1,27 @@
+{
+  "batch_id": "b_20260817_0028",
+  "schema_version": "runtime-eval-v2",
+  "system_version": "routed-research-agent@85fc34b6195ffb0b2dcc072e390be1976849a34b",
+  "git_commit": "85fc34b6195ffb0b2dcc072e390be1976849a34b",
+  "created_at": "2026-08-16T16:28:23Z",
+  "config_snapshot": {
+    "backend": "api",
+    "base_url": "http://127.0.0.1:8000",
+    "concurrency": 5,
+    "poll_interval_s": 3.0,
+    "pricing_models": [
+      "deepseek-v4-flash"
+    ],
+    "concurrency_requests": 5
+  },
+  "question_set": {
+    "file": "D:\\Project\\cc\\eval\\runtime\\questions.yaml",
+    "hash": "2a4b5a185b2d3340",
+    "count": 10,
+    "categories": {
+      "direct": 4,
+      "borrow": 4,
+      "unrelated": 2
+    }
+  }
+}

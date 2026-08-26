@@ -1,0 +1,103 @@
+{
+  "question": {
+    "id": "q2",
+    "sequence": 2,
+    "category": "direct",
+    "expected_route": "fast"
+  },
+  "run_id": "c8959bbf4e9245a4ae392bc3841cacc8",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-16T16:28:56.122010Z",
+  "route": {
+    "mode": "fast",
+    "reason": "Focused question on a specific aspect (environmental adaptability) of UAVs, answerable with a concise list of requirements."
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 4,
+    "search_latency_ms": [
+      635.5,
+      641.8,
+      470.3,
+      475.0
+    ],
+    "evidence_total": 32,
+    "evidence_unique": 18,
+    "evidence_cited": 8,
+    "dedup_ratio": 0.5625,
+    "citation_coverage": 0.4444
+  },
+  "delivery": {
+    "planned_chapters": null,
+    "executed_packets": 0,
+    "packet_sufficient": 0,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 549,
+    "answer_evidence": 8
+  },
+  "model_calls": {
+    "count": 5,
+    "total_cost_usd": 0.030624,
+    "avg_latency_ms": 3045.5,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 1,
+      "passed": 1,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 6,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 4,
+        "success": 4,
+        "failed": 0,
+        "total_latency_ms": 2222.6378999766894
+      },
+      "read_evidence": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.42179995216429234
+      },
+      "submit_answer": {
+        "count": 1,
+        "success": 1,
+        "failed": 0,
+        "total_latency_ms": 0.46280003152787685
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 5,
+    "tool_calls": 6,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 194,
+      "completion_tokens": 166,
+      "cost_usd": 0.001197,
+      "total_latency_ms": 2080.1,
+      "failed": 0
+    },
+    "fast": {
+      "model_calls": 4,
+      "prompt_tokens": 16240,
+      "completion_tokens": 1608,
+      "cost_usd": 0.029427,
+      "total_latency_ms": 13147.3,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 33.12
+}

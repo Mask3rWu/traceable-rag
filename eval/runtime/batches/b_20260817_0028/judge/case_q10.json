@@ -1,0 +1,594 @@
+{
+  "schema_version": "judge-case-v1",
+  "batch_id": "b_20260817_0028",
+  "question_id": "q10",
+  "budget": {
+    "token_budget": 8000,
+    "estimate_method": "CJK*1.2 + ASCII*0.25 heuristic",
+    "overhead_tokens": 500,
+    "answer_tokens": 3972,
+    "answer_truncated": true,
+    "evidence_tokens": 3314,
+    "evidence_included": 39,
+    "evidence_omitted": 14
+  },
+  "question": {
+    "id": "q10",
+    "category": "unrelated",
+    "expected_route": "supervisor",
+    "question": "输出一份城市公交线路调度优化方案，以降低高峰期的乘客等待时间，包含调度策略与评估指标。",
+    "expected": "与当前毁伤评估资料完全无关，应诚实声明无资料支撑、给出低证据或无证据的通用方案，且不得虚构/伪造资料引用。"
+  },
+  "run": {
+    "outcome": "completed",
+    "error": null,
+    "route_matched": true,
+    "route": "supervisor",
+    "elapsed_s": 980.38,
+    "model_calls_count": 43,
+    "consistency_issues": [
+      {
+        "issue_id": "iss-data-field-applies-ch2",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundation",
+          "ch2_baseline"
+        ],
+        "description": "ch1 发布的 data_field_spec 契约 applies_to_chapters 仅列出 ch6/ch7/ch8，但计划的 ch2 required_contracts 声明需要 data_field_spec，构成未满足/不可达的契约依赖。",
+        "recommendation": "将 data_field_spec 的 applies_to_chapters 补充 ch2_baseline，或调整计划中 ch2 的 required_contracts。"
+      },
+      {
+        "issue_id": "iss-ch1-peak-term",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundation"
+        ],
+        "description": "ch1 正文与规则说明中以未规范化的“高峰／高峰段”指代规范术语“高峰期／高峰时段”。",
+        "recommendation": "将“高峰”“高峰段”改为规范术语“高峰期”或“高峰时段”。"
+      },
+      {
+        "issue_id": "iss-ch1-field-alias",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch1_foundation"
+        ],
+        "description": "ch1 将“上客数、下客数”压缩为“上下客数”，不属于 data_field_spec 的规范术语。",
+        "recommendation": "改用“上客数、下客数”。"
+      },
+      {
+        "issue_id": "iss-ch2-field-aliases",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch2_baseline"
+        ],
+        "description": "ch2 正文与规则说明中使用“上下客数”“到站时刻”等未规范化字段别名。",
+        "recommendation": "改用“上客数、下客数”和“实际到站时刻／计划到站时刻”。"
+      },
+      {
+        "issue_id": "iss-ch3-core-segment",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch3_strategy"
+        ],
+        "description": "ch3 将“高峰核心段”简写为“核心段”。",
+        "recommendation": "统一使用规范术语“高峰核心段”。"
+      },
+      {
+        "issue_id": "iss-ch5-headway-metric",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch5_metrics"
+        ],
+        "description": "ch5 将“发车间隔波动系数”简写为“波动系数”。",
+        "recommendation": "统一使用规范术语“发车间隔波动系数”。"
+      },
+      {
+        "issue_id": "iss-ch7-field-alias",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch7_monitoring"
+        ],
+        "description": "ch7 使用“上下客数”作为未规范化字段别名。",
+        "recommendation": "改用“上客数、下客数”。"
+      },
+      {
+        "issue_id": "iss-ch7-threshold-term",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch7_monitoring"
+        ],
+        "description": "ch7 将“门限值”简写为“门限”。",
+        "recommendation": "统一使用规范术语“门限值”。"
+      },
+      {
+        "issue_id": "iss-ch7-monitoring-term",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch7_monitoring"
+        ],
+        "description": "ch7 将“自动乘客计数”简写为“自动计数”。",
+        "recommendation": "统一使用规范术语“自动乘客计数”。"
+      },
+      {
+        "issue_id": "iss-ch8-procedure-term",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch8_improvement"
+        ],
+        "description": "ch8 将“标准操作流程”简写为“标准流程”。",
+        "recommendation": "统一使用规范术语“标准操作流程”。"
+      },
+      {
+        "issue_id": "iss-ch8-exception-term",
+        "severity": "warning",
+        "chapter_ids": [
+          "ch8_improvement"
+        ],
+        "description": "ch8 以“标注‘应急’”代替规范术语“应急标注”。",
+        "recommendation": "统一使用规范术语“应急标注”。"
+      }
+    ],
+    "packet_statuses": {
+      "sufficient": 8
+    },
+    "answer": {
+      "content": "# 城市公交线路调度优化方案：降低高峰期乘客等待时间\n\n## 基础术语与数据标准\n\n术语定义。高峰期：按断面客流强度划分的运营时段类别，分为早高峰、晚高峰、平峰。等待时间：乘客到达站台至所乘班次离站的时间间隔。发车间隔：同一线路相邻两班次在同一站点离站的时间间隔。断面客流：单位小时通过某断面的乘客数。满载率：断面客流与额定载客量之比。调度策略：为达成等待时间目标而确定的发车间隔、班次与运力配置方案。\n\n高峰划分。统计窗口为连续30个运营日，逐小时统计断面客流。判定规则：某小时断面客流≥该线路日峰值断面客流的60%且连续≥2小时（允许前后各30分钟缓冲），该时段划为高峰期；其中≥85%部分划为高峰核心段。早高峰与晚高峰以当日最低客流小时为界。高峰期分类按线路独立判定；调度最小时间单位为分钟。\n\n数据字段。每条班次记录必含：线路编号、班次号、站点编号、数据日期、计划到站时刻、实际到站时刻、上客数、下客数、断面客流、车辆编号、满载率。班次号在同一数据日期内唯一。时刻格式HH:MM:SS，精确到秒；客流取整数人。数据优先来自自动车辆定位与自动乘客计数系统，人工采集须双人复核。\n\n验证规则。实际到站时刻缺失或偏差超过计划±15分钟的记录判为无效；满载率与上客数、下客数校验偏差超过5%须复核。全部服务指标实行目标值与门限值双值管理：目标值为应达水平，门限值为必须达到的最低水平，门限值不得优于目标值。\n\n- 契约 terminology_contract（terms）：高峰期、早高峰、晚高峰、平峰、等待时间、发车间隔、断面客流、满载率、调度策略、班次\n- 契约 peak_period_classification（classification）：早高峰、晚高峰、平峰、高峰时段、高峰核心段\n- 契约 data_field_spec（terms）：线路编号、班次号、站点编号、数据日期、计划到站时刻、实际到站时刻、上客数、下客数、断面客流、车辆编号、满载率\n\n## 现状评估与基线设定\n\n基线期取最近30个连续日历日，仅计入正常运营且调度策略未变更的有效运营日；线路有效运营日不足20日的，基线期顺延直至满足。所有指标按早高峰、晚高峰、平峰分别统计，只使用通过校验的有效记录。\n\n数据校验：班次记录须字段完整，缺失或超差记录判无效；满载率与上客数、下客数交叉校验，偏差超过5%的记录剔除；实际到站时刻偏差超出允许范围的记录判无效。校验须记录数据来源、时间窗口、剔除数量与原因，形成数据源验证记录。\n\n指标口径：平均等待时间取有效班次乘客等待时间均值；最大等待时间按95分位计；无乘客到达数据时按随机到达假设以平均发车间隔估算并显式标注；准点率为离站偏差在[-1,+3]分钟内的班次占比；发车间隔波动系数为标准差除以均值，均按线路、时段统计。\n\n平均等待时间超过10分钟或准点率低于80%的线路—时段组合判定为高等待，须分析并记录原因（发车间隔过大、间隔波动、班次滞留、资源不足）。基线值按上述口径冻结，记录计算公式、样本量与计算日期，留存数据备查，作为后续章节对比基准。\n\n- 契约 baseline_metrics_contract（terms）：平均等待时间、最大等待时间、准点率、平均发车间隔、发车间隔波动系数、基线期、基线值、有效运营日\n\n## 调度策略设计\n\n四类调度策略构成策略库，每类须明确定义、操作说明、适用条件与预期效果。班次加密：缩短高峰核心段发车间隔，直接压低等待时间；随机到达假设下平均等待时间≈发车间隔/2，间隔每缩短1分钟约降等待0.5分钟；适用满载率高且运力可追加的线路。区间车：在高峰核心段内折返，提升断面运力并加快车辆周转；适用断面客流集中、两端客流低于高峰核心段40%的线路。大站快车：跳停低客流站点；适用前20%站点承担≥60%上下客的线路，须配套越站与换乘指引。动态调度：按实时客流与到站监测动态调整间隔与运力；适用客流波动大且具备实时数据的线路，重点抑制串车。\n\n策略选择按综合适应度执行：将平均等待时间改善率、满载率、准点率、单位成本、实施难度五项归一化后加权求和（默认等权，权重与评分须记录），按得分排序，并对关键参数做敏感性检验。基线平均等待时间≥10分钟或高峰核心段满载率≥80%的线路优先纳入优化。\n\n形成三种组合方案：方案A（班次加密＋动态调度）为常规选项，用于间隔波动小、可增购运力的干线；方案B（区间车＋大站快车）为经济选项，用于客流高度集中、预算受限线路；方案C（四策略全组合）为优先试点选项，用于高等待基线线路，须评估串车与换乘风险。\n\n预期效果以试点验证：按基线期口径（30日窗口、不少于20个有效运营日）采集数据并与基线值对比，平均等待时间降幅≥10%、准点率不降且满载率不超上限方可判定有效；预测须给出区间而非单值。班次加密增加车辆与司乘成本，区间车与快车影响跳过站点乘客体验，须同步发布告知规则并设置补偿措施。\n\n- 契约 strategy_definition_contract（terms）：班次加密、区间车、大站快车、动态调度、组合方案、综合适应度、试点验证\n- 契约 service_standard_contract（threshold）：最小发车间隔、平均等待时间目标值、满载率上限、准点率下限、效果判定阈值、服务等级\n\n## 车辆与人员资源配置\n\n车辆配置按周转时间计算：周转时间=单\n… [省略 1760 字符] …\n录、标准操作流程、故障清单\n\n## 数据收集与监测机制\n\n数据源与实时性。接入车载GPS（车辆位置、到离站时刻）、自动乘客计数（上客数、下客数）、票务与调度计划数据，字段口径按既有数据规范执行。定位与客流采集周期不超过30秒，端到端延迟（采集至可查询）不超过60秒；传输中断时本地缓存并断点续传，确保不丢数据。全部数据须通过完整性校验（必填字段、时间顺序）与交叉校验（上客数、下客数与断面客流偏差不超过5%），未通过记录标记为无效，不计入统计与预警。\n\n监测与预警。以5分钟为滚动窗口持续计算平均等待时间、满载率、发车间隔。预警分两级：一级（红色）为平均等待时间达到门限值或满载率达到上限，立即触发；二级（黄色）为指标达到门限值的90%，提示关注。一级预警通过声光告警、调度平台弹窗与消息推送同步通知当班调度员，须在2分钟内确认、5分钟内启动处置，处置过程记入预警记录。\n\n存储与报表。原始与清洗后数据集中存储，保留不少于90天，支持追溯与基线比对。实时大屏展示线路—站点—车辆状态与滚动指标曲线；日报、周报按早高峰、晚高峰、平峰分别统计平均等待时间、超长等待率、准点率、发车间隔波动系数，并与目标值、门限值对比。\n\n验证。上线前完成端到端测试、准确性抽查对比（自动乘客计数与人工抽查偏差不超过5%）、连续稳定运行7日及断网、高峰极端场景模拟；通过标准为端到端延迟达标、数据完整率不低于95%、预警触发条件与目标阈值一致且响应行动可执行。\n\n- 契约 data_monitoring_contract（terms）：车载GPS、自动乘客计数、端到端延迟、数据完整率、监测周期、滚动窗口、实时大屏、预警记录\n- 契约 alert_trigger_contract（classification）：一级预警、二级预警\n\n## 持续改进与异常处理\n\n调度方案实行季度定期评估，由运营调度部门牵头，会同数据、安全部门召开评估会议，评估结论须经分管负责人批准后生效。评估流程固定为五步：汇总监测数据、按评估窗口（连续14个有效运营日）计算指标、对照目标值与门限值判定达标状态、分析偏差原因、形成改进建议与决策。\n\n指标未达标时启动根因分析，从发车频率、间隔波动、客流滞留与资源约束四要素定位原因，据此拟定改进措施并明确责任人与完成时限；下一评估窗口复测，未达标则继续迭代直至达标。仅当需求发生结构性变化（如客流基线显著偏移）时方可修订目标值、门限值或调度策略，修订须附依据并经评审批准、留痕生效。\n\n突发事件按影响程度分三级：一级事件（危及安全或大范围停运）、二级事件（区间中断或大面积晚点）、三级事件（局部晚点或运力缺口）。各级响应统一执行上报、评估、处置、恢复、记录流程，处置中采用的应急措施须进行“应急标注”并事后按标准操作流程补全。恶劣天气按预案降速或调整班次；事故启用备用车与备班司机顶替；大客流启动班次加密、区间车或大站快车指令，并同步发布乘客通告。\n\n每次改进或修订形成版本变更记录，载明问题、根因、措施、验证结果与生效日期，版本号按主版本.次版本递增，旧版本归档保留。评估、预警与应急响应机制须在启用前完成演练，此后每年至少演练一次，演练结论与整改项记录在案。\n\n- 契约 improvement_cycle_contract（terms）：评估周期、评估会议、评估窗口、根因分析、改进措施、复测、改进记录、版本号、变更记录、演练\n- 契约 exception_procedure_contract（classification）：一级事件、二级事件、三级事件、应急处置、应急标注",
+      "content_truncated": true,
+      "limitations": [
+        "知识库缺乏公共交通劳动法规原文，工时与休息限额为设计值，实施前须按当地法规复核。",
+        "充电时长、停车位容量等参数须按实际车型与场站实测后填入计划。"
+      ]
+    },
+    "evidence": [
+      {
+        "evidence_id": "ev-8ea94197cf46",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 定义",
+          "3.1 术语"
+        ],
+        "quote": "除下列术语的定义外，其他术语的定义见GJB451和GJB1909.1。\n\n3.1.1出动架次率sortie generat\n… [省略 126 字符] …\n充燃油、滑油、特种液体及气体；安装和（或）拆卸再次出动需要增减的附加设备；装挂弹等。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-458a8121450d",
+        "source_file": "6-舰船.pdf",
+        "pages": 2,
+        "section_path": [
+          "3 定义"
+        ],
+        "quote": "除下列术语外，其它术语见GJB451。\n\n3.1在航率rate of sorties\n\n在规定条件下，舰船可出航的时间与整\n… [省略 111 字符] …\nife\n\n在规定的贮存条件下，为使产品保持规定的可靠度所进行的中继级检修的时间间隔。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-50c6154e6c6b",
+        "source_file": "建（构）筑物地震破坏等级划分.pdf",
+        "pages": "7-8",
+        "section_path": [
+          "3 基本规定",
+          "3.4 建（构）筑物破坏等级划分基本标准"
+        ],
+        "quote": "3.4.1Ⅰ级：基本完好。\n\n3.4.2Ⅱ级：轻微破坏。\n\n3.4.3Ⅲ级：中等破坏。\n\n3.4.4Ⅳ级：严重破坏。\n\n3.4.5V级：毁坏。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-8e065b440196",
+        "source_file": "建（构）筑物地震破坏等级划分.pdf",
+        "pages": "1-6",
+        "section_path": [],
+        "quote": "ICS 91.120.25P15\n\nGB/T 24335—2009\n\n2009-09-30发布\n\n2009-12-01实施\n… [省略 147 字符] …\n等级划分方法研究尚不成熟，本标准目前只给出了烟肉和水塔两种构筑物破坏等级划分的规定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-9caae6f01542",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": "46-47",
+        "section_path": [
+          "C",
+          "C.3 C.3结论"
+        ],
+        "quote": "填表日期：XX××年XX月X×日\n\n约定层次：DYS\n\n初始约定层次：DY系统\n\n分析人员：XXX\n\n批准XXX\n\n约定层\n… [省略 562 字符] …\nbody></table></body></html></div>\n\n表C.4（续）",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-82813a39c289",
+        "source_file": "7-军用越野汽车维修性指标.pdf",
+        "pages": "2-3",
+        "section_path": [
+          "4",
+          "4.2 指标验证"
+        ],
+        "quote": "4.2.1基层级（含驾驶员）平均修复时间的验证，采用GJB2072维修性试验与评定中试验方法9进行。\n\n4.2.2基层级（\n… [省略 187 字符] …\n似汽车（或分系统）的先前经验加以确定。由于不规定风险率，则应提出适当的允许最大偏差。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-48c5be18f261",
+        "source_file": "1-总则.pdf",
+        "pages": 4,
+        "section_path": [
+          "3 定义",
+          "3.4 门限值threshold"
+        ],
+        "quote": "装备必须达到的使用指标.它能满足装备的使用需求，是确定最低可接受值的依据。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-cd23b2f58504",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "15-16",
+        "section_path": [
+          "附录B 附录B"
+        ],
+        "quote": "（参考件）\n\n本附录提供了可靠性、维修性各类量值之间的大小和时序关系。\n\n一般应根据目标值来确定门限值。目标值要求应优于门\n… [省略 490 字符] …\n\" width=\"84%\" /></div>\n\n图B1可靠性和维修性各量值的时序关系",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-64b7f26bda8e",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 20,
+        "section_path": [
+          "附录C 附录C"
+        ],
+        "quote": "表C2可靠性和维修性指标\n\n<div style=\"text-align: center;\"><html><body><t\n… [省略 494 字符] …\n<td></td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4daf7e13214d",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 12,
+        "section_path": [
+          "5 详细要求",
+          "5.3 参数及其量值的转换",
+          "5.3.2 保证参数量值转换正确性的基本要素",
+          "5.3.2.1 建立健全可靠性、维修性信息系统"
+        ],
+        "quote": "建立有效的可靠性、维修性信息系统，以获取参数量值转换所需基础数据。在寿命周期内各阶段，应对可靠性、维修性数据进行跟踪、收集、分\n… [省略 5 字符] …\n立健全的可靠性、维修性信息系统，以保证信息的及时性、真实性、准确性、完整性和连续性。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-2efaf2dc992a",
+        "source_file": "5-军用飞机.pdf",
+        "pages": 11,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.4 指标验证要求",
+          "5.2.4.1 验证要求的规定"
+        ],
+        "quote": "应在合同中规定可靠性、维修性指标验证要求，包括指标验证方法、验证时机、故障判别准则及评估方法等。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-c3935756fdba",
+        "source_file": "1-总则.pdf",
+        "pages": "3-4",
+        "section_path": [
+          "3 定义",
+          "3.3 目标值goal"
+        ],
+        "quote": "期望装备达到的使用指标，它既能满足装备的使用需求，又可使装备达到最佳的效费比，是确定规定值的依据。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-4165e9d334e1",
+        "source_file": "2-电子系统.pdf",
+        "pages": 4,
+        "section_path": [
+          "5 详细要求",
+          "5.1 可靠性、维修性参数选择",
+          "5.1.1 电子系统可靠性、维修性参数见表1。"
+        ],
+        "quote": "表1可靠性、维修性参数选择表\n\n<div style=\"text-align: center;\"><html><body>\n… [省略 1116 字符] …\ntd></td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-e7118280728f",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 11,
+        "section_path": [
+          "4 一般要求",
+          "4.2 FMECA计划及有关工作",
+          "4.2.11 FMECA报告"
+        ],
+        "quote": "表4严酷度Ⅰ、Ⅱ类单点故障模式清单\n\n<div style=\"text-align: center;\"><html><bo\n… [省略 359 字符] …\n<td></td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-7866d616b11c",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "13-14",
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "（参考件）\n\n本附录提供的转换模型，用于将使用参数转换为合同参数及其量值。\n\n采用统计经验法建立下列可靠性、维修性的使用参\n… [省略 488 字符] …\n$$\n\nd.TMFHBP转换为TCF\n\n式中：TCF——致命性故障间隔任务时间，h；",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-471d693899c6",
+        "source_file": "1-总则.pdf",
+        "pages": 5,
+        "section_path": [
+          "4 一般要求",
+          "4.3 各阶段中参数选择和指标确定的工作内容",
+          "4.3.2 方案阶段"
+        ],
+        "quote": "方案阶段参数选择和指标确定的工作内容如下：\n\na.承制方根据战术技术要求和约束条件，提出基本的维修方案；\n\nb．承制方根据可\n… [省略 65 字符] …\n根据可靠性、维修性指标分配的结果，与转承制方协商后，将分配值纳入有关的转承制合同中。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-4c306503437d",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": "8-9",
+        "section_path": [
+          "2 火力资源分配优化算法",
+          "2.3 基于特征适应度评估的作战区和毁伤方案排序与选择"
+        ],
+        "quote": "在获取作战区和毁伤方案的高层次特征的基础上，可直接实现作战区和毁伤方案的优选，以进一步优化火力分配方案，完成目标与作战区之\n… [省略 239 字符] …\n加所选择的作战区数量，直至作战区的总体发射能力能够有效满\n\n足目标对导弹资源的需求。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-ec63d0aab339",
+        "source_file": "王露 等 - 2025 - 融合毁伤特征的火力资源优化分配算法.pdf",
+        "pages": 9,
+        "section_path": [
+          "2 火力资源分配优化算法",
+          "2.3 基于特征适应度评估的作战区和毁伤方案排序与选择"
+        ],
+        "quote": "2）毁伤方案的综合评估与选择。基于所获得的毁伤方案适应度特征，定义单目标毁伤方案综合适应度为\n\n5式中：融合权重d,…,ds\n… [省略 19 字符] …\n =…=W5ds 5根据毁伤方案的适应度排序情况，可为每个子目标选择对应的毁伤方案。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-355057f360f2",
+        "source_file": "李峰 等 - 2018 - 目标毁伤效果评估技术研究综述.pdf",
+        "pages": 2,
+        "section_path": [
+          "2 毁伤评估模型",
+          "1） 1 ）层次分析法评价模型"
+        ],
+        "quote": "层次分析法（AHP）是20世纪70年代中期美国运筹学家T.L.Saaty提出的系统与层次分析相结合的定性和定量分析方法。我\n… [省略 165 字符] …\n供新的方案，在评价目标毁伤效果的指标较多时，数据量大，并且指标的权重也很难准确确定。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-888b4b398dc6",
+        "source_file": "王志辉 等 - 2024 - 未确知条件下多枚导弹打击不规则面目标的毁伤效果评估.pdf",
+        "pages": "6-7",
+        "section_path": [
+          "4 查找关键属性",
+          "4.1 多维数据可视化方法"
+        ],
+        "quote": "对图8和图9进行分析，能够粗略地得到，E 大致在区间[180，300]m对A敏感（下降更快），R大致在区间[100，220\n… [省略 651 字符] …\n1323.jpg\" alt=\"Image\" width=\"36%\" /></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-a286b6165480",
+        "source_file": "王志辉 等 - 2024 - 未确知条件下多枚导弹打击不规则面目标的毁伤效果评估.pdf",
+        "pages": "1-2",
+        "section_path": [],
+        "quote": "毁伤评估结果是一项严峻的挑战。\n\n未确知性是指由于信息不足或认识局限而产生的认知上的不确定性[2]。相较于随机型不确定性，\n… [省略 575 字符] …\n.评估工作应当逐步减少评估结果的未确知性，然而减少未确知性的评估模式很少有文献讨论。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-aa8b3b4e2337",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 7,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.6 指标验证"
+        ],
+        "quote": "在确定指标验证方案时，应将寿命剖面和任务剖面转换成试验剖面。选用的验证方案应符合GJB899、GJB368.5和GJB848等其他有关标准。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-e4d1598081d6",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 39,
+        "section_path": [
+          "A",
+          "A.7 A.7结论与建议",
+          "A.7.2 A.7.2建议"
+        ],
+        "quote": "表A.2（续）\n\n<div style=\"text-align: center;\"><html><body><table \n… [省略 1626 字符] …\n</tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-913779ebfe5f",
+        "source_file": "5-军用飞机.pdf",
+        "pages": "6-7",
+        "section_path": [
+          "3 定义",
+          "3.2 符号"
+        ],
+        "quote": "3.2.4TrA再次出动准备时间。\n\n3.2.5TAL无维修待命时间。\n\n3.2.6As储存可用度\n\n3.2.7Ta致命性\n… [省略 641 字符] …\nA虚警率。\n\n3.2.39rcvp不能复现率。\n\n」\n\n3.2.40rk重测合格率。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-206552ad930c",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 11,
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "大量统计表明，在现代战争中，装甲车辆完成战役机动任务（行驶300km）后，紧接着完成一次“野攻”任务（行驶200km），其\n… [省略 481 字符] …\nkm时的可靠度。\n\n得TBF=-80/Ln0.67 =199.76km≈200km。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-df29d6b113fc",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 50,
+        "section_path": [
+          "9 9",
+          "9.4 启动系统损伤",
+          "9.4.1 蓄电池损伤修复",
+          "9.4.1.2 去硫充电法",
+          "9.4.1.2.4 使用限制"
+        ],
+        "quote": "使用限制如下：\n\na）必须备有外充电机、充电电源；\n\nb）必须有足够的时间才能使用。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-ce4d57cf22e0",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 62,
+        "section_path": [
+          "H",
+          "H.2 H.2FMECA在保障性分析中的应用步骤与实施",
+          "H.2.21 H.2.21FMECA在保障性分析中的应用实施"
+        ],
+        "quote": "表H.2使用与维修工作分析（O&MTA）表\n\n<div style=\"text-align: center;\"><html\n… [省略 576 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-091a8f3d5ffe",
+        "source_file": "6-舰船.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 详细要求",
+          "5.2 可靠性、维修性参数选择和指标确定的工作内容",
+          "5.2.2 寿命剖面和任务剖面的确定",
+          "5.2.2.2 任务剖面"
+        ],
+        "quote": "舰船的任务剖面可选择具有代表性的典型剖面，并说明舰船任务期内各任务阶段上的工作方式（连续、间隔或一次使用）持续时间、工作事件序列及所经历的环境等。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-a2e8d9621287",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 14,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.4 功能及硬件FMEA的步骤与实施",
+          "5.4.1 FMEA的步骤",
+          "5.4.1.2 故障模式分析",
+          "5.4.1.2.1 故障模式分析目的和主要内容"
+        ],
+        "quote": "表8典型的故障模式（简略的）\n\n<div style=\"text-align: center;\"><html><body>\n… [省略 216 字符] …\n下降等)</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-d394546fed34",
+        "source_file": "宋轩 等 - 2025 - 基于改进YOLO的装甲目标毁伤状态估计方法.pdf",
+        "pages": 7,
+        "section_path": [
+          "3 实验数据与评价指标",
+          "3.3 评价指标"
+        ],
+        "quote": "采用以下指标评估模型性能。\n\n1）精确率（Precision）：表示模型预测为正类的样本中实际为正类的比例，其计算公式为\n\n… [省略 344 字符] …\n示模型的卷积层、全连接层、输出层等包含的参数数量，反映了模型的存储需求和计算复杂度。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f0735b435938",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": 13,
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "表A3可靠性维修性参数、指标及转换结果\n\n<div style=\"text-align: center;\"><html><\n… [省略 773 字符] …\n></tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-1582931decf5",
+        "source_file": "7-装甲车辆和军用汽车.pdf",
+        "pages": "10-11",
+        "section_path": [
+          "附录A 附录A"
+        ],
+        "quote": "在规定的任务剖面、规定的维修条件下和规定的最大修复时间内不能排除，从而使装甲车辆不能完成规定任务的故障。\n\n在考核试验和使\n… [省略 485 字符] …\n辆在现装备的基础上提高10%，即确定可达可用度的目标值为0.62，门限值为0.58。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8cb14a91ded4",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 7,
+        "section_path": [
+          "4 一般要求",
+          "4.2 FMECA计划及有关工作",
+          "4.2.1 FMECA计划"
+        ],
+        "quote": "FMECA计划包括为实现本标准规定的要求，并随着设计的更改适时地进FMECA，以及利分析结果为设计提供实施本标准所需的全部\n… [省略 183 字符] …\n靠性、维修性、安全性、测试性、保障性等工作要求、以及有关标准要求相互协调、统筹安排。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-6ab7f0c699b3",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 12,
+        "section_path": [
+          "4 一般要求",
+          "4.2 FMECA计划及有关工作",
+          "4.2.12 FMECA的评审"
+        ],
+        "quote": "应对FMECA的结果和报告进行评审。评审可结合产品研制转阶段节点评审或其他技术评审进行，也可以进行FMECA单项评审。\n\nF\n… [省略 13 字符] …\n他可靠性分析法相结合，例如与故障树分析(FTA)、事件树分析(ETA)等方法相结合。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-8f5ce4d979dd",
+        "source_file": "2-电子系统.pdf",
+        "pages": "6-7",
+        "section_path": [
+          "5 详细要求",
+          "5.2",
+          "5.2.2",
+          "5.2.2.3 确定可靠性、维修性验证方法"
+        ],
+        "quote": "a．电子系统一般应按GJB899、GJB2072等标准的有关规定进行可靠性、维修性验证试验；\n\nb.对于大型复杂的电子系统，\n… [省略 96 字符] …\n段\n\n5.2.3.1承制方通过可靠性、维修性设计实现合同中规定的可靠性、维修性指标。",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-c99057f5226d",
+        "source_file": "装备战场损伤评估与修复手册的编写要求.pdf",
+        "pages": 13,
+        "section_path": [
+          "附录D 附录D"
+        ],
+        "quote": "（补充件）\n\n损伤评估表的使用说明：\n\na.根据所提出的一系列询问对某一特定的系统或能力进行快速评估；\n\nb.对每一个提问\n… [省略 478 字符] …\n×页×条</td></tr></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-f88288849299",
+        "source_file": "装备战场损伤评估与修复手册的编写要求.pdf",
+        "pages": 6,
+        "section_path": [
+          "5 详细要求",
+          "5.4 “3 一般要求”",
+          "5.4.5 培训"
+        ],
+        "quote": "规定与该装备有关人员（包括使用人员、维修人员和装备管理人员）的战场损伤评估与修复培训范围、内容。",
+        "quote_truncated": false
+      },
+      {
+        "evidence_id": "ev-52414d50ca66",
+        "source_file": "GJB Z 1391-2006 故障模式、影响及危害性分析指南.pdf",
+        "pages": 15,
+        "section_path": [
+          "5 功能及硬件FMECA",
+          "5.4 功能及硬件FMEA的步骤与实施",
+          "5.4.1 FMEA的步骤",
+          "5.4.1.2 故障模式分析",
+          "5.4.1.2.1 故障模式分析目的和主要内容"
+        ],
+        "quote": "表9典型的故障模式(较详细的)\n\n<div style=\"text-align: center;\"><html><body\n… [省略 1261 字符] …\n</tr></tbody></table></body></html></div>",
+        "quote_truncated": true
+      },
+      {
+        "evidence_id": "ev-07b132d25b72",
+        "source_file": "陆军船艇战场损伤评估与修复指南.pdf",
+        "pages": 7,
+        "section_path": [
+          "4 一般要求",
+          "4.5 记录要求"
+        ],
+        "quote": "记录内容包括：\n\n所有评估结果和修复措施都应按照规定的要求记录，凡采用应急措施的，在记录卡片上应标出“应急”；\n\nb)当应用\n… [省略 75 字符] …\n着在相应的位置或其它地方加以说明；\n\nd)抢修任务结束后，应及时整理并上报修理记录。",
+        "quote_truncated": true
+      }
+    ],
+    "_evidence_meta": {
+      "total_cited": 53,
+      "included": 39,
+      "omitted": 14,
+      "omitted_reason": "token budget",
+      "quote_chars_before": 23425,
+      "quote_chars_after": 4158
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "question": {
+    "id": "q7",
+    "sequence": 7,
+    "category": "direct",
+    "expected_route": "supervisor"
+  },
+  "run_id": "1d243a90e50446dd839edcdd96a6171b",
+  "outcome": "completed",
+  "error": null,
+  "ended_at": "2026-08-16T16:42:17.840797Z",
+  "route": {
+    "mode": "supervisor",
+    "reason": "Request requires a structured report with multi-level definitions, criteria, and scenarios, not a focused quick answer."
+  },
+  "route_matched": true,
+  "retrieval": {
+    "search_count": 35,
+    "search_latency_ms": [
+      249.5,
+      459.3,
+      461.5,
+      478.3,
+      246.5,
+      276.3,
+      157.0,
+      157.1,
+      196.5,
+      0.5,
+      376.1,
+      380.1,
+      256.1,
+      287.2,
+      256.0,
+      257.2,
+      803.6,
+      895.2,
+      278.4,
+      1230.1,
+      1925.6,
+      531.5,
+      779.7,
+      0.7,
+      500.7,
+      287.1,
+      307.7,
+      397.5,
+      398.8,
+      1157.5,
+      746.7,
+      753.9,
+      763.1,
+      1070.9,
+      1081.6
+    ],
+    "evidence_total": 372,
+    "evidence_unique": 192,
+    "evidence_cited": 70,
+    "dedup_ratio": 0.5161,
+    "citation_coverage": 0.3646
+  },
+  "delivery": {
+    "planned_chapters": 7,
+    "executed_packets": 7,
+    "packet_sufficient": 7,
+    "packet_insufficient": 0,
+    "packet_failed": 0,
+    "packet_blocked": 0,
+    "assembled": true,
+    "answer_chars": 4431,
+    "answer_evidence": 70
+  },
+  "model_calls": {
+    "count": 35,
+    "total_cost_usd": 1.033926,
+    "avg_latency_ms": 22463.9,
+    "failures": [],
+    "schema_validation": {
+      "attempts": 8,
+      "passed": 8,
+      "failed": 0,
+      "failures": []
+    }
+  },
+  "tool_calls": {
+    "count": 57,
+    "by_tool": {
+      "search_knowledge": {
+        "count": 35,
+        "success": 35,
+        "failed": 0,
+        "total_latency_ms": 18405.233800120186
+      },
+      "read_evidence": {
+        "count": 15,
+        "success": 15,
+        "failed": 0,
+        "total_latency_ms": 7.958599890116602
+      },
+      "submit_chapter": {
+        "count": 7,
+        "success": 7,
+        "failed": 0,
+        "total_latency_ms": 6.610499985981733
+      }
+    },
+    "failures": []
+  },
+  "steps_retries": {
+    "model_calls": 35,
+    "tool_calls": 57,
+    "submit_retries": 0,
+    "plan_retries": 0
+  },
+  "phase_cost": {
+    "router": {
+      "model_calls": 1,
+      "prompt_tokens": 215,
+      "completion_tokens": 120,
+      "cost_usd": 0.000984,
+      "total_latency_ms": 1640.5,
+      "failed": 0
+    },
+    "planner": {
+      "model_calls": 1,
+      "prompt_tokens": 1042,
+      "completion_tokens": 8332,
+      "cost_usd": 0.050072,
+      "total_latency_ms": 65732.2,
+      "failed": 0
+    },
+    "worker": {
+      "model_calls": 32,
+      "prompt_tokens": 495411,
+      "completion_tokens": 77450,
+      "cost_usd": 0.856133,
+      "total_latency_ms": 601639.3,
+      "failed": 0
+    },
+    "review": {
+      "model_calls": 1,
+      "prompt_tokens": 13788,
+      "completion_tokens": 15054,
+      "cost_usd": 0.126738,
+      "total_latency_ms": 117226.0,
+      "failed": 0
+    }
+  },
+  "elapsed_s": 802.71
+}

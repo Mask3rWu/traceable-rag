@@ -1,0 +1,143 @@
+{
+  "batch_id": "b_20260817_0028",
+  "schema_version": "runtime-eval-v2",
+  "git_commit": "85fc34b6195ffb0b2dcc072e390be1976849a34b",
+  "created_at": "2026-08-16T16:48:54Z",
+  "question_set": {
+    "file": "D:\\Project\\cc\\eval\\runtime\\questions.yaml",
+    "hash": "2a4b5a185b2d3340",
+    "count": 10,
+    "categories": {
+      "direct": 4,
+      "borrow": 4,
+      "unrelated": 2
+    }
+  },
+  "total": 10,
+  "by_outcome": {
+    "completed": 5,
+    "incomplete": 1,
+    "failed": 3,
+    "cancelled": 0,
+    "routed_away": 1
+  },
+  "aggregate": {
+    "model_calls": {
+      "count": 104,
+      "total_cost_usd": 2.645271,
+      "schema_validation": {
+        "attempts": 21,
+        "passed": 20,
+        "failed": 1,
+        "failures": [
+          {
+            "stage": "submit_answer",
+            "reason": "ValueError: A grounded answer requires at least one evidence ID"
+          }
+        ]
+      },
+      "failures": []
+    },
+    "tool_calls": {
+      "count": 162,
+      "success_rate": 0.9938,
+      "by_tool": {
+        "search_knowledge": {
+          "count": 109,
+          "success": 109,
+          "failed": 0,
+          "total_latency_ms": 64375.199400179554
+        },
+        "read_evidence": {
+          "count": 34,
+          "success": 34,
+          "failed": 0,
+          "total_latency_ms": 18.375099869444966
+        },
+        "submit_answer": {
+          "count": 4,
+          "success": 3,
+          "failed": 1,
+          "total_latency_ms": 1.9290000200271606
+        },
+        "submit_chapter": {
+          "count": 15,
+          "success": 15,
+          "failed": 0,
+          "total_latency_ms": 15.139999974053353
+        }
+      },
+      "failures": [
+        {
+          "tool": "submit_answer",
+          "reason": "ValueError: A grounded answer requires at least one evidence ID"
+        }
+      ]
+    },
+    "retrieval": {
+      "search_count": 109,
+      "evidence_total": 1043,
+      "evidence_unique": 609,
+      "evidence_cited": 148
+    },
+    "delivery": {
+      "questions": 10,
+      "planned_chapters": 15,
+      "executed_packets": 15,
+      "packet_sufficient": 15,
+      "packet_insufficient": 0,
+      "packet_failed": 0,
+      "packet_blocked": 0,
+      "assembled": 6,
+      "answer_chars": 11125,
+      "answer_evidence": 148
+    },
+    "phase_cost": {
+      "router": {
+        "questions": 6,
+        "model_calls": 6,
+        "prompt_tokens": 1249,
+        "completion_tokens": 749,
+        "cost_usd": 0.005955,
+        "total_latency_ms": 10852.3,
+        "failed": 0
+      },
+      "fast": {
+        "questions": 4,
+        "model_calls": 22,
+        "prompt_tokens": 237390,
+        "completion_tokens": 7174,
+        "cost_usd": 0.227044,
+        "total_latency_ms": 70871.2,
+        "failed": 0
+      },
+      "planner": {
+        "questions": 2,
+        "model_calls": 2,
+        "prompt_tokens": 2078,
+        "completion_tokens": 16334,
+        "cost_usd": 0.098146,
+        "total_latency_ms": 125682.0,
+        "failed": 0
+      },
+      "worker": {
+        "questions": 2,
+        "model_calls": 72,
+        "prompt_tokens": 1209373,
+        "completion_tokens": 149104,
+        "cost_usd": 1.823633,
+        "total_latency_ms": 1216654.6,
+        "failed": 0
+      },
+      "review": {
+        "questions": 2,
+        "model_calls": 2,
+        "prompt_tokens": 29244,
+        "completion_tokens": 67952,
+        "cost_usd": 0.490494,
+        "total_latency_ms": 482476.1,
+        "failed": 0
+      }
+    }
+  }
+}
