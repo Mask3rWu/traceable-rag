@@ -127,8 +127,10 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.chapter_max_chars, 1600)
         self.assertEqual(config.chapter_max_rules, 20)
         # 方案 A 旋钮默认关闭（维持现状，opt-in）
-        self.assertFalse(config.disable_thinking_supervisor)
         self.assertFalse(config.disable_thinking_fast)
+        self.assertFalse(config.disable_thinking_planner)
+        self.assertFalse(config.disable_thinking_worker)
+        self.assertFalse(config.disable_thinking_reviewer)
         self.assertNotIn("test-secret", repr(config))
 
     def test_research_model_config_thinking_knobs_from_env(self):
@@ -138,15 +140,19 @@ class ConfigTest(unittest.TestCase):
                 "RESEARCH_MODEL=test-model\n"
                 "RESEARCH_BASE_URL=https://research.example/v1/\n"
                 "RESEARCH_API_KEY=test-secret\n"
-                "RESEARCH_DISABLE_THINKING_SUPERVISOR=true\n"
-                "RESEARCH_DISABLE_THINKING_FAST=1\n",
+                "RESEARCH_DISABLE_THINKING_FAST=1\n"
+                "RESEARCH_DISABLE_THINKING_PLANNER=true\n"
+                "RESEARCH_DISABLE_THINKING_WORKER=true\n"
+                "RESEARCH_DISABLE_THINKING_REVIEWER=true\n",
                 encoding="utf-8",
             )
 
             config = ResearchModelConfig.from_env(env_file)
 
-        self.assertTrue(config.disable_thinking_supervisor)
         self.assertTrue(config.disable_thinking_fast)
+        self.assertTrue(config.disable_thinking_planner)
+        self.assertTrue(config.disable_thinking_worker)
+        self.assertTrue(config.disable_thinking_reviewer)
 
     def test_research_model_config_token_budget_defaults_to_none(self):
         with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
@@ -160,9 +166,11 @@ class ConfigTest(unittest.TestCase):
 
             config = ResearchModelConfig.from_env(env_file)
 
-        # 方案 B 默认关闭（不限 token，维持现状，opt-in）
+        # 方案 B 默认关闭（不限 token，经 env 留空触发；维持现状，opt-in）
         self.assertIsNone(config.fast_token_budget)
-        self.assertIsNone(config.supervisor_token_budget)
+        self.assertIsNone(config.planner_token_budget)
+        self.assertIsNone(config.worker_token_budget)
+        self.assertIsNone(config.reviewer_token_budget)
 
     def test_research_model_config_token_budget_from_env(self):
         with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
@@ -172,14 +180,18 @@ class ConfigTest(unittest.TestCase):
                 "RESEARCH_BASE_URL=https://research.example/v1/\n"
                 "RESEARCH_API_KEY=test-secret\n"
                 "RESEARCH_FAST_TOKEN_BUDGET=1500\n"
-                "RESEARCH_SUPERVISOR_TOKEN_BUDGET=3000\n",
+                "RESEARCH_PLANNER_TOKEN_BUDGET=2000\n"
+                "RESEARCH_WORKER_TOKEN_BUDGET=3000\n"
+                "RESEARCH_REVIEWER_TOKEN_BUDGET=16000\n",
                 encoding="utf-8",
             )
 
             config = ResearchModelConfig.from_env(env_file)
 
         self.assertEqual(config.fast_token_budget, 1500)
-        self.assertEqual(config.supervisor_token_budget, 3000)
+        self.assertEqual(config.planner_token_budget, 2000)
+        self.assertEqual(config.worker_token_budget, 3000)
+        self.assertEqual(config.reviewer_token_budget, 16000)
 
     def test_research_model_config_rejects_non_positive_token_budget(self):
         env = {

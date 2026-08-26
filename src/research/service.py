@@ -123,9 +123,17 @@ def build_research_agent(
         disable_thinking=resolved.disable_thinking_fast,
         token_budget=resolved.fast_token_budget,
     )
+    planner_model = _chat_model(
+        disable_thinking=resolved.disable_thinking_planner,
+        token_budget=resolved.planner_token_budget,
+    )
     worker_model = _chat_model(
-        disable_thinking=resolved.disable_thinking_supervisor,
-        token_budget=resolved.supervisor_token_budget,
+        disable_thinking=resolved.disable_thinking_worker,
+        token_budget=resolved.worker_token_budget,
+    )
+    reviewer_model = _chat_model(
+        disable_thinking=resolved.disable_thinking_reviewer,
+        token_budget=resolved.reviewer_token_budget,
     )
     catalog = ChunkCatalog.load()
     workspace = EvidenceWorkspace(
@@ -136,7 +144,9 @@ def build_research_agent(
     )
     runtime = AgentRuntime(
         model=model,
+        planner_model=planner_model,
         worker_model=worker_model,
+        reviewer_model=reviewer_model,
         workspace=workspace,
         store=store,
         max_steps=resolved.max_steps,

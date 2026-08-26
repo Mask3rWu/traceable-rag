@@ -217,6 +217,8 @@ class AgentRuntime:
         *,
         model: BaseChatModel,
         worker_model: BaseChatModel | None = None,
+        planner_model: BaseChatModel | None = None,
+        reviewer_model: BaseChatModel | None = None,
         workspace: EvidenceWorkspace,
         store: AgentRunStore | None = None,
         max_steps: int = 12,
@@ -242,9 +244,14 @@ class AgentRuntime:
         ) <= 0:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
-        # Supervisor-path model（planner / chapter workers / reviewer）。可独立于
-        # self.model 关闭思考模式（方案 A），默认与 self.model 一致。
+        # Supervisor-path 三个产出量级不同的 agent 角色各自独立成模（允许各自的
+        # disable_thinking / token_budget，经 build_chat_model extra_body 生效）。
+        # planner 输出 DocumentPlan JSON（小）、worker 输出 ResearchPacket（中小）、
+        # reviewer 就地整章修复可到 ~30K（最贵，必须留量），故分设预算。缺省回退到
+        # worker_model 以保持向后兼容。
         self.worker_model = worker_model or model
+        self.planner_model = planner_model or self.worker_model
+        self.reviewer_model = reviewer_model or self.worker_model
         self.workspace = workspace
         self.store = store or AgentRunStore()
         self.max_steps = max_steps
@@ -1279,8 +1286,12 @@ class AgentRuntime:
 
     def _build_root_graph(self):
         router = self.model.with_structured_output(RouteDecision, method="json_mode")
-        planner = self.worker_model.with_structured_output(DocumentPlan, method="json_mode")
-        reviewer = self.worker_model.with_structured_output(ConsistencyReport, method="json_mode")
+        planner = self.planner_model.with_structured_output(
+            DocumentPlan, method="json_mode"
+        )
+        reviewer = self.reviewer_model.with_structured_output(
+            ConsistencyReport, method="json_mode"
+        )
 
         def route(state: RootState, config: RunnableConfig) -> dict:
             decision = router.invoke(
@@ -1565,7 +1576,7 @@ class AgentRuntime:
             issues = self._structural_consistency_issues(plan, packets)
             revised = False
             if all(item.status == "sufficient" for item in packets):
-                reviewer = self.worker_model.with_structured_output(
+                reviewer = self.reviewer_model.with_structured_output(
                     ConsistencyReport, method="json_mode"
                 )
                 report = reviewer.invoke(
