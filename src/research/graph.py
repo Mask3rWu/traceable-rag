@@ -216,6 +216,7 @@ class AgentRuntime:
         self,
         *,
         model: BaseChatModel,
+        worker_model: BaseChatModel | None = None,
         workspace: EvidenceWorkspace,
         store: AgentRunStore | None = None,
         max_steps: int = 12,
@@ -241,6 +242,9 @@ class AgentRuntime:
         ) <= 0:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
+        # Supervisor-path model（planner / chapter workers / reviewer）。可独立于
+        # self.model 关闭思考模式（方案 A），默认与 self.model 一致。
+        self.worker_model = worker_model or model
         self.workspace = workspace
         self.store = store or AgentRunStore()
         self.max_steps = max_steps
@@ -382,6 +386,7 @@ class AgentRuntime:
         *,
         prompt: str,
         tools: Sequence[BaseTool],
+        model: BaseChatModel | None = None,
         submit_name: str,
         result_model: type[BaseModel],
         exhausted_result: Callable[[ReactState, bool], BaseModel],
@@ -389,7 +394,7 @@ class AgentRuntime:
         step_limit: int,
         result_transform: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
     ):
-        bound_model = self.model.bind_tools(list(tools))
+        bound_model = (model or self.model).bind_tools(list(tools))
         tool_node = ToolNode(tools, handle_tool_errors=True)
 
         def call_model(state: ReactState, config: RunnableConfig) -> dict:
@@ -532,6 +537,7 @@ class AgentRuntime:
                 "the system resolves them to stable provenance IDs before persistence."
             ),
             tools=tools,
+            model=self.worker_model,
             submit_name="submit_chapter",
             result_model=ResearchPacket,
             exhausted_result=lambda state, budget_exhausted: self._failed_packet(
@@ -1273,8 +1279,8 @@ class AgentRuntime:
 
     def _build_root_graph(self):
         router = self.model.with_structured_output(RouteDecision, method="json_mode")
-        planner = self.model.with_structured_output(DocumentPlan, method="json_mode")
-        reviewer = self.model.with_structured_output(ConsistencyReport, method="json_mode")
+        planner = self.worker_model.with_structured_output(DocumentPlan, method="json_mode")
+        reviewer = self.worker_model.with_structured_output(ConsistencyReport, method="json_mode")
 
         def route(state: RootState, config: RunnableConfig) -> dict:
             decision = router.invoke(
@@ -1559,7 +1565,7 @@ class AgentRuntime:
             issues = self._structural_consistency_issues(plan, packets)
             revised = False
             if all(item.status == "sufficient" for item in packets):
-                reviewer = self.model.with_structured_output(
+                reviewer = self.worker_model.with_structured_output(
                     ConsistencyReport, method="json_mode"
                 )
                 report = reviewer.invoke(

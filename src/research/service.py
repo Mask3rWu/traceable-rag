@@ -107,11 +107,26 @@ def build_research_agent(
     metrics: RuntimeMetrics | None = None,
 ) -> RoutedResearchAgent:
     resolved = config or ResearchModelConfig.from_env()
-    model = ChatOpenAI(
-        model=resolved.model,
-        base_url=resolved.base_url,
-        api_key=resolved.api_key,
-        temperature=0,
+
+    def _chat_model(*, disable_thinking: bool) -> ChatOpenAI:
+        kwargs = {
+            "model": resolved.model,
+            "base_url": resolved.base_url,
+            "api_key": resolved.api_key,
+            "temperature": 0,
+        }
+        if disable_thinking:
+            # OpenAI 兼容的顶层字段。必须走 extra_body：model_kwargs 会被当作
+            # create() 具名参数而触发 SDK 校验错误；extra_body 由 SDK 合并进请求
+            # 体，经探测确认 deepseek 认它并真正关掉思考。
+            # （注意：langchain 会把 max_tokens 自发转成 max_completion_tokens，
+            # deepseek 不认后者，故限 token 不能走 ChatOpenAI.max_tokens。）
+            kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
+        return ChatOpenAI(**kwargs)
+
+    model = _chat_model(disable_thinking=resolved.disable_thinking_fast)
+    worker_model = _chat_model(
+        disable_thinking=resolved.disable_thinking_supervisor
     )
     catalog = ChunkCatalog.load()
     workspace = EvidenceWorkspace(
@@ -122,6 +137,7 @@ def build_research_agent(
     )
     runtime = AgentRuntime(
         model=model,
+        worker_model=worker_model,
         workspace=workspace,
         store=store,
         max_steps=resolved.max_steps,

@@ -142,6 +142,13 @@ class ResearchModelConfig:
     retrieval_top_k: int = 8
     max_evidence_reads: int = 40
     max_search_per_worker: int = 5
+    # 方案 A：禁用模型思考模式（思维链），防止 reasoning token 独吞共享的
+    # completion 预算而挂起 tool_calls。
+    # - fast = router + fast agent；supervisor = planner + chapter worker + reviewer。
+    # 均为 opt-in（默认 False=维持现状）；真实上游为 deepseek 时经
+    # model_kwargs={"thinking":{"type":"disabled"}} 生效（探测确认可关思考）。
+    disable_thinking_supervisor: bool = False
+    disable_thinking_fast: bool = False
     max_workers: int = 4
     max_subtasks: int = 8
     document_max_chars: int = 6000
@@ -199,6 +206,12 @@ class ResearchModelConfig:
             max_evidence_reads=_positive_int_env("RESEARCH_MAX_EVIDENCE_READS", default=40),
             max_search_per_worker=_positive_int_env(
                 "RESEARCH_MAX_SEARCH_PER_WORKER", default=5
+            ),
+            disable_thinking_supervisor=_bool_env(
+                "RESEARCH_DISABLE_THINKING_SUPERVISOR", default=False
+            ),
+            disable_thinking_fast=_bool_env(
+                "RESEARCH_DISABLE_THINKING_FAST", default=False
             ),
             max_workers=_positive_int_env("RESEARCH_MAX_WORKERS", default=4),
             max_subtasks=_positive_int_env("RESEARCH_MAX_SUBTASKS", default=8),

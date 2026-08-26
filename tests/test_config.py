@@ -126,4 +126,24 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.document_max_chars, 6000)
         self.assertEqual(config.chapter_max_chars, 1600)
         self.assertEqual(config.chapter_max_rules, 20)
+        # 方案 A 旋钮默认关闭（维持现状，opt-in）
+        self.assertFalse(config.disable_thinking_supervisor)
+        self.assertFalse(config.disable_thinking_fast)
         self.assertNotIn("test-secret", repr(config))
+
+    def test_research_model_config_thinking_knobs_from_env(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
+            env_file = Path(tmp) / ".env"
+            env_file.write_text(
+                "RESEARCH_MODEL=test-model\n"
+                "RESEARCH_BASE_URL=https://research.example/v1/\n"
+                "RESEARCH_API_KEY=test-secret\n"
+                "RESEARCH_DISABLE_THINKING_SUPERVISOR=true\n"
+                "RESEARCH_DISABLE_THINKING_FAST=1\n",
+                encoding="utf-8",
+            )
+
+            config = ResearchModelConfig.from_env(env_file)
+
+        self.assertTrue(config.disable_thinking_supervisor)
+        self.assertTrue(config.disable_thinking_fast)
