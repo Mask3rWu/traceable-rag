@@ -33,7 +33,7 @@ def build_chat_model(
     base_url: str,
     api_key: str,
     temperature: float = 0,
-    disable_thinking: bool = False,
+    thinking: bool = False,
     token_budget: int | None = None,
 ) -> ChatOpenAI:
     """Construct the OpenAI-compatible chat model with upstream-aware defaults.
@@ -43,8 +43,10 @@ def build_chat_model(
         base_url: OpenAI-compatible endpoint root (e.g. ``https://api.deepseek.com``).
         api_key: Credential for ``base_url``.
         temperature: Sampling temperature; the agent runs greedy (``0``).
-        disable_thinking: When true, send ``extra_body.thinking.type=disabled``
-            so the model stops spending completion budget on reasoning tokens.
+        thinking: When False (default), send ``extra_body.thinking.type=disabled``
+            so the model cannot spend completion budget on a reasoning chain that
+            would swallow tool_calls. Set True to leave thinking to the upstream
+            default (no ``thinking`` body field is sent).
         token_budget: Optional hard cap on completion tokens, sent as top-level
             ``extra_body.max_tokens``. Defaults to ``None`` = no cap (current
             behavior). Do not set ``ChatOpenAI.max_tokens`` directly: langchain
@@ -59,7 +61,7 @@ def build_chat_model(
     extra_body: dict[str, Any] = {}
     if token_budget is not None:
         extra_body["max_tokens"] = token_budget
-    if disable_thinking:
+    if not thinking:
         extra_body["thinking"] = {"type": "disabled"}
     if extra_body:
         kwargs["extra_body"] = extra_body

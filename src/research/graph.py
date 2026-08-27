@@ -245,7 +245,7 @@ class AgentRuntime:
             raise ValueError("Agent budgets must be greater than zero")
         self.model = model
         # Supervisor-path 三个产出量级不同的 agent 角色各自独立成模（允许各自的
-        # disable_thinking / token_budget，经 build_chat_model extra_body 生效）。
+        # thinking/off + token_budget，经 build_chat_model extra_body 生效）。
         # planner 输出 DocumentPlan JSON（小）、worker 输出 ResearchPacket（中小）、
         # reviewer 就地整章修复可到 ~30K（最贵，必须留量），故分设预算。缺省回退到
         # worker_model 以保持向后兼容。

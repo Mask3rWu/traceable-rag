@@ -1,6 +1,6 @@
 """配置：模型名、PP-StructureV3 模块开关、阈值、环境变量。
 
-对应 pdf-parser.md §4。Mobile 套件 + 关闭图表/印章，适配 16G 显卡。
+对应 解析层设计文档 §4。Mobile 套件 + 关闭图表/印章，适配 16G 显卡。
 """
 from __future__ import annotations
 
@@ -156,14 +156,14 @@ class ResearchModelConfig:
     retrieval_top_k: int = 8
     max_evidence_reads: int = 40
     max_search_per_worker: int = 5
-    # 方案 A：禁用模型思考模式（思维链），防止 reasoning token 独吞共享的
-    # completion 预算而挂起 tool_calls。按 agent 角色分设。
-    # 均为 opt-in（默认 False=维持现状）；真实上游为 deepseek 时经
-    # extra_body={"thinking":{"type":"disabled"}} 生效（探测确认可关思考）。
-    disable_thinking_fast: bool = False
-    disable_thinking_planner: bool = False
-    disable_thinking_worker: bool = False
-    disable_thinking_reviewer: bool = False
+    # 思考模式（思维链）默认关闭：默认经 extra_body={"thinking":{"type":"disabled"}}
+    # 显式关思考，防止 reasoning token 独吞 completion 预算而挂起 tool_calls。
+    # 按 agent 角色分设；置 True 恢复思考（不再发送 thinking 字段，交由上游默认）。
+    # 真实上游为 deepseek 时已探测确认 {thinking:type=disabled} 可关思考。
+    thinking_fast: bool = False
+    thinking_planner: bool = False
+    thinking_worker: bool = False
+    thinking_reviewer: bool = False
     # 方案 B（上限兜底）：completion token 硬上限，按 agent 角色分设，走
     # extra_body.max_tokens。deepseek 只认 max_tokens，而 langchain 会把
     # ChatOpenAI.max_tokens 静默改写成 max_completion_tokens（deepseek 忽略），
@@ -172,8 +172,8 @@ class ResearchModelConfig:
     # 建议起点值（按真实内容占用估算，待 probe 校准；worker 保留随 worker 阶段
     # 复用，reviewer 承担就地整章修复至 ~30K 故须留量）：
     # fast=8192 / planner=2048 / worker=8192 / reviewer=32768。
-    # 注意：thinking 开启时 reasoning 无上界，别在开思考的同时设紧上限（会中途
-    # 截断）；真正止血是 disable_thinking + 各角色内容预算。
+    # 注意：默认关思考正配合预算，避免截断。需要思考时置 thinking_*=true，同时把
+    # 对应的预算放开，否则开思考 + 紧上限仍会中途截断。
     fast_token_budget: int | None = 8192
     planner_token_budget: int | None = 2048
     worker_token_budget: int | None = 8192
@@ -236,18 +236,10 @@ class ResearchModelConfig:
             max_search_per_worker=_positive_int_env(
                 "RESEARCH_MAX_SEARCH_PER_WORKER", default=5
             ),
-            disable_thinking_fast=_bool_env(
-                "RESEARCH_DISABLE_THINKING_FAST", default=False
-            ),
-            disable_thinking_planner=_bool_env(
-                "RESEARCH_DISABLE_THINKING_PLANNER", default=False
-            ),
-            disable_thinking_worker=_bool_env(
-                "RESEARCH_DISABLE_THINKING_WORKER", default=False
-            ),
-            disable_thinking_reviewer=_bool_env(
-                "RESEARCH_DISABLE_THINKING_REVIEWER", default=False
-            ),
+            thinking_fast=_bool_env("RESEARCH_THINKING_FAST", default=False),
+            thinking_planner=_bool_env("RESEARCH_THINKING_PLANNER", default=False),
+            thinking_worker=_bool_env("RESEARCH_THINKING_WORKER", default=False),
+            thinking_reviewer=_bool_env("RESEARCH_THINKING_REVIEWER", default=False),
             fast_token_budget=_optional_positive_int_env(
                 "RESEARCH_FAST_TOKEN_BUDGET"
             ),
@@ -291,7 +283,7 @@ class ParseConfig:
     # PaddleOCR 3.7 中对应方案文档所述 PP-FormulaNet-M 的当前模型名。
     formula_recognition_model_name: str = "PP-FormulaNet_plus-M"
 
-    # 模块开关（对应 pdf-parser.md §4.1）
+    # 模块开关（对应 解析层设计文档 §4.1）
     use_doc_orientation_classify: bool = True
     use_doc_unwarping: bool = False
     use_textline_orientation: bool = True

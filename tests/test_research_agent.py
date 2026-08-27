@@ -18,17 +18,18 @@ class BuildResearchAgentTest(unittest.TestCase):
         return ResearchModelConfig(**base)
 
     def test_wires_per_role_token_budgets_and_thinking_via_extra_body(self):
-        """三个 supervisor 侧模型各自带独立的 token_budget/disable_thinking，均走
-        extra_body.max_tokens / extra_body.thinking（deepseek 只认 max_tokens）。"""
+        """三个 supervisor 侧模型各自带独立的 token_budget/thinking，均走
+        extra_body.max_tokens / extra_body.thinking（deepseek 只认 max_tokens）。
+        thinking=false=关（发送 disabled）；thinking=true=开（不发送字段）。"""
         cfg = self._config(
             fast_token_budget=900,
             planner_token_budget=300,
             worker_token_budget=500,
             reviewer_token_budget=700,
-            disable_thinking_fast=True,
-            disable_thinking_planner=True,
-            disable_thinking_worker=False,
-            disable_thinking_reviewer=True,
+            thinking_fast=False,
+            thinking_planner=False,
+            thinking_worker=True,
+            thinking_reviewer=False,
         )
         with (
             patch("src.research.service.ChunkCatalog.load", return_value=object()),

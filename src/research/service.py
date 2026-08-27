@@ -109,30 +109,30 @@ def build_research_agent(
     resolved = config or ResearchModelConfig.from_env()
 
     def _chat_model(
-        *, disable_thinking: bool, token_budget: int | None
+        *, thinking: bool, token_budget: int | None
     ) -> Any:
         return build_chat_model(
             model=resolved.model,
             base_url=resolved.base_url,
             api_key=resolved.api_key,
-            disable_thinking=disable_thinking,
+            thinking=thinking,
             token_budget=token_budget,
         )
 
     model = _chat_model(
-        disable_thinking=resolved.disable_thinking_fast,
+        thinking=resolved.thinking_fast,
         token_budget=resolved.fast_token_budget,
     )
     planner_model = _chat_model(
-        disable_thinking=resolved.disable_thinking_planner,
+        thinking=resolved.thinking_planner,
         token_budget=resolved.planner_token_budget,
     )
     worker_model = _chat_model(
-        disable_thinking=resolved.disable_thinking_worker,
+        thinking=resolved.thinking_worker,
         token_budget=resolved.worker_token_budget,
     )
     reviewer_model = _chat_model(
-        disable_thinking=resolved.disable_thinking_reviewer,
+        thinking=resolved.thinking_reviewer,
         token_budget=resolved.reviewer_token_budget,
     )
     catalog = ChunkCatalog.load()

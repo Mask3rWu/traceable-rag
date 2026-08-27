@@ -126,11 +126,11 @@ class ConfigTest(unittest.TestCase):
         self.assertEqual(config.document_max_chars, 6000)
         self.assertEqual(config.chapter_max_chars, 1600)
         self.assertEqual(config.chapter_max_rules, 20)
-        # 方案 A 旋钮默认关闭（维持现状，opt-in）
-        self.assertFalse(config.disable_thinking_fast)
-        self.assertFalse(config.disable_thinking_planner)
-        self.assertFalse(config.disable_thinking_worker)
-        self.assertFalse(config.disable_thinking_reviewer)
+        # 思考默认关闭（thinking=false=关）
+        self.assertFalse(config.thinking_fast)
+        self.assertFalse(config.thinking_planner)
+        self.assertFalse(config.thinking_worker)
+        self.assertFalse(config.thinking_reviewer)
         self.assertNotIn("test-secret", repr(config))
 
     def test_research_model_config_thinking_knobs_from_env(self):
@@ -140,19 +140,19 @@ class ConfigTest(unittest.TestCase):
                 "RESEARCH_MODEL=test-model\n"
                 "RESEARCH_BASE_URL=https://research.example/v1/\n"
                 "RESEARCH_API_KEY=test-secret\n"
-                "RESEARCH_DISABLE_THINKING_FAST=1\n"
-                "RESEARCH_DISABLE_THINKING_PLANNER=true\n"
-                "RESEARCH_DISABLE_THINKING_WORKER=true\n"
-                "RESEARCH_DISABLE_THINKING_REVIEWER=true\n",
+                "RESEARCH_THINKING_FAST=1\n"
+                "RESEARCH_THINKING_PLANNER=true\n"
+                "RESEARCH_THINKING_WORKER=true\n"
+                "RESEARCH_THINKING_REVIEWER=true\n",
                 encoding="utf-8",
             )
 
             config = ResearchModelConfig.from_env(env_file)
 
-        self.assertTrue(config.disable_thinking_fast)
-        self.assertTrue(config.disable_thinking_planner)
-        self.assertTrue(config.disable_thinking_worker)
-        self.assertTrue(config.disable_thinking_reviewer)
+        self.assertTrue(config.thinking_fast)
+        self.assertTrue(config.thinking_planner)
+        self.assertTrue(config.thinking_worker)
+        self.assertTrue(config.thinking_reviewer)
 
     def test_research_model_config_token_budget_defaults_to_none(self):
         with tempfile.TemporaryDirectory() as tmp, patch.dict(os.environ, {}, clear=True):
