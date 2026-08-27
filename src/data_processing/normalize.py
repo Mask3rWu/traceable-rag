@@ -1,6 +1,6 @@
 """原始输出 -> 归一 block。
 
-对应 pdf-parser.md §4.2（标签归一）+ §6.4（坐标归一）+ §5.2（block_id）。
+对应 解析层设计文档 §4.2（标签归一）+ §6.4（坐标归一）+ §5.2（block_id）。
 把 PP-StructureV3 的 parsing_res_list 转为 schema.Block。
 
 标签 -> block_type 映射（实测 label 取值）：

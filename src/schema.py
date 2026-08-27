@@ -1,6 +1,6 @@
 """数据模型（pydantic v2）。
 
-Block schema 对齐 数据处理.md 与 pdf-parser.md §5.2。
+Block schema 对齐解析层设计文档 §5.2。
 block_type 统一：heading / paragraph / list / table / formula / figure / caption / appendix / footnote
 """
 from __future__ import annotations

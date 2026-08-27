@@ -1,10 +1,10 @@
 """PDF -> 逐页图 + 文本层检查。
 
-对应 pdf-parser.md §8 的渲染阶段。PyMuPDF 负责：
+对应 解析层设计文档 §8 的渲染阶段。PyMuPDF 负责：
 - 渲染每页为 PNG（供 PP-StructureV3 与 bbox 回溯）
 - 检测每页是否有原生文本层（供 normalize 的 native/ocr 分流，见 §6.5）
 
-按 数据处理.md 要求"按页分流"：不假设整份 PDF 一致。
+按 解析层设计文档要求"按页分流"：不假设整份 PDF 一致。
 
 渲染结果缓存（``pages/_render_meta.json``）：记录 DPI、源 PDF 的 mtime/size
 与每页元数据。命中条件——DPI 一致、源 PDF 未改（mtime+size 不变）、缓存

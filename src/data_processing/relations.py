@@ -1,6 +1,6 @@
 """块间关系：caption配对、section_path、交叉引用。
 
-对应 pdf-parser.md §6：
+对应 解析层设计文档 §6：
 - §6.1 caption <-> figure/table 配对
 - §6.2 标题编号层级 section_path（沿阅读顺序传递）
 - §6.3 交叉引用索引（正文"如图3所示"-> figure block_id）

@@ -1,6 +1,6 @@
 """数据处理模块：PDF 解析层。
 
-对应 pdf-parser.md：
+对应 解析层设计文档：
 - render: PDF->逐页图 + 文本层检查
 - detect: PP-StructureV3 包装
 - normalize: 原始输出->归一 block

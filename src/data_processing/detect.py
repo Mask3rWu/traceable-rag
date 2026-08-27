@@ -1,6 +1,6 @@
 """PP-StructureV3 包装。
 
-对应 pdf-parser.md §4。负责调用 PP-StructureV3 产线，落盘原始结果。
+对应 解析层设计文档 §4。负责调用 PP-StructureV3 产线，落盘原始结果。
 单次调用处理整份 PDF（产线内部逐页处理），输出：
 - structure.json  全部页的原始解析结果（留底，便于重跑 normalize）
 - structure.md     Markdown（图表配对参考，normalize 用）
