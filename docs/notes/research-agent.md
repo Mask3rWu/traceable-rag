@@ -67,10 +67,10 @@ RESEARCH_DOCUMENT_MAX_CHARS=6000
 RESEARCH_CHAPTER_MAX_CHARS=1600
 RESEARCH_CHAPTER_MAX_CLAIMS=10
 RESEARCH_CHAPTER_MAX_DECISIONS=4
-RESEARCH_DISABLE_THINKING_FAST=false
-RESEARCH_DISABLE_THINKING_PLANNER=false
-RESEARCH_DISABLE_THINKING_WORKER=false
-RESEARCH_DISABLE_THINKING_REVIEWER=false
+RESEARCH_THINKING_FAST=false
+RESEARCH_THINKING_PLANNER=false
+RESEARCH_THINKING_WORKER=false
+RESEARCH_THINKING_REVIEWER=false
 RESEARCH_FAST_TOKEN_BUDGET=8192
 RESEARCH_PLANNER_TOKEN_BUDGET=2048
 RESEARCH_WORKER_TOKEN_BUDGET=8192
@@ -88,8 +88,10 @@ LANGFUSE_BASE_URL=https://cloud.langfuse.com
 
 Token 预算与思考开关按 agent 角色分设，每个角色一个独立的 supervisor 侧模型：
 
-- `RESEARCH_DISABLE_THINKING_<ROLE>`：对 `extra_body.thinking.type=disabled` 关思考，
-  防止 reasoning token 独吞 completion 预算而挂起 tool_calls。
+- `RESEARCH_THINKING_<ROLE>`：思考默认关闭（`false`=关，对
+  `extra_body.thinking.type=disabled` 显式关思考），防止 reasoning token 独吞
+  completion 预算而挂起 tool_calls；置 `true`（开思考）则不发送 `thinking` 字段、
+  交由上游默认。
 - `RESEARCH_<ROLE>_TOKEN_BUDGET`：completion token 硬上限，经 LLM 工厂
   `build_chat_model` 的 `token_budget` 走 `extra_body.max_tokens`。设正整数才真正限
   （留空=不限）；不设 `ChatOpenAI.max_tokens`，否则 langchain 会改写成
@@ -97,8 +99,8 @@ Token 预算与思考开关按 agent 角色分设，每个角色一个独立的 
 - 角色含义：`FAST`=router+fast agent、`PLANNER`=章节规划（DocumentPlan JSON，小）、
   `WORKER`=章节 worker（ResearchPacket，真实内容约 2400 token）、`REVIEWER`=
   就地整章一致性修复（可到约 30K，最贵，须留量）。上表数值为按真实内容占用估算的
-  起点（待 probe 校准）。开思考时 reasoning 无上界，不应同时设紧上限；真正止血是
-  disable_thinking + 各角色的内容预算。
+  起点（待 probe 校准）。默认关思考正配合预算；开思考（`thinking=true`）时 reasoning
+  无上界，不应同时设紧上限，否则会中途截断。
 
 启用 Langfuse 后，一次用户请求对应一条根 trace。Router、Planner、Fast/Chapter
 Worker、Consistency Reviewer、Assembler、LLM 和检索工具均作为其下 observations 上报。
