@@ -55,3 +55,7 @@ docs/notes/面试提问.md
 processed/
 # 调试中间图片
 _inspect/
+
+# ===== 跨 agent skill 目录联接（canonical 在 .claude/skills，junction 指针不进版本库）=====
+.agents/skills/eval-judge/
+.agents/skills/research-run-diagnosis/
