@@ -3,11 +3,26 @@ schema: spec-driven
 # Project context (optional)
 # This is shown to AI when creating artifacts.
 # Add your tech stack, conventions, style guides, domain knowledge, etc.
-# Example:
-#   context: |
-#     Tech stack: TypeScript, React, Node.js
-#     We use conventional commits
-#     Domain: e-commerce platform
+context: |
+  面向约 47 份权威文献（国军标+领域论文）的通用可溯源 RAG + 领域研究 Agent。
+
+  分层（边界不混）：
+    - 资料与知识库：PDF 解析 → doc.json → 章节约束+语义切块(chunks.jsonl)
+    - 通用可溯源检索：Dense(BAAI/bge-m3, pgvector) + 中文 BM25(bm25s, 磁盘) + RRF 混合召回；
+      结果只存 chunk_id+content_hash+score，正文经 ChunkCatalog 从 chunks.jsonl 回读；
+      content_hash 索引与权威源漂移即失败（不作来源）。
+    - 领域研究 Agent：路由 ReAct（LangGraph/LangChain），复用量检索引擎，证据/结论/冲突持久化，
+      引文精确到原生块并经核验。当前为原型级，产出尚需打磨。
+    - 任务封装：问答 / 深度研究 / 标准生成。
+
+  核心能力域：pdf解析 / 检索 / 研究Agent。
+
+  约定：
+    - 项目 python 环境：dba-py311
+    - docs/ 分 design/ 与 notes/；代码 docstring 引用设计文档只写章节语义，不写文件名
+    - 提交走 conventional commits
+    - 检索/评测用 Recall@5 与 MRR@10
+    - 只读分析/诊断脚本不改生产逻辑
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
