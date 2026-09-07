@@ -4,7 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 from src.research.agent_models import AgentRun
 
@@ -19,6 +19,16 @@ RunStatus = Literal[
     "failed",
     "routed_away",
 ]
+
+
+class DegradedStatus(BaseModel):
+    """Degradation of a completed run, as a modifier not a peer terminal state.
+
+    ``layers`` lists which component degraded (retrieval / model / task). It
+    may only accompany ``status=completed``.
+    """
+
+    layers: list[Literal["retrieval", "model", "task"]] = Field(default_factory=list)
 
 
 def utc_now() -> datetime:
@@ -60,6 +70,15 @@ class RunSummary(BaseModel):
     created_at: datetime
     updated_at: datetime
     error: str | None = None
+    degraded: DegradedStatus | None = None
+    wasted_tokens: int = 0
+    spurious_tool_calls: int = 0
+
+    @model_validator(mode="after")
+    def degraded_implies_completed(self) -> "RunSummary":
+        if self.degraded is not None and self.status != "completed":
+            raise ValueError("degraded may only accompany status=completed")
+        return self
 
 
 class RunDetail(RunSummary):

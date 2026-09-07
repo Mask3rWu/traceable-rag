@@ -183,9 +183,18 @@ class RoutePolicyError(RuntimeError):
     can report *why* the task was misrouted rather than only that it was.
     """
 
-    def __init__(self, mode: str, reason: str | None = None) -> None:
+    def __init__(
+        self,
+        mode: str,
+        reason: str | None = None,
+        *,
+        wasted_tokens: int = 0,
+        spurious_tool_calls: int = 0,
+    ) -> None:
         self.mode = mode
         self.reason = reason
+        self.wasted_tokens = wasted_tokens
+        self.spurious_tool_calls = spurious_tool_calls
         super().__init__(
             f"routed to {mode!r} which violates the caller's route policy; "
             "interrupting before the subgraph"

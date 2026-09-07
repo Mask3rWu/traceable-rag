@@ -23,6 +23,21 @@ class AgentRunStore:
     def metrics_path_for(self, run_id: str) -> Path:
         return self.root / run_id / "metrics.json"
 
+    def trace_path_for(self, run_id: str) -> Path:
+        return self.root / run_id / "trace.jsonl"
+
+    def append_trace(self, run_id: str, event: dict) -> Path:
+        """Append one typed event to the run's trace, one JSON object per line.
+
+        Kept append-only so a partial trace survives client disconnects and
+        process interruption; a debugging agent reads it directly as JSONL.
+        """
+        path = self.trace_path_for(run_id)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(path, "a", encoding="utf-8", newline="\n") as fh:
+            fh.write(json.dumps(event, ensure_ascii=False) + "\n")
+        return path
+
     def save_metrics(self, run_id: str, metrics: dict) -> Path:
         return self._atomic_write(
             self.metrics_path_for(run_id),

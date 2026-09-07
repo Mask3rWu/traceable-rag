@@ -249,6 +249,119 @@ class ApiTest(unittest.TestCase):
                 reloaded = manager.get(run_id)
                 self.assertIsNotNone(reloaded.metrics)
 
+    def test_degraded_completed_rolls_up_with_layer(self):
+        class _DegradedAgent(_FakeAgent):
+            def attach_metrics(self, metrics):
+                self.metrics = metrics
+
+            def run(
+                self,
+                request,
+                *,
+                run_id=None,
+                trace_id=None,
+                callbacks=None,
+                route_guard=None,
+            ):
+                self.metrics.record_outcome(
+                    level="tool", result="degraded", reason="retryable-infra"
+                )
+                return super().run(
+                    request, run_id=run_id, trace_id=trace_id, callbacks=callbacks
+                )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = AgentRunStore(Path(tmp))
+            manager = RunManager(
+                store=store,
+                agent_factory=lambda: _DegradedAgent(store),
+                max_concurrent_runs=1,
+            )
+            with TestClient(create_app(manager)) as client:
+                created = client.post("/api/runs", json={"request": "坦克评估"})
+                run_id = created.json()["run_id"]
+                detail = self._wait_terminal(client, run_id, {"completed"})
+                self.assertEqual(detail["status"], "completed")
+                self.assertEqual(detail["degraded"]["layers"], ["retrieval"])
+
+    def test_trace_jsonl_persisted_per_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            store = AgentRunStore(Path(tmp))
+            manager = RunManager(
+                store=store,
+                agent_factory=lambda: _FakeAgent(store),
+                max_concurrent_runs=1,
+            )
+            with TestClient(create_app(manager)) as client:
+                created = client.post("/api/runs", json={"request": "测试问题"})
+                run_id = created.json()["run_id"]
+                detail = self._wait_terminal(client, run_id, {"completed"})
+                self.assertEqual(detail["status"], "completed")
+                trace = store.trace_path_for(run_id)
+                self.assertTrue(trace.is_file())
+                lines = trace.read_text(encoding="utf-8").splitlines()
+                self.assertTrue(lines)
+                for line in lines:
+                    import json
+
+                    self.assertIsInstance(json.loads(line), dict)
+                # Every in-memory event was persisted (queued/running/completed >= 3).
+                self.assertGreaterEqual(len(lines), 3)
+
+    def test_routed_away_records_wasted_tokens_and_calls(self):
+        class _WasteGuard(_FakeAgent):
+            def attach_metrics(self, metrics):
+                self.metrics = metrics
+
+            def run(
+                self,
+                request,
+                *,
+                run_id=None,
+                trace_id=None,
+                callbacks=None,
+                cancel_check=None,
+                route_guard=None,
+            ):
+                self.metrics.record_model_call(
+                    model="m", prompt_tokens=100, completion_tokens=50,
+                    latency_ms=10.0, ok=True,
+                )
+                self.metrics.record_tool_call(
+                    tool="search_knowledge", latency_ms=5.0, ok=True
+                )
+                raise RoutePolicyError(
+                    mode="supervisor", reason="deliverable-style request"
+                )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            store = AgentRunStore(Path(tmp))
+            manager = RunManager(
+                store=store,
+                agent_factory=lambda: _WasteGuard(store),
+                max_concurrent_runs=1,
+            )
+            with TestClient(create_app(manager)) as client:
+                created = client.post(
+                    "/api/runs",
+                    json={"request": "快排", "expected_route": "fast"},
+                )
+                run_id = created.json()["run_id"]
+                detail = self._wait_terminal(client, run_id, {"routed_away", "failed"})
+                self.assertEqual(detail["status"], "routed_away")
+                self.assertEqual(detail["wasted_tokens"], 150)
+                self.assertEqual(detail["spurious_tool_calls"], 1)
+
+    def _wait_terminal(self, client, run_id: str, terminal: set) -> dict:
+        deadline = time.monotonic() + 5
+        detail = None
+        while time.monotonic() < deadline:
+            detail = client.get(f"/api/runs/{run_id}").json()
+            if detail["status"] in terminal:
+                return detail
+            time.sleep(0.01)
+        self.fail(f"run {run_id} did not reach {terminal}: {detail}")
+
 
 if __name__ == "__main__":
     unittest.main()

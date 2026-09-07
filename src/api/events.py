@@ -7,6 +7,8 @@ from uuid import UUID
 
 from langchain_core.callbacks import BaseCallbackHandler
 
+from src.research.outcome import classify
+
 
 def _name(serialized: dict[str, Any] | None, fallback: str) -> str:
     if serialized:
@@ -64,9 +66,16 @@ class AgentEventCallback(BaseCallbackHandler):
         run_id = kwargs.get("run_id")
         with self._lock:
             name = self._chains.pop(run_id, "chain")
+        outcome = classify("model", error)
         self.emit(
             "stage_failed",
-            {"stage": name, "error": _preview(error)},
+            {
+                "stage": name,
+                "error": _preview(error),
+                "level": outcome.level,
+                "result": outcome.result,
+                "reason": outcome.reason,
+            },
         )
 
     def on_tool_start(
@@ -90,4 +99,13 @@ class AgentEventCallback(BaseCallbackHandler):
         self.emit("tool_completed", {"output": _preview(output, limit=120)})
 
     def on_tool_error(self, error: BaseException, **kwargs: Any) -> None:
-        self.emit("tool_failed", {"error": _preview(error)})
+        outcome = classify("tool", error)
+        self.emit(
+            "tool_failed",
+            {
+                "error": _preview(error),
+                "level": outcome.level,
+                "result": outcome.result,
+                "reason": outcome.reason,
+            },
+        )

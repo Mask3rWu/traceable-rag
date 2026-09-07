@@ -10,11 +10,19 @@ from typing import Callable
 from uuid import uuid4
 
 from src.api.events import AgentEventCallback
-from src.api.models import RunDetail, RunEvent, RunStatus, RunSummary, utc_now
+from src.api.models import (
+    DegradedStatus,
+    RunDetail,
+    RunEvent,
+    RunStatus,
+    RunSummary,
+    utc_now,
+)
 from src.research.agent_models import AgentRun
 from src.research.agent_store import AgentRunStore
 from src.research.eval_metrics import EvalCallbackHandler, RuntimeMetrics
 from src.research.graph import RoutePolicyError
+from src.research.outcome import SoftSignal, classify
 from src.research.service import RoutedResearchAgent, build_research_agent
 
 
@@ -47,6 +55,9 @@ class ManagedRun:
     route_mode: str | None = None
     route_reason: str | None = None
     metrics: dict | None = None
+    degraded: DegradedStatus | None = None
+    wasted_tokens: int = 0
+    spurious_tool_calls: int = 0
 
 
 class RunManager:
@@ -149,50 +160,84 @@ class RunManager:
                 result, _ = agent.resume(checkpoint, **resume_kwargs)
             else:
                 result, _ = agent.run(managed.request, **kwargs)
+            layers = metrics.degraded_layers()
             with managed.condition:
                 managed.result = result
                 managed.trace_id = result.trace_id
-                managed.status = (
-                    "cancelled" if managed.cancel_event.is_set() else result.outcome
-                )
+                if managed.cancel_event.is_set():
+                    managed.status = "cancelled"
+                elif result.outcome == "completed" and layers:
+                    managed.status = "completed"
+                    managed.degraded = DegradedStatus(layers=layers)
+                else:
+                    managed.status = result.outcome
                 managed.updated_at = utc_now()
             managed.metrics = self._persist_metrics(managed.run_id, metrics)
-            self._emit(
-                managed,
-                managed.status,
-                {
-                    "route": result.route.mode,
-                    "evidence_count": len(result.evidence),
-                    "worker_count": len(result.worker_packets),
-                    "trace_id": result.trace_id,
-                },
-            )
+            terminal: dict[str, object] = {
+                "route": result.route.mode,
+                "evidence_count": len(result.evidence),
+                "worker_count": len(result.worker_packets),
+                "trace_id": result.trace_id,
+                "level": "task",
+            }
+            if managed.status == "cancelled":
+                terminal["result"] = "failed"
+                terminal["reason"] = "control"
+            elif managed.status == "completed":
+                if managed.degraded:
+                    terminal["result"] = "degraded"
+                    terminal["reason"] = "retryable-infra"
+                else:
+                    terminal["result"] = "ok"
+            else:
+                terminal["result"] = "failed"
+            self._emit(managed, managed.status, terminal)
         except RoutePolicyError as exc:
+            snap = metrics.snapshot()
+            wasted_tokens = sum(
+                (call.get("prompt_tokens", 0) or 0)
+                + (call.get("completion_tokens", 0) or 0)
+                for call in snap["model_calls"]
+            )
+            spurious_calls = len(snap.get("tool_calls") or [])
+            managed.metrics = self._persist_metrics(managed.run_id, metrics)
             with managed.condition:
                 managed.status = "routed_away"
                 managed.error = str(exc)
                 managed.route_mode = exc.mode
                 managed.route_reason = exc.reason
+                managed.wasted_tokens = wasted_tokens
+                managed.spurious_tool_calls = spurious_calls
                 managed.updated_at = utc_now()
             self._emit(
                 managed,
                 "routed_away",
-                {"error": str(exc), "mode": exc.mode, "reason": exc.reason},
+                {
+                    "error": str(exc),
+                    "mode": exc.mode,
+                    "reason": exc.reason,
+                    "wasted_tokens": wasted_tokens,
+                    "spurious_tool_calls": spurious_calls,
+                },
             )
         except Exception as exc:
-            with managed.condition:
-                if managed.cancel_event.is_set():
-                    managed.status = "cancelled"
-                    managed.error = None
-                else:
-                    managed.status = "failed"
-                    managed.error = f"{type(exc).__name__}: {exc}"
-                managed.updated_at = utc_now()
-            self._emit(
-                managed,
-                managed.status,
-                ({"error": managed.error} if managed.error else {}),
+            cancelled = managed.cancel_event.is_set()
+            reason = "control" if cancelled else classify("task", exc).reason
+            metrics.record_outcome(
+                level="task", result="failed", reason=reason, detail=str(exc)
             )
+            with managed.condition:
+                managed.status = "cancelled" if cancelled else "failed"
+                managed.error = None if cancelled else f"{type(exc).__name__}: {exc}"
+                managed.updated_at = utc_now()
+            data: dict[str, object] = {
+                "level": "task",
+                "result": "failed",
+                "reason": reason,
+            }
+            if managed.error:
+                data["error"] = managed.error
+            self._emit(managed, managed.status, data)
 
     def _persist_metrics(self, run_id: str, metrics: RuntimeMetrics) -> dict:
         snapshot = metrics.snapshot()
@@ -211,6 +256,13 @@ class RunManager:
             managed.events.append(event)
             managed.updated_at = event.created_at
             managed.condition.notify_all()
+            try:
+                self.store.append_trace(
+                    managed.run_id, event.model_dump(mode="json")
+                )
+            except OSError:
+                # Trace is best-effort persistence; it must never break the run.
+                pass
 
     def cancel(self, run_id: str) -> RunSummary:
         managed = self._managed(run_id)
@@ -299,6 +351,9 @@ class RunManager:
             created_at=managed.created_at,
             updated_at=managed.updated_at,
             error=managed.error,
+            degraded=managed.degraded,
+            wasted_tokens=managed.wasted_tokens,
+            spurious_tool_calls=managed.spurious_tool_calls,
         )
 
     @staticmethod

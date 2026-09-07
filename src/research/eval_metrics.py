@@ -30,6 +30,13 @@ from typing import Any
 
 from langchain_core.callbacks import BaseCallbackHandler
 
+from src.research.outcome import Level, Reason, classify
+
+
+def _degraded_layer(level: Level) -> str:
+    """Layer label for a degraded outcome: tool-level degradation surfaces as 'retrieval'."""
+    return "retrieval" if level == "tool" else level
+
 
 def _as_usage(raw: Any) -> dict[str, int]:
     """Normalize LangChain token-usage payloads (dict or object) to ints."""
@@ -83,6 +90,7 @@ class RuntimeMetrics:
         self._model_calls: list[dict[str, Any]] = []
         self._tool_calls: list[dict[str, Any]] = []
         self._schema: list[dict[str, Any]] = []
+        self._outcomes: list[dict[str, Any]] = []
 
     # -- recorders -----------------------------------------------------------
 
@@ -139,6 +147,55 @@ class RuntimeMetrics:
             self._schema.append(
                 {"stage": stage, "ok": ok, "reason": reason}
             )
+
+    def record_outcome(
+        self,
+        *,
+        level: Level,
+        result: str,
+        reason: Reason,
+        detail: str | None = None,
+    ) -> None:
+        """Record one normalized outcome, mirroring the persisted event trace.
+
+        Callers derive ``result``/``reason`` via ``outcome.classify`` so metrics
+        and the trace share one taxonomy (see design notes for observability).
+        """
+        with self._lock:
+            self._outcomes.append(
+                {
+                    "level": level,
+                    "result": result,
+                    "reason": reason,
+                    "detail": detail,
+                }
+            )
+
+    def degraded_layers(self) -> list[str]:
+        """Ordered, de-duplicated degradation layer labels observed this run."""
+        with self._lock:
+            labels = {_degraded_layer(o["level"]) for o in self._outcomes if o["result"] == "degraded"}
+        return sorted(labels)
+
+    def reason_counts(self) -> dict[str, int]:
+        """Histogram of reason values observed this run (infra / config / logic / control)."""
+        with self._lock:
+            counts: dict[str, int] = {}
+            for o in self._outcomes:
+                counts[o["reason"]] = counts.get(o["reason"], 0) + 1
+        return counts
+
+    def record_failure(
+        self, *, level: Level, cause: BaseException, detail: str | None = None
+    ) -> None:
+        """Classify an exception at a component and record its failed outcome."""
+        outcome = classify(level, cause)
+        self.record_outcome(
+            level=outcome.level,
+            result=outcome.result,
+            reason=outcome.reason,
+            detail=detail,
+        )
 
     # -- summaries -----------------------------------------------------------
 
@@ -297,6 +354,9 @@ class RuntimeMetrics:
                 "model_calls": list(self._model_calls),
                 "tool_calls": list(self._tool_calls),
                 "schema": list(self._schema),
+                "outcomes": list(self._outcomes),
+                "reason_counts": self.reason_counts(),
+                "degraded_layers": self.degraded_layers(),
             }
 
     @classmethod
@@ -310,6 +370,7 @@ class RuntimeMetrics:
         metrics._model_calls = list(snapshot.get("model_calls") or [])
         metrics._tool_calls = list(snapshot.get("tool_calls") or [])
         metrics._schema = list(snapshot.get("schema") or [])
+        metrics._outcomes = list(snapshot.get("outcomes") or [])
         return metrics
 
 
@@ -403,6 +464,7 @@ class EvalCallbackHandler(BaseCallbackHandler):
             phase=phase,
             error_hint=f"{type(error).__name__}: {error}",
         )
+        self.metrics.record_failure(level="model", cause=error)
 
     # -- tools ---------------------------------------------------------------
 
@@ -432,3 +494,4 @@ class EvalCallbackHandler(BaseCallbackHandler):
             ok=False,
             error=f"{type(error).__name__}: {error}",
         )
+        self.metrics.record_failure(level="tool", cause=error)

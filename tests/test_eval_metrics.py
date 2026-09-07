@@ -134,6 +134,32 @@ class RuntimeMetricsTest(unittest.TestCase):
         summary = metrics.phase_summary(pricing={"m": {"input": 1, "output": 2}})
         self.assertEqual(summary["worker"]["failed"], 1)
 
+    def test_record_outcome_aggregates_degraded_layers_and_reason_counts(self):
+        metrics = RuntimeMetrics()
+        metrics.record_outcome(level="tool", result="degraded", reason="retryable-infra")
+        metrics.record_outcome(level="tool", result="degraded", reason="retryable-infra")
+        metrics.record_outcome(level="model", result="failed", reason="logic")
+        metrics.record_failure(level="model", cause=ConnectionError("down"))
+        self.assertEqual(metrics.degraded_layers(), ["retrieval"])
+        self.assertEqual(metrics.reason_counts(), {"retryable-infra": 3, "logic": 1})
+
+    def test_record_failure_classifies_a_value_error_as_logic(self):
+        metrics = RuntimeMetrics()
+        metrics.record_failure(level="tool", cause=ValueError("unknown evidence id"))
+        self.assertEqual(
+            metrics.reason_counts(), {"logic": 1}
+        )
+
+    def test_snapshot_carries_outcome_aggregates(self):
+        metrics = RuntimeMetrics()
+        metrics.record_outcome(level="tool", result="degraded", reason="retryable-infra")
+        snap = metrics.snapshot()
+        self.assertEqual(snap["outcomes"][0]["reason"], "retryable-infra")
+        self.assertEqual(snap["degraded_layers"], ["retrieval"])
+        self.assertEqual(snap["reason_counts"], {"retryable-infra": 1})
+        reloaded = RuntimeMetrics.from_snapshot(snap)
+        self.assertEqual(reloaded.degraded_layers(), ["retrieval"])
+
 
 class EvalCallbackHandlerTest(unittest.TestCase):
     def test_llm_end_records_usage_and_latency(self):
