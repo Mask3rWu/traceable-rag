@@ -62,6 +62,41 @@ conda run -n dba-py311 python scripts/evaluate_retrieval.py `
 不足。当前应保留等权 RRF 作为中性基线，待补充独立改写、跨文档和困难负例后再
 调整权重。
 
+## 面向真实 run 的检索质量
+
+上节的模板评测不能用作权重决策，因此基于 `eval/runtime/batches/*/runs/` 的真实
+检索轨迹补充两类只读分析，答"这一批检索质量如何"并给权重调整依据。二者都不改
+生产逻辑：批次内指标随批次零成本产出；扫权脚本按需触发、只读、可落地前验证。
+
+### 批次内检索质量指标
+
+`scripts/eval_runtime.py` 在 `run_one` 里对每个含可用 run 的问题计算
+`retrieval_quality`（弱金 = 被采纳证据，取 evid 最后一次 trace 的单路 rank），
+汇总阶段并入 `summary.json` 的 `retrieval_quality` 与 `summary.md` 的「检索质量」
+段。指标族：
+
+- 路由贡献：被采纳证据里 Dense / BM25 各自排得更好的比例；
+- 单路救援：仅 Dense（`bm25_rank`＞深度且 `dense_rank`≤深度）或仅 BM25（反向）
+  救回的占比，两者都＞深度归"仅融合"；
+- 两路一致/冗余：两路都≤深度（任一路单用即够）的占比。
+
+深度取生产 `retrieval_top_k` 默认（8），弱金为只读信号；失败/无结果 run 不参与。
+
+### RRF 权重扫权
+
+一次性对真实 query 检索并扫权，产出含基准（1：1）的命中对照表：
+
+```powershell
+conda run -n dba-py311 python scripts/analyze_retrieval_sweep.py `
+  --batch-dir eval/runtime/batches/b_20260817_0028 `
+  --max-queries 40 --output processed/retrieval/sweep.json
+```
+
+- 抽取批次的去重真实 query 及其弱金（该 query 实际召回到证据的 chunk 级并集）；
+  Dense / BM25 各检索一次，权重网格复用同一批候选（无重复 embedding）；
+- 逐权重组合报"弱金落在 fused top-深度命中率"；`--depth` 默认对齐生产深度。
+- 仅产出决策依据：不写生产状态，不改 `RetrievalOptions` / `retrieval_top_k`。
+
 ## 人工检查
 
 ```powershell

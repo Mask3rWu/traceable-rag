@@ -42,6 +42,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.research.eval_metrics import RuntimeMetrics  # noqa: E402
+from src.research.retrieval_quality import (  # noqa: E402
+    RouteQuality,
+    aggregate_quality,
+    route_metrics,
+)
 
 EVAL_ROOT = PROJECT_ROOT / "eval" / "runtime"
 DEFAULT_QUESTIONS = EVAL_ROOT / "questions.yaml"
@@ -259,6 +264,7 @@ def run_one(
     model_calls = metrics.model_calls_summary(pricing)
     model_calls["schema_validation"] = metrics.schema_validation_summary()
     retrieval = compute_retrieval(result, metrics)
+    quality = route_metrics(result)
     if result is not None:
         route = {
             "mode": result["route"]["mode"],
@@ -285,6 +291,7 @@ def run_one(
         "route": route,
         "route_matched": route_matched,
         "retrieval": retrieval,
+        "retrieval_quality": quality.as_dict() if quality else None,
         "delivery": compute_delivery(result),
         "model_calls": model_calls,
         "tool_calls": tool_calls,
@@ -426,6 +433,30 @@ def _gather_summary(results: list[dict]) -> dict:
         }
         for phase, bucket in phases.items()
     }
+    qualities: list[RouteQuality | None] = []
+    for result in results:
+        detail = result.get("retrieval_quality")
+        if not detail:
+            qualities.append(None)
+            continue
+        qualities.append(
+            RouteQuality(
+                depth=detail["depth"],
+                cited_total=detail["cited_total"],
+                dense_ahead=detail["dense_ahead"],
+                bm25_ahead=detail["bm25_ahead"],
+                tie=detail["tie"],
+                rescue_by_dense=detail["rescue_by_dense"],
+                rescue_by_bm25=detail["rescue_by_bm25"],
+                fusion_only=detail["fusion_only"],
+                both_in_depth=detail["both_in_depth"],
+            )
+        )
+    quality_aggregate = (
+        aggregate_quality(qualities).as_dict()
+        if any(item is not None for item in qualities)
+        else None
+    )
     return {
         "model_calls": {
             "count": model_count,
@@ -440,6 +471,7 @@ def _gather_summary(results: list[dict]) -> dict:
         },
         "tool_calls": _gather_tool_stats(results),
         "retrieval": retrieval,
+        "retrieval_quality": quality_aggregate,
         "delivery": delivery,
         "phase_cost": phase_cost,
     }
@@ -529,6 +561,45 @@ def _write_markdown(batch_dir: Path, summary: dict, results: list[dict]) -> None
             f"{delivery['packet_failed']} / blocked {delivery['packet_blocked']}），"
             f"已组装 {delivery['assembled']}/{delivery['questions']} 题"
         )
+    quality_agg = summary.get("retrieval_quality")
+    if quality_agg and quality_agg.get("cited_total"):
+        def _fmt(value, total):
+            if total:
+                return f"{value / total * 100:.1f}%"
+            return "—"
+
+        total = quality_agg["cited_total"]
+        lines += ["", "## 检索质量（深度 {}，弱金=被采纳证据）".format(quality_agg["depth"]), ""]
+        lines.append(
+            f"- 被采纳证据 {total}：Dense 排前 "
+            f"{_fmt(quality_agg['dense_ahead'], total)}（{quality_agg['dense_ahead']}）、"
+            f"BM25 排前 {_fmt(quality_agg['bm25_ahead'], total)}"
+            f"（{quality_agg['bm25_ahead']}）、并列 {quality_agg['tie']}"
+        )
+        lines.append(
+            f"- 单路救援：仅 Dense 救回 {_fmt(quality_agg['rescue_by_dense'], total)}"
+            f"（{quality_agg['rescue_by_dense']}）、仅 BM25 "
+            f"{_fmt(quality_agg['rescue_by_bm25'], total)}（{quality_agg['rescue_by_bm25']}）、"
+            f"两路均在深度外仅融合 {_fmt(quality_agg['fusion_only'], total)}"
+            f"（{quality_agg['fusion_only']}）、两路均在深度内 "
+            f"{_fmt(quality_agg['both_in_depth'], total)}（{quality_agg['both_in_depth']}）"
+        )
+        lines += [
+            "",
+            "| 题 | 被采纳 | Dense前 | BM25前 | 仅Dense救 | 仅BM25救 | 融合only | 两路均稳 |",
+            "|---|---|---:|---:|---:|---:|---:|---:|",
+        ]
+        for result in sorted(results, key=lambda item: item["question"]["sequence"]):
+            detail = result.get("retrieval_quality")
+            if not detail or not detail["cited_total"]:
+                continue
+            lines.append(
+                f"| #{result['question']['sequence']} {result['question']['id']} "
+                f"| {detail['cited_total']} | {detail['dense_ahead']} "
+                f"| {detail['bm25_ahead']} | {detail['rescue_by_dense']} "
+                f"| {detail['rescue_by_bm25']} | {detail['fusion_only']} "
+                f"| {detail['both_in_depth']} |"
+            )
     routed = [
         r for r in results if r["outcome"] == "routed_away"
     ]
@@ -682,6 +753,7 @@ def main() -> int:
             question = futures[future]
             results.append(future.result())
 
+    aggregate = _gather_summary(results)
     summary = {
         "batch_id": batch_id,
         "schema_version": SCHEMA_VERSION,
@@ -693,7 +765,8 @@ def main() -> int:
             status: sum(1 for item in results if item["outcome"] == status)
             for status in ("completed", "incomplete", "failed", "cancelled", "routed_away")
         },
-        "aggregate": _gather_summary(results),
+        "aggregate": aggregate,
+        "retrieval_quality": aggregate["retrieval_quality"],
     }
     _write_json(batch_dir / "summary.json", summary)
     _write_markdown(batch_dir, summary, results)
