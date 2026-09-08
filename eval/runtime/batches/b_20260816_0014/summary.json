@@ -142,6 +142,23 @@
       "evidence_unique": 1758,
       "evidence_cited": 295
     },
+    "retrieval_quality": {
+      "depth": 8,
+      "cited_total": 268,
+      "dense_ahead": 130,
+      "bm25_ahead": 114,
+      "tie": 24,
+      "rescue_by_dense": 57,
+      "rescue_by_bm25": 58,
+      "fusion_only": 60,
+      "both_in_depth": 93,
+      "dense_ahead_frac": 0.4851,
+      "bm25_ahead_frac": 0.4254,
+      "rescue_by_dense_frac": 0.2127,
+      "rescue_by_bm25_frac": 0.2164,
+      "fusion_only_frac": 0.2239,
+      "both_in_depth_frac": 0.347
+    },
     "delivery": {
       "questions": 10,
       "planned_chapters": 23,
@@ -210,5 +227,22 @@
         "failed": 0
       }
     }
+  },
+  "retrieval_quality": {
+    "depth": 8,
+    "cited_total": 268,
+    "dense_ahead": 130,
+    "bm25_ahead": 114,
+    "tie": 24,
+    "rescue_by_dense": 57,
+    "rescue_by_bm25": 58,
+    "fusion_only": 60,
+    "both_in_depth": 93,
+    "dense_ahead_frac": 0.4851,
+    "bm25_ahead_frac": 0.4254,
+    "rescue_by_dense_frac": 0.2127,
+    "rescue_by_bm25_frac": 0.2164,
+    "fusion_only_frac": 0.2239,
+    "both_in_depth_frac": 0.347
   }
 }

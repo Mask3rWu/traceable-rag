@@ -28,14 +28,27 @@
 - 检索: 109 次，去重前 1043，去重后 609，实际引用 148
 - 交付覆盖: 规划章节 15，执行 packet 15（sufficient 15 / insufficient 0 / failed 0 / blocked 0），已组装 6/10 题
 
+## 检索质量（深度 8，弱金=被采纳证据）
+
+- 被采纳证据 114：Dense 排前 51.8%（59）、BM25 排前 43.9%（50）、并列 5
+- 单路救援：仅 Dense 救回 24.6%（28）、仅 BM25 16.7%（19）、两路均在深度外仅融合 36.0%（41）、两路均在深度内 22.8%（26）
+
+| 题 | 被采纳 | Dense前 | BM25前 | 仅Dense救 | 仅BM25救 | 融合only | 两路均稳 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| #1 q1 | 5 | 3 | 2 | 1 | 0 | 0 | 4 |
+| #2 q2 | 8 | 6 | 1 | 3 | 0 | 1 | 4 |
+| #5 q5 | 4 | 2 | 2 | 1 | 0 | 0 | 3 |
+| #7 q7 | 54 | 26 | 27 | 12 | 11 | 20 | 11 |
+| #10 q10 | 43 | 22 | 18 | 11 | 8 | 20 | 4 |
+
 ## 路由守卫中断（误判时立即中断）
 - #4 q4: router 决策 mode='supervisor'，reason='请求要求归纳核爆环境与舰船结构易损性等多方面因素，属于需要综合分析的结构化任务。'
 
 ## 失败明细
-- #9 q9: BadRequestError: Error code: 400 - {'error': {'message': "An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}} （473.36s）
 - #6 q6: OutputParserException: Invalid json output: 
 For troubleshooting, visit: https://docs.langchain.com/oss/python/langchain/errors/OUTPUT_PARSING_FAILURE  （696.71s）
 - #8 q8: LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=65534, prompt_tokens=15325, total_tokens=80859, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=None, audio_tokens=None, reasoning_tokens=62047, rejected_prediction_tokens=None), prompt_tokens_details=PromptTokensDetails(audio_tokens=None, cache_write_tokens=None, cached_tokens=1664), prompt_cache_hit_tokens=1664, prompt_cache_miss_tokens=13661) （1197.78s）
+- #9 q9: BadRequestError: Error code: 400 - {'error': {'message': "An assistant message with 'tool_calls' must be followed by tool messages responding to each 'tool_call_id'. (insufficient tool messages following tool_calls message)", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_request_error'}} （473.36s）
 
 ## 阶段成本归因（全批次汇总）
 

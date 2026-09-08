@@ -273,5 +273,22 @@
     "plan_retries": null
   },
   "phase_cost": null,
-  "elapsed_s": 2189.15
+  "elapsed_s": 2189.15,
+  "retrieval_quality": {
+    "depth": 8,
+    "cited_total": 112,
+    "dense_ahead": 42,
+    "bm25_ahead": 58,
+    "tie": 12,
+    "rescue_by_dense": 18,
+    "rescue_by_bm25": 30,
+    "fusion_only": 32,
+    "both_in_depth": 32,
+    "dense_ahead_frac": 0.375,
+    "bm25_ahead_frac": 0.5179,
+    "rescue_by_dense_frac": 0.1607,
+    "rescue_by_bm25_frac": 0.2679,
+    "fusion_only_frac": 0.2857,
+    "both_in_depth_frac": 0.2857
+  }
 }

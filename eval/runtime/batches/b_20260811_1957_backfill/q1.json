@@ -93,5 +93,22 @@
       "failed": 0
     }
   },
-  "elapsed_s": 66.25
+  "elapsed_s": 66.25,
+  "retrieval_quality": {
+    "depth": 8,
+    "cited_total": 7,
+    "dense_ahead": 5,
+    "bm25_ahead": 2,
+    "tie": 0,
+    "rescue_by_dense": 2,
+    "rescue_by_bm25": 1,
+    "fusion_only": 0,
+    "both_in_depth": 4,
+    "dense_ahead_frac": 0.7143,
+    "bm25_ahead_frac": 0.2857,
+    "rescue_by_dense_frac": 0.2857,
+    "rescue_by_bm25_frac": 0.1429,
+    "fusion_only_frac": 0.0,
+    "both_in_depth_frac": 0.5714
+  }
 }

@@ -75,6 +75,26 @@
       },
       "failures": [
         {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['strategy_classification', 'terminology']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['data_standard']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (840 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter did not produce required decisions: ['evaluation_metrics', 'performance_targets']"
+        },
+        {
+          "tool": "submit_chapter",
+          "reason": "ValueError: Chapter prose exceeds the character budget (837 > 750); remove detail owned by other chapters and condense the evidence synthesis"
+        },
+        {
           "tool": "submit_answer",
           "reason": "ValueError: A grounded answer requires at least one evidence ID"
         },
@@ -209,26 +229,6 @@
         {
           "tool": "submit_chapter",
           "reason": "ValueError: Chapter did not produce required decisions: ['grading_rules']"
-        },
-        {
-          "tool": "submit_chapter",
-          "reason": "ValueError: Chapter did not produce required decisions: ['strategy_classification', 'terminology']"
-        },
-        {
-          "tool": "submit_chapter",
-          "reason": "ValueError: Chapter did not produce required decisions: ['data_standard']"
-        },
-        {
-          "tool": "submit_chapter",
-          "reason": "ValueError: Chapter prose exceeds the character budget (840 > 750); remove detail owned by other chapters and condense the evidence synthesis"
-        },
-        {
-          "tool": "submit_chapter",
-          "reason": "ValueError: Chapter did not produce required decisions: ['evaluation_metrics', 'performance_targets']"
-        },
-        {
-          "tool": "submit_chapter",
-          "reason": "ValueError: Chapter prose exceeds the character budget (837 > 750); remove detail owned by other chapters and condense the evidence synthesis"
         }
       ]
     },
@@ -237,6 +237,23 @@
       "evidence_total": 5893,
       "evidence_unique": 2415,
       "evidence_cited": 506
+    },
+    "retrieval_quality": {
+      "depth": 8,
+      "cited_total": 444,
+      "dense_ahead": 197,
+      "bm25_ahead": 210,
+      "tie": 37,
+      "rescue_by_dense": 104,
+      "rescue_by_bm25": 94,
+      "fusion_only": 115,
+      "both_in_depth": 131,
+      "dense_ahead_frac": 0.4437,
+      "bm25_ahead_frac": 0.473,
+      "rescue_by_dense_frac": 0.2342,
+      "rescue_by_bm25_frac": 0.2117,
+      "fusion_only_frac": 0.259,
+      "both_in_depth_frac": 0.295
     },
     "delivery": {
       "questions": 10,
@@ -270,5 +287,22 @@
         "failed": 0
       }
     }
+  },
+  "retrieval_quality": {
+    "depth": 8,
+    "cited_total": 444,
+    "dense_ahead": 197,
+    "bm25_ahead": 210,
+    "tie": 37,
+    "rescue_by_dense": 104,
+    "rescue_by_bm25": 94,
+    "fusion_only": 115,
+    "both_in_depth": 131,
+    "dense_ahead_frac": 0.4437,
+    "bm25_ahead_frac": 0.473,
+    "rescue_by_dense_frac": 0.2342,
+    "rescue_by_bm25_frac": 0.2117,
+    "fusion_only_frac": 0.259,
+    "both_in_depth_frac": 0.295
   }
 }

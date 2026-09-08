@@ -28,6 +28,22 @@
 - 检索: 603 次，去重前 5893，去重后 2415，实际引用 506
 - 交付覆盖: 规划章节 38，执行 packet 33（sufficient 33 / insufficient 0 / failed 0 / blocked 0），已组装 8/10 题
 
+## 检索质量（深度 8，弱金=被采纳证据）
+
+- 被采纳证据 444：Dense 排前 44.4%（197）、BM25 排前 47.3%（210）、并列 37
+- 单路救援：仅 Dense 救回 23.4%（104）、仅 BM25 21.2%（94）、两路均在深度外仅融合 25.9%（115）、两路均在深度内 29.5%（131）
+
+| 题 | 被采纳 | Dense前 | BM25前 | 仅Dense救 | 仅BM25救 | 融合only | 两路均稳 |
+|---|---|---:|---:|---:|---:|---:|---:|
+| #1 q1 | 7 | 5 | 2 | 2 | 1 | 0 | 4 |
+| #2 q2 | 15 | 7 | 6 | 5 | 1 | 4 | 5 |
+| #5 q5 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+| #6 q6 | 86 | 41 | 41 | 24 | 19 | 23 | 20 |
+| #7 q7 | 114 | 54 | 53 | 27 | 21 | 31 | 35 |
+| #8 q8 | 112 | 42 | 58 | 18 | 30 | 32 | 32 |
+| #9 q9 | 43 | 21 | 19 | 13 | 11 | 8 | 11 |
+| #10 q10 | 66 | 27 | 31 | 15 | 11 | 17 | 23 |
+
 ## 路由守卫中断（误判时立即中断）
 - #4 q4: router 决策 mode='supervisor'，reason='Requires synthesizing multiple environmental and structural factors into a structured damage-level assessment summary.'
 
@@ -40,20 +56,3 @@
 |---|---|---:|---:|---:|---:|---:|---:|
 | router | 4 | 4 | 825 | 602 | 0.0061 | 7778.9 | 0 |
 | fast | 4 | 26 | 311753 | 10231 | 0.9966 | 97772.1 | 0 |
-
-## 补填说明（一次性离线回填）
-
-- 来源批次: `b_20260811_1957`（schema runtime-eval-v1），本次升级为 `runtime-eval-v2`。
-- 保留原 op 记录：model_calls / tool_calls / retrieval / elapsed_s；`q4`(routed_away)、`q9`(failed) 因当时 metrics 未落盘，计数由 Langfuse trace 重建，属下限估计。
-- `delivery`(交付覆盖) / `route_matched`(路由匹配) / `steps_retries` / `phase_cost` / `error` / `ended_at` 为本批新增字段。
-- `phase_cost` 仅覆盖 fast 段（router + fast 两步）：取本地 metrics.json，首个模型调用=router、其余=fast；supervisor 段无 phase tag 且历史 trace 的 worker 阶段无法从 span 名归因，记 null。
-- `plan_retries` 历史未记录 schema 校验，不可恢复，记 null。
-- `error` 取自 Langfuse ERROR span 的 statusMessage；`ended_at` 取自 trace 最后 observation 的 endTime。
-
-### 成本单位与近似来源说明
-
-- 全部成本已换算为人民币，单价按 deepseek-v4-flash：`input ¥3 / 百万 token`、`output ¥6 / 百万 token`（`input_cache_hit ¥0.025` 因历史无缓存字段未参与计费）。
-- **历史运行未记录 prompt 缓存命中 token，全部 prompt 按 cache miss 单价（¥3/M）计，未计入前缀缓存折扣**，故本批人民币成本为上限估计；实际运行若命中缓存会低于此值。
-- `phase_cost` 的 router/fast 归因基于“fast 图首个模型调用即 router、其余即 fast”的结构假设（fast 图结构确定，视为近似精确）。
-- `q4`/`q9` 的 model_calls / tool_calls / 检索计数及成本由 Langfuse trace 重建（当时 metrics 未落盘）；trace 对部分运行只捕获前半段 generation，此类数值属近似/下限估计。
-- 单价本身按当前配置的 deepseek-v4-flash 人民币计费填写，若实际账单有出入以账单为准。
